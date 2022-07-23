@@ -1,1 +1,1 @@
-from shifter import Shifter
+from .shifter import Shifter

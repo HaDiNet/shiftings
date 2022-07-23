@@ -10,7 +10,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.db.models import DurationField
 from django.urls import reverse
-from django.utils.translation import ugettext as __, ugettext_lazy as _
+from django.utils.translation import gettext as __, gettext_lazy as _
 
 from shiftings.shifts.utils.time_frame import TimeFrameType
 from shiftings.utils.fields.date_time import DateField, TimeField

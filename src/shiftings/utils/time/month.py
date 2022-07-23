@@ -3,7 +3,7 @@ from typing import Any
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db.models import IntegerChoices
 from django.db.models.fields import PositiveSmallIntegerField
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 
 class Month(IntegerChoices):
