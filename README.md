@@ -1,2 +1,2 @@
-# simplix
+# Shiftings
 Simple shift management system
