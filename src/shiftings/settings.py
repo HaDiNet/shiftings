@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bootstrap_datepicker_plus',
     'shiftings.accounts',
+    'shiftings.shifts'
 ]
 
 MIDDLEWARE = [
