@@ -5,7 +5,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic import CreateView, DetailView
 
-from shiftings.accounts.forms.helga_user_form import UserCreateForm
+from shiftings.accounts.forms.user_form import UserCreateForm
 from shiftings.accounts.models import Shifter
 
 
