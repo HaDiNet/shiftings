@@ -31,3 +31,7 @@ class Event(models.Model):
                                                    help_text=_('Organizations which are allowed to participate'))
     public = models.BooleanField(verbose_name=_('Public'), default=False,
                                  help_text=_('Allow everyone to participate at this event'))
+
+    class Meta:
+        default_permissions = ()
+        ordering = ['name', 'start_date', 'end_date', 'organization']

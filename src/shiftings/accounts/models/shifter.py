@@ -10,3 +10,4 @@ class Shifter(AbstractUser):
 
     class Meta:
         default_permissions = ()
+        ordering = ['username']

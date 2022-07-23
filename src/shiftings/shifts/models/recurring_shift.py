@@ -47,7 +47,7 @@ class RecurringShift(ShiftBase):
 
     class Meta:
         default_permissions = ()
-        ordering = ['name']
+        ordering = ['name', 'organization']
 
     @property
     def display(self) -> str:
@@ -110,8 +110,8 @@ class RecurringShift(ShiftBase):
             return None
 
         start = datetime.combine(_date, self.time)
-        shift = Shift(start=start, end=start + self.duration, name=self.name, shift_type=self.shift_type,
-                      place=self.place, required_shifters=self.required_shifters,
+        shift = Shift(name=self.name, shift_type=self.shift_type, place=self.place, organization=self.organization,
+                      start=start, end=start + self.duration, required_shifters=self.required_shifters,
                       max_shifters=self.max_shifters, additional_infos=self.additional_infos, based_on=self)
         if WeekDay.is_weekend(_date):
             if self.weekend_handling is ProblemHandling.Cancel:

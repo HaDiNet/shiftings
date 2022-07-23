@@ -12,6 +12,7 @@ class Membership(models.Model):
 
     class Meta:
         default_permissions = ()
+        ordering = ['group', 'shifter']
 
     def clean(self) -> None:
         if self.shifter and self.group:

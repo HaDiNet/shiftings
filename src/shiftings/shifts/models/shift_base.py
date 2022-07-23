@@ -8,10 +8,12 @@ class ShiftBase(models.Model):
                                    null=True)
     place = models.CharField(max_length=255, verbose_name=_('Place'), blank=True, null=True)
 
+    organization = models.ForeignKey('organizations.Organization', on_delete=models.CASCADE, related_name='%(class)ss',
+                                     verbose_name=_('Organization'))
+
     required_shifters = models.PositiveIntegerField(verbose_name=_('Required Shifters'), default=0)
     max_shifters = models.PositiveIntegerField(verbose_name=_('Maximum Shifters'), default=0)
 
-    # TODO: required permissions
     additional_infos = models.TextField(verbose_name=_('Additional Infos'), blank=True, null=True)
 
     class Meta:

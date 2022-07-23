@@ -10,7 +10,7 @@ def logo_upload_path(instance: Organization, filename: str) -> str:
 
 
 class Organization(models.Model):
-    name = models.CharField(max_length=255, verbose_name=_('Name'))
+    name = models.CharField(max_length=255, verbose_name=_('Name'), unique=True)
     logo = models.ImageField(verbose_name=_('Logo'), upload_to=logo_upload_path, blank=True, null=True)
 
     email = models.EmailField(verbose_name=_('E-Mail'), blank=True, null=True)
@@ -25,3 +25,7 @@ class Organization(models.Model):
                                      verbose_name=_('Members'))
     helpers = models.ManyToManyField('accounts.Membership', related_name='organizations_helper',
                                      verbose_name=_('Helpers'))
+
+    class Meta:
+        default_permissions = ()
+        ordering = ['name']
