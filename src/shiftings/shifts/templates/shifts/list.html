@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <table class="table table-responsive-sm table-dark table-striped table-hover table-bordered align-middle">
+    <tr>
+      <th>{% trans 'Name' %}</th>
+      <th>{% trans 'Type' %}</th>
+      <th>{% trans 'Place' %}</th>
+      <th>{% trans 'Organization' %}</th>
+      <th>{% trans 'Start' %}</th>
+      <th>{% trans 'End' %}</th>
+      <th>{% trans 'Shifters' %}</th>
+    </tr>
+    {% for shift in shifts %}
+      <tr>
+        <td><a class="link" href="{{ shift.get_absolute_url }}">{{ shift.name }}</a></td>
+        <td>{{ shift.type.name }}</td>
+        <td>{{ shift.place }}</td>
+        <td>{{ shift.organization.name }}</td>
+        <td>{{ shift.start }}</td>
+        <td>{{ shift.end }}</td>
+        <td>{{ shift.shifters }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

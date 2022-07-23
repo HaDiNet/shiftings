@@ -1,10 +1,10 @@
 from __future__ import annotations
 
 from django.db import models
-from django.db.models import DateTimeField
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
+from shiftings.utils.fields.date_time import DateTimeField
 from .shift_base import ShiftBase
 
 

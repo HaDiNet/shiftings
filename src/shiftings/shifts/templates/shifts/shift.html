@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h3>
+    {{ shift.name }}
+  </h3>
+  <div>
+  {{ shift.shift_type.name }}
+  {{ shift.place }}
+  {{ shift.start }}
+  {{ shift.end }}
+  {{ shift.organization.name }}
+  </div>
+{% endblock %}

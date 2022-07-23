@@ -1,0 +1,5 @@
+{% if params %}
+  {% for name, param in params.items %}
+    {{ name }}="{{ param }}"
+  {% endfor %}
+{% endif %}
