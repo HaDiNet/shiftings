@@ -1,0 +1,9 @@
+/venv/
+/.idea/
+/backup/
+/**/.mypy_cache/
+/**/__pycache__/
+/src/**/local_settings.py
+/**/*.mo
+/**/*.egg-info
+gunicorn.py
