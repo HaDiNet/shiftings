@@ -6,4 +6,5 @@
 /src/**/local_settings.py
 /**/*.mo
 /**/*.egg-info
+/test_db/
 gunicorn.py

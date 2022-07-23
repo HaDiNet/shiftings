@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% bootstrap_css %}
+  {#  enable tooltips and popovers #}
+  <script>
+    document.addEventListener('DOMContentLoaded', initialize);
+
+    function initialize() {
+      Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]')).map((tooltipTriggerEl) => {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+      });
+    }
+  </script>
+  {{ form.media }}
+  <link rel="shortcut icon" href="{% static "images/favicon.ico" %}" />
+  <link rel="stylesheet" type="text/css" href="{% static "css/base.css" %}" />
+  {% block head %} {% endblock %}
+  <script type="text/javascript" src="{% static "js/menu.js" %}"></script>
+  <script type="text/javascript" src="{% static 'js/font-awesome-all.min.js' %}"></script>
+  {% block scripts %}
+    {% for script in form.scripts %}
+      {% with 'js/'|add:script|add:'.js' as script_url %}
+        <script type="text/javascript" src="{% static script_url %}"></script>
+      {% endwith %}
+    {% endfor %}
+  {% endblock %}
+</head>
+<body>
+<header>
+  {% include "top_nav.html" %}
+</header>
+<div id="sidebar">
+  {% include "menu.html" %}
+</div>
+<main id="main">
+  {% block top_level %}{% endblock %}
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} m-3 d-flex align-items-center justify-content-between"
+           role="alert">
+        <i class="fas fa-warning"></i>
+        <span class="ms-3">{{ message }}</span>
+        <i class="fas fa-warning"></i>
+      </div>
+    {% endfor %}
+  {% endif %}
+  {% block content %}{% endblock %}
+</main>
+<footer id="footer" class="container-fluid d-flex">
+  {% bootstrap_javascript %}
+</footer>
+</body>
+</html>
