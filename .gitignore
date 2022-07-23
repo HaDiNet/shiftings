@@ -3,7 +3,10 @@
 /backup/
 /**/.mypy_cache/
 /**/__pycache__/
+/src/shiftings/media/
 /src/**/local_settings.py
+/src/**/ldap_settings.py
+/src/**/sso_settings.py
 /**/*.mo
 /**/*.egg-info
 /test_db/
