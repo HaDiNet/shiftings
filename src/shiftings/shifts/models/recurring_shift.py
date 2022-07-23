@@ -100,7 +100,7 @@ class RecurringShift(ShiftBase):
             raise ValidationError(_('Your first occurrence doesn\'t match your chosen time frame.'))
 
     def shift_exists(self, _date: date) -> bool:
-        return self.created_shifts.filter(time=datetime.combine(_date, self.time)).exists()
+        return self.created_shifts.filter(start=datetime.combine(_date, self.time)).exists()
 
     def matches_day(self, _date: date) -> bool:
         return self.time_frame_type.matches_day(self, _date)
@@ -126,6 +126,7 @@ class RecurringShift(ShiftBase):
                     shift.warnings += f'\n{self.holiday_warning}'
                 else:
                     shift.warnings = self.holiday_warning
+        shift.save()
         return shift
 
     def get_absolute_url(self) -> str:

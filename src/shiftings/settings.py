@@ -39,8 +39,8 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'bootstrap_datepicker_plus',
     'shiftings.accounts',
-    'shiftings.organizations'
-    'shiftings.events'
+    'shiftings.organizations',
+    'shiftings.events',
     'shiftings.shifts'
 ]
 

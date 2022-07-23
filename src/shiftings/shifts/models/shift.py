@@ -16,7 +16,7 @@ class Shift(ShiftBase):
     shifters = models.ManyToManyField('accounts.Shifter', related_name='shifts', verbose_name=_('Shifters'), blank=True)
 
     locked = models.BooleanField(verbose_name=_('Locked for Participation'), default=False)
-    warnings = models.TextField(verbose_name=_('Warning'))
+    warnings = models.TextField(verbose_name=_('Warning'), blank=True, null=True)
 
     based_on = models.ForeignKey('RecurringShift', on_delete=models.SET_NULL, related_name='created_shifts',
                                  verbose_name=_('Created by Recurring Shift'), blank=True, null=True)
@@ -28,11 +28,7 @@ class Shift(ShiftBase):
         ordering = ['start', 'end', 'name']
 
     def __str__(self) -> str:
-        return _('Shift {name} on {time} of type {type}').format({
-            'name': self.name,
-            'time': self.start.strftime("%Y-%m-%d %H:%M:%S"),
-            'type': self.shift_type.name,
-        })
+        return _('Shift {name} on {time}').format(name=self.name, time=self.start.strftime("%Y-%m-%d %H:%M:%S"), )
 
     @property
     def display(self) -> str:
