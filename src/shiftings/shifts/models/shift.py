@@ -25,7 +25,7 @@ class Shift(ShiftBase):
 
     class Meta:
         default_permissions = ()
-        ordering = ['start_date', 'end_date', 'name']
+        ordering = ['start', 'end', 'name']
 
     def __str__(self) -> str:
         return _('Shift {name} on {time} of type {type}').format({
