@@ -11,3 +11,9 @@ class Shifter(AbstractUser):
     class Meta:
         default_permissions = ()
         ordering = ['username']
+
+    @property
+    def name(self) -> str:
+        if self.display_name is None:
+            return self.username
+        return self.display_name

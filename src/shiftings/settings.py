@@ -13,6 +13,8 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from django.urls import reverse_lazy
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
@@ -93,7 +95,18 @@ DATABASES = {
 }
 
 AUTH_USER_MODEL = 'accounts.Shifter'
-
+OAUTH_ENABLED = False
+if OAUTH_ENABLED:
+    try:
+        from oauth_settings import *
+    except ImportError:
+        pass
+LDAP_ENABLED = False
+if LDAP_ENABLED:
+    try:
+        from ldap_settings import *
+    except ImportError:
+        pass
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
@@ -135,9 +148,9 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'shiftings', 'static'),
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'helga', 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'shiftings', 'staticfiles')
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'helga', 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'shiftings', 'media')
 MEDIA_URL = '/media/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

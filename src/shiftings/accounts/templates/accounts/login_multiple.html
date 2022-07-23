@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="container mt-3">
+    <div class="text-center">
+      <h4>{% trans "Welcome to Shiftings" %}</h4>
+      <span>{% trans "To manage your shifts please authenticate with one of the given methods:" %}</span>
+    </div>
+    <div class="row gx-5 gy-3 mt-3 justify-content-center">
+      <div class="col-12 col-lg-3">
+        <a class="text-decoration-none" href="?login_method=local">
+          <div class="card bg-secondary login-option text-light text-center mt-2 p-3">
+            {{ ldap_login_message|default:_('Login with local Account') }}
+          </div>
+        </a>
+      </div>
+      {% if ldap_enabled %}
+        <div class="col-12 col-lg-3">
+          <a class="text-decoration-none" href="?login_method=ldap">
+            <div class="card bg-secondary login-option text-light text-center mt-2 p-3">
+              {{ ldap_login_message|default:_('Login with LDAP Account') }}
+            </div>
+          </a>
+        </div>
+      {% endif %}
+      {% if sso_enabled %}
+        <div class="col-12 col-md-3">
+          <form method="post" id="user_form" action="{{ sso_redirect_url }}">
+            {% csrf_token %}
+            <button class="btn w-100" value="sso_login" type="submit" name="submit">
+              <div class="card bg-secondary login-option text-light text-center p-3">
+                {% trans "Login via Single Sign On" %}
+              </div>
+            </button>
+          </form>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "card_base.html" %}
+{% block form %}
+  <div class="row">
+    <div class="col">
+      {% blocktrans %}
+        <span class="display-4">Click <a class="link" href="{{ ldap_pw_reset_url }}">here</a></span>
+        <br>
+        if you are a Member of HaDiKo e.V. to change your password on myHaDiNet
+      {% endblocktrans %}
+    </div>
+    <div class="col">
+      {% blocktrans %}
+        If you are an external user enter your email-adress below to reset your local password!
+        <div class="alert alert-danger">Does not work for HaDiKo e.V. Members!</div>
+      {% endblocktrans %}
+      <form method="post" id="pw_reset_form" class="form-horizontal">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% bootstrap_button _("Reset Password") button_type="submit" button_class="btn-accent" %}
+      </form>
+    </div>
+  </div>
+{% endblock %}

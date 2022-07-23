@@ -17,13 +17,18 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
-from django.views.generic import TemplateView
+from django.views.generic import RedirectView, TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name='base.html')),
     path('i18n/', include('django.conf.urls.i18n')),
+    path('user/', include('shiftings.accounts.urls.user')),
+
+    # totally legit search
+    path('search/', RedirectView.as_view(url='https://www.youtube.com/watch?v=dQw4w9WgXcQ'))
 ]
+
 if settings.DEBUG:
     urlpatterns.extend(static(settings.STATIC_URL))
     urlpatterns.extend(static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT))

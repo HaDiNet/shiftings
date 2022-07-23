@@ -1,18 +1,60 @@
 <nav class="navbar navbar-expand-lg navbar-dark menu">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Shiftings</a>
-  </div>
-  <div class="nav-item search-menu">
-    <form class="search-bar" method="post" action="/search/" id="global_shift_search">
-      {% csrf_token %}
-      <input type="text" id="id_global_search" class="search-bar__input" placeholder="{% trans "Search" %}"
-             aria-label="{% trans "Search" %}" />
-      <button class="search-bar__submit" aria-label="{% trans "submit search" %}">
-        <i class="fas fa-magnifying-glass"></i>
-      </button>
-    </form>
-  </div>
-  <div class="navbar-nav">
-    {% include "language.html" %}
-  </div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    {% if request.user.is_authenticated %}
+      <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+      <div class="navbar-nav">
+        <a class="nav-link d-flex align-items-center" href="{% url "login" %}">
+          {% trans "Overview" %} <i class="fas fa-calendar ms-2"></i>
+        </a>
+        <a class="nav-link d-flex align-items-center" href="{% url "login" %}">
+          {% trans "My Shifts" %} <i class="fas fa-briefcase ms-2"></i>
+        </a>
+        <a class="nav-link d-flex align-items-center" href="{% url "login" %}">
+          {% trans "My Organizations" %} <i class="fas fa-users ms-2"></i>
+        </a>
+        <a class="nav-link d-flex align-items-center" href="{% url "login" %}">
+          {% trans "Current Events" %} <i class="fas fa-beer-mug-empty ms-2"></i>
+        </a>
+      </div>
+    {% endif %}
+    <div class="navbar-nav">
+      <div class="nav-item search-menu d-none d-lg-flex align-items-center">
+        <form class="search-bar" method="post" action="/search/" id="global_shift_search">
+          {% csrf_token %}
+          <input type="text" id="id_global_search" class="search-bar__input" placeholder="{% trans "Search" %}"
+                 aria-label="{% trans "Search" %}" />
+          <button class="search-bar__submit" aria-label="{% trans "submit search" %}">
+            <i class="fas fa-magnifying-glass"></i>
+          </button>
+        </form>
+      </div>
+      {% include "language.html" %}
+      {% if request.user.is_authenticated %}
+        <div class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="account-toggle" role="button"
+             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span>{{ request.user.name }} <i class="fas fa-user"></i></span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="account-toggle">
+            <span
+                class="dropdown-item mobile-only font-weight-bolder">{% trans "User" %}: {{ request.user.name }}</span>
+            <a class="dropdown-item" href="{% url "user_profile" %}">{% trans "Profile" %}</a>
+            {% if request.user.is_staff %}
+              <a class="dropdown-item" href="{% url "admin:index" %}">{% trans "Admin" %}</a>
+            {% endif %}
+            <a class="dropdown-item" href="{% url "logout" %}">{% trans "Logout" %}</a>
+          </div>
+        </div>
+      {% else %}
+        <a class="nav-link d-flex align-items-center" href="{% url "login" %}">
+          {% trans "Login" %} <i class="fas fa-user ms-2"></i>
+        </a>
+      {% endif %}
+    </div>
+    </div>
 </nav>
