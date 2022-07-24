@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h3>
+    {{ event.name }}
+    <a href="{% url 'event_update' event.pk %}">
+      <i class="fas fa-edit ms-2"></i>
+    </a>
+  </h3>
+  <div>
+    <div><a class="link" href="{{ event.organization.get_absolute_url }}">{{ event.organization.name }}</a></div>
+    {% if event.logo %}
+      <div><img src="{{ event.logo.url }}" alt="{% trans 'Logo' %}" height="420px" /></div>
+    {% endif %}
+    <div>Email: {{ event.email }}</div>
+    <div>Telephone: {{ event.telephone_number }}</div>
+    <div>Website: {{ event.website }}</div>
+    <div>Start Date: {{ event.start_date }}</div>
+    <div>End Date: {{ event.end_date }}</div>
+    <div>Description: {{ event.description }}</div>
+    <div>
+      Allowed Organizations:
+      {% for organization in event.allowed_organizations.all %}
+        {{ organization.name }}
+      {% endfor %}
+    </div>
+    <div>Public: {{ event.public }}</div>
+  </div>
+{% endblock %}

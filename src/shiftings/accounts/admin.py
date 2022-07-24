@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from shiftings.accounts.models import Membership, Shifter
+
+admin.site.register(Shifter)
+admin.site.register(Membership)

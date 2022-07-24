@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h3>
+    {{ organization.name }}
+    <a href="{% url 'organization_update' organization.pk %}">
+      <i class="fas fa-edit ms-2"></i>
+    </a>
+  </h3>
+  <div>
+    {% if organization.logo %}
+      <div><img src="{{ organization.logo.url }}" alt="{% trans 'Logo' %}" height="420px" /></div>
+    {% endif %}
+    <div>Email: {{ organization.email }}</div>
+    <div>Telephone: {{ organization.telephone_number }}</div>
+    <div>Website: {{ organization.website }}</div>
+    <div>Description: {{ organization.description }}</div>
+    <div>
+      Managers:
+      {% for manager in organization.managers.all %}
+        {{ manager }}
+        <form class="d-inline" method="post"
+              action="{% url 'membership_remove' organization.pk manager.pk %}">{% csrf_token %}
+          <button type="submit"><i class="fas fa-x ms-2"></i></button>
+        </form>
+      {% endfor %}
+      <a href="{% url 'membership_add_manager' organization.pk %}"><i class="fas fa-add ms-2"></i></a>
+    </div>
+    <div>
+      Members:
+      {% for member in organization.members.all %}
+        {{ member }}
+        <form class="d-inline" method="post"
+              action="{% url 'membership_remove' organization.pk member.pk %}">{% csrf_token %}
+          <button type="submit"><i class="fas fa-x ms-2"></i></button>
+        </form>
+      {% endfor %}
+      <a href="{% url 'membership_add_member' organization.pk %}"><i class="fas fa-add ms-2"></i></a>
+    </div>
+    <div>
+      Helpers:
+      {% for helper in organization.helpers.all %}
+        {{ helper }}
+        <form class="d-inline" method="post"
+              action="{% url 'membership_remove' organization.pk helper.pk %}">{% csrf_token %}
+          <button type="submit"><i class="fas fa-x ms-2"></i></button>
+        </form>
+      {% endfor %}
+      <a href="{% url 'membership_add_helper' organization.pk %}"><i class="fas fa-add ms-2"></i></a>
+    </div>
+  </div>
+{% endblock %}

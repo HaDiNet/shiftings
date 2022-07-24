@@ -14,6 +14,13 @@ class Membership(models.Model):
         default_permissions = ()
         ordering = ['group', 'shifter']
 
+    def __str__(self) -> str:
+        return self.shifter.name if self.shifter else self.group.name
+
+    @property
+    def is_shifter(self) -> bool:
+        return self.shifter is not None
+
     def clean(self) -> None:
         if self.shifter and self.group:
             raise ValidationError(_('Membership can only be either shifter or group, not both.'))

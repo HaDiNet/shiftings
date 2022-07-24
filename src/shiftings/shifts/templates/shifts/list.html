@@ -9,7 +9,6 @@
       <th>{% trans 'Organization' %}</th>
       <th>{% trans 'Start' %}</th>
       <th>{% trans 'End' %}</th>
-      <th>{% trans 'Shifters' %}</th>
     </tr>
     {% for shift in shifts %}
       <tr>
@@ -19,7 +18,6 @@
         <td>{{ shift.organization.name }}</td>
         <td>{{ shift.start }}</td>
         <td>{{ shift.end }}</td>
-        <td>{{ shift.shifters }}</td>
       </tr>
     {% endfor %}
   </table>

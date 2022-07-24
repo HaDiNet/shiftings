@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+from datetime import datetime
 from typing import Any, Dict, Optional
 
+from django.db.models import QuerySet
 from django.urls import reverse
 from django.views.generic import DetailView, ListView
 
@@ -15,6 +17,15 @@ class ShiftListView(BaseMixin, ListView):
     template_name = 'shifts/list.html'
     model = Shift
     context_object_name = 'shifts'
+
+
+class FutureShiftListView(BaseMixin, ListView):
+    template_name = 'shifts/list.html'
+    model = Shift
+    context_object_name = 'shifts'
+
+    def get_queryset(self) -> QuerySet:
+        return Shift.objects.filter(start__gte=datetime.now())
 
 
 class ShiftDetailView(BaseMixin, DetailView):

@@ -8,16 +8,16 @@
     {% if request.user.is_authenticated %}
       <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
       <div class="navbar-nav">
-        <a class="nav-link d-flex align-items-center" href="{% url "login" %}">
+        <a class="nav-link d-flex align-items-center" href="{% url "next_shifts" %}">
           {% trans "Overview" %} <i class="fas fa-calendar ms-2"></i>
         </a>
         <a class="nav-link d-flex align-items-center" href="{% url "login" %}">
           {% trans "My Shifts" %} <i class="fas fa-briefcase ms-2"></i>
         </a>
-        <a class="nav-link d-flex align-items-center" href="{% url "login" %}">
+        <a class="nav-link d-flex align-items-center" href="{% url "own_organizations" %}">
           {% trans "My Organizations" %} <i class="fas fa-users ms-2"></i>
         </a>
-        <a class="nav-link d-flex align-items-center" href="{% url "login" %}">
+        <a class="nav-link d-flex align-items-center" href="{% url "next_events" %}">
           {% trans "Current Events" %} <i class="fas fa-beer-mug-empty ms-2"></i>
         </a>
       </div>

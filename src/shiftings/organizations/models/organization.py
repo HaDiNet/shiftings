@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -32,3 +33,6 @@ class Organization(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+    def get_absolute_url(self) -> str:
+        return reverse('organization', args=[self.pk])

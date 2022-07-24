@@ -25,6 +25,8 @@ urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
     path('user/', include('shiftings.accounts.urls.user')),
     path('shifts/', include('shiftings.shifts.urls')),
+    path('organizations/', include('shiftings.organizations.urls')),
+    path('events/', include('shiftings.events.urls')),
 
     # totally legit search
     path('search/', RedirectView.as_view(url='https://www.youtube.com/watch?v=dQw4w9WgXcQ'))
