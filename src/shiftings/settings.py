@@ -159,3 +159,12 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+try:
+    from shiftings.events.settings import *
+    from shiftings.organizations.settings import *
+
+    # try to load local settings (for production settings or rpc passwords)
+    from .local_settings import *
+except ImportError:
+    pass

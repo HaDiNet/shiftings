@@ -1,18 +1,16 @@
 from __future__ import annotations
 
+from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
-
-
-def logo_upload_path(instance: Organization, filename: str) -> str:
-    return f'upload/organizations/{instance.pk}/{filename}'
+from PIL import Image
 
 
 class Organization(models.Model):
     name = models.CharField(max_length=255, verbose_name=_('Name'), unique=True)
-    logo = models.ImageField(verbose_name=_('Logo'), upload_to=logo_upload_path, blank=True, null=True)
+    logo = models.ImageField(verbose_name=_('Logo'), upload_to='upload/organizations/', blank=True, null=True)
 
     email = models.EmailField(verbose_name=_('E-Mail'), blank=True, null=True)
     telephone_number = PhoneNumberField(verbose_name=_('Telephone Number'), blank=True, null=True)
@@ -33,6 +31,16 @@ class Organization(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+    def save(self, *args, **kwargs) -> None:
+        super().save(*args, **kwargs)
+
+        if not self.logo:
+            return
+        if self.logo.width > settings.MAX_ORG_LOGO_SIZE or self.logo.height > settings.MAX_ORG_LOGO_SIZE:
+            img = Image.open(self.logo.path)
+            img.thumbnail((settings.MAX_ORG_LOGO_SIZE, settings.MAX_ORG_LOGO_SIZE))
+            img.save(self.logo.path)
 
     def get_absolute_url(self) -> str:
         return reverse('organization', args=[self.pk])

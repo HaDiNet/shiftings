@@ -2,7 +2,6 @@
 
 from django.db import migrations, models
 import phonenumber_field.modelfields
-import shiftings.organizations.models.organization
 
 
 class Migration(migrations.Migration):
@@ -19,7 +18,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=255, unique=True, verbose_name='Name')),
-                ('logo', models.ImageField(blank=True, null=True, upload_to=shiftings.organizations.models.organization.logo_upload_path, verbose_name='Logo')),
+                ('logo', models.ImageField(blank=True, null=True, upload_to='upload/organizations/', verbose_name='Logo')),
                 ('email', models.EmailField(blank=True, max_length=254, null=True, verbose_name='E-Mail')),
                 ('telephone_number', phonenumber_field.modelfields.PhoneNumberField(blank=True, max_length=128, null=True, region=None, verbose_name='Telephone Number')),
                 ('website', models.URLField(blank=True, null=True, verbose_name='Website')),
