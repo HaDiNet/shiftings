@@ -18,11 +18,11 @@ class Organization(models.Model):
 
     description = models.TextField(verbose_name=_('Description'), blank=True, null=True)
 
-    managers = models.ManyToManyField('accounts.Membership', related_name='managed_organizations',
+    managers = models.ManyToManyField('Membership', related_name='managed_organizations',
                                       verbose_name=_('Manager'), blank=True)
-    members = models.ManyToManyField('accounts.Membership', related_name='organization_memberships',
+    members = models.ManyToManyField('Membership', related_name='organization_memberships',
                                      verbose_name=_('Members'), blank=True)
-    helpers = models.ManyToManyField('accounts.Membership', related_name='organizations_helper',
+    helpers = models.ManyToManyField('Membership', related_name='organizations_helper',
                                      verbose_name=_('Helpers'), blank=True)
 
     class Meta:

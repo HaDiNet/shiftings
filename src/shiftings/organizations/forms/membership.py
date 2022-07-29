@@ -1,9 +1,10 @@
-from django.forms import ModelForm
+from django import forms
 
-from shiftings.accounts.models import Membership
+from shiftings.organizations.models import Membership
 
 
-class MembershipForm(ModelForm):
+class MembershipForm(forms.ModelForm):
     class Meta:
         model = Membership
-        fields = ['user', 'group']
+        fields = ['organization', 'user', 'group']
+        widgets = {'organization': forms.HiddenInput()}

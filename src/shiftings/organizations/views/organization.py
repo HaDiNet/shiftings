@@ -7,6 +7,7 @@ from django.db.models import Q, QuerySet
 from django.urls import reverse
 from django.views.generic import DetailView, ListView
 
+from shiftings.organizations.models import Membership
 from shiftings.organizations.forms.organization import OrganizationForm
 from shiftings.organizations.models import Organization
 from shiftings.utils.views.base import BaseMixin
@@ -25,10 +26,7 @@ class OwnOrganizationListView(LoginRequiredMixin, ListView):
     context_object_name = 'organizations'
 
     def get_queryset(self) -> QuerySet:
-        query = Q(managers__user=self.request.user) \
-                | Q(members__user=self.request.user) \
-                | Q(helpers__user=self.request.user)
-        return Organization.objects.filter(query)
+        return Organization.objects.filter(all_members__user=self.request.user)
 
 
 class OrganizationDetailView(BaseMixin, DetailView):

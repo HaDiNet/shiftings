@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Dict
 
 from django.contrib import messages
 from django.forms import Form
@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import DeleteView
 from django.views.generic.edit import FormMixin
 
-from shiftings.accounts.models import Membership
+from shiftings.organizations.models import Membership
 from shiftings.organizations.forms.membership import MembershipForm
 from shiftings.organizations.models import Organization
 from shiftings.utils.views.base import BaseMixin
@@ -28,6 +28,11 @@ class MembershipViewMixin(BaseMixin):
 class MembershipAddView(MembershipViewMixin, CreateOrUpdateView):
     membership_name: str
     form_class = MembershipForm
+
+    def get_initial(self) -> Dict[str, Any]:
+        initial = super().get_initial()
+        initial['organization'] = self.get_organization()
+        return initial
 
     def form_valid(self, form: Any) -> HttpResponse:
         result = super().form_valid(form)

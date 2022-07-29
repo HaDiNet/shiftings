@@ -5,7 +5,8 @@ from django.utils.translation import gettext_lazy as _
 
 
 class Membership(models.Model):
-    user = models.ForeignKey('User', on_delete=models.CASCADE, related_name='memberships',
+    organization = models.ForeignKey('Organization', on_delete=models.CASCADE, related_name='all_members')
+    user = models.ForeignKey('accounts.User', on_delete=models.CASCADE, related_name='memberships',
                              verbose_name=_('User'), blank=True, null=True)
     group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='memberships', verbose_name=_('Group'),
                               blank=True, null=True)
