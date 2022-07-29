@@ -6,11 +6,11 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic import CreateView, DetailView
 
 from shiftings.accounts.forms.user_form import UserCreateForm
-from shiftings.accounts.models import Shifter
+from shiftings.accounts.models import User
 
 
-class ShifterProfileView(DetailView):
-    model = Shifter
+class UserProfileView(DetailView):
+    model = User
 
     def get_object(self, queryset = None):
         if self.kwargs.get(self.pk_url_kwarg) is None:
@@ -19,8 +19,8 @@ class ShifterProfileView(DetailView):
 
 
 @method_decorator(sensitive_post_parameters('password', 'confirm_password'), name='dispatch')
-class ShifterCreateView(CreateView):
-    model = Shifter
+class UserCreateView(CreateView):
+    model = User
     form_class = UserCreateForm
     success_url = reverse_lazy('user_profile')
 

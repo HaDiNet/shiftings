@@ -11,8 +11,8 @@ class ShiftBase(models.Model):
     organization = models.ForeignKey('organizations.Organization', on_delete=models.CASCADE, related_name='%(class)ss',
                                      verbose_name=_('Organization'))
 
-    required_shifters = models.PositiveIntegerField(verbose_name=_('Required Shifters'), default=0)
-    max_shifters = models.PositiveIntegerField(verbose_name=_('Maximum Shifters'), default=0)
+    required_users = models.PositiveIntegerField(verbose_name=_('Required User'), default=0)
+    max_users = models.PositiveIntegerField(verbose_name=_('Maximum User'), default=0)
 
     additional_infos = models.TextField(verbose_name=_('Additional Infos'), blank=True, null=True)
 

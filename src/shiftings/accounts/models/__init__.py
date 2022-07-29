@@ -1,2 +1,2 @@
 from .membership import Membership
-from .shifter import Shifter
+from .user import User

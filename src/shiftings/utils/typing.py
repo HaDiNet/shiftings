@@ -6,13 +6,13 @@ from django.http import HttpRequest
 from django.utils.translation import gettext_lazy as _
 
 if TYPE_CHECKING:
-    from shiftings.accounts.models import Shifter
+    from shiftings.accounts.models import User
 
 T = TypeVar('T')
 
 
 class UserRequest(HttpRequest):
-    user: Shifter
+    user: User
 
 
 def check_not_none(obj: T | None) -> T:

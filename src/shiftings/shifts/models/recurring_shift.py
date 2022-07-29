@@ -111,8 +111,8 @@ class RecurringShift(ShiftBase):
 
         start = datetime.combine(_date, self.time)
         shift = Shift(name=self.name, shift_type=self.shift_type, place=self.place, organization=self.organization,
-                      start=start, end=start + self.duration, required_shifters=self.required_shifters,
-                      max_shifters=self.max_shifters, additional_infos=self.additional_infos, based_on=self)
+                      start=start, end=start + self.duration, required_users=self.required_users,
+                      max_users=self.max_users, additional_infos=self.additional_infos, based_on=self)
         if WeekDay.is_weekend(_date):
             if self.weekend_handling is ProblemHandling.Cancel:
                 return None

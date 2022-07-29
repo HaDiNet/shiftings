@@ -25,9 +25,9 @@ class OwnOrganizationListView(LoginRequiredMixin, ListView):
     context_object_name = 'organizations'
 
     def get_queryset(self) -> QuerySet:
-        query = Q(managers__shifter=self.request.user) \
-                | Q(members__shifter=self.request.user) \
-                | Q(helpers__shifter=self.request.user)
+        query = Q(managers__user=self.request.user) \
+                | Q(members__user=self.request.user) \
+                | Q(helpers__user=self.request.user)
         return Organization.objects.filter(query)
 
 

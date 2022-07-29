@@ -6,4 +6,4 @@ from shiftings.accounts.models import Membership
 class MembershipForm(ModelForm):
     class Meta:
         model = Membership
-        fields = ['shifter', 'group']
+        fields = ['user', 'group']

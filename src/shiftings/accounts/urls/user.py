@@ -5,21 +5,21 @@ from django.urls import path
 # from django.views.generic import TemplateView
 from django.views.generic import TemplateView
 
-from shiftings.accounts.views.auth import ShifterLoginView, ShifterLogoutView
+from shiftings.accounts.views.auth import UserLoginView, UserLogoutView
 
 # from shiftings.accounts.views.user_edit import (PasswordResetConfirmView, PasswordResetView, UserCreateView,
 #                                             UserUpdateOtherView, UserUpdateSelfView)
 # from shiftings.accounts.views.user_profile import UserProfileView
 from shiftings.accounts.views.password import PasswordResetConfirmView, PasswordResetView
-from shiftings.accounts.views.user import ShifterCreateView, ShifterProfileView
+from shiftings.accounts.views.user import UserCreateView, UserProfileView
 
 urlpatterns: List[Any] = [
     # auth
-    path('login/', ShifterLoginView.as_view(), name='login'),
-    path('logout/', ShifterLogoutView.as_view(), name='logout'),
+    path('login/', UserLoginView.as_view(), name='login'),
+    path('logout/', UserLogoutView.as_view(), name='logout'),
     # user
-    path('register/', ShifterCreateView.as_view(), name='register'),
-    path('profile/', ShifterProfileView.as_view(), name='user_profile'),
+    path('register/', UserCreateView.as_view(), name='register'),
+    path('profile/', UserProfileView.as_view(), name='user_profile'),
     # path('<int:pk>/', UserProfileView.as_view(), name='user_detail'),
     # path('create/', UserCreateView.as_view(), name='user_create'),
     # path('<int:pk>/update/', UserUpdateOtherView.as_view(), name='user_update'),

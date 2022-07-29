@@ -94,7 +94,7 @@ DATABASES = {
     }
 }
 
-AUTH_USER_MODEL = 'accounts.Shifter'
+AUTH_USER_MODEL = 'accounts.User'
 OAUTH_ENABLED = False
 if OAUTH_ENABLED:
     try:

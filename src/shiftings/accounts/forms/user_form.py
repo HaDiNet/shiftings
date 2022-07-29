@@ -3,7 +3,7 @@ from typing import Any, Dict
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from shiftings.accounts.models import Shifter
+from shiftings.accounts.models import User
 
 
 class UserCreateForm(forms.ModelForm):
@@ -11,7 +11,7 @@ class UserCreateForm(forms.ModelForm):
     confirm_password = forms.CharField(widget=forms.PasswordInput(), label=_('Confirm password'))
 
     class Meta:
-        model = Shifter
+        model = User
         fields = ['username', 'display_name', 'first_name', 'last_name', 'email', 'phone_number',
                   'password', 'confirm_password']
 
@@ -34,7 +34,7 @@ class UserCreateForm(forms.ModelForm):
 
 class UserUpdateForm(forms.ModelForm):
     class Meta:
-        model = Shifter
+        model = User
         fields = ['display_name', 'first_name', 'last_name', 'email', 'phone_number']
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:

@@ -10,6 +10,6 @@ class RecurringShiftForm(forms.ModelForm):
     class Meta:
         model = RecurringShift
         fields = ['name', 'shift_type', 'place', 'organization', 'time_frame_field', 'ordinal', 'week_day_field',
-                  'month_field', 'first_occurrence', 'time', 'duration', 'required_shifters', 'max_shifters',
+                  'month_field', 'first_occurrence', 'time', 'duration', 'required_users', 'max_users',
                   'additional_infos', 'weekend_handling_field', 'weekend_warning', 'holiday_handling_field',
                   'holiday_warning']

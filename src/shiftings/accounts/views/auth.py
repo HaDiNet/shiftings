@@ -17,10 +17,10 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import RedirectView
 from mypyc.codegen.emitmodule import Groups
 
-from shiftings.accounts.models import Shifter
+from shiftings.accounts.models import User
 
 
-class ShifterLoginView(LoginView):
+class UserLoginView(LoginView):
     redirect_authenticated_user = True
     title = _('Login')
 
@@ -95,7 +95,7 @@ if settings.OAUTH_ENABLED:
             username = user_data.get(settings.OAUTH_USERNAME_CLAIM, '')
             groups = user_data.get(settings.OAUTH_GROUP_CLAIM, [])
             try:
-                user: AbstractUser = Shifter.objects.get_by_natural_key(username)
+                user: AbstractUser = User.objects.get_by_natural_key(username)
             except UserModel.DoesNotExist:
                 user = AbstractUser.objects.create(username=username)
                 user.set_unusable_password()
@@ -111,6 +111,6 @@ if settings.OAUTH_ENABLED:
             return user
 
 
-class ShifterLogoutView(LogoutView):
+class UserLogoutView(LogoutView):
     template_name = 'accounts/logout.html'
     title = _('Logout')

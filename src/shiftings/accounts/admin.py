@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from shiftings.accounts.models import Membership, Shifter
+from shiftings.accounts.models import Membership, User
 
-admin.site.register(Shifter)
+admin.site.register(User)
 admin.site.register(Membership)
