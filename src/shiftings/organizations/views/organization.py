@@ -18,15 +18,31 @@ class OrganizationListView(BaseMixin, ListView):
     template_name = 'organizations/list.html'
     model = Organization
     context_object_name = 'organizations'
+    extra_context = {
+        'full': True
+    }
+
+    def get_queryset(self) -> QuerySet[Organization]:
+        search_param = self.request.GET.get('search_param')
+        if search_param is not None:
+            return Organization.objects.filter(name__icontains=search_param)
+        return super().get_queryset()
 
 
 class OwnOrganizationListView(LoginRequiredMixin, ListView):
     template_name = 'organizations/list.html'
     model = Organization
     context_object_name = 'organizations'
+    extra_context = {
+        'full': False
+    }
 
     def get_queryset(self) -> QuerySet:
-        return Organization.objects.filter(all_members__user=self.request.user)
+        search_param = self.request.GET.get('search_param')
+        query = Q(all_members__user=self.request.user)
+        if search_param is not None:
+            query &= Q(name__icontains=search_param)
+        return Organization.objects.filter(query)
 
 
 class OrganizationDetailView(BaseMixin, DetailView):

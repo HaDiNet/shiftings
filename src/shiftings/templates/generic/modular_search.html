@@ -1,0 +1,15 @@
+<div class="search-menu me-md-2 center-items">
+  <form class="search-bar" method="get" action="#">
+    <input type="text" name="search_param" id="module_search"
+           placeholder="{% if placeholder %}{{ placeholder }}{% else %}{% trans "Filter by Name" %}{% endif %}"
+           class="search-bar__input" value="{{ request.GET.search_param }}" required>
+    <button class="search-bar__submit" aria-label="{% trans "submit search" %}">
+      <i class="fas fa-magnifying-glass"></i>
+    </button>
+  </form>
+  {% if request.GET.search_param %}
+    <a class="btn btn-danger p-1 px-2 me-2" href="{{ request.path }}">
+      <i class="fas fa-filter-circle-xmark"></i>
+    </a>
+  {% endif %}
+</div>

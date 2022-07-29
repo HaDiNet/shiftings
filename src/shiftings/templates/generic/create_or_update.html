@@ -1,5 +1,6 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'generic/form_base.html' %}
+{% block form %}
+  <div class="card bg-dark border border-2 border-success p-3">
   <form method="post" {% include 'generic/include_params.html' with params=form_params only %}>
     {% csrf_token %}
     {% bootstrap_form form %}
@@ -11,4 +12,5 @@
       {% endif %}
     </div>
   </form>
+  </div>
 {% endblock %}

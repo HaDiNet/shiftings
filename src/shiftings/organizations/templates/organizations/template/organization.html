@@ -1,0 +1,39 @@
+{% url "organization" organization.pk as org_url %}
+<div class="organization-container">
+  <div class="card bg-dark border border-3 organization-content">
+    <a class="link organization-logo" href="{{ org_url }}">
+      <div>
+        {% if organization.logo %}
+          <img src="{{ organization.logo.url }}" alt="{{ product.name }}">
+        {% else %}
+          <div class="center-items">
+            <i class="fa-solid fa-eye-slash me-2"></i>
+            {% trans "No Image available" %}
+          </div>
+        {% endif %}
+      </div>
+    </a>
+    <div class="organization-data">
+      <a class="link" href="{{ org_url }}">
+        <div class="pt-1 border-bottom bg-secondary">
+          <h4 class="text-center">{{ organization.name }}</h4>
+        </div>
+      </a>
+      <div class="p-2 overflow-auto">
+        <a class="link" href="{{ org_url }}">
+          {{ organization.description|linebreaks }}
+        </a>
+      </div>
+    </div>
+    {% if organization.website %}
+      <div class="organization-url text-center bg-secondary py-2">
+        <a class="link" href="{{ organization.website }}">{{ organization.website }}</a>
+      </div>
+    {% endif %}
+    {% if organization.email %}
+      <div class="organization-contact text-center bg-secondary py-2">
+        <a class="link" href="mailto:{{ organization.email }}">{{ organization.email }}</a>
+      </div>
+    {% endif %}
+  </div>
+</div>

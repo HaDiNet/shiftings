@@ -19,7 +19,6 @@
   <link rel="shortcut icon" href="{% static "images/favicon.ico" %}" />
   <link rel="stylesheet" type="text/css" href="{% static "css/base.css" %}" />
   {% block head %} {% endblock %}
-  <script type="text/javascript" src="{% static "js/menu.js" %}"></script>
   <script type="text/javascript" src="{% static 'js/font-awesome-all.min.js' %}"></script>
   {% block scripts %}
     {% for script in form.scripts %}
@@ -40,8 +39,9 @@
   {% block top_level %}{% endblock %}
   {% if messages %}
     {% for message in messages %}
-      <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} m-3 d-flex align-items-center justify-content-between"
-           role="alert">
+      <div
+          class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} m-3 d-flex align-items-center justify-content-between"
+          role="alert">
         <i class="fas fa-warning"></i>
         <span class="ms-3">{{ message }}</span>
         <i class="fas fa-warning"></i>
@@ -51,7 +51,7 @@
   {% block content %}{% endblock %}
 </main>
 <footer id="footer" class="container-fluid d-flex">
-  {% bootstrap_javascript %}
 </footer>
 </body>
+{% bootstrap_javascript %}
 </html>

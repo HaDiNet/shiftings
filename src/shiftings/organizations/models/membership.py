@@ -1,6 +1,7 @@
 from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.db.models import CheckConstraint, Q, UniqueConstraint
 from django.utils.translation import gettext_lazy as _
 
 
@@ -14,6 +15,10 @@ class Membership(models.Model):
     class Meta:
         default_permissions = ()
         ordering = ['group', 'user']
+        constraints = [UniqueConstraint(fields=['user', 'organization'], name='unique_user_organization'),
+                       UniqueConstraint(fields=['group', 'organization'], name='unique_group_organization'),
+                       CheckConstraint(check=(~(Q(user__isnull=True) & Q(group__isnull=True))), name='group_or_user')
+                       ]
 
     def __str__(self) -> str:
         return self.user.name if self.user else self.group.name

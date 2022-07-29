@@ -1,0 +1,42 @@
+<script type="text/javascript" src="{% static 'js/remove_modal.js' %}"></script>
+
+<div class="modal fade" id="confirmRemoveModal" tabindex="-1" aria-labelledby="confirmRemoveModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-dark">
+      <form id="id_remove_form" method="post" action="">
+        {% csrf_token %}
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmRemoveModalLabel">
+            {% if remove_target_from %}
+              {% blocktrans with target=remove_target_from %}
+                Removing <span id="remove_object_placeholder"></span> from {{ target }}
+              {% endblocktrans %}
+            {% else %}
+              {% blocktrans with target=remove_target_from %}
+                Removing <span id="remove_object_placeholder"></span>
+              {% endblocktrans %}
+            {% endif %}
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <input class="d-none" name="remove_target" id="id_remove_target">
+          {% if remove_target_from %}
+            {% blocktrans with target=remove_target_from %}
+              Are you sure you want to remove <span id="remove_object_placeholder"></span> from {{ target }}
+            {% endblocktrans %}
+          {% else %}
+            {% blocktrans with target=remove_target_from %}
+              Are you sure you want to remove <span id="remove_object_placeholder"></span>
+            {% endblocktrans %}
+          {% endif %}
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">{% trans "Remove" %}</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Close" %}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

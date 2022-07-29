@@ -1,52 +1,119 @@
-{% extends 'base.html' %}
+{% extends 'generic/dual_column.html' %}
 
-{% block content %}
-  <h3>
-    {{ organization.name }}
-    <a href="{% url 'organization_update' organization.pk %}">
-      <i class="fas fa-edit ms-2"></i>
-    </a>
-  </h3>
-  <div>
-    {% if organization.logo %}
-      <div><img src="{{ organization.logo.url }}" alt="{% trans 'Logo' %}" height="420px" /></div>
-    {% endif %}
-    <div>Email: {{ organization.email }}</div>
-    <div>Telephone: {{ organization.telephone_number }}</div>
-    <div>Website: {{ organization.website }}</div>
-    <div>Description: {{ organization.description }}</div>
-    <div>
-      Managers:
-      {% for manager in organization.managers.all %}
-        {{ manager }}
-        <form class="d-inline" method="post"
-              action="{% url 'membership_remove' organization.pk manager.pk %}">{% csrf_token %}
-          <button type="submit"><i class="fas fa-x ms-2"></i></button>
-        </form>
-      {% endfor %}
-      <a href="{% url 'membership_add_manager' organization.pk %}"><i class="fas fa-add ms-2"></i></a>
+{% block top_level %}
+  {% include "template/remove_modal.html" with remove_target_from=organization.name %}
+{% endblock %}
+
+{% block left %}
+  <div class="base-card card bg-dark my-3">
+    <div class="card-header d-flex justify-content-between">
+      <h3>
+        {{ organization.name }}
+      </h3>
+      <div>
+        <a class="btn btn-success" href="{% url 'organization_update' organization.pk %}">
+          <i class="fas fa-edit"></i>
+        </a>
+      </div>
+
     </div>
-    <div>
-      Members:
-      {% for member in organization.members.all %}
-        {{ member }}
-        <form class="d-inline" method="post"
-              action="{% url 'membership_remove' organization.pk member.pk %}">{% csrf_token %}
-          <button type="submit"><i class="fas fa-x ms-2"></i></button>
-        </form>
-      {% endfor %}
-      <a href="{% url 'membership_add_member' organization.pk %}"><i class="fas fa-add ms-2"></i></a>
+    <div class="card-body">
+
+      {% if organization.logo %}
+        <div><img src="{{ organization.logo.url }}" alt="{% trans 'Logo' %}" height="420px" /></div>
+      {% endif %}
+      <dl>
+        <dt>Email</dt>
+        <dd>{{ organization.email }}</dd>
+        <dt>Telephone</dt>
+        <dd>{{ organization.telephone_number }}</dd>
+        <dt>Website</dt>
+        <dd>{{ organization.website }}</dd>
+        <dt>Description</dt>
+        <dd class="organization-description">{{ organization.description|linebreaks }}</dd>
+      </dl>
     </div>
-    <div>
-      Helpers:
-      {% for helper in organization.helpers.all %}
-        {{ helper }}
-        <form class="d-inline" method="post"
-              action="{% url 'membership_remove' organization.pk helper.pk %}">{% csrf_token %}
-          <button type="submit"><i class="fas fa-x ms-2"></i></button>
-        </form>
-      {% endfor %}
-      <a href="{% url 'membership_add_helper' organization.pk %}"><i class="fas fa-add ms-2"></i></a>
+  </div>
+  <div class="card bg-dark mb-3 p-2">
+    <div class=" p-2">
+      <div> Managers:</div>
+      <div class="d-flex flex-wrap">
+        {% for member in organization.managers.all %}
+          {% include 'organizations/template/member.html' %}
+        {% endfor %}
+        <a class="btn btn-success py-1 px-2 mt-1" href="{% url 'membership_add_manager' organization.pk %}">
+          <i class="fas fa-user-plus"></i>
+        </a>
+      </div>
     </div>
+    <div class="p-2">
+      <div> Members:</div>
+      <div class="d-flex flex-wrap">
+        {% for member in organization.members.all %}
+          {% include 'organizations/template/member.html' %}
+        {% endfor %}
+        <a class="btn btn-success py-1 px-2 mt-1" href="{% url 'membership_add_member' organization.pk %}">
+          <i class="fas fa-user-plus"></i>
+        </a>
+      </div>
+    </div>
+    <div class="p-2">
+      <div> Helpers:</div>
+      <div class="d-flex flex-wrap">
+        {% for member in organization.helpers.all %}
+          {% include 'organizations/template/member.html' %}
+        {% endfor %}
+        <a class="btn btn-success py-1 px-2 mt-1" href="{% url 'membership_add_member' organization.pk %}">
+          <i class="fas fa-user-plus"></i>
+        </a>
+      </div>
+    </div>
+    <a class="btn btn-info mt-3"><i class="fas fa-ranking-star me-2"></i>{% trans "Member Shift Summary" %}</a>
+  </div>
+{% endblock %}
+
+{% block right %}
+  <div class="row my-3">
+    <div class="col-md-6 mb-3 mb-md-0">
+      <div class="card bg-dark">
+        Next Shifts
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card bg-dark">
+        Month
+      </div>
+    </div>
+  </div>
+  <div class="card bg-dark mb-3">
+    <div class="card-header d-flex justify-content-between">
+      <div>
+        {% trans "Recurring Shifts" %}
+      </div>
+      <div>
+        <a class="btn btn-success" href="{% url 'recurring_shift_create' %}?org={{ organization.pk }}">
+          <i class="fa-solid  fa-square-plus"></i>
+        </a>
+      </div>
+    </div>
+    <div class="card-body">Content</div>
+  </div>
+  <div class="card bg-dark mb-3 ">
+    <div class="card-header d-flex justify-content-between">
+      <div>
+        {% trans "Events" %}
+      </div>
+      <div>
+        <a class="btn btn-success" href="{% url 'event_create' %}?org={{ organization.pk }}">
+          <i class="fa-solid fa-beer-mug-empty"></i>
+          <i class="fa-solid fa-plus"></i>
+        </a>
+      </div>
+    </div>
+    <div class="card-body">Content</div>
+  </div>
+  <div class="card bg-dark mb-3">
+    <div class="card-header">Calendar</div>
+    <div class="card-body">Content</div>
   </div>
 {% endblock %}

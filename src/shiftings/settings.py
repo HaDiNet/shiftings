@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bootstrap5',
     'phonenumber_field',
-    'bootstrap_datepicker_plus',
     'shiftings.accounts',
     'shiftings.organizations',
     'shiftings.events',

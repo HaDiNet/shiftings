@@ -3,7 +3,7 @@
     "model": "accounts.user",
     "pk": 1,
     "fields": {
-      "password": "pbkdf2_sha256$320000$wKJAorR8xFXPQCnWJslecQ$WhGDzQCnBq7/z3AP6wS6iyiqvuP+eygX/7FmGPW3Y64=",
+      "password": "pbkdf2_sha256$320000$yhKjdsFFMxtIZ1XkA0UvTU$B80xG8DE1AIPSonP4xD+ekwgoSqivOXKGLQg73rrDvY=",
       "last_login": null,
       "is_superuser": true,
       "username": "bob",
@@ -23,7 +23,7 @@
     "model": "accounts.user",
     "pk": 2,
     "fields": {
-      "password": "perry",
+      "password": "pbkdf2_sha256$320000$vS9apcCxgz7lri9g2VdKnq$b3EuS6L4TBI45PGH70H8DM02y6tRKLHQE03CO6Gq4Eg=",
       "last_login": null,
       "is_superuser": false,
       "username": "perry",
@@ -43,7 +43,7 @@
     "model": "accounts.user",
     "pk": 3,
     "fields": {
-      "password": "elliot",
+      "password": "pbkdf2_sha256$320000$9G3aZY3bshjPUgFcs4khjU$vSlWgLCxGfMnhNoUjqQDRe8CgcyeK5rfOOiftLQPXDg=",
       "last_login": null,
       "is_superuser": false,
       "username": "elliot",
@@ -63,7 +63,7 @@
     "model": "accounts.user",
     "pk": 4,
     "fields": {
-      "password": "jd",
+      "password": "pbkdf2_sha256$320000$MAUp2qGPIb4SdbB3KspnoA$9pU/a60HK/UhzFIxTTzm3a8u67fHlWngKJoydhgLyrI=",
       "last_login": null,
       "is_superuser": false,
       "username": "jd",
@@ -83,7 +83,7 @@
     "model": "accounts.user",
     "pk": 5,
     "fields": {
-      "password": "turk",
+      "password": "pbkdf2_sha256$320000$LwtkKDvPMYIaXivDpImXEH$fLAYDU9cwSdaxV8tKGfkj1aL0ZYyfwbFyePoKE8hqC8=",
       "last_login": null,
       "is_superuser": false,
       "username": "turk",
@@ -103,7 +103,7 @@
     "model": "accounts.user",
     "pk": 6,
     "fields": {
-      "password": "carla",
+      "password": "pbkdf2_sha256$320000$vrlmU2hob6bMFO6x34dvLA$JQOCTMNgB4TJxiZ1XzKOzS5V7IsZDESHk2tDhcRcx7Q=",
       "last_login": null,
       "is_superuser": false,
       "username": "carla",
@@ -123,7 +123,7 @@
     "model": "accounts.user",
     "pk": 7,
     "fields": {
-      "password": "janitor",
+      "password": "pbkdf2_sha256$320000$LfHLzUs5I1zvc6uu6cdNWc$JhGZgkDq21vMlzTcRmNCzzd/dP7SfRC4ZfhgYW9qN8c=",
       "last_login": null,
       "is_superuser": false,
       "username": "janitor",
@@ -143,7 +143,7 @@
     "model": "accounts.user",
     "pk": 8,
     "fields": {
-      "password": "jordan",
+      "password": "pbkdf2_sha256$320000$tFTAAJ3sqiHr0bCHfk4ZAE$jWOV5sWDNSO4w7ICCKfOG3v9rlja3TNmpl+hYXrt3kM=",
       "last_login": null,
       "is_superuser": false,
       "username": "jordan",
@@ -163,7 +163,7 @@
     "model": "accounts.user",
     "pk": 9,
     "fields": {
-      "password": "ted",
+      "password": "pbkdf2_sha256$320000$BjDj184pIgtD38usgYDNFp$dYlmkmuMq6EQ2T8M/pWKFuxqoX5ilhiCwaCjz1dy+KE=",
       "last_login": null,
       "is_superuser": false,
       "username": "ted",
@@ -183,7 +183,7 @@
     "model": "accounts.user",
     "pk": 10,
     "fields": {
-      "password": "gooch",
+      "password": "pbkdf2_sha256$320000$ZVbNMMIFrbN61YC5BRFn6N$a8/VxXShSwdhgc+hXjerAZ7rhH7Ole2sLsW0BULpExQ=",
       "last_login": null,
       "is_superuser": false,
       "username": "gooch",

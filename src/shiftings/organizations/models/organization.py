@@ -14,7 +14,8 @@ class Organization(models.Model):
 
     email = models.EmailField(verbose_name=_('E-Mail'), blank=True, null=True)
     telephone_number = PhoneNumberField(verbose_name=_('Telephone Number'), blank=True, null=True)
-    website = models.URLField(verbose_name=_('Website'), blank=True, null=True)
+    website = models.URLField(verbose_name=_('Website'), blank=True, null=True,
+                              help_text=_('Include Protocol i.E. https://example.com'))
 
     description = models.TextField(verbose_name=_('Description'), blank=True, null=True)
 

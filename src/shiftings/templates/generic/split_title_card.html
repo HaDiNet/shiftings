@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="container-md m-2 p-2">
+    <div class="card bg-dark">
+      <div class="card-header p-2 center-items justify-content-between">
+        <div class="ms-3 center-items">{% block left_card_title %}{% endblock %}</div>
+        <div class="center-items flex-wrap">
+          {% block right_card_title %}{% endblock %}
+        </div>
+      </div>
+      <div class="card-body p-0">
+        {% block card_body %}{% endblock %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

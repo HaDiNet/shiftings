@@ -49,18 +49,36 @@
   --bs-menu-bg: #0b0c0e;
 }
 
-.menu{
+input, textarea {
+  background: transparent !important;
+  color: var(--bs-body-color) !important;
+}
+
+.link {
+  text-decoration: none;
+  color: var(--bs-body-color);
+}
+
+.base-card {
+  min-width: 300px;
+}
+
+.menu {
   background-color: var(--bs-menu-bg);
 }
 
 .search-menu {
   width: 20rem;
-  max-width: 350px;
+  max-width: 275px;
   border: 0;
   flex-direction: row-reverse;
   flex-grow: 1;
-  margin-right: 1rem;
 }
+
+.search-menu input {
+  height: 100%;
+}
+
 
 .search-bar {
   border: 2px solid var(--bs-gray-500);
@@ -70,6 +88,7 @@
   color: var(--bs-gray-500);
   position: relative;
   width: 100%;
+  height: 35px;
 }
 
 .search-bar:hover {
@@ -102,15 +121,14 @@
 
 .search-bar__submit {
   border: 0;
-  border-radius: 50%;
-  padding: 3px;
+  /*padding: 3px;*/
   background-color: var(--bs-menu-bg);
   color: inherit;
   margin-left: auto;
 }
 
 .search-bar__submit:hover {
-  background: var(--accent);
+  background: var(--bs-success);
   color: white;
 }
 
@@ -119,12 +137,12 @@
 }
 
 .login-option:hover {
-    -webkit-transition: width 4s ease-in-out;
-    -moz-transition: width 4s ease-in-out;
-    -o-transition: width 4s ease-in-out;
-    transition: width 4s ease-in-out;
-    cursor: pointer;
-    transform: scale(1.25);
+  -webkit-transition: width 4s ease-in-out;
+  -moz-transition: width 4s ease-in-out;
+  -o-transition: width 4s ease-in-out;
+  transition: width 4s ease-in-out;
+  cursor: pointer;
+  transform: scale(1.25);
 }
 
 .alert-primary {
@@ -132,6 +150,7 @@
   background-color: #cfe2ff;
   border-color: #b6d4fe;
 }
+
 .alert-primary .alert-link {
   color: #06357a;
 }
@@ -141,6 +160,7 @@
   background-color: #e2e3e5;
   border-color: #d3d6d8;
 }
+
 .alert-secondary .alert-link {
   color: #34383c;
 }
@@ -150,6 +170,7 @@
   background-color: #d1e7dd;
   border-color: #badbcc;
 }
+
 .alert-success .alert-link {
   color: #0c4128;
 }
@@ -159,6 +180,7 @@
   background-color: #cff4fc;
   border-color: #b6effb;
 }
+
 .alert-info .alert-link {
   color: #04414d;
 }
@@ -168,6 +190,7 @@
   background-color: #fff3cd;
   border-color: #ffecb5;
 }
+
 .alert-warning .alert-link {
   color: #523e02;
 }
@@ -177,6 +200,110 @@
   background-color: #f8d7da;
   border-color: #f5c2c7;
 }
+
 .alert-danger .alert-link {
   color: #6a1a21;
 }
+
+.center-items {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.content-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(275px, 600px));
+  padding: .5rem;
+  row-gap: 0.5rem;
+  column-gap: 0.5rem;
+  justify-content: center;
+}
+
+/*organizations*/
+.organization-container {
+  margin: 0;
+  height: 17rem;
+  max-height: 20rem;
+}
+
+.organization-container a {
+  text-decoration: none;
+}
+
+.organization-container a:hover {
+  color: var(--bs-teal);
+  text-decoration: none;
+}
+
+
+.organization-content {
+  display: grid;
+  grid-template-areas: "data logo"
+                       "data website"
+                       "data contact";
+  grid-template-rows: 1fr auto;
+  grid-template-columns: 2fr 1fr;
+  height: 100%;
+}
+
+.organization-logo {
+  grid-area: logo;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  background-color: var(--bs-gray-700);
+  border-left: 2px solid var(--bs-body-color);
+  border-bottom: 2px solid var(--bs-body-color);
+}
+
+.organization-logo img {
+  margin: auto;
+  max-width: 100%;
+  height: auto;
+  width: auto;
+  max-height: 150px;
+}
+
+
+.organization-data {
+  grid-area: data;
+  position: relative;
+  overflow: auto;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.organization-description {
+  grid-area: data;
+  position: relative;
+  overflow: auto;
+  display: flex;
+  flex-flow: column nowrap;
+  max-height: 10rem;
+}
+
+.organization-url {
+  grid-area: website;
+  overflow-x: auto;
+  white-space: nowrap;
+  font-size: 12px;
+  border-left: 2px solid var(--bs-body-color);
+}
+
+.organization-contact {
+  grid-area: contact;
+  overflow-x: auto;
+  white-space: nowrap;
+  font-size: 12px;
+  border-left: 2px solid var(--bs-body-color);
+}
+
+@media (max-width: 900px) {
+  .organization-container {
+    height: 25rem;
+  }
+}
+
