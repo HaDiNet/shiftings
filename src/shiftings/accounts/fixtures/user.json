@@ -1,0 +1,202 @@
+[
+  {
+    "model": "accounts.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$wKJAorR8xFXPQCnWJslecQ$WhGDzQCnBq7/z3AP6wS6iyiqvuP+eygX/7FmGPW3Y64=",
+      "last_login": null,
+      "is_superuser": true,
+      "username": "bob",
+      "first_name": "Robert",
+      "last_name": "Kelso",
+      "email": "robert.kelso@sacred-heart.org",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2022-07-29T17:48:32.919Z",
+      "display_name": "Bob",
+      "phone_number": null,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 2,
+    "fields": {
+      "password": "perry",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "perry",
+      "first_name": "Percival",
+      "last_name": "Cox",
+      "email": "percival.cov@sacred-heart.org",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2022-07-29T17:49:02Z",
+      "display_name": "Perry",
+      "phone_number": null,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 3,
+    "fields": {
+      "password": "elliot",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "elliot",
+      "first_name": "Elliot",
+      "last_name": "Reid",
+      "email": "elliot.reid@sacred-heart.org",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2022-07-29T17:49:57Z",
+      "display_name": null,
+      "phone_number": null,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 4,
+    "fields": {
+      "password": "jd",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "jd",
+      "first_name": "John",
+      "last_name": "Dorian",
+      "email": "john.dorian@sacred-heart.org",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2022-07-29T17:50:22Z",
+      "display_name": "J.D.",
+      "phone_number": null,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 5,
+    "fields": {
+      "password": "turk",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "turk",
+      "first_name": "Christopher",
+      "last_name": "Turk",
+      "email": "christopher.turk@sacred-heart.org",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2022-07-29T17:51:53Z",
+      "display_name": "Turk",
+      "phone_number": null,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 6,
+    "fields": {
+      "password": "carla",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "carla",
+      "first_name": "Carla",
+      "last_name": "Espinosa",
+      "email": "carla.espinosa@sacred-heart.org",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2022-07-29T17:52:11Z",
+      "display_name": null,
+      "phone_number": null,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 7,
+    "fields": {
+      "password": "janitor",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "janitor",
+      "first_name": "Glen",
+      "last_name": "Matthews",
+      "email": "glen.matthews@sacred-heart.org",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2022-07-29T17:52:34Z",
+      "display_name": "Janitor",
+      "phone_number": null,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 8,
+    "fields": {
+      "password": "jordan",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "jordan",
+      "first_name": "Jordan",
+      "last_name": "Sullivan",
+      "email": "jordan.sullivan@sacred-heart.org",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2022-07-29T17:54:21Z",
+      "display_name": null,
+      "phone_number": null,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 9,
+    "fields": {
+      "password": "ted",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "ted",
+      "first_name": "Ted",
+      "last_name": "Buckland",
+      "email": "ted.buckland@sacred-heart.org",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2022-07-29T17:54:54Z",
+      "display_name": null,
+      "phone_number": null,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 10,
+    "fields": {
+      "password": "gooch",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "gooch",
+      "first_name": "Stephanie",
+      "last_name": "Gooch",
+      "email": "kate.micucci@garfunkelandoates.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2022-07-29T17:55:16Z",
+      "display_name": "The Gooch",
+      "phone_number": null,
+      "groups": [],
+      "user_permissions": []
+    }
+  }
+]
