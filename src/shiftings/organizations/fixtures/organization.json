@@ -1,0 +1,25 @@
+[
+  {
+    "model": "organizations.organization",
+    "pk": 1,
+    "fields": {
+      "name": "K1 Bar",
+      "logo": "upload/organizations/logo_k1_bar.png",
+      "email": "bark1@hadiko.de",
+      "telephone_number": "+4972169047666",
+      "website": "https://wiki.hadiko.de/wiki/K1_Bar",
+      "description": "Es ist 10 nach 11 und wir trinken bis zum Absturz!",
+      "managers": [
+        1
+      ],
+      "members": [
+        2,
+        3
+      ],
+      "helpers": [
+        4,
+        5
+      ]
+    }
+  }
+]

@@ -1,0 +1,64 @@
+[
+  {
+    "model": "shifts.recurringshift",
+    "pk": 1,
+    "fields": {
+      "name": "Früh- und Aufräumschicht",
+      "shift_type": 1,
+      "place": "K1 Bar",
+      "organization": 1,
+      "required_users": 1,
+      "max_users": 3,
+      "additional_infos": "",
+      "time_frame_field": 3,
+      "ordinal": 1,
+      "week_day_field": 6,
+      "month_field": null,
+      "first_occurrence": "2022-07-31",
+      "time": "21:30:00",
+      "duration": "02:30:00",
+      "weekend_handling_field": 1,
+      "weekend_warning": "",
+      "holiday_handling_field": 1,
+      "holiday_warning": ""
+    }
+  },
+  {
+    "model": "shifts.recurringshift",
+    "pk": 2,
+    "fields": {
+      "name": "Spätschicht",
+      "shift_type": 2,
+      "place": "K1 Bar",
+      "organization": 1,
+      "required_users": 1,
+      "max_users": 3,
+      "additional_infos": "",
+      "time_frame_field": 3,
+      "ordinal": 1,
+      "week_day_field": 0,
+      "month_field": null,
+      "first_occurrence": "2022-08-01",
+      "time": "00:00:00",
+      "duration": "05:00:00",
+      "weekend_handling_field": 1,
+      "weekend_warning": "",
+      "holiday_handling_field": 1,
+      "holiday_warning": ""
+    }
+  },
+  {
+    "model": "shifts.shifttype",
+    "pk": 1,
+    "fields": {
+      "name": "Früh"
+    }
+  },
+  {
+    "model": "shifts.shifttype",
+    "pk": 2,
+    "fields": {
+      "name": "Spät"
+    }
+  }
+]
