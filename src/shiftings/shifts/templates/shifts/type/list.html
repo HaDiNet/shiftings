@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <table class="table table-responsive-sm table-dark table-striped table-hover table-bordered align-middle">
+    <tr>
+      <th>{% trans 'Name' %}</th>
+    </tr>
+    {% for shift_type in shift_types %}
+      <tr>
+        <td>{{ shift_type.name }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+{% endblock %}
