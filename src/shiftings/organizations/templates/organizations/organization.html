@@ -127,7 +127,7 @@
     <div class="col-md-6 mb-3 mb-md-0">
       <div class="card bg-dark p-2 h-100">
         {% trans "Next Shift" %}:
-        {% include 'shifts/template/shift.html' with shift=organization.shifts.first %}
+        {% include 'shifts/template/shift.html' with shift=organization.next_shift %}
       </div>
     </div>
     <div class="col-md-6">
@@ -177,7 +177,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for event in organization.events.all %}
+        {% for event in organization.future_events %}
           <tr class="link pe-pointer" onclick="window.location.href='{% url 'event' event.pk %}'">
             <td>{{ event.name }}</td>
             <td>{{ event.start_date }}</td>

@@ -1,11 +1,18 @@
 from __future__ import annotations
 
+from datetime import date
+from typing import Optional
+
 from django.conf import settings
 from django.db import models
+from django.db.models import QuerySet
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
 from PIL import Image
+
+from shiftings.events.models import Event
+from shiftings.shifts.models import Shift
 
 
 class Organization(models.Model):
@@ -42,6 +49,14 @@ class Organization(models.Model):
             img = Image.open(self.logo.path)
             img.thumbnail((settings.MAX_ORG_LOGO_SIZE, settings.MAX_ORG_LOGO_SIZE))
             img.save(self.logo.path)
+
+    @property
+    def next_shift(self) -> Optional[Shift]:
+        return self.shifts.filter(end__gte=date.today()).order_by('start').first()
+
+    @property
+    def future_events(self) -> QuerySet:
+        return self.events.filter(end_date__gte=date.today())
 
     def get_absolute_url(self) -> str:
         return reverse('organization', args=[self.pk])
