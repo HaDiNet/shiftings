@@ -34,13 +34,20 @@
             <div class="col-12 col-md-6">
               <div>{% trans "Open Slots" %}:</div>
               <div class="mx-3">
-                {% for user in shift.users.all %}
-                  <span class="link">{{ user }}</span>
+                {% for participant in shift.participants.all %}
+                  <span class="link">{{ participant.user }}</span>
+                  <form action="{% url 'remove_participant' shift.pk participant.pk %}" method="post">
+                  {% csrf_token %}
+                  <button type="submit">X</button>
+                  </form>
                 {% endfor %}
-                {% if shift.users.all|length < shift.max_users %}
-                  <a class="link" href="do sth"><i class="fa-solid fa-person-circle-plus me-2"></i>{% trans "Add me" %}
-                  </a>
-                {% endif %}
+                <form action="{% url 'add_participant_self' shift.pk %}" method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="user" value="{{ request.user.pk }}">
+                  <button type="submit">
+                    <i class="fa-solid fa-person-circle-plus me-2"></i>{% trans 'Add me' %}
+                  </button>
+                </form>
               </div>
             </div>
           </div>
