@@ -1,6 +1,6 @@
 {% extends "generic/dual_column.html" %}
 {% block left %}
-  <div class="card bg-dark p-3 mt-2">
+  <div class="card bg-dark p-3 my-2">
     <h4 class="text-center">{% trans "User" %} {{ user }}</h4>
     <dl class="detail-horizontal">
       <dt>{% trans "Name" %}</dt>
@@ -13,12 +13,43 @@
       <dd>{{ user.phone_number|default:_('Unknown') }}</dd>
       <dt>{% trans "Member since" %}</dt>
       <dd>{{ user.date_joined|timesince }}</dd>
-      <dt>{% trans "Total Shifts completed" %}</dt>
+      <dt>{% trans "Total Shifts" %}</dt>
       <dd>{{ user.shifts.all|length }}</dd>
     </dl>
     <a class="btn btn-success" href="{% url "user_edit_self" %}">
       <i class="fa-solid fa-user-pen"></i>
       {% trans "Edit user data" %}
     </a>
+  </div>
+  <div class="card bg-dark">
+    <div class="card-header">
+      <h5>{% trans "Organizations" %}</h5>
+    </div>
+    <div class="card-body">
+      {% for membership in user.memberships.all %}
+        <a class="link" href="{% url "organization" membership.organization.pk %}">
+          <div class="card bg-dark border">
+            <div class="center-items justify-content-start">
+              <div class="col-2">
+                {% if membership.organization.logo %}
+                  <div>
+                    <img src="{{ membership.organization.logo.url }}" alt="{{ membership.organization.name }}"
+                         height="100px">
+                  </div>
+                {% else %}
+                  <div class="center-items" style="height: 100px">
+                    <i class="fa-solid fa-eye-slash me-2"></i>
+                    {% trans "No Image available" %}
+                  </div>
+                {% endif %}
+              </div>
+              <div class="col-3">
+                {{ membership.organization }}
+              </div>
+            </div>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
   </div>
 {% endblock %}

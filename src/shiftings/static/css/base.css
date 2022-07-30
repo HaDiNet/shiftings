@@ -228,6 +228,7 @@ dl.detail-horizontal dt {
   color: var(--bs-body-color);
   font-weight: bold;
 }
+
 dl.detail-horizontal dt::after {
   content: ':';
 }
@@ -255,6 +256,16 @@ dl.detail-horizontal dd {
 
 
 /*organizations*/
+.organization-detail-logo {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
 .organization-container {
   margin: 0;
   height: 17rem;
@@ -300,7 +311,6 @@ dl.detail-horizontal dd {
   max-height: 150px;
 }
 
-
 .organization-data {
   grid-area: data;
   position: relative;
@@ -338,5 +348,14 @@ dl.detail-horizontal dd {
   .organization-container {
     height: 25rem;
   }
+
+  .organization-detail-logo {
+    top: 0;
+    margin-bottom: 0.5rem;
+    position: relative;
+    justify-content: initial;
+    align-content: initial;
+  }
+
 }
 

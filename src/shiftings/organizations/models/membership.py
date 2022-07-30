@@ -21,7 +21,7 @@ class Membership(models.Model):
                        ]
 
     def __str__(self) -> str:
-        return self.user.name if self.user else self.group.name
+        return f'{self.user.name if self.user else self.group.name}'
 
     @property
     def is_user(self) -> bool:

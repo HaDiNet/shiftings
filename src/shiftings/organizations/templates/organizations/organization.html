@@ -19,7 +19,9 @@
     </div>
     <div class="card-body">
       {% if organization.logo %}
-        <div><img src="{{ organization.logo.url }}" alt="{% trans 'Logo' %}" height="420px" /></div>
+        <div class="organization-detail-logo">
+          <img src="{{ organization.logo.url }}" alt="{% trans 'Logo' %}" />
+        </div>
       {% endif %}
       <dl class="detail-horizontal">
         <dt>Email</dt>
@@ -33,7 +35,7 @@
       </dl>
     </div>
   </div>
-  <div class="card bg-dark mb-3 p-2">
+  <div class="card base-card bg-dark mb-3 p-2">
     <a class="btn btn-info mx-3 mt-2"><i class="fas fa-ranking-star me-2"></i>{% trans "Member Shift Summary" %}</a>
     <div class="p-2">
       <div class="row">
