@@ -24,6 +24,7 @@ class RecurringShiftDetailView(BaseMixin, DetailView):
 
 
 class RecurringShiftEditView(BaseMixin, CreateOrUpdateView):
+    template_name = 'shifts/recurring/form.html'
     model = RecurringShift
     form_class = RecurringShiftForm
 

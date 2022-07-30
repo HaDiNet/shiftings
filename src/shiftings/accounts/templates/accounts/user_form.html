@@ -1,13 +1,21 @@
 {% extends "generic/form_base.html" %}
 {% block form %}
   <div class="card bg-dark p-3">
-    <h4 class="text-center">{% trans "Register" %}</h4>
+    <h4 class="text-center">
+      {% if create %}
+        {% trans "Register" %}
+      {% else %}
+        {% blocktrans %}
+          Edit User {{ user }}
+        {% endblocktrans %}
+      {% endif %}
+    </h4>
     <form method="post" id="user_form">
       {% csrf_token %}
       {% bootstrap_form form %}
       {% buttons %}
         {% bootstrap_button _("Submit") id="submit_button" button_type="submit" button_class="btn-primary" %}
-        <input type="hidden" name="next" value="{{ next }}" />
+        <a></a>
       {% endbuttons %}
     </form>
   </div>

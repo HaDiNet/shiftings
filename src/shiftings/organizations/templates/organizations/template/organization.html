@@ -2,16 +2,16 @@
 <div class="organization-container">
   <div class="card bg-dark border border-3 organization-content">
     <a class="link organization-logo" href="{{ org_url }}">
-      <div>
-        {% if organization.logo %}
+      {% if organization.logo %}
+        <div>
           <img src="{{ organization.logo.url }}" alt="{{ product.name }}">
-        {% else %}
-          <div class="center-items">
-            <i class="fa-solid fa-eye-slash me-2"></i>
-            {% trans "No Image available" %}
-          </div>
-        {% endif %}
-      </div>
+        </div>
+      {% else %}
+        <div class="center-items">
+          <i class="fa-solid fa-eye-slash me-2"></i>
+          {% trans "No Image available" %}
+        </div>
+      {% endif %}
     </a>
     <div class="organization-data">
       <a class="link" href="{{ org_url }}">

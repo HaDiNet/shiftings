@@ -42,7 +42,3 @@ class UserUpdateForm(forms.ModelForm):
         self.fields['first_name'].required = True
         self.fields['last_name'].required = True
         self.fields['email'].required = True
-        if not self.instance.external:
-            for key, _ in self.fields.copy().items():
-                if key not in {'display_name', 'phone_number'}:
-                    self.fields.pop(key)

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="container">
+    <div class="card bg-dark mt-3">
+      <div class="card-body">
+        {% trans "Successfully logged out" %}
+        <a class="btn btn-success" href="{% url "login" %}">{% trans "Login again" %}</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

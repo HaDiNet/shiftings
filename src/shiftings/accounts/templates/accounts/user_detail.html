@@ -1,7 +1,24 @@
-{% extends "base.html" %}
-{% block content %}
-  <div class="card bg-dark p-3">
-    <h4 class="text-center">{% trans "User" %} {{ user.name }}</h4>
-    {{ user.email }}
+{% extends "generic/dual_column.html" %}
+{% block left %}
+  <div class="card bg-dark p-3 mt-2">
+    <h4 class="text-center">{% trans "User" %} {{ user }}</h4>
+    <dl class="detail-horizontal">
+      <dt>{% trans "Name" %}</dt>
+      <dd>{{ user.first_name }} {{ user.last_name }}</dd>
+      <dt>{% trans "Display Name" %}</dt>
+      <dd>{{ user.display_name|default:_('Unknown') }}</dd>
+      <dt>{% trans "Email" %}</dt>
+      <dd>{{ user.email }}</dd>
+      <dt>{% trans "Phone Number" %}</dt>
+      <dd>{{ user.phone_number|default:_('Unknown') }}</dd>
+      <dt>{% trans "Member since" %}</dt>
+      <dd>{{ user.date_joined|timesince }}</dd>
+      <dt>{% trans "Total Shifts completed" %}</dt>
+      <dd>{{ user.shifts.all|length }}</dd>
+    </dl>
+  <a class="btn btn-success" href="{% url "user_edit_self" %}">
+    <i class="fa-solid fa-user-pen"></i>
+    {% trans "Edit user data" %}
+  </a>
   </div>
 {% endblock %}

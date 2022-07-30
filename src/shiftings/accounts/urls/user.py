@@ -11,15 +11,16 @@ from shiftings.accounts.views.auth import UserLoginView, UserLogoutView
 #                                             UserUpdateOtherView, UserUpdateSelfView)
 # from shiftings.accounts.views.user_profile import UserProfileView
 from shiftings.accounts.views.password import PasswordResetConfirmView, PasswordResetView
-from shiftings.accounts.views.user import UserCreateView, UserProfileView
+from shiftings.accounts.views.user import UserRegisterView, UserProfileView, UserEditView
 
 urlpatterns: List[Any] = [
     # auth
     path('login/', UserLoginView.as_view(), name='login'),
     path('logout/', UserLogoutView.as_view(), name='logout'),
     # user
-    path('register/', UserCreateView.as_view(), name='register'),
+    path('register/', UserRegisterView.as_view(), name='register'),
     path('profile/', UserProfileView.as_view(), name='user_profile'),
+    path('self/edit/', UserEditView.as_view(), name='user_edit_self'),
     # path('<int:pk>/', UserProfileView.as_view(), name='user_detail'),
     # path('create/', UserCreateView.as_view(), name='user_create'),
     # path('<int:pk>/update/', UserUpdateOtherView.as_view(), name='user_update'),

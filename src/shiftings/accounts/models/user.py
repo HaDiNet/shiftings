@@ -12,6 +12,9 @@ class User(AbstractUser):
         default_permissions = ()
         ordering = ['username']
 
+    def __str__(self):
+        return self.name
+
     @property
     def name(self) -> str:
         if self.display_name is None:
