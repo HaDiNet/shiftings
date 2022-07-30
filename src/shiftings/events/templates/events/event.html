@@ -47,22 +47,31 @@
 {% block right %}
   <div class="row my-3">
     <div class="col-md-6">
-      <div class="card bg-dark">
-        <div class="card-body">
-          shift stats: <br>
-          Needing shifts<br>
-          {{ event.needing_shifts }}<br>
-          Open shifts<br>
-          {{ event.open_shifts }}<br>
-          slots filled<br>
-          {{ event.filled_slots }}<br>
-          total needed slots<br>
-          {{ event.needed_slots }}
+      <div class="card bg-dark h-100">
+        <div class="card-body d-flex align-items-center">
+          <table>
+            <tr title="{% trans "Shifts that are below the required amount of users" %}">
+              <th>{% trans "Shifts missing users" %}:</th>
+              <td class="ps-3">{{ event.needing_shifts|length }}</td>
+            </tr>
+            <tr title="{% trans "Shifts that are below the required and maximum amount of users" %}">
+              <th>{% trans "Shifts with open slots" %}:</th>
+              <td class="ps-3">{{ event.open_shifts|length }}</td>
+            </tr>
+            <tr title="{% trans "Number of Shift slots filled with users" %}">
+              <th>{% trans "Filled Slots" %}:</th>
+              <td class="ps-3">{{ event.filled_slots|default_if_none:_('None') }}</td>
+            </tr>
+            <tr title="{% trans "Number of Shift slots that are still open" %}">
+              <th>{% trans "Open Slots" %}:</th>
+              <td class="ps-3">{{ event.needed_slots|default_if_none:_('None') }}</td>
+            </tr>
+          </table>
         </div>
       </div>
     </div>
     <div class="col-md-6">
-      <div class="card bg-dark">
+      <div class="card bg-dark h-100">
         <div class="card-body">
           {% include "month_view.html" %}
         </div>

@@ -66,7 +66,7 @@
           <div class="center-items justify-content-between p-1">
             {% trans "Members" %}
             <button type="button" class="btn btn-success py-1 px-2 my-1" data-bs-toggle="modal"
-                    data-bs-target="#managerFormModal">
+                    data-bs-target="#memberFormModal">
               <i class="fas fa-user-plus pe-none"></i>
             </button>
             {% url 'membership_add_member' organization.pk as add_member_url %}
@@ -96,7 +96,7 @@
           <div class="center-items justify-content-between p-1">
             {% trans "Helpers" %}
             <button type="button" class="btn btn-success py-1 px-2 my-1" data-bs-toggle="modal"
-                    data-bs-target="#managerFormModal">
+                    data-bs-target="#helperFormModal">
               <i class="fas fa-user-plus pe-none"></i>
             </button>
             {% url 'membership_add_helper' organization.pk as add_helper_url %}
@@ -161,6 +161,7 @@
           <thead>
           <tr>
             <th>Display</th>
+            <th>Type</th>
             <th>Time</th>
             <th>Duration</th>
             <th>Place</th>
@@ -171,6 +172,7 @@
           {% for recurring_shift in organization.recurringshifts.all %}
             <tr class="link pe-pointer" onclick="window.location.href='{% url 'recurring_shift' recurring_shift.pk %}'">
               <td>{{ recurring_shift.display }}</td>
+              <td>{{ recurring_shift.shift_type }}</td>
               <td>{{ recurring_shift.time }}</td>
               <td>{{ recurring_shift.duration }}</td>
               <td>{{ recurring_shift.place }}</td>
