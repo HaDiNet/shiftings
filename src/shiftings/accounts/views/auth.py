@@ -24,17 +24,25 @@ class UserLoginView(LoginView):
     redirect_authenticated_user = True
     title = _('Login')
 
+    @property
+    def valid_login_methods(self) -> list[str]:
+        result = list()
+        if settings.LOCAL_LOGIN_ENABLED:
+            result.append('local')
+        if settings.LDAP_ENABLED:
+            result.append('ldap')
+        if settings.OAUTH_ENABLED:
+            result.append('oauth')
+        return result
+
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context.update({
+            'local_enabled': settings.LOCAL_LOGIN_ENABLED,
             'ldap_enabled': settings.LDAP_ENABLED,
             'sso_enabled': settings.OAUTH_ENABLED,
-            'is_local': self.request.GET.get('login_method') is None or self.request.GET.get('login_method') == 'local'
+            'is_local': self.request.GET.get('login_method', 'local') == 'local'
         })
-        if self.request.GET.get('login_method') == 'ldap':
-            context['login_text'] = _('Login with LDAP Account')
-        else:
-            context['login_text'] = _('Login with local Account')
         return context
 
     def post(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
@@ -46,7 +54,8 @@ class UserLoginView(LoginView):
         return super().post(request, *args, **kwargs)
 
     def get_template_names(self) -> list[str]:
-        if self.request.GET.get('login_method') is not None or not settings.LDAP_ENABLED and not settings.OAUTH_ENABLED:
+        if self.request.GET.get('login_method') \
+                or (len(valid_login_methods := self.valid_login_methods) == 1 and 'oauth' not in valid_login_methods):
             return ['accounts/login_form.html']
         return ['accounts/login_multiple.html']
 

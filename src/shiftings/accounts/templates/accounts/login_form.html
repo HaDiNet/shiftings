@@ -1,7 +1,13 @@
 {% extends "generic/form_base.html" %}
 {% block form %}
   <div class="card bg-secondary p-3">
-    <h4 class="text-center">{{ login_text|default:_('Login') }}</h4>
+    <h4 class="text-center">
+      {% if is_local %}
+        {% trans 'Login with local Account' %}
+      {% else %}
+        {% trans 'Login with LDAP Account' %}
+      {% endif %}
+    </h4>
     <form method="post" id="user_form">
       {% csrf_token %}
       {% bootstrap_form form %}

@@ -97,6 +97,8 @@ DATABASES = {
 LOGIN_URL = reverse_lazy('login')
 LOGIN_REDIRECT_URL = reverse_lazy('user_profile')
 AUTH_USER_MODEL = 'accounts.User'
+
+LOCAL_LOGIN_ENABLED = True
 OAUTH_ENABLED = False
 if OAUTH_ENABLED:
     try:
