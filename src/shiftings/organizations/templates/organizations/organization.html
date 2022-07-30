@@ -41,9 +41,17 @@
         {% for member in organization.managers.all %}
           {% include 'organizations/template/member.html' %}
         {% endfor %}
-        <a class="btn btn-success py-1 px-2 mt-1" href="{% url 'membership_add_manager' organization.pk %}">
-          <i class="fas fa-user-plus"></i>
-        </a>
+        <button type="button" class="btn btn-success py-1 px-2 mt-1" data-bs-toggle="modal"
+                data-bs-target="#managerFormModal">
+          <i class="fas fa-user-plus pe-none"></i>
+        </button>
+        {% url 'membership_add_member' organization.pk as add_member_url %}
+        {% simpleformmodal 'managerForm' _('Add Helper') add_member_url %}
+          {% for field in member_form %}
+            {% csrf_token %}
+            {% bootstrap_field field %}
+          {% endfor %}
+        {% endsimpleformmodal %}
       </div>
     </div>
     <div class="p-2">
@@ -52,9 +60,17 @@
         {% for member in organization.members.all %}
           {% include 'organizations/template/member.html' %}
         {% endfor %}
-        <a class="btn btn-success py-1 px-2 mt-1" href="{% url 'membership_add_member' organization.pk %}">
-          <i class="fas fa-user-plus"></i>
-        </a>
+        <button type="button" class="btn btn-success py-1 px-2 mt-1" data-bs-toggle="modal"
+                data-bs-target="#memberFormModal">
+          <i class="fas fa-user-plus pe-none"></i>
+        </button>
+        {% url 'membership_add_member' organization.pk as add_member_url %}
+        {% simpleformmodal 'memberForm' _('Add Member') add_member_url %}
+          {% for field in member_form %}
+            {% csrf_token %}
+            {% bootstrap_field field %}
+          {% endfor %}
+        {% endsimpleformmodal %}
       </div>
     </div>
     <div class="p-2">
@@ -63,9 +79,17 @@
         {% for member in organization.helpers.all %}
           {% include 'organizations/template/member.html' %}
         {% endfor %}
-        <a class="btn btn-success py-1 px-2 mt-1" href="{% url 'membership_add_member' organization.pk %}">
-          <i class="fas fa-user-plus"></i>
-        </a>
+        <button type="button" class="btn btn-success py-1 px-2 mt-1" data-bs-toggle="modal"
+                data-bs-target="#helperFormModal">
+          <i class="fas fa-user-plus pe-none"></i>
+        </button>
+        {% url 'membership_add_member' organization.pk as add_member_url %}
+        {% simpleformmodal 'helperForm' _('Add Helper') add_member_url %}
+          {% for field in member_form %}
+            {% csrf_token %}
+            {% bootstrap_field field %}
+          {% endfor %}
+        {% endsimpleformmodal %}
       </div>
     </div>
     <a class="btn btn-info mt-3"><i class="fas fa-ranking-star me-2"></i>{% trans "Member Shift Summary" %}</a>
@@ -104,6 +128,9 @@
         {% trans "Events" %}
       </div>
       <div>
+        <a class="btn btn-secondary" href="">
+          <i class="fa-solid fa-hourglass-end"></i>
+        </a>
         <a class="btn btn-success" href="{% url 'event_create' %}?org={{ organization.pk }}">
           <i class="fa-solid fa-beer-mug-empty"></i>
           <i class="fa-solid fa-plus"></i>

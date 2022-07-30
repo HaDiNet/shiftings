@@ -1,13 +1,13 @@
 from __future__ import annotations
 
-from typing import Optional
+from typing import Any, Optional
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q, QuerySet
 from django.urls import reverse
 from django.views.generic import DetailView, ListView
 
-from shiftings.organizations.models import Membership
+from shiftings.organizations.forms.membership import MembershipForm
 from shiftings.organizations.forms.organization import OrganizationForm
 from shiftings.organizations.models import Organization
 from shiftings.utils.views.base import BaseMixin
@@ -49,6 +49,13 @@ class OrganizationDetailView(BaseMixin, DetailView):
     template_name = 'organizations/organization.html'
     model = Organization
     context_object_name = 'organization'
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'member_form': MembershipForm(initial={'organization': self.object.pk})
+        })
+        return context
 
 
 class OrganizationEditView(BaseMixin, CreateOrUpdateViewWithImageUpload):
