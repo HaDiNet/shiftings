@@ -65,7 +65,7 @@ input, textarea, select, .form-control, .form-select {
 }
 
 .link:hover {
-  color: var(--bs-success)
+  color: var(--bs-success) !important;
 }
 
 .base-card {
