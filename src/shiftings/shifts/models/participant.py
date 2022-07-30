@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from shiftings.shifts.models import Shift
+
 
 class Participant(models.Model):
     user = models.ForeignKey('accounts.User', on_delete=models.CASCADE, verbose_name=_('User'), related_name='shifts')
@@ -11,9 +13,16 @@ class Participant(models.Model):
         default_permissions = ()
         ordering = ['display_name', 'user']
 
+    def __str__(self):
+        return f'{self.display} ({self.shift.display})'
+
     @property
-    def name(self):
-        return self.display_name if self.display_name is not None else self.user.name
+    def display(self) -> str:
+        return self.display_name or self.user.display
+
+    @property
+    def shift(self) -> Shift:
+        return self.shift_set.first()
 
     def get_absolute_url(self) -> str:
         return self.shift.first().get_absolute_url()

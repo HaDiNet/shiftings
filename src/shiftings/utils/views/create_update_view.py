@@ -37,5 +37,9 @@ class CreateOrUpdateView(TemplateResponseMixin, ModelFormMixin, ProcessFormView)
         return self.object.get_absolute_url()
 
 
+class CreateView(CreateOrUpdateView):
+    slug = None
+
+
 class CreateOrUpdateViewWithImageUpload(CreateOrUpdateView):
     form_params: Optional[Dict[str, Any]] = {'enctype': 'multipart/form-data'}

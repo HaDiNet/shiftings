@@ -3,7 +3,7 @@
     "model": "shifts.recurringshift",
     "pk": 1,
     "fields": {
-      "name": "Früh- und Aufräumschicht",
+      "name": "Frühschicht",
       "shift_type": 1,
       "place": "K1 Bar",
       "organization": 1,
@@ -32,7 +32,7 @@
       "place": "K1 Bar",
       "organization": 1,
       "required_users": 1,
-      "max_users": 3,
+      "max_users": 2,
       "additional_infos": "",
       "time_frame_field": 3,
       "ordinal": 1,
@@ -48,6 +48,30 @@
     }
   },
   {
+    "model": "shifts.shiftgroup",
+    "pk": 1,
+    "fields": {
+      "organization": 1,
+      "position": 0,
+      "name": "Früh",
+      "shift_types": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "shifts.shiftgroup",
+    "pk": 2,
+    "fields": {
+      "organization": 1,
+      "position": 1,
+      "name": "Spät",
+      "shift_types": [
+        2
+      ]
+    }
+  },
+  {
     "model": "shifts.shifttype",
     "pk": 1,
     "fields": {
@@ -59,6 +83,21 @@
     "pk": 2,
     "fields": {
       "name": "Spät"
+    }
+  },
+  {
+    "model": "shifts.shifttype",
+    "pk": 3,
+    "fields": {
+      "name": "Einkauf"
+    }
+  },
+  {
+    "model": "shifts.organizationsummarysettings",
+    "pk": 1,
+    "fields": {
+      "organization": 1,
+      "default_time_range_type": 3
     }
   }
 ]

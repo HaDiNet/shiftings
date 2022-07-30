@@ -13,10 +13,10 @@ class User(AbstractUser):
         ordering = ['username']
 
     def __str__(self):
-        return self.name
+        return self.display
 
     @property
-    def name(self) -> str:
+    def display(self) -> str:
         if self.display_name is None:
-            return self.username
+            return self.get_full_name()
         return self.display_name

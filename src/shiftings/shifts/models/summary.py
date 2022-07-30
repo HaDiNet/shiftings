@@ -14,3 +14,6 @@ class OrganizationSummarySettings(models.Model):
     @property
     def default_time_range(self) -> TimeRangeType:
         return TimeRangeType(self.default_time_range_type)
+
+    def __str__(self) -> str:
+        return _('Organization summary settings of {organization}').format(organization=self.organization.display)

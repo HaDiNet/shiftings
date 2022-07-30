@@ -21,7 +21,7 @@ class Shift(ShiftBase):
     end = DateTimeField(verbose_name=_('End Date and Time'), db_index=True)
 
     participants = models.ManyToManyField('shifts.Participant', verbose_name=_('Users'), blank=True,
-                                          related_name='shift')
+                                          related_name='shift_set')
 
     locked = models.BooleanField(verbose_name=_('Locked for Participation'), default=False)
     warnings = models.TextField(verbose_name=_('Warning'), blank=True, null=True)

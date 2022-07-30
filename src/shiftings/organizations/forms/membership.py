@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Any, Optional
 
 from django import forms
 from django.core.exceptions import ValidationError
@@ -15,6 +15,10 @@ class MembershipForm(forms.ModelForm):
         model = Membership
         fields = ['organization', 'user', 'group']
         widgets = {'organization': forms.HiddenInput()}
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
+        self.fields['user'].widget.attrs.update({'autofocus': 'autofocus'})
 
     def clean_user(self) -> Optional[User]:
         username = self.cleaned_data.get('user')

@@ -43,9 +43,11 @@ class OrganizationShiftSummaryView(BaseLoginMixin, DetailView):
         context['has_other_types'] = ShiftType.objects.exclude(pk__in=excluded)
         time_filter = Q(start__range=time_range) | Q(end__range=time_range)
         context['members'] = [{
-            'name': member.user.name,
-            'groups': [org.shifts.filter(time_filter, users=member.user, shift_type__in=group.shift_types.all()).count()
+            'name': member.user.display,
+            'groups': [org.shifts.filter(time_filter, participants__user=member.user,
+                                         shift_type__in=group.shift_types.all()).count()
                        for group in groups],
-            'other': org.shifts.exclude(shift_type__pk__in=excluded).filter(time_filter, users=member.user).count()
+            'other': org.shifts.exclude(shift_type__pk__in=excluded).filter(time_filter,
+                                                                            participants__user=member.user).count()
         } for member in org.all_members.all()]
         return context

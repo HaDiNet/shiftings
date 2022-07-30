@@ -49,6 +49,9 @@ class RecurringShift(ShiftBase):
         default_permissions = ()
         ordering = ['name', 'organization']
 
+    def __str__(self) -> str:
+        return self.display
+
     @property
     def display(self) -> str:
         return f'{self.name} ({self.repetition_display})'

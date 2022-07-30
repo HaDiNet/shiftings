@@ -16,3 +16,10 @@ class ShiftGroup(models.Model):
             models.UniqueConstraint(fields=['organization', 'position'], name='shift_group_position_unique_constraint'),
             models.UniqueConstraint(fields=['organization', 'name'], name='shift_group_name_unique_constraint')
         ]
+
+    def __str__(self) -> str:
+        return self.name
+
+    @property
+    def display(self) -> str:
+        return self.name

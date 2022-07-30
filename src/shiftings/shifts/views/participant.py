@@ -6,13 +6,12 @@ from django.views.generic import DeleteView
 from shiftings.shifts.forms.participant import AddSelfParticipantForm
 from shiftings.shifts.models import Participant, Shift
 from shiftings.utils.views.base import BaseLoginMixin
-from shiftings.utils.views.create_update_view import CreateOrUpdateView
+from shiftings.utils.views.create_update_view import CreateView
 
 
-class AddSelfParticipantView(CreateOrUpdateView, BaseLoginMixin):
+class AddSelfParticipantView(BaseLoginMixin, CreateView):
     model = Participant
     form_class = AddSelfParticipantForm
-    slug = 'none'
 
     object: Participant
 

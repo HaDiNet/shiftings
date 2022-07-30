@@ -40,6 +40,10 @@ class Organization(models.Model):
     def __str__(self) -> str:
         return self.name
 
+    @property
+    def display(self) -> str:
+        return self.name
+
     def save(self, *args, **kwargs) -> None:
         super().save(*args, **kwargs)
 
