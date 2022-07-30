@@ -55,7 +55,7 @@ class Organization(models.Model):
         return self.shifts.filter(end__gte=date.today()).order_by('start').first()
 
     @property
-    def future_events(self) -> QuerySet:
+    def future_events(self) -> QuerySet[Event]:
         return self.events.filter(end_date__gte=date.today())
 
     def get_absolute_url(self) -> str:

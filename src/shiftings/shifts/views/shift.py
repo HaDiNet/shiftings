@@ -40,7 +40,8 @@ class ShiftEditView(BaseMixin, CreateOrUpdateView):
 
     def get_form_kwargs(self) -> Dict[str, Any]:
         kwargs = super().get_form_kwargs()
-        kwargs.update({'initial': {'start': self.request.GET.get('date')}})
+        if self.is_create():
+            kwargs.update({'initial': {'start': self.request.GET.get('date')}})
         return kwargs
 
     def get_obj(self) -> Optional[Shift]:

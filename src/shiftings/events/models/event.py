@@ -1,12 +1,16 @@
 from __future__ import annotations
 
+from datetime import datetime
+
 from django.conf import settings
 from django.db import models
+from django.db.models import Count, F, Q, QuerySet, Sum
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
 from PIL import Image
 
+from shiftings.shifts.models import Shift
 from shiftings.utils.fields.date_time import DateField
 
 
@@ -47,6 +51,24 @@ class Event(models.Model):
             img = Image.open(self.logo.path)
             img.thumbnail((settings.MAX_EVENT_LOGO_SIZE, settings.MAX_EVENT_LOGO_SIZE))
             img.save(self.logo.path)
+
+    @property
+    def needing_shifts(self) -> QuerySet[Shift]:
+        return self.shifts.annotate(user_count=Count('users')).filter(end__gte=datetime.now(),
+                                                                      required_users__gt=F('user_count'))
+
+    @property
+    def open_shifts(self) -> QuerySet[Shift]:
+        query = Q(end__gte=datetime.now()) & Q(Q(max_users=0) | Q(max_users__gt=F('user_count')))
+        return self.shifts.annotate(user_count=Count('users')).filter(query)
+
+    @property
+    def filled_slots(self) -> int:
+        return self.shifts.annotate(user_count=Count('users')).aggregate(Sum('user_count')).get('user_count__sum')
+
+    @property
+    def needed_slots(self) -> int:
+        return self.shifts.aggregate(Sum('required_users')).get('required_users__sum')
 
     def get_absolute_url(self) -> str:
         return reverse('event', args=[self.pk])
