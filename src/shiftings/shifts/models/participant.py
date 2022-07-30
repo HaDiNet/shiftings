@@ -25,4 +25,4 @@ class Participant(models.Model):
         return self.shift_set.first()
 
     def get_absolute_url(self) -> str:
-        return self.shift.first().get_absolute_url()
+        return self.shift.get_absolute_url()
