@@ -55,8 +55,13 @@ input, textarea {
 }
 
 .link {
+  cursor: pointer;
   text-decoration: none;
   color: var(--bs-body-color);
+}
+
+.link:hover {
+  color: var(--bs-success)
 }
 
 .base-card {
@@ -145,6 +150,10 @@ input, textarea {
   transform: scale(1.25);
 }
 
+.pe-pointer {
+  cursor: pointer;
+}
+
 .alert-primary {
   color: #084298;
   background-color: #cfe2ff;
@@ -212,6 +221,18 @@ input, textarea {
   text-align: center;
 }
 
+dl.detail-horizontal dt {
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  font-size: .75rem;
+  color: var(--bs-body-color);
+  font-weight: bold;
+}
+
+dl.detail-horizontal dd {
+  padding-left: .5rem;
+}
+
 .content-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(275px, 600px));
@@ -220,6 +241,15 @@ input, textarea {
   column-gap: 0.5rem;
   justify-content: center;
 }
+
+/*calendar*/
+.month-grid {
+  display: grid;
+  grid-template-rows: repeat(6, 1fr);
+  grid-template-columns: repeat(7, 1fr);
+  justify-items: center;
+}
+
 
 /*organizations*/
 .organization-container {

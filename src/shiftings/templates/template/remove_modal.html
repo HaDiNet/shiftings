@@ -10,11 +10,11 @@
           <h5 class="modal-title" id="confirmRemoveModalLabel">
             {% if remove_target_from %}
               {% blocktrans with target=remove_target_from %}
-                Removing <span id="remove_object_placeholder"></span> from {{ target }}
+                Removing <span id="remove_object_placeholder_1" class="fw-bold"></span> from {{ target }}
               {% endblocktrans %}
             {% else %}
               {% blocktrans with target=remove_target_from %}
-                Removing <span id="remove_object_placeholder"></span>
+                Removing <span id="remove_object_placeholder_1" class="fw-bold"></span>
               {% endblocktrans %}
             {% endif %}
           </h5>
@@ -24,11 +24,11 @@
           <input class="d-none" name="remove_target" id="id_remove_target">
           {% if remove_target_from %}
             {% blocktrans with target=remove_target_from %}
-              Are you sure you want to remove <span id="remove_object_placeholder"></span> from {{ target }}
+              Are you sure you want to remove "<span id="remove_object_placeholder_2" class="fw-bold text-danger"></span>" from {{ target }}
             {% endblocktrans %}
           {% else %}
             {% blocktrans with target=remove_target_from %}
-              Are you sure you want to remove <span id="remove_object_placeholder"></span>
+              Are you sure you want to remove "<"span id="remove_object_placeholder_2"  class="fw-bold text-danger"></span>"
             {% endblocktrans %}
           {% endif %}
         </div>

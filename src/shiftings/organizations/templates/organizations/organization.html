@@ -6,23 +6,22 @@
 
 {% block left %}
   <div class="base-card card bg-dark my-3">
-    <div class="card-header d-flex justify-content-between">
-      <h3>
+    <div class="card-header center-items justify-content-between">
+      <h3 class="m-0">
         {{ organization.name }}
       </h3>
       <div>
-        <a class="btn btn-success" href="{% url 'organization_update' organization.pk %}">
+        <a class="btn btn-success" href="{% url 'organization_update' organization.pk %}"
+           title="{% trans "Edit Organization" %}">
           <i class="fas fa-edit"></i>
         </a>
       </div>
-
     </div>
     <div class="card-body">
-
       {% if organization.logo %}
         <div><img src="{{ organization.logo.url }}" alt="{% trans 'Logo' %}" height="420px" /></div>
       {% endif %}
-      <dl>
+      <dl class="detail-horizontal">
         <dt>Email</dt>
         <dd>{{ organization.email }}</dd>
         <dt>Telephone</dt>
@@ -30,67 +29,94 @@
         <dt>Website</dt>
         <dd>{{ organization.website }}</dd>
         <dt>Description</dt>
-        <dd class="organization-description">{{ organization.description|linebreaks }}</dd>
+        <dd class="organization-description">{{ organization.description|default:'None'|linebreaks }}</dd>
       </dl>
     </div>
   </div>
   <div class="card bg-dark mb-3 p-2">
-    <div class=" p-2">
+    <div class="p-2">
       <div> Managers:</div>
       <div class="d-flex flex-wrap">
         {% for member in organization.managers.all %}
+          {% if member.group is None %}
           {% include 'organizations/template/member.html' %}
+          {% endif %}
         {% endfor %}
-        <button type="button" class="btn btn-success py-1 px-2 mt-1" data-bs-toggle="modal"
-                data-bs-target="#managerFormModal">
-          <i class="fas fa-user-plus pe-none"></i>
-        </button>
-        {% url 'membership_add_member' organization.pk as add_member_url %}
-        {% simpleformmodal 'managerForm' _('Add Helper') add_member_url %}
-          {% for field in member_form %}
-            {% csrf_token %}
-            {% bootstrap_field field %}
-          {% endfor %}
-        {% endsimpleformmodal %}
       </div>
+      <div class="mx-4 mt-2">
+        {% for member in organization.managers.all %}
+          {% if member.user is None %}
+            {% include 'organizations/template/member_group.html' with member_group=member.group %}
+          {% endif %}
+        {% endfor %}
+      </div>
+      <button type="button" class="btn btn-success py-1 px-2 mt-1 mx-2" data-bs-toggle="modal"
+              data-bs-target="#managerFormModal">
+        <i class="fas fa-user-plus pe-none"></i>
+      </button>
+      {% url 'membership_add_member' organization.pk as add_member_url %}
+      {% simpleformmodal 'managerForm' _('Add Helper') add_member_url %}
+        {% for field in member_form %}
+          {% csrf_token %}
+          {% bootstrap_field field %}
+        {% endfor %}
+      {% endsimpleformmodal %}
     </div>
     <div class="p-2">
       <div> Members:</div>
       <div class="d-flex flex-wrap">
         {% for member in organization.members.all %}
-          {% include 'organizations/template/member.html' %}
+          {% if member.group is None %}
+            {% include 'organizations/template/member.html' %}
+          {% endif %}
         {% endfor %}
-        <button type="button" class="btn btn-success py-1 px-2 mt-1" data-bs-toggle="modal"
-                data-bs-target="#memberFormModal">
-          <i class="fas fa-user-plus pe-none"></i>
-        </button>
-        {% url 'membership_add_member' organization.pk as add_member_url %}
-        {% simpleformmodal 'memberForm' _('Add Member') add_member_url %}
-          {% for field in member_form %}
-            {% csrf_token %}
-            {% bootstrap_field field %}
-          {% endfor %}
-        {% endsimpleformmodal %}
       </div>
+      <div class="mx-4 mt-2">
+        {% for member in organization.members.all %}
+          {% if member.user is None %}
+            {% include 'organizations/template/member_group.html' with member_group=member.group %}
+          {% endif %}
+        {% endfor %}
+      </div>
+      <button type="button" class="btn btn-success py-1 px-2 mt-1 mx-2" data-bs-toggle="modal"
+              data-bs-target="#memberFormModal">
+        <i class="fas fa-user-plus pe-none"></i>
+      </button>
+      {% url 'membership_add_member' organization.pk as add_member_url %}
+      {% simpleformmodal 'memberForm' _('Add Member') add_member_url %}
+        {% for field in member_form %}
+          {% csrf_token %}
+          {% bootstrap_field field %}
+        {% endfor %}
+      {% endsimpleformmodal %}
     </div>
     <div class="p-2">
       <div> Helpers:</div>
       <div class="d-flex flex-wrap">
         {% for member in organization.helpers.all %}
+          {% if member.group is None %}
           {% include 'organizations/template/member.html' %}
+          {% endif %}
         {% endfor %}
-        <button type="button" class="btn btn-success py-1 px-2 mt-1" data-bs-toggle="modal"
-                data-bs-target="#helperFormModal">
-          <i class="fas fa-user-plus pe-none"></i>
-        </button>
-        {% url 'membership_add_member' organization.pk as add_member_url %}
-        {% simpleformmodal 'helperForm' _('Add Helper') add_member_url %}
-          {% for field in member_form %}
-            {% csrf_token %}
-            {% bootstrap_field field %}
-          {% endfor %}
-        {% endsimpleformmodal %}
       </div>
+      <div class="mx-4 mt-2">
+        {% for member in organization.helpers.all %}
+          {% if member.user is None %}
+            {% include 'organizations/template/member_group.html' with member_group=member.group %}
+          {% endif %}
+        {% endfor %}
+      </div>
+      <button type="button" class="btn btn-success py-1 px-2 mt-1 mx-2" data-bs-toggle="modal"
+              data-bs-target="#helperFormModal">
+        <i class="fas fa-user-plus pe-none"></i>
+      </button>
+      {% url 'membership_add_member' organization.pk as add_member_url %}
+      {% simpleformmodal 'helperForm' _('Add Helper') add_member_url %}
+        {% for field in member_form %}
+          {% csrf_token %}
+          {% bootstrap_field field %}
+        {% endfor %}
+      {% endsimpleformmodal %}
     </div>
     <a class="btn btn-info mt-3"><i class="fas fa-ranking-star me-2"></i>{% trans "Member Shift Summary" %}</a>
   </div>
@@ -99,23 +125,25 @@
 {% block right %}
   <div class="row my-3">
     <div class="col-md-6 mb-3 mb-md-0">
-      <div class="card bg-dark">
-        Next Shifts
+      <div class="card bg-dark p-2 h-100">
+        {% trans "Next Shift" %}:
+        {% include 'shifts/template/shift.html' with shift=organization.shifts.first %}
       </div>
     </div>
     <div class="col-md-6">
-      <div class="card bg-dark">
-        Month
+      <div class="card bg-dark p-1 h-100">
+        {% include 'month_view.html' %}
       </div>
     </div>
   </div>
   <div class="card bg-dark mb-3">
-    <div class="card-header d-flex justify-content-between">
+    <div class="card-header center-items justify-content-between">
       <div>
         {% trans "Recurring Shifts" %}
       </div>
       <div>
-        <a class="btn btn-success" href="{% url 'recurring_shift_create' %}?org={{ organization.pk }}">
+        <a class="btn btn-success" href="{% url 'recurring_shift_create' %}?org={{ organization.pk }}"
+           title="{% trans "Add recurring shift" %}">
           <i class="fa-solid  fa-square-plus"></i>
         </a>
       </div>
@@ -123,21 +151,43 @@
     <div class="card-body">Content</div>
   </div>
   <div class="card bg-dark mb-3 ">
-    <div class="card-header d-flex justify-content-between">
+    <div class="card-header center-items justify-content-between">
       <div>
-        {% trans "Events" %}
+        {% trans "Upcoming Events" %}
       </div>
       <div>
-        <a class="btn btn-secondary" href="">
+        <a class="btn btn-secondary" href="" title="{% trans "Expired Events" %}">
           <i class="fa-solid fa-hourglass-end"></i>
         </a>
-        <a class="btn btn-success" href="{% url 'event_create' %}?org={{ organization.pk }}">
+        <a class="btn btn-success ms-2" href="{% url 'event_create' %}?org={{ organization.pk }}"
+           title="{% trans "Add Event" %}">
           <i class="fa-solid fa-beer-mug-empty"></i>
           <i class="fa-solid fa-plus"></i>
         </a>
       </div>
     </div>
-    <div class="card-body">Content</div>
+    <div>
+      <table class="table table-striped table-dark">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>From</th>
+          <th>To</th>
+          <th>Visibility</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for event in organization.events.all %}
+          <tr class="link pe-pointer" onclick="window.location.href='{% url 'event' event.pk %}'">
+            <td>{{ event.name }}</td>
+            <td>{{ event.start_date }}</td>
+            <td>{{ event.end_date }}</td>
+            <td>{{ event.public|yesno:_('Public,Private,Unknown') }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
   </div>
   <div class="card bg-dark mb-3">
     <div class="card-header">Calendar</div>
