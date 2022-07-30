@@ -1,11 +1,16 @@
 from __future__ import annotations
 
+from typing import Optional, TYPE_CHECKING, Union
+
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
-from shiftings.utils.fields.date_time import DateTimeField
 from .shift_base import ShiftBase
+from ...utils.fields.date_time import DateTimeField
+
+if TYPE_CHECKING:
+    from ...accounts.models import User
 
 
 class Shift(ShiftBase):
@@ -34,6 +39,23 @@ class Shift(ShiftBase):
     @property
     def display(self) -> str:
         return self.name
+
+    @property
+    def is_full(self):
+        return self.max_users != 0 and len(self.participants.all()) >= self.max_users
+
+    def get_slots_display(self) -> Optional[list[tuple[Union[bool, User], bool]]]:
+        slots = []
+        if self.required_users != 0:
+            slots = [(False, True) for i in range(self.required_users)]
+        if self.max_users != 0:
+            slots += [(False, False) for i in range(self.max_users - self.required_users)]
+        for i, user in enumerate(self.participants.all()):
+            try:
+                slots[i] = user, slots[i][1]
+            except IndexError:
+                slots.append((user, False))
+        return slots
 
     def get_absolute_url(self) -> str:
         return reverse('shift', args=[self.pk])

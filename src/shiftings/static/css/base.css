@@ -363,3 +363,16 @@ dl.detail-horizontal dd {
 
 }
 
+/*shifts*/
+
+.shift-slots {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 140px);
+  row-gap: 1rem;
+  text-align: center;
+}
+
+.shift-required, .shift-required button, .shift-required span {
+  color: var(--bs-orange);
+}
+

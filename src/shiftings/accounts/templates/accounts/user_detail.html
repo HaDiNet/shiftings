@@ -28,7 +28,7 @@
     <div class="card-body">
       {% for membership in user.memberships.all %}
         <a class="link" href="{% url "organization" membership.organization.pk %}">
-          <div class="card bg-dark border">
+          <div class="card bg-dark border my-2">
             <div class="center-items justify-content-start">
               <div class="col-2">
                 {% if membership.organization.logo %}

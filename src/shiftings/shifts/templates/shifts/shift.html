@@ -1,5 +1,16 @@
 {% extends 'base.html' %}
 
+{% block top_level %}
+  {% include "template/remove_modal.html" with remove_target_from=shift %}
+  {% url 'add_participant_self' shift.pk as add_self_url %}
+  {% simpleformmodal 'addSelfForm' _('Add with Name to Shift') add_self_url %}
+    {% for field in add_self_form %}
+      {% csrf_token %}
+      {% bootstrap_field field %}
+    {% endfor %}
+  {% endsimpleformmodal %}
+{% endblock %}
+
 {% block content %}
   <div class="container-fluid container-lg d-flex justify-content-center">
     <div class="col-12 col-md-8">
@@ -17,7 +28,7 @@
         </div>
         <div class="card-body">
           <div class="row">
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-5">
               <dl class="detail-horizontal">
                 <dt>{% trans "Shift Type" %}</dt>
                 <dd>{{ shift.shift_type.name }}</dd>
@@ -31,23 +42,44 @@
                 <dd>{{ shift.organization.name }}</dd>
               </dl>
             </div>
-            <div class="col-12 col-md-6">
-              <div>{% trans "Open Slots" %}:</div>
-              <div class="mx-3">
-                {% for participant in shift.participants.all %}
-                  <span class="link">{{ participant.user }}</span>
-                  <form action="{% url 'remove_participant' shift.pk participant.pk %}" method="post">
-                  {% csrf_token %}
-                  <button type="submit">X</button>
-                  </form>
+            <div class="col-12 col-md-7">
+              <div>
+                {% trans "Open Slots" %}:
+                {% if not shift.is_full and request.user.is_superuser %}
+                  <a class="btn btn-outline-success" href="{% url 'add_participant_self' shift.pk %}">
+                    <i class="fa-solid fa-person-circle-plus me-2"></i>{% trans "Add user" %}
+                  </a>
+                {% endif %}
+              </div>
+              <div class="mx-3 mt-2 shift-slots">
+                {% for display,required in shift.get_slots_display %}
+                  <div class="d-flex{% if required %} shift-required{% endif %}">
+                    {% if display %}
+                      {% if request.user == display or request.user.is_superuser %}
+                        <button type="button" class="btn border link w-100 mx-2" data-bs-toggle="modal"
+                                data-bs-target="#confirmRemoveModal" data-bs-remove-name="{{ display.name }}"
+                                data-bs-remove-url="{% url 'remove_participant' shift.pk display.pk %}">
+                          {{ display.name }}
+                        </button>
+                      {% else %}
+                        <span class="btn border link pe-none w-100 mx-2">{{ display.name }}</span>
+                      {% endif %}
+                    {% else %}
+                      <button type="button" class="btn border link w-100 mx-2" data-bs-toggle="modal"
+                              data-bs-target="#addSelfFormModal">
+                        <i class="fa-solid fa-person-circle-plus me-2"></i>{% trans 'Add me' %}
+                      </button>
+                    {% endif %}
+                  </div>
                 {% endfor %}
-                <form action="{% url 'add_participant_self' shift.pk %}" method="post">
-                  {% csrf_token %}
-                  <input type="hidden" name="user" value="{{ request.user.pk }}">
-                  <button type="submit">
-                    <i class="fa-solid fa-person-circle-plus me-2"></i>{% trans 'Add me' %}
-                  </button>
-                </form>
+                {% if shift.max_users == 0 %}
+                  <div class="d-flex">
+                    <button type="button" class="btn border link w-100 mx-2" data-bs-toggle="modal"
+                            data-bs-target="#addSelfFormModal">
+                      <i class="fa-solid fa-person-circle-plus me-2"></i>{% trans 'Add me' %}
+                    </button>
+                  </div>
+                {% endif %}
               </div>
             </div>
           </div>

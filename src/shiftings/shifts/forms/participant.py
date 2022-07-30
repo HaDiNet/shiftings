@@ -11,15 +11,16 @@ class AddSelfParticipantForm(forms.ModelForm):
     class Meta:
         model = Participant
         fields = ['user', 'display_name']
+        widgets = {'user': forms.HiddenInput()}
 
     shift: Shift
 
     def __init__(self, shift: Shift, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
         self.shift = shift
+        self.fields['display_name'].widget.attrs.update({'placeholder': self.initial['user'].name})
 
-    def clean_user(self) -> str:
+    def clean(self):
         user = self.cleaned_data['user']
         if self.shift.participants.filter(user=user).exists():
             raise ValidationError(_('User {user} is already registered for this shift.').format(user=user))
-        return user

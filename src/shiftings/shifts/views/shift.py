@@ -7,6 +7,7 @@ from django.db.models import QuerySet
 from django.urls import reverse
 from django.views.generic import DetailView, ListView
 
+from shiftings.shifts.forms.participant import AddSelfParticipantForm
 from shiftings.shifts.forms.shift import ShiftForm
 from shiftings.shifts.models import Shift
 from shiftings.utils.views.base import BaseMixin
@@ -32,6 +33,15 @@ class ShiftDetailView(BaseMixin, DetailView):
     template_name = 'shifts/shift.html'
     model = Shift
     context_object_name = 'shift'
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'add_self_form': AddSelfParticipantForm(self.object, initial={
+                'user': self.request.user,
+            })
+        })
+        return context
 
 
 class ShiftEditView(BaseMixin, CreateOrUpdateView):
