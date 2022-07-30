@@ -57,12 +57,12 @@
                     {% if display %}
                       {% if request.user == display or request.user.is_superuser %}
                         <button type="button" class="btn border link w-100 mx-2" data-bs-toggle="modal"
-                                data-bs-target="#confirmRemoveModal" data-bs-remove-name="{{ display.name }}"
+                                data-bs-target="#confirmRemoveModal" data-bs-remove-name="{{ display.display }}"
                                 data-bs-remove-url="{% url 'remove_participant' shift.pk display.pk %}">
-                          {{ display.name }}
+                          {{ display.display }}
                         </button>
                       {% else %}
-                        <span class="btn border link pe-none w-100 mx-2">{{ display.name }}</span>
+                        <span class="btn border link pe-none w-100 mx-2">{{ display.display }}</span>
                       {% endif %}
                     {% else %}
                       <button type="button" class="btn border link w-100 mx-2" data-bs-toggle="modal"

@@ -9,7 +9,7 @@ from shiftings.utils.views.base import BaseLoginMixin
 from shiftings.utils.views.create_update_view import CreateView
 
 
-class AddSelfParticipantView(BaseLoginMixin, CreateView):
+class AddSelfParticipantView(CreateView, BaseLoginMixin):
     model = Participant
     form_class = AddSelfParticipantForm
 

@@ -18,7 +18,7 @@ class AddSelfParticipantForm(forms.ModelForm):
     def __init__(self, shift: Shift, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
         self.shift = shift
-        self.fields['display_name'].widget.attrs.update({'placeholder': self.initial['user'].name})
+        self.fields['display_name'].widget.attrs.update({'placeholder': self.initial['user'].display})
 
     def clean(self):
         user = self.cleaned_data['user']
