@@ -1,0 +1,51 @@
+{% url "event" event.pk as org_url %}
+<div class="organization-container">
+  <div class="card bg-dark border border-3 organization-content">
+    <a class="link organization-logo" href="{{ org_url }}">
+      {% if event.logo %}
+        <div>
+          <img src="{{ event.logo.url }}" alt="{{ membership.event.name }}">
+        </div>
+      {% else %}
+        <div class="center-items">
+          <i class="fa-solid fa-eye-slash me-2"></i>
+          {% trans "No Logo available" %}
+        </div>
+      {% endif %}
+    </a>
+    <div class="organization-data">
+      <a class="link" href="{{ org_url }}">
+        <div class="pt-1 border-bottom bg-secondary">
+          <h4 class="text-center">
+            {{ event.name }}
+          </h4>
+          <div class="text-center">
+            {% blocktrans with start_date=event.start_date|date:'SHORT_DATE_FORMAT' end_date=event.end_date|date:'SHORT_DATE_FORMAT' %}
+              {{ start_date }} to {{ end_date }}
+            {% endblocktrans %}
+          </div>
+        </div>
+      </a>
+      <div class="p-2">
+        <a class="link" href="{{ org_url }}">
+          <div>{% trans "Open Shifts" %}: {{ event.needing_shifts|length }}</div>
+          <div>{% trans "Required People" %}: {{ event.needed_slots|default_if_none:_('None') }}</div>
+          <div>{% trans "Visibility" %}: {{ event.public|yesno:_('Public,Private,Unknown') }}</div>
+          <div class="overflow-auto">
+            {{ event.description|linebreaks }}
+          </div>
+        </a>
+      </div>
+    </div>
+    {% if event.website %}
+      <div class="organization-url text-center bg-secondary py-2">
+        <a class="link" href="{{ event.website }}">{{ event.website }}</a>
+      </div>
+    {% endif %}
+    {% if event.email %}
+      <div class="organization-contact text-center bg-secondary py-2">
+        <a class="link" href="mailto:{{ event.email }}">{{ event.email }}</a>
+      </div>
+    {% endif %}
+  </div>
+</div>

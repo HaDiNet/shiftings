@@ -1,18 +1,5 @@
 {% extends 'generic/fluid_split_title_card.html' %}
 
-{#{% block content %}#}
-{#  <table class="table table-responsive-sm table-dark table-striped table-hover table-bordered align-middle">#}
-{#    <tr>#}
-{#      <th>{% trans 'Name' %}</th>#}
-{#    </tr>#}
-{#    {% for organization in organizations %}#}
-{#      <tr>#}
-{#        <td><a class="link" href="{{ organization.get_absolute_url }}">{{ organization.name }}</a></td>#}
-{#      </tr>#}
-{#    {% endfor %}#}
-{#  </table>#}
-{#{% endblock %}#}
-
 {% block left_card_title %}
   {% if full %}
     <h3>{% trans "All Organizations" %}</h3>

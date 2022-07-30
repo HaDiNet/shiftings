@@ -1,22 +1,52 @@
-{% extends 'base.html' %}
+{% extends 'generic/fluid_split_title_card.html' %}
 
-{% block content %}
-  <table class="table table-responsive-sm table-dark table-striped table-hover table-bordered align-middle">
-    <tr>
-      <th>{% trans 'Organization' %}</th>
-      <th>{% trans 'Name' %}</th>
-      <th>{% trans 'Start Date' %}</th>
-      <th>{% trans 'End Date' %}</th>
-      <th>{% trans 'Public' %}</th>
-    </tr>
+{#{% block content %}#}
+{#  <table class="table table-responsive-sm table-dark table-striped table-hover table-bordered align-middle">#}
+{#    <tr>#}
+{#      <th>{% trans 'Organization' %}</th>#}
+{#      <th>{% trans 'Name' %}</th>#}
+{#      <th>{% trans 'Start Date' %}</th>#}
+{#      <th>{% trans 'End Date' %}</th>#}
+{#      <th>{% trans 'Public' %}</th>#}
+{#    </tr>#}
+{#    {% for event in events %}#}
+{#      <tr>#}
+{#        <td><a class="link" href="{{ event.organization.get_absolute_url }}">{{ event.organization.name }}</a></td>#}
+{#        <td><a class="link" href="{{ event.get_absolute_url }}">{{ event.name }}</a></td>#}
+{#        <td>{{ event.start_date }}</td>#}
+{#        <td>{{ event.end_date }}</td>#}
+{#        <td>{{ event.public }}</td>#}
+{#      </tr>#}
+{#    {% endfor %}#}
+{#  </table>#}
+{#{% endblock %}#}
+
+{% block left_card_title %}
+  {% if full %}
+    <h3>{% trans "All Events" %}</h3>
+  {% else %}
+    <h3>{% trans "Current Events" %}</h3>
+  {% endif %}
+{% endblock %}
+
+{% block right_card_title %}
+  {% include 'generic/modular_search.html' with placeholder=_('Enter Name') %}
+  <a class="btn btn-success m-2" href="{% url 'organization_create' %}">
+    <i class="fas fa-person-circle-plus"></i> {% trans 'Add new Organization' %}
+  </a>
+{% endblock %}
+
+{% block card_body %}
+  <div class="content-container">
     {% for event in events %}
-      <tr>
-        <td><a class="link" href="{{ event.organization.get_absolute_url }}">{{ event.organization.name }}</a></td>
-        <td><a class="link" href="{{ event.get_absolute_url }}">{{ event.name }}</a></td>
-        <td>{{ event.start_date }}</td>
-        <td>{{ event.end_date }}</td>
-        <td>{{ event.public }}</td>
-      </tr>
+      {% include "events/template/event.html" with organization=organization %}
+    {% empty %}
+      <div class="organization-container">
+        <div class="card bg-dark border border-3 organization-content d-flex align-items-center justify-content-center">
+          <h3 class="text-center">{% trans "No Events found." %}</h3>
+        </div>
+      </div>
     {% endfor %}
-  </table>
+  </div>
+  {% include "pagination.html" %}
 {% endblock %}

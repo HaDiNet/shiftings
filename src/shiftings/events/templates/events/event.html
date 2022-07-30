@@ -3,11 +3,11 @@
 {% block left %}
   <div class="base-card card bg-dark my-3">
     <div class="card-header d-flex justify-content-between">
-      <h3>
+      <h3 class="m-0">
         {{ event.name }}
       </h3>
       <div>
-        <a class="btn btn-success" href="{% url 'event_update' event.pk %}">
+        <a class="btn btn-success" href="{% url 'event_update' event.pk %}" title="{% trans "Edit Event" %}">
           <i class="fas fa-edit"></i>
         </a>
       </div>
@@ -15,7 +15,9 @@
     <div class="card-body">
       <div><a class="link" href="{{ event.organization.get_absolute_url }}">{{ event.organization.name }}</a></div>
       {% if event.logo %}
-        <div><img src="{{ event.logo.url }}" alt="{% trans 'Logo' %}" height="420px" /></div>
+        <div class="organization-detail-logo">
+          <img src="{{ event.logo.url }}" alt="{% trans 'Logo' %}" />
+        </div>
       {% endif %}
       <dl class="detail-horizontal">
         <dt>Email</dt>
@@ -77,5 +79,49 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="card bg-dark mt-3">
+    <div class="card-header center-items justify-content-between">
+      <h5 class="m-0">{% trans "Shifts" %}</h5>
+      <div>
+        <a class="btn btn-success" href="{% url "shift_create" %}" title="{% trans "Create Shift" %}">
+          <i class="fa-solid fa-calendar-plus"></i>
+        </a>
+      </div>
+    </div>
+    <div>
+      <div class="table-responsive">
+        {% if event.shifts.all|length > 0 %}
+          <table class="table table-striped table-dark mb-1 text-center">
+            <thead>
+            <tr>
+              <th>{% trans "Name" %}</th>
+              <th>{% trans "Type" %}</th>
+              <th>{% trans "Start Time" %}</th>
+              <th>{% trans "End Time" %}</th>
+              <th>{% trans "Place" %}</th>
+              <th>{% trans "Users/Required/Max" %}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for shift in event.shifts.all %}
+              <tr class="link pe-pointer"
+                  onclick="window.location.href='{% url 'shift' shift.pk %}'">
+                <td>{{ shift.display }}</td>
+                <td>{{ shift.shift_type }}</td>
+                <td>{{ shift.start }}</td>
+                <td>{{ shift.end }}</td>
+                <td>{{ shift.place }}</td>
+                <td>{{ shift.users|length }}/{{ shift.required_users }}/{{ shift.max_users }}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+          <div class="center-items p-3">{% trans "No current shifts" %}</div>
+        {% endif %}
+      </div>
+    </div>
+
   </div>
 {% endblock %}

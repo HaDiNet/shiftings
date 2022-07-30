@@ -50,8 +50,12 @@
 }
 
 input, textarea, select, .form-control, .form-select {
-  background: transparent !important;
+  background-color: transparent !important;
   color: var(--bs-body-color) !important;
+}
+
+.form-check-input {
+  border-color: var(--bs-body-color) !important;
 }
 
 .link {
@@ -260,7 +264,7 @@ dl.detail-horizontal dd {
   position: absolute;
   top: 60px;
   right: 0;
-  height: 150px;
+  height: 175px;
   display: flex;
   justify-content: center;
   align-content: center;
