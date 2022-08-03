@@ -1,11 +1,11 @@
 <div class="nav-item dropdown">
   <div class="hidden">
-    <form id="german-lang-form" action="/i18n/setlang/" method="post">
+    <form id="german-lang-form" action="{% url "set_language" %}" method="post">
       {% csrf_token %}
       <input name="next" type="hidden" value="{{ request.get_full_path }}" />
       <input name="language" type="hidden" value="de" />
     </form>
-    <form id="english-lang-form" action="/i18n/setlang/" method="post">
+    <form id="english-lang-form" action="{% url "set_language" %}" method="post">
       {% csrf_token %}
       <input name="next" type="hidden" value="{{ request.get_full_path }}" />
       <input name="language" type="hidden" value="en" />

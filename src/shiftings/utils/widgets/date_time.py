@@ -1,9 +1,7 @@
-from datetime import date, datetime
-from typing import Any, Optional
-
 from django.forms import DateInput, DateTimeInput, TimeInput
-from django.forms.renderers import BaseRenderer
 from django.utils.translation import get_language
+
+from shiftings.utils.widgets.flatpickr import FlatPickrMixin
 
 
 def get_locale() -> str:
@@ -15,8 +13,12 @@ def get_locale() -> str:
 
 def get_date_format_html() -> str:
     if get_language() == 'de':
-        return 'DD.MM.YYYY'
-    return 'YYYY-MM-DD'
+        return 'd.m.Y'
+    return 'Y-m-d'
+
+
+def get_time_format_html() -> str:
+    return 'H:i'
 
 
 def get_date_format_python() -> str:
@@ -25,33 +27,26 @@ def get_date_format_python() -> str:
     return '%Y-%m-%d'
 
 
-class DatePickerInput(DateInput):
-    input_type = 'date'
-    def render(self, name: str, value: Any, attrs: Optional[Any] = None,
-               renderer: Optional[BaseRenderer] = None) -> str:
-        # self.config['options']['locale'] = get_locale()
-        # self.config['options']['format'] = get_date_format_html()
-        date_str = value.strftime(f'{get_date_format_python()}') \
-            if value is not None and isinstance(value, date) else value
-        return super().render(name, date_str, attrs, renderer)
+def get_time_format_python() -> str:
+    return '%H:%M'
 
 
-class DateTimePickerInput(DateTimeInput):
-    input_type = 'datetime-local'
-
-    def render(self, name: str, value: Any, attrs: Optional[Any] = None,
-               renderer: Optional[BaseRenderer] = None) -> str:
-        # self.config['options']['locale'] = get_locale()
-        # self.config['options']['format'] = f'{get_date_format_html()} HH:mm'
-        date_str = value.strftime(f'{get_date_format_python()} %H:%M') \
-            if value is not None and isinstance(value, datetime) else value
-        return super().render(name, date_str, attrs, renderer)
+class DatePicker(FlatPickrMixin, DateInput):
+    js_format = get_date_format_html()
+    python_format = get_date_format_python()
+    no_date = False
+    use_time = False
 
 
-class TimePickerInput(TimeInput):
-    input_type = 'time'
+class DateTimePicker(FlatPickrMixin, DateTimeInput):
+    js_format = f'{get_date_format_html()} {get_time_format_html()}'
+    python_format = f'{get_date_format_python()} {get_time_format_python()}'
+    no_date = False
+    use_time = True
 
-    def render(self, name: str, value: Any, attrs: Optional[Any] = None,
-               renderer: Optional[BaseRenderer] = None) -> str:
-        # self.config['options']['locale'] = get_locale()
-        return super().render(name, value, attrs, renderer)
+
+class TimePicker(FlatPickrMixin, TimeInput):
+    js_format = get_time_format_html()
+    python_format = get_time_format_python()
+    no_date = True
+    use_time = True

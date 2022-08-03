@@ -1,0 +1,21 @@
+<input
+    type="{{ widget.type }}"
+    name="{{ widget.name }}"
+    {% if widget.value != None %}
+    value="{{ widget.value|stringformat:'s' }}"
+    {% endif %}
+    {% include "django/forms/widgets/attrs.html" %}
+>
+<script type="text/javascript">
+  (function () {
+    flatpickr(document.getElementsByName('{{ widget.name }}')[0], {
+      noCalendar: {{ widget.no_date|lower }},
+      enableTime: {{ widget.use_time|lower }},
+      time_24hr: true,
+      dateFormat: '{{ widget.format }}',
+      allowInput: true,
+      weekNumbers: true,
+      locale: '{{ widget.locale }}'
+    });
+  })();
+</script>

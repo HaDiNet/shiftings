@@ -5,7 +5,7 @@ from typing import Any
 from django import forms
 from django.db import models
 
-from shiftings.utils.widgets.date_time import DatePickerInput, DateTimePickerInput, TimePickerInput
+from shiftings.utils.widgets.date_time import DatePicker, DateTimePicker, TimePicker
 
 
 class DateField(models.DateField):
@@ -15,7 +15,7 @@ class DateField(models.DateField):
 
 
 class DateFormField(forms.DateField):
-    widget = DatePickerInput()
+    widget = DatePicker()
 
 
 class DateTimeField(models.DateTimeField):
@@ -25,7 +25,7 @@ class DateTimeField(models.DateTimeField):
 
 
 class DateTimeFormField(forms.DateTimeField):
-    widget = DateTimePickerInput()
+    widget = DateTimePicker()
 
 
 class TimeField(models.TimeField):
@@ -35,4 +35,4 @@ class TimeField(models.TimeField):
 
 
 class TimeFormField(forms.TimeField):
-    widget = TimePickerInput()
+    widget = TimePicker()
