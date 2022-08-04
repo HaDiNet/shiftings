@@ -28,6 +28,7 @@ urlpatterns = [
     path('organizations/', include('shiftings.organizations.urls')),
     path('events/', include('shiftings.events.urls')),
     path('calendar/', include('shiftings.cal.urls')),
+    path('mail/', include('shiftings.mail.urls')),
 
     # totally legit search
     path('search/', RedirectView.as_view(url='https://www.youtube.com/watch?v=dQw4w9WgXcQ'))

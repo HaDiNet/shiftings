@@ -5,11 +5,13 @@ from typing import Optional, TYPE_CHECKING
 
 from django.conf import settings
 from django.db import models
-from django.db.models import QuerySet
+from django.db.models import Q, QuerySet
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
 from PIL import Image
+
+from shiftings.organizations.models.membership import MembershipType
 
 if TYPE_CHECKING:
     from shiftings.accounts.models import User
@@ -28,12 +30,8 @@ class Organization(models.Model):
 
     description = models.TextField(verbose_name=_('Description'), blank=True, null=True)
 
-    managers = models.ManyToManyField('Membership', related_name='managed_organizations',
-                                      verbose_name=_('Manager'), blank=True)
     members = models.ManyToManyField('Membership', related_name='organization_memberships',
                                      verbose_name=_('Members'), blank=True)
-    helpers = models.ManyToManyField('Membership', related_name='organizations_helper',
-                                     verbose_name=_('Helpers'), blank=True)
 
     class Meta:
         default_permissions = ()
@@ -57,12 +55,26 @@ class Organization(models.Model):
             img.save(self.logo.path)
 
     @property
+    def default_membership_type(self) -> MembershipType:
+        return self.membership_types.filter(default=True).first()
+
+    @property
     def next_shift(self) -> Optional[Shift]:
         return self.shifts.filter(end__gte=date.today()).order_by('start').first()
 
     @property
     def future_events(self) -> QuerySet[Event]:
         return self.events.filter(end_date__gte=date.today())
+
+    def get_membership_users(self, membership_types: Optional[QuerySet[MembershipType]] = None) -> QuerySet[User]:
+        query = Q()
+        if membership_types:
+            query = Q(type__in=membership_types)
+        user_pks = set()
+        for member in self.members.filter(query):
+            user_pks.update(member.user_pks)
+        from shiftings.accounts.models import User
+        return User.objects.filter(pk__in=user_pks)
 
     def is_member(self, user: User) -> bool:
         if self.all_members.filter(user=user).exists():

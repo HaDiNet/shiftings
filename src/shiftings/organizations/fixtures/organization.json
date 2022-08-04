@@ -1,50 +1,5 @@
 [
   {
-    "model": "organizations.membership",
-    "pk": 1,
-    "fields": {
-      "organization": 1,
-      "user": 3,
-      "group": null
-    }
-  },
-  {
-    "model": "organizations.membership",
-    "pk": 2,
-    "fields": {
-      "organization": 1,
-      "user": 4,
-      "group": null
-    }
-  },
-  {
-    "model": "organizations.membership",
-    "pk": 3,
-    "fields": {
-      "organization": 1,
-      "user": 5,
-      "group": null
-    }
-  },
-  {
-    "model": "organizations.membership",
-    "pk": 4,
-    "fields": {
-      "organization": 1,
-      "user": 6,
-      "group": null
-    }
-  },
-  {
-    "model": "organizations.membership",
-    "pk": 5,
-    "fields": {
-      "organization": 1,
-      "user": 7,
-      "group": null
-    }
-  },
-  {
     "model": "organizations.organization",
     "pk": 1,
     "fields": {
@@ -54,17 +9,93 @@
       "telephone_number": "+4972169047666",
       "website": "https://wiki.hadiko.de/wiki/K1_Bar",
       "description": "Es ist 10 nach 11 und wir trinken bis zum Absturz!",
-      "managers": [
-        1
-      ],
       "members": [
+        1,
         2,
-        3
-      ],
-      "helpers": [
+        3,
         4,
         5
       ]
+    }
+  },
+  {
+    "model": "organizations.membershiptype",
+    "pk": 1,
+    "fields": {
+      "organization": 1,
+      "name": "Manager",
+      "admin": true,
+      "default": null
+    }
+  },
+  {
+    "model": "organizations.membershiptype",
+    "pk": 2,
+    "fields": {
+      "organization": 1,
+      "name": "Member",
+      "admin": null,
+      "default": true
+    }
+  },
+  {
+    "model": "organizations.membershiptype",
+    "pk": 3,
+    "fields": {
+      "organization": 1,
+      "name": "Helper",
+      "admin": null,
+      "default": null
+    }
+  },
+  {
+    "model": "organizations.membership",
+    "pk": 1,
+    "fields": {
+      "organization": 1,
+      "type": 1,
+      "user": 3,
+      "group": null
+    }
+  },
+  {
+    "model": "organizations.membership",
+    "pk": 2,
+    "fields": {
+      "organization": 1,
+      "type": 2,
+      "user": 4,
+      "group": null
+    }
+  },
+  {
+    "model": "organizations.membership",
+    "pk": 3,
+    "fields": {
+      "organization": 1,
+      "type": 2,
+      "user": 5,
+      "group": null
+    }
+  },
+  {
+    "model": "organizations.membership",
+    "pk": 4,
+    "fields": {
+      "organization": 1,
+      "type": 3,
+      "user": 6,
+      "group": null
+    }
+  },
+  {
+    "model": "organizations.membership",
+    "pk": 5,
+    "fields": {
+      "organization": 1,
+      "type": 3,
+      "user": 7,
+      "group": null
     }
   }
 ]

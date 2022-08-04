@@ -53,7 +53,7 @@ class OrganizationDetailView(BaseMixin, DetailView):
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context.update({
-            'member_form': MembershipForm(initial={'organization': self.object.pk})
+            'member_form': MembershipForm(initial={'organization': self.object, 'type': self.object.default_membership_type})
         })
         return context
 

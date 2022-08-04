@@ -12,4 +12,6 @@ urlpatterns = [
     path('<int:pk>/update/', OrganizationEditView.as_view(), name='organization_update'),
     path('<int:pk>/membership/', include('shiftings.organizations.urls.membership')),
     path('<int:pk>/calendar/', OrganizationFeed(), name='organization_calendar'),
+
+    path('<int:pk>/mail/', include('shiftings.mail.urls.organization')),
 ]

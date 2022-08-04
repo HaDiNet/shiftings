@@ -1,0 +1,24 @@
+{% extends 'generic/form_base.html' %}
+{% block form %}
+  <div class="card bg-dark border border-2 border-success p-3">
+    <form method="post" {% include 'generic/include_params.html' with params=form_params only %}>
+      {% csrf_token %}
+      {% bootstrap_form form %}
+      <div class="flex-row-wrap">
+        {% bootstrap_button _('Send Mail') button_type="submit" button_class="btn-primary me-2" %}
+      </div>
+    </form>
+  </div>
+  <div class="card bg-dark border border-2 border-success p-3">
+    <h3>Users</h3>
+    {% for user in users.all %}
+      {{ user.display }}
+    {% endfor %}
+  </div>
+  <div class="card bg-dark border border-2 border-success p-3">
+    <h3>Replacements</h3>
+    {% for key, value in replacements.items %}
+      {{ '{' }}{{ key }}{{ '}' }}: {{ value }}
+    {% endfor %}
+  </div>
+{% endblock %}

@@ -9,6 +9,7 @@ from django.views.generic.edit import FormMixin
 from shiftings.organizations.models import Membership
 from shiftings.organizations.forms.membership import MembershipForm
 from shiftings.organizations.models import Organization
+from shiftings.organizations.models.membership import MembershipType
 from shiftings.utils.views.base import BaseMixin
 from shiftings.utils.views.create_update_view import CreateOrUpdateView
 
@@ -30,7 +31,9 @@ class MembershipAddView(MembershipViewMixin, CreateOrUpdateView):
 
     def get_initial(self) -> Dict[str, Any]:
         initial = super().get_initial()
-        initial['organization'] = self.get_organization()
+        organization = self.get_organization()
+        initial['organization'] = organization
+        initial['type'] = organization.default_membership_type
         return initial
 
     def form_valid(self, form: Any) -> HttpResponse:
@@ -41,16 +44,8 @@ class MembershipAddView(MembershipViewMixin, CreateOrUpdateView):
         return result
 
 
-class MembershipAddManagerView(MembershipAddView):
-    membership_name = 'managers'
-
-
 class MembershipAddMemberView(MembershipAddView):
     membership_name = 'members'
-
-
-class MembershipAddHelperView(MembershipAddView):
-    membership_name = 'helpers'
 
 
 class MembershipRemoveView(MembershipViewMixin, DeleteView, FormMixin):

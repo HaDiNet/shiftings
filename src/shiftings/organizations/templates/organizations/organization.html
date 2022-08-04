@@ -43,31 +43,6 @@
       <div class="row">
         <div class="col-md-4">
           <div class="center-items justify-content-between p-1">
-            {% trans "Managers" %}
-            <button type="button" class="btn btn-success py-1 px-2 my-1" data-bs-toggle="modal"
-                    data-bs-target="#managerFormModal">
-              <i class="fas fa-user-plus pe-none"></i>
-            </button>
-            {% url 'membership_add_manager' organization.pk as add_manager_url %}
-            {% simpleformmodal 'managerForm' _('Add Manager') add_manager_url %}
-              {% for field in member_form %}
-                {% csrf_token %}
-                {% bootstrap_field field %}
-              {% endfor %}
-            {% endsimpleformmodal %}
-          </div>
-          <table class="table table-dark table-striped text-center">
-            <tbody>
-            {% for member in organization.managers.all %}
-              {% if member.group is None %}
-                {% include 'organizations/template/member.html' %}
-              {% endif %}
-            {% endfor %}
-            </tbody>
-          </table>
-        </div>
-        <div class="col-md-4">
-          <div class="center-items justify-content-between p-1">
             {% trans "Members" %}
             <button type="button" class="btn btn-success py-1 px-2 my-1" data-bs-toggle="modal"
                     data-bs-target="#memberFormModal">
@@ -95,34 +70,6 @@
               {% include 'organizations/template/member_group.html' with member_group=member.group %}
             {% endif %}
           {% endfor %}
-        </div>
-        <div class="col-md-4">
-          <div class="center-items justify-content-between p-1">
-            {% trans "Helpers" %}
-            <button type="button" class="btn btn-success py-1 px-2 my-1" data-bs-toggle="modal"
-                    data-bs-target="#helperFormModal">
-              <i class="fas fa-user-plus pe-none"></i>
-            </button>
-            {% url 'membership_add_helper' organization.pk as add_helper_url %}
-            {% simpleformmodal 'helperForm' _('Add helper') add_helper_url %}
-              {% for field in member_form %}
-                {% csrf_token %}
-                {% bootstrap_field field %}
-              {% endfor %}
-            {% endsimpleformmodal %}
-          </div>
-          <table class="table table-dark table-striped text-center">
-            <tbody>
-            {% for member in organization.helpers.all %}
-              {% if member.group is None %}
-                {% include 'organizations/template/member.html' %}
-              {% endif %}
-              {% if member.user is None %}
-                {% include 'organizations/template/member_group.html' with member_group=member.group %}
-              {% endif %}
-            {% endfor %}
-            </tbody>
-          </table>
         </div>
       </div>
     </div>
