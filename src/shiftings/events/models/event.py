@@ -48,7 +48,7 @@ class Event(models.Model):
 
     @property
     def display(self) -> str:
-        return _('{name} (by {organization}').format(name=self.name, organization=self.organization.display)
+        return _('{name} (by {organization})').format(name=self.name, organization=self.organization.display)
 
     def save(self, *args, **kwargs) -> None:
         super().save(*args, **kwargs)
