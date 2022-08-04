@@ -64,7 +64,6 @@ TEMPLATES = [
         'DIRS': [
             'templates',
             os.path.join(os.path.dirname(__file__), 'templates'),
-            'templates/flatpickr'
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -165,6 +164,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 try:
     from shiftings.events.settings import *
     from shiftings.organizations.settings import *
+    from shiftings.shifts.settings import *
 
     # try to load local settings (for production settings or rpc passwords)
     from .local_settings import *
