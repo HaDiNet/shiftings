@@ -7,7 +7,7 @@ from shiftings.organizations.models import Organization
 
 
 @receiver(post_save, sender=Organization)
-def create_shopping_cart(instance: Organization, created: bool, **kwargs: Any) -> None:
+def create_organization_summary_settings(instance: Organization, created: bool, **kwargs: Any) -> None:
     if created:
         from .models import OrganizationSummarySettings
         OrganizationSummarySettings.objects.create(organization=instance)

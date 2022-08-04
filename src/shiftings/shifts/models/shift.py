@@ -6,11 +6,11 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
+from shiftings.utils.fields.date_time import DateTimeField
 from .shift_base import ShiftBase
-from ...utils.fields.date_time import DateTimeField
 
 if TYPE_CHECKING:
-    from ...accounts.models import User
+    from shiftings.accounts.models import User
 
 
 class Shift(ShiftBase):
@@ -29,6 +29,9 @@ class Shift(ShiftBase):
     based_on = models.ForeignKey('RecurringShift', on_delete=models.SET_NULL, related_name='created_shifts',
                                  verbose_name=_('Created by Recurring Shift'), blank=True, null=True)
 
+    created = DateTimeField(verbose_name=_('Created'), auto_now_add=True)
+    modified = DateTimeField(verbose_name=_('Last Modified'), auto_now=True)
+
     class Meta:
         default_permissions = ()
         ordering = ['start', 'end', 'name', 'organization']
@@ -43,6 +46,12 @@ class Shift(ShiftBase):
     @property
     def is_full(self):
         return self.max_users != 0 and len(self.participants.all()) >= self.max_users
+
+    @property
+    def email(self) -> str:
+        if self.event and self.event.email:
+            return self.event.email
+        return self.organization.email
 
     def get_slots_display(self) -> Optional[list[tuple[Union[bool, User], bool]]]:
         slots = []

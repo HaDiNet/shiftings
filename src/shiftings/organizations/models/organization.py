@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from datetime import date
-from typing import Optional
+from typing import Optional, TYPE_CHECKING
 
 from django.conf import settings
 from django.db import models
@@ -11,8 +11,10 @@ from django.utils.translation import gettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
 from PIL import Image
 
-from shiftings.events.models import Event
-from shiftings.shifts.models import Shift
+if TYPE_CHECKING:
+    from shiftings.accounts.models import User
+    from shiftings.events.models import Event
+    from shiftings.shifts.models import Shift
 
 
 class Organization(models.Model):
@@ -61,6 +63,11 @@ class Organization(models.Model):
     @property
     def future_events(self) -> QuerySet[Event]:
         return self.events.filter(end_date__gte=date.today())
+
+    def is_member(self, user: User) -> bool:
+        if self.all_members.filter(user=user).exists():
+            return True
+        return user.groups.filter(pk__in=[member.group.pk for member in self.all_members.filter(group__isnull=False)])
 
     def get_absolute_url(self) -> str:
         return reverse('organization', args=[self.pk])

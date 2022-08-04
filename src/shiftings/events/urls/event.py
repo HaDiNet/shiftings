@@ -1,5 +1,6 @@
 from django.urls import path
 
+from shiftings.calendar.feed.event import EventFeed
 from shiftings.events.views.event import EventDetailView, EventEditView, EventListView, FutureEventListView
 
 urlpatterns = [
@@ -8,4 +9,5 @@ urlpatterns = [
     path('<int:pk>/', EventDetailView.as_view(), name='event'),
     path('create/', EventEditView.as_view(), name='event_create'),
     path('<int:pk>/update/', EventEditView.as_view(), name='event_update'),
+    path('<int:pk>/calendar/', EventFeed(), name='event_calendar'),
 ]

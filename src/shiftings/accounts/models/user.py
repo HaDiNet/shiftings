@@ -1,7 +1,10 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.db.models import Q, QuerySet
 from django.utils.translation import gettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
+
+from shiftings.organizations.models import Organization
 
 
 class User(AbstractUser):
@@ -20,3 +23,9 @@ class User(AbstractUser):
         if self.display_name is None:
             return self.get_full_name()
         return self.display_name
+
+    @property
+    def organizations(self) -> QuerySet[Organization]:
+        return Organization.objects \
+            .filter(Q(all_members__user=self) | Q(all_members__group__in=self.groups.all())) \
+            .distinct()

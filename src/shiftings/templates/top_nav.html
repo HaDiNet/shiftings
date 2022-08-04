@@ -20,6 +20,12 @@
         <a class="nav-link d-flex align-items-center" href="{% url "next_events" %}">
           {% trans "Current Events" %} <i class="fas fa-beer-mug-empty ms-2"></i>
         </a>
+        <a class="nav-link d-flex align-items-center" href="{% url "calics" 1 %}">
+          {% trans "Cal" %} <i class="fas fa-beer-mug-empty ms-2"></i>
+        </a>
+        <a class="nav-link d-flex align-items-center" href="{% url "calus" %}">
+          {% trans "CalUs" %} <i class="fas fa-beer-mug-empty ms-2"></i>
+        </a>
       </div>
     {% endif %}
     <div class="navbar-nav">

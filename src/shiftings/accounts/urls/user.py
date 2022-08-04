@@ -12,6 +12,7 @@ from shiftings.accounts.views.auth import UserLoginView, UserLogoutView
 # from shiftings.accounts.views.user_profile import UserProfileView
 from shiftings.accounts.views.password import PasswordResetConfirmView, PasswordResetView
 from shiftings.accounts.views.user import UserRegisterView, UserProfileView, UserEditView
+from shiftings.calendar.feed.user import OwnShiftsFeed, UserFeed
 
 urlpatterns: List[Any] = [
     # auth
@@ -31,6 +32,8 @@ urlpatterns: List[Any] = [
     path('password_reset/<uidb64>/<token>/', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('password_reset/success/', TemplateView.as_view(template_name='accounts/password_reset/success.html'),
          name='password_reset_success'),
+    path('<int:pk>/calendar/', UserFeed(), name='user_calendar'),
+    path('<int:pk>/participation_calendar/', OwnShiftsFeed(), name='user_participation_calendar'),
 ]
 if settings.OAUTH_ENABLED:
     from shiftings.accounts.views.auth import AuthorizeSSOUser

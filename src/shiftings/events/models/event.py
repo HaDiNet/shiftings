@@ -42,6 +42,10 @@ class Event(models.Model):
     def __str__(self) -> str:
         return self.name
 
+    @property
+    def display(self) -> str:
+        return _('{name} (by {organization}').format(name=self.name, organization=self.organization.display)
+
     def save(self, *args, **kwargs) -> None:
         super().save(*args, **kwargs)
 
@@ -54,17 +58,18 @@ class Event(models.Model):
 
     @property
     def needing_shifts(self) -> QuerySet[Shift]:
-        return self.shifts.annotate(user_count=Count('users')).filter(end__gte=datetime.now(),
-                                                                      required_users__gt=F('user_count'))
+        return self.shifts.annotate(user_count=Count('participants')).filter(end__gte=datetime.now(),
+                                                                             required_users__gt=F('user_count'))
 
     @property
     def open_shifts(self) -> QuerySet[Shift]:
         query = Q(end__gte=datetime.now()) & Q(Q(max_users=0) | Q(max_users__gt=F('user_count')))
-        return self.shifts.annotate(user_count=Count('users')).filter(query)
+        return self.shifts.annotate(user_count=Count('participants')).filter(query)
 
     @property
     def filled_slots(self) -> int:
-        return self.shifts.annotate(user_count=Count('users')).aggregate(Sum('user_count')).get('user_count__sum')
+        return self.shifts.annotate(user_count=Count('participants')).aggregate(Sum('user_count')).get(
+            'user_count__sum')
 
     @property
     def needed_slots(self) -> int:
