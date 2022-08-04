@@ -4,7 +4,7 @@ from typing import Any, Optional
 from django.db.models import QuerySet
 from django.http import HttpRequest
 
-from shiftings.calendar.feed.base import ShiftFeed
+from shiftings.cal.feed.base import ShiftFeed
 from shiftings.organizations.models import Organization
 from shiftings.shifts.models import Shift
 from shiftings.utils.exceptions import Http403

@@ -5,7 +5,7 @@ from django.db.models import QuerySet
 from django.http import HttpRequest
 from django.utils.translation import gettext_lazy as _
 
-from shiftings.calendar.feed.base import ShiftFeed
+from shiftings.cal.feed.base import ShiftFeed
 from shiftings.events.models import Event
 from shiftings.shifts.models import Shift
 from shiftings.utils.exceptions import Http403

@@ -1,6 +1,6 @@
 from django.urls import include, path
 
-from shiftings.calendar.feed.organization import OrganizationFeed
+from shiftings.cal.feed.organization import OrganizationFeed
 from shiftings.organizations.views.organization import OrganizationDetailView, OrganizationEditView, \
     OrganizationListView, OwnOrganizationListView
 

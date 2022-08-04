@@ -12,7 +12,7 @@ from shiftings.accounts.views.auth import UserLoginView, UserLogoutView
 # from shiftings.accounts.views.user_profile import UserProfileView
 from shiftings.accounts.views.password import PasswordResetConfirmView, PasswordResetView
 from shiftings.accounts.views.user import UserRegisterView, UserProfileView, UserEditView
-from shiftings.calendar.feed.user import OwnShiftsFeed, UserFeed
+from shiftings.cal.feed.user import OwnShiftsFeed, UserFeed
 
 urlpatterns: List[Any] = [
     # auth
