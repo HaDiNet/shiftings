@@ -1,11 +1,7 @@
-from typing import Any, Dict, Optional
-
 from django import template
-from django.template import TemplateSyntaxError, Variable, VariableDoesNotExist
-from django.template.base import FilterExpression, Parser, TextNode
+from django.template import TemplateSyntaxError
+from django.template.base import FilterExpression, Parser
 from django.template.loader import render_to_string
-from django.template.loader_tags import BlockNode
-from django.urls import reverse
 
 register = template.Library()
 

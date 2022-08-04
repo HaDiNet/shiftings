@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import date
 from typing import Optional
 
-from django.db.models import QuerySet
+from django.db.models import Q, QuerySet
 from django.urls import reverse
 from django.views.generic import DetailView, ListView
 
@@ -18,14 +18,21 @@ class EventListView(BaseMixin, ListView):
     model = Event
     context_object_name = 'events'
 
-
-class FutureEventListView(BaseMixin, ListView):
-    template_name = 'events/list.html'
-    model = Event
-    context_object_name = 'events'
-
     def get_queryset(self) -> QuerySet:
-        return Event.objects.filter(end_date__gte=date.today())
+        search_param = self.request.GET.get('search_param')
+        if search_param is not None:
+            return Event.objects.filter(Q(organization__name__icontains=search_param) |
+                                        Q(name__icontains=search_param))
+        return Event.objects.all()
+
+
+class FutureEventListView(EventListView):
+    extra_context = {
+        'future': True
+    }
+    def get_queryset(self) -> QuerySet:
+        queryset = super().get_queryset()
+        return queryset.filter(end_date__gte=date.today())
 
 
 class EventDetailView(BaseMixin, DetailView):

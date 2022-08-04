@@ -376,3 +376,11 @@ dl.detail-horizontal dd {
   color: var(--bs-orange);
 }
 
+.month-summary {
+  table-layout: fixed;
+  white-space: nowrap;
+}
+
+td.disabled {
+  opacity: 5%;
+}

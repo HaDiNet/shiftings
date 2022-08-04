@@ -38,6 +38,10 @@ class Event(models.Model):
     class Meta:
         default_permissions = ()
         ordering = ['name', 'start_date', 'end_date', 'organization']
+        constraints = [
+            models.CheckConstraint(name='event_start_after_end',
+                                   check=models.Q(start_date__lte=models.F('end_date')))
+        ]
 
     def __str__(self) -> str:
         return self.name

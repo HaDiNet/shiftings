@@ -30,9 +30,18 @@
 {% endblock %}
 
 {% block right_card_title %}
-  {% include 'generic/modular_search.html' with placeholder=_('Enter Name') %}
-  <a class="btn btn-success m-2" href="{% url 'organization_create' %}">
-    <i class="fas fa-person-circle-plus"></i> {% trans 'Add new Organization' %}
+  {% include 'generic/modular_search.html' with placeholder=_('Enter Name or Organization') %}
+  {% if future %}
+    <a class="btn btn-success m-2" href="{% url 'events' %}" title="{% trans "All Events" %}">
+      <i class="fa-solid fa-hourglass-end"></i>
+    </a>
+  {% else %}
+    <a class="btn btn-success m-2" href="{% url 'next_events' %}"  title="{% trans "Future Events" %}">
+      <i class="fa-solid fa-hourglass-start"></i>
+    </a>
+  {% endif %}
+  <a class="btn btn-success m-2" href="{% url 'event_create' %}">
+    <i class="fas fa-person-circle-plus"></i> {% trans 'Add new Event' %}
   </a>
 {% endblock %}
 

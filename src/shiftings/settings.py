@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'shiftings.accounts',
     'shiftings.organizations',
     'shiftings.events',
-    'shiftings.shifts'
+    'shiftings.shifts',
+    'shiftings.cal'
 ]
 
 MIDDLEWARE = [
@@ -75,6 +76,7 @@ TEMPLATES = [
                 'django.templatetags.i18n',
                 'bootstrap5.templatetags.bootstrap5',
                 'shiftings.templatetags.modal',
+                'shiftings.cal.templatetags.calendar',
             ],
             'context_processors': [
                 'django.template.context_processors.debug',

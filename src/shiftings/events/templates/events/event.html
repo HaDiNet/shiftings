@@ -48,9 +48,9 @@
 {% endblock %}
 {% block right %}
   <div class="row my-3">
-    <div class="col-md-6">
+    <div class="col-xxl-6">
       <div class="card bg-dark h-100">
-        <div class="card-body d-flex align-items-center">
+        <div class="card-body">
           <table>
             <tr title="{% trans "Shifts that are below the required amount of users" %}">
               <th>{% trans "Shifts missing users" %}:</th>
@@ -72,10 +72,20 @@
         </div>
       </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-xxl-6 mt-2 mt-xxl-0">
       <div class="card bg-dark h-100">
-        <div class="card-body">
-          {% include "month_view.html" %}
+        <div class="d-flex justify-content-between">
+          <div class="mx-auto pt-2">
+            {% trans "Month Overview" %}
+          </div>
+          <div>
+            <a class="btn btn-success" title="{% trans "Complete Overview" %}">
+              <i class="fas fa-calendar-week"></i>
+            </a>
+          </div>
+        </div>
+        <div class="card-body table-responsive">
+          {% month_overview_calendar event request.GET %}
         </div>
       </div>
     </div>

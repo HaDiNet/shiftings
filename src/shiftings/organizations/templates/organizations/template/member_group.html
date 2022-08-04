@@ -11,7 +11,7 @@
       </a>
       <button type="button" class="btn btn-danger px-1 py-0 me-4" data-bs-toggle="modal"
               data-bs-target="#confirmRemoveModal" data-bs-remove-name="{{ member_group }}"
-              data-bs-remove-url="{% url 'membership_remove' organization.pk member_group.pk %}">
+              data-bs-remove-url="{% url 'membership_remove' organization.pk member.pk %}">
         <i class="fas fa-x pe-none"></i>
       </button>
     </div>

@@ -196,7 +196,7 @@
         {% trans "Upcoming Events" %}
       </div>
       <div>
-        <a class="btn btn-secondary" href="" title="{% trans "Expired Events" %}">
+        <a class="btn btn-secondary" href="{% url "events" %}" title="{% trans "Expired Events" %}">
           <i class="fa-solid fa-hourglass-end"></i>
         </a>
         <a class="btn btn-success ms-2" href="{% url 'event_create' %}?org={{ organization.pk }}"

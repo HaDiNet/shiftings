@@ -18,7 +18,10 @@ class FlatPickrMixin(DateTimeBaseInput):
         self.attrs['js_format'] = self.js_format
 
     class Media:
-        css = {'all': ('https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css',)}
+        css = {
+            'all': ('https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css',
+                    'https://npmcdn.com/flatpickr/dist/themes/dark.css')
+        }
         js = ('https://cdn.jsdelivr.net/npm/flatpickr', f'js/l10n/{get_language()}.js')
 
     def get_context(self, name: str, value: Any, attrs: Optional[dict[str, Any]]) -> dict[str, Any]:
