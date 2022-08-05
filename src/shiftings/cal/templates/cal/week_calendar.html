@@ -1,0 +1,77 @@
+{% extends "cal/calendar_base.html" %}
+{% block calendar %}
+
+  <div class="card bg-dark week-calendar p-2">
+    <div class="week-head">
+      <div class="calendar-nav">
+        <div>
+          <a class="link" href="{{ last_url }}">
+            <i class="fa-solid fa-angles-left"></i> {% trans 'Previous Week' %}
+          </a>
+        </div>
+        <div>
+          <h3>{% trans "Week" %} {{ week|date:"W Y" }}</h3>
+        </div>
+        <div>
+          <a class="link" href="{{ next_url }}">
+            <div>{% trans 'Next Week' %} <i class="fa-solid fa-angles-right"></i></div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="week-grid h-100">
+      <div class="hour-grid">
+        <div class="fw-bolder border">Hours</div>
+        {% for day_name in weekday_names %}
+          <div class="border">
+            <h5 class="fw-bolder">{% trans day_name %}</h5>
+          </div>
+        {% endfor %}
+      </div>
+      {% with ''|center:24 as range %}
+        {% for _ in range %}
+          <div class="hour-grid text-center border-x border-1">
+            <div class="border">{{ forloop.counter0 }}:00</div>
+            {% with ''|center:7 as range %}
+              {% for _ in range %}
+                <div class="border border-1 p-1 hour-container" style="position: relative;">
+                  <div class="day card bg-info border border-4"
+                       style="position: absolute;top: 0;width: 100%;;">
+                    asdfsgdasfdhfhfdfhdhfdshsdfhhfdhfdssfdhsfdyhhdsfhfdz
+                  </div>
+                  <div class="day card bg-danger border border-4"
+                       style="position: absolute;top: 0;left: 20%;width: 80%;">
+                    asdfsgdasfdhfhfdfhdhfdshsdfhhfdhfdssfdhsfdyhhdsfhfdz
+                  </div>
+                  <div class="day card bg-warning border border-4"
+                       style="position: absolute;top: 0;left: 40%;width: 60%;">
+                    asdfsgdasfdhfhfdfhdhfdshsdfhhfdhfdssfdhsfdyhhdsfhfdz
+                  </div>
+                  <div class="day card bg-success border border-4"
+                       style="position: absolute;top: 0;left: 60%;width: 40%;">
+                    asdfsgdasfdhfhfdfhdhfdshsdfhhfdhfdssfdhsfdyhhdsfhfdz
+                  </div>
+                </div>
+              {% endfor %}
+            {% endwith %}
+          </div>
+        {% endfor %}
+      {% endwith %}
+      {#            {% for week in weeks %}#}
+      {#              <div class="week">#}
+      {#                {% for day in week %}#}
+      {#                  <div class="{{ day.class }} {{ day.today }}">#}
+      {#                    <div class="day-name">{{ day.name }}</div>#}
+      {#                    <div class="calendar-entry-wrapper">#}
+      {#                      {% for entry in day.entries %}#}
+      {#                        {{ entry }}#}
+      {#                      {% endfor %}#}
+      {#                    </div>#}
+      {#                  </div>#}
+      {#                {% endfor %}#}
+      {#              </div>#}
+      {#            {% endfor %}#}
+    </div>
+
+  </div>
+{% endblock %}

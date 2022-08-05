@@ -8,8 +8,8 @@
     {% if request.user.is_authenticated %}
       <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
       <div class="navbar-nav">
-        <a class="nav-link d-flex align-items-center" href="{% url "next_shifts" %}">
-          {% trans "Overview" %} <i class="fas fa-calendar ms-2"></i>
+        <a class="nav-link d-flex align-items-center" href="{% url "overview_thismonth" %}">
+          {% trans "Overview" %} <i class="fas fa-calendar-days ms-2"></i>
         </a>
         <a class="nav-link d-flex align-items-center" href="{% url "login" %}">
           {% trans "My Shifts" %} <i class="fas fa-briefcase ms-2"></i>

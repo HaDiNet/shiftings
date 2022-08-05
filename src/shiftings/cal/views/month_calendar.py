@@ -1,72 +1,159 @@
-from calendar import HTMLCalendar, month_name, monthrange
+from calendar import day_name, HTMLCalendar
 from datetime import date
-from typing import Optional, Union
+from typing import Any, Dict, List, Union
 
 from dateutil.relativedelta import relativedelta
+from django.db.models import Q, QuerySet
+from django.template.loader import render_to_string
+from django.urls import reverse
+from django.utils.http import urlencode
+from django.utils.safestring import mark_safe
+from django.utils.translation import gettext_lazy as _
 
-from shiftings.events.models import Event
-from shiftings.organizations.models import Organization
+from shiftings.accounts.models import User
+from shiftings.cal.views.calendar_base import CalendarBaseView
+from shiftings.shifts.models import RecurringShift, Shift
 
 
-class OrganizationMonthView:
-    pass
+# pylint: disable=no-self-use
 
 
-class MonthOverviewCalendar(HTMLCalendar):
-    cssclass_month = "table table-dark m-0 text-center month-summary"
-    active_days: Optional[set[int]] = None
-    current_day: Optional[date]
+class MonthCalenderView(CalendarBaseView):
+    template_name = 'cal/month_calendar.html'
+    title = _('Calendar')
 
-    def __init__(self, model: Union[Event, Organization]):
+    def get_date(self) -> date:
+        _date = date.today().replace(day=1)
+        month = self.kwargs.get('themonth', None)
+        year = self.kwargs.get('theyear', None)
+        if month is not None:
+            try:
+                _date = _date.replace(month=int(month))
+            except ValueError:
+                pass
+        if year is not None:
+            try:
+                _date = _date.replace(year=int(year))
+            except ValueError:
+                pass
+        return _date
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context_data = super().get_context_data()
+        _date = self.get_date()
+        cal = MonthCalendar(_date, self.request.user, self.request, self.get_filters())
+        html_calendar = cal.format()
+        context_data['calendar'] = mark_safe(html_calendar)
+        return context_data
+
+
+class BaseCalendar(HTMLCalendar):
+    _date: date
+    user: User
+
+    render_entries_as_form: bool = False
+
+    def __init__(self, _date: date, user: User, request, shift_filter) -> None:
         super().__init__()
-        self.model = model
+        self._date = _date
+        self.user = user
+        self.request = request
+        self.shift_filter = shift_filter
 
-    def format(self, current_day: Optional[date] = None):
-        if current_day is None:
-            current_day = date.today
-        self.current_day = current_day.replace(day=1)
-        the_month, the_year = self.current_day.month, self.current_day.year
-        if self.active_days is None:
-            self.active_days = set()
+    def get_shifts(self, _date: date) -> Union[List[Shift], QuerySet[Shift]]:
+        return Shift.objects.filter(self.shift_filter & Q(start__date=_date)).order_by('shift_type', 'start', 'end')
 
-        filter_start = date(the_year, the_month, 1)
-        filter_end = date(the_year, the_month, monthrange(the_year, the_month)[1])
-        for start in self.model.shifts.filter(start__range=[filter_start, filter_end]).values_list('start', flat=True):
-            if start.month != the_month or start.year != the_year:
-                continue
-            self.active_days.add(start.day)
-        return self.formatmonth(the_year, the_month)
+    def can_see_shift(self, shift: Shift) -> bool:
+        return True  # shift.can_view(self.user)
 
-    def formatmonthname(self, theyear: int, themonth: int, withyear: bool = True) -> str:
-        """
-        Return a month name as a table row.
-        """
-        if withyear:
-            s = '%s %s' % (month_name[themonth], theyear)
-        else:
-            s = '%s' % month_name[themonth]
-        prev_month = self.current_day.replace(day=1) - relativedelta(months=1)
-        next_month = self.current_day.replace(day=1) + relativedelta(months=1)
-        return (f'<tr>'
-                f'<th class="pe-pointer"'
-                f' onclick="window.location.href=\'?month={prev_month.month}&year={prev_month.year}\'">'
-                f'<i class="fas fa-left-long"></i></th>'
-                f'<th colspan="5" class="{self.cssclass_month_head}">{s}</th>'
-                f'<th class="pe-pointer"'
-                f' onclick="window.location.href=\'?month={next_month.month}&year={next_month.year}\'">'
-                f'<i class="fas fa-right-long"></i></th>'
-                f'</tr>')
+    def get_shift_link(self, shift: Shift) -> str:
+        return shift.get_absolute_url()
 
-    def formatday(self, day, weekday):
-        """
-        Return a day as a table cell.
-        """
+    def get_recurring_shifts(self, _date: date) -> List[RecurringShift]:
+        if _date < date.today():
+            return []
+        r_shifts = RecurringShift.objects.all()
+        if self.request.GET.get('filter') == 'organization' and 'organization' in self.request.GET:
+            r_shifts = r_shifts.filter(organization__pk=self.request.GET.get('organization'))
+        return [recurring_shift for recurring_shift in r_shifts if recurring_shift.matches_day(_date)]
+
+    def can_see_recurring_shift(self, recurring_shift: RecurringShift) -> bool:
+        return False
+
+    def get_recurring_shift_link(self, recurring_shift: RecurringShift, _date: date) -> str:
+        params = {'date': _date}
+        return f'{recurring_shift.get_absolute_url()}?{urlencode(params)}'
+
+    def get_nav_url(self, args) -> str:  # pylint: disable=no-self-use
+        return reverse('overview_month', args=args)
+
+    def format(self) -> str:
+        last_month = self._date - relativedelta(months=1)
+        next_month = self._date + relativedelta(months=1)
+        context = {
+            'month': self._date,
+            'weekday_names': day_name,
+            'weeks': self.get_weeks(),
+            'last_url': self.get_nav_url([last_month.month, last_month.year]),
+            'next_url': self.get_nav_url([next_month.month, next_month.year])
+        }
+        return render_to_string('cal/template/month_calendar.html', context=context,
+                                request=self.request)
+
+    def render_shift(self, shift: Shift) -> str:
+        context = {
+            'shift': shift,
+            'shift_link': self.get_shift_link(shift),
+            'is_form': self.render_entries_as_form
+        }
+        return render_to_string('cal/calendar_templates/shift_entry.html', context, request=self.request)
+
+    def render_recurring_shift(self, recurring_shift: RecurringShift, _date: date) -> str:
+        context = {
+            'recurring_shift': recurring_shift,
+            'recurring_shift_link': self.get_recurring_shift_link(recurring_shift, _date),
+        }
+        return render_to_string('cal/calendar_templates/recurring_shift_entry.html', context, request=self.request)
+
+    def get_day(self, day: int) -> Dict[str, Union[str, int, List[str]]]:
         if day == 0:
             # day outside month
-            return '<td class="%s">&nbsp;</td>' % self.cssclass_noday
-        else:
-            if day in self.active_days:
-                day_url = ''
-                return f'<td class="{self.cssclasses[weekday]}"><a class="link" href="{day_url}">{day}</a></td>'
-            else:
-                return f'<td class="{self.cssclasses[weekday]} disabled">{day}</td>'
+            return {
+                'class': 'noday',
+                'name': '',
+                'entries': [],
+            }
+
+        _date = date(self._date.year, self._date.month, day)
+        shifts = self.get_shifts(_date)
+        recurring_shifts = self.get_recurring_shifts(_date)
+        entries: List[str] = []
+        if len(shifts) + len(recurring_shifts) > 0:
+            r_shift_done = set()
+            shift: Shift
+            for shift in shifts:
+                if not self.can_see_shift(shift):
+                    continue
+                entries.append(self.render_shift(shift))
+                if shift.based_on is not None:
+                    r_shift_done.add(shift.based_on)
+            for r_shift in recurring_shifts:
+                if self.can_see_recurring_shift(r_shift) and r_shift not in r_shift_done:
+                    entries.append(self.render_recurring_shift(r_shift, _date))
+        return {
+            'class': 'day',
+            'name': day,
+            'entries': entries,
+            'today': 'today' if date.today() == _date else '',
+        }
+
+    def get_weeks(self) -> List[List[Dict[str, Union[str, int, List[str]]]]]:
+        weeks = []
+        for week in self.monthdays2calendar(self._date.year, self._date.month):
+            weeks.append([self.get_day(d) for d, _ in week])
+        return weeks
+
+
+class MonthCalendar(BaseCalendar):
+    def can_see_recurring_shift(self, recurring_shift: RecurringShift) -> bool:
+        return any(membership.is_member(self.user) for membership in recurring_shift.organization.all_members.all())

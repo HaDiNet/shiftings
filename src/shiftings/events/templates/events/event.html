@@ -90,19 +90,23 @@
       </div>
     </div>
   </div>
+
   <div class="card bg-dark mt-3">
     <div class="card-header center-items justify-content-between">
       <h5 class="m-0">{% trans "Shifts" %}</h5>
       <div>
+        <a class="btn btn-success" href="{% url 'event_calendar' event.pk %}" title="{% trans "ical Export" %}">
+          <i class="fas fa-file-export"></i> {% trans "ical Export" %}
+        </a>
         <a class="btn btn-success" href="{% url "shift_create" %}" title="{% trans "Create Shift" %}">
           <i class="fa-solid fa-calendar-plus"></i>
         </a>
       </div>
     </div>
     <div>
-      <div class="table-responsive">
+      <div class="table-responsive p-1">
         {% if event.shifts.all|length > 0 %}
-          <table class="table table-striped table-dark mb-1 text-center">
+          <table class="table table-striped table-dark mb-0 text-center">
             <thead>
             <tr>
               <th>{% trans "Name" %}</th>
@@ -132,6 +136,5 @@
         {% endif %}
       </div>
     </div>
-
   </div>
 {% endblock %}

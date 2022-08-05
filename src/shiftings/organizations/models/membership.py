@@ -66,6 +66,9 @@ class Membership(models.Model):
             return [self.user.pk]
         return list(self.group.user_set.values_list('pk', flat=True))
 
+    def is_member(self, user):
+        return self.user == user or self.group in user.groups.all()
+
     def clean(self) -> None:
         if self.user and self.group:
             raise ValidationError(_('Membership can only be either user or group, not both.'))

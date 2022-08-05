@@ -1,0 +1,17 @@
+{% if is_form %}
+  <div class="calendar-entry">
+    <form action="{{ shift_link }}" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="shift" value="{{ shift.pk }}">
+      <button class="card calendar-shift" style="{{ shift.shift_type.style }}" type="submit">
+        {{ shift.name }}
+      </button>
+    </form>
+  </div>
+{% else %}
+  <div class="calendar-entry">
+    <a class="card calendar-shift" style="{{ shift.shift_type.style }}" href="{{ shift_link }}">
+      {{ shift.name }}
+    </a>
+  </div>
+{% endif %}

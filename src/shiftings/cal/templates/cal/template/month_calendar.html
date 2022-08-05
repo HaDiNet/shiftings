@@ -1,0 +1,40 @@
+<div class="card bg-dark p-2 calendar-month">
+  <div class="month-head">
+    <div class="calendar-nav">
+      <div>
+        <a class="link" href="{{ last_url }}">
+          &laquo; {% trans 'Previous Month' %}
+        </a>
+      </div>
+      <div>
+        <h3>{{ month|date:"F Y" }}</h3>
+      </div>
+      <div>
+        <a class="link" href="{{ next_url }}">
+          <div>{% trans 'Next Month' %} &raquo;</div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class=week-head>
+    {% for day_name in weekday_names %}
+      <div class="day">
+        {% trans day_name %}
+      </div>
+    {% endfor %}
+  </div>
+  {% for week in weeks %}
+    <div class="week">
+      {% for day in week %}
+        <div class="{{ day.class }} {{ day.today }}">
+          <div class="day-name">{{ day.name }}</div>
+          <div class="calendar-entry-wrapper">
+            {% for entry in day.entries %}
+              {{ entry }}
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endfor %}
+</div>

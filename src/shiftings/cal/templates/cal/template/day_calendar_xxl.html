@@ -1,0 +1,53 @@
+<div class="d-none d-xxl-flex table-responsive">
+  <table class="table table-dark table-striped table-bordered table-hover border-secondary table-fixed">
+    <thead>
+    <tr>
+      <th>{% trans "Start" %}</th>
+      {% for _ in day_hours %}
+        <th>{{ forloop.counter0 }}:00</th>
+      {% endfor %}
+      <th>{% trans "End" %}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      {% for entry in shifts %}
+        <td>
+          {% if entry.shift.start.date != theday %}
+            <a class="link" href="{% url "overview_day" entry.shift.start.date.isoformat %}">
+              {{ entry.shift.start.date }}
+            </a>
+          {% else %}
+            {% trans "Today" %}
+          {% endif %}
+        </td>
+        {% for _ in entry.start_hour %}
+          <td class="border border-secondary"></td>
+        {% endfor %}
+        <td class="p-0" colspan="{{ entry.duration }}">
+          <div class="card bg-danger">
+            <div class="card-body flex-wrap">
+              <a class="link" href="{{ entry.shift.get_absolute_url }}">
+                {{ entry.shift }}
+              </a>
+            </div>
+          </div>
+        </td>
+        {% for _ in entry.end_hour %}
+          <td class="border border-secondary"></td>
+        {% endfor %}
+
+        <td>
+          {% if entry.shift.end.date != theday %}
+            <a class="link" href="{% url "overview_day" entry.shift.end.date.isoformat %}">
+              {{ entry.shift.end.date }}
+            </a>
+          {% else %}
+            {% trans "Today" %}
+          {% endif %}
+        </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

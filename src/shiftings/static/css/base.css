@@ -376,11 +376,39 @@ dl.detail-horizontal dd {
   color: var(--bs-orange);
 }
 
-.month-summary {
+.table-fixed {
   table-layout: fixed;
   white-space: nowrap;
 }
 
 td.disabled {
   opacity: 5%;
+}
+
+.calendar-week {
+  height: 85vh;
+  min-width: 1150px;
+}
+
+.week-grid {
+  display: grid;
+  grid-template-rows: 2rem repeat(24, 1fr);
+  text-align: center;
+}
+
+.week-grid div, .hour-grid div {
+  border-color: var(--bs-gray-700) !important;
+}
+
+.hour-grid {
+  display: grid;
+  grid-template-columns: 4rem repeat(7, 1fr);
+}
+
+.hour-container {
+  overflow: hidden;
+}
+
+.hour-container:hover {
+  overflow: unset;
 }

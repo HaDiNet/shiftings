@@ -4,7 +4,7 @@ from typing import Any, Optional, Union
 from django import template
 from django.utils.safestring import mark_safe
 
-from shiftings.cal.views.month_calendar import MonthOverviewCalendar
+from shiftings.cal.views.month_summary_calendar import MonthOverviewCalendar
 from shiftings.events.models import Event
 from shiftings.organizations.models import Organization
 
