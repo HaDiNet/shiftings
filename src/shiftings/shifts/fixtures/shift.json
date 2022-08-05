@@ -48,7 +48,7 @@
     }
   },
   {
-    "model": "shifts.shiftgroup",
+    "model": "shifts.shifttypegroup",
     "pk": 1,
     "fields": {
       "organization": 1,
@@ -60,7 +60,7 @@
     }
   },
   {
-    "model": "shifts.shiftgroup",
+    "model": "shifts.shifttypegroup",
     "pk": 2,
     "fields": {
       "organization": 1,

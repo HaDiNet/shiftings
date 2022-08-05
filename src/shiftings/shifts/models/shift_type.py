@@ -13,3 +13,27 @@ class ShiftType(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+
+class ShiftTypeGroup(models.Model):
+    organization = models.ForeignKey('organizations.Organization', on_delete=models.CASCADE,
+                                     related_name='shift_type_groups')
+    position = models.PositiveSmallIntegerField()
+    name = models.CharField(max_length=100, verbose_name=_('Group Name'))
+    shift_types = models.ManyToManyField('ShiftType', verbose_name=_('Shift Types'))
+
+    class Meta:
+        default_permissions = ()
+        ordering = ['position']
+        constraints = [
+            models.UniqueConstraint(fields=['organization', 'position'],
+                                    name='shift_type_group_position_unique_constraint'),
+            models.UniqueConstraint(fields=['organization', 'name'], name='shift_type_group_name_unique_constraint')
+        ]
+
+    def __str__(self) -> str:
+        return self.name
+
+    @property
+    def display(self) -> str:
+        return self.name
