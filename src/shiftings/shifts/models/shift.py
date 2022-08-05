@@ -2,7 +2,9 @@ from __future__ import annotations
 
 from typing import Optional, TYPE_CHECKING, Union
 
+from django.core.exceptions import ValidationError
 from django.db import models
+from django.db.models import F, Q
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
@@ -35,6 +37,13 @@ class Shift(ShiftBase):
     class Meta:
         default_permissions = ()
         ordering = ['start', 'end', 'name', 'organization']
+        constraints = [
+            models.CheckConstraint(check=Q(start__lte=F('end')), name='shift_start_before_end')
+        ]
+
+    def clean(self) -> None:
+        if self.event and self.event.organization != self.organization:
+            raise ValidationError(_('Organization and Event Organization must be identical.'))
 
     def __str__(self) -> str:
         return _('Shift {name} on {time}').format(name=self.name, time=self.start.strftime("%Y-%m-%d %H:%M:%S"), )

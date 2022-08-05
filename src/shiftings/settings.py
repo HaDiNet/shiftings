@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.forms',
     'bootstrap5',
+    'colorfield',
     'phonenumber_field',
     'shiftings.accounts',
     'shiftings.organizations',

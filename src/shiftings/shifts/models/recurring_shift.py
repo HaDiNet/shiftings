@@ -1,14 +1,14 @@
 from __future__ import annotations
 
-from datetime import date, datetime
-from typing import Optional
+from datetime import date, datetime, timedelta
+from typing import Any, Optional
 
 import holidays
 from django.contrib.humanize.templatetags.humanize import ordinal
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
-from django.db.models import DurationField
+from django.db.models import DurationField, Q
 from django.urls import reverse
 from django.utils.translation import gettext as __, gettext_lazy as _
 
@@ -51,6 +51,11 @@ class RecurringShift(ShiftBase):
 
     def __str__(self) -> str:
         return self.display
+
+    def save(self, *args: Any, **kwargs: Any) -> None:
+        if self.duration < timedelta(0):
+            self.duration = timedelta(0)
+        super().save(*args, **kwargs)
 
     @property
     def display(self) -> str:
@@ -113,7 +118,7 @@ class RecurringShift(ShiftBase):
             return None
 
         start = datetime.combine(_date, self.time)
-        shift = Shift(name=self.name, shift_type=self.shift_type, place=self.place, organization=self.organization,
+        shift = Shift(name=self.name, shift_group=self.shift_group, place=self.place, organization=self.organization,
                       start=start, end=start + self.duration, required_users=self.required_users,
                       max_users=self.max_users, additional_infos=self.additional_infos, based_on=self)
         if WeekDay.is_weekend(_date):

@@ -5,9 +5,9 @@
     <tr>
       <th>{% trans 'Name' %}</th>
     </tr>
-    {% for shift_type in shift_types %}
+    {% for shift_group in shift_groups %}
       <tr>
-        <td>{{ shift_type.name }}</td>
+        <td>{{ shift_group.name }}</td>
       </tr>
     {% endfor %}
   </table>

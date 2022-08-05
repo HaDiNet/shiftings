@@ -135,7 +135,7 @@
           {% for recurring_shift in organization.recurringshifts.all %}
             <tr class="link pe-pointer" onclick="window.location.href='{% url 'recurring_shift' recurring_shift.pk %}'">
               <td>{{ recurring_shift.display }}</td>
-              <td>{{ recurring_shift.shift_type }}</td>
+              <td>{{ recurring_shift.shift_group }}</td>
               <td>{{ recurring_shift.time }}</td>
               <td>{{ recurring_shift.duration }}</td>
               <td>{{ recurring_shift.place }}</td>

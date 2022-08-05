@@ -4,9 +4,9 @@
     "pk": 1,
     "fields": {
       "name": "Frühschicht",
-      "shift_type": 1,
       "place": "K1 Bar",
       "organization": 1,
+      "shift_group": 1,
       "required_users": 1,
       "max_users": 3,
       "additional_infos": "",
@@ -28,9 +28,9 @@
     "pk": 2,
     "fields": {
       "name": "Spätschicht",
-      "shift_type": 2,
       "place": "K1 Bar",
       "organization": 1,
+      "shift_group": 2,
       "required_users": 1,
       "max_users": 2,
       "additional_infos": "",
@@ -48,48 +48,71 @@
     }
   },
   {
-    "model": "shifts.shifttypegroup",
-    "pk": 1,
-    "fields": {
-      "organization": 1,
-      "position": 0,
-      "name": "Früh",
-      "shift_types": [
-        1
-      ]
-    }
-  },
-  {
-    "model": "shifts.shifttypegroup",
-    "pk": 2,
-    "fields": {
-      "organization": 1,
-      "position": 1,
-      "name": "Spät",
-      "shift_types": [
-        2
-      ]
-    }
-  },
-  {
-    "model": "shifts.shifttype",
-    "pk": 1,
-    "fields": {
-      "name": "Früh"
-    }
-  },
-  {
-    "model": "shifts.shifttype",
-    "pk": 2,
-    "fields": {
-      "name": "Spät"
-    }
-  },
-  {
-    "model": "shifts.shifttype",
+    "model": "shifts.recurringshift",
     "pk": 3,
     "fields": {
-      "name": "Einkauf"
+      "name": "Barteamsitzung",
+      "place": "K1 Bar",
+      "organization": 1,
+      "shift_group": 3,
+      "required_users": 0,
+      "max_users": 0,
+      "additional_infos": "",
+      "time_frame_field": 1,
+      "ordinal": 1,
+      "week_day_field": 6,
+      "month_field": null,
+      "first_occurrence": "2022-08-07",
+      "time": "20:00:00",
+      "duration": "01:00:00",
+      "weekend_handling_field": 1,
+      "weekend_warning": "",
+      "holiday_handling_field": 1,
+      "holiday_warning": ""
+    }
+  },
+  {
+    "model": "shifts.shiftgroup",
+    "pk": 1,
+    "fields": {
+      "organization": 1,
+      "event": null,
+      "name": "Früh",
+      "position": 0,
+      "color": "#DC3545"
+    }
+  },
+  {
+    "model": "shifts.shiftgroup",
+    "pk": 2,
+    "fields": {
+      "organization": 1,
+      "event": null,
+      "name": "Spät",
+      "position": 1,
+      "color": "#DC3545"
+    }
+  },
+  {
+    "model": "shifts.shiftgroup",
+    "pk": 3,
+    "fields": {
+      "organization": 1,
+      "event": null,
+      "name": "Sitzung",
+      "position": 3,
+      "color": "#DC3545"
+    }
+  },
+  {
+    "model": "shifts.shiftgroup",
+    "pk": 4,
+    "fields": {
+      "organization": 1,
+      "event": null,
+      "name": "GeMa Einkauf",
+      "position": 2,
+      "color": "#DC3545"
     }
   },
   {
