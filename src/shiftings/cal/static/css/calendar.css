@@ -160,8 +160,8 @@ a.calendar-shift > a:hover {
 .planned {
   background: repeating-linear-gradient(
       315deg,
-      var(--bs-indigo),
-      var(--bs-indigo) 15px,
+      var(--shift-color),
+      var(--shift-color) 15px,
       transparent 15px,
       transparent 30px
   );
