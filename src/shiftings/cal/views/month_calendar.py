@@ -73,6 +73,8 @@ class BaseCalendar(HTMLCalendar):
         if _date < date.today():
             return []
         r_shifts = RecurringShift.objects.all()
+        if self.request.GET.get('filter') == 'own':
+            return []
         if self.request.GET.get('filter') == 'organization' and 'organization' in self.request.GET:
             r_shifts = r_shifts.filter(organization__pk=self.request.GET.get('organization'))
         return [recurring_shift for recurring_shift in r_shifts if recurring_shift.matches_day(_date)]
@@ -121,6 +123,7 @@ class BaseCalendar(HTMLCalendar):
             return {
                 'class': 'noday',
                 'name': '',
+                'date': None,
                 'entries': [],
             }
 
@@ -143,6 +146,7 @@ class BaseCalendar(HTMLCalendar):
         return {
             'class': 'day',
             'name': day,
+            'date': _date,
             'entries': entries,
             'today': 'today' if date.today() == _date else '',
         }

@@ -14,7 +14,7 @@
       <dt>{% trans "Member since" %}</dt>
       <dd>{{ user.date_joined|timesince }}</dd>
       <dt>{% trans "Total Shifts" %}</dt>
-      <dd>{{ user.shifts.all|length }}</dd>
+      <dd>{{ user.shifts.count }}</dd>
     </dl>
     <a class="btn btn-success" href="{% url "user_edit_self" %}">
       <i class="fa-solid fa-user-pen"></i>

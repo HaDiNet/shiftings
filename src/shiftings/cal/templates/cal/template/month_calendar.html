@@ -27,7 +27,9 @@
     <div class="week">
       {% for day in week %}
         <div class="{{ day.class }} {{ day.today }}">
-          <div class="day-name">{{ day.name }}</div>
+          <div class="day-name">
+            <a class="link" href="{% url "overview_day" day.date %}" title="{{ day.date|date }}">{{ day.name }}</a>
+          </div>
           <div class="calendar-entry-wrapper">
             {% for entry in day.entries %}
               {{ entry }}

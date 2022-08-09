@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from typing import Optional
+from datetime import date
+from typing import Any, Optional
 
 from django.urls import reverse
 from django.views.generic import DetailView, ListView
@@ -21,6 +22,15 @@ class RecurringShiftDetailView(BaseMixin, DetailView):
     template_name = 'shifts/recurring/shift.html'
     model = RecurringShift
     context_object_name = 'shift'
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        today = date.today()
+        context.update({
+            'passed_created_shifts': self.object.created_shifts.filter(start__lt=today).order_by('-start')[:5],
+            'upcoming_created_shifts': self.object.created_shifts.filter(start__gte=today).order_by('-start')[:5]
+        })
+        return context
 
 
 class RecurringShiftEditView(BaseMixin, CreateOrUpdateView):

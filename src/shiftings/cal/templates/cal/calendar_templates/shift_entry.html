@@ -4,14 +4,14 @@
       {% csrf_token %}
       <input type="hidden" name="shift" value="{{ shift.pk }}">
       <button class="card calendar-shift" style="background-color: {{ shift.shift_group.color }}" type="submit">
-        {{ shift.name }}
+        {{ shift.organization.name }}: {{ shift.name }}
       </button>
     </form>
   </div>
 {% else %}
   <div class="calendar-entry">
     <a class="card calendar-shift" style="background-color: {{ shift.shift_group.color }}" href="{{ shift_link }}">
-      {{ shift.name }}
+      {{ shift.organization.name }}: {{ shift.name }}
     </a>
   </div>
 {% endif %}

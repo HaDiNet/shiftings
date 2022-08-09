@@ -7,7 +7,7 @@
           <div><i class="fa-solid fa-angles-left"></i> {% trans 'Previous Day' context calendar %}</div>
         </a></div>
       <div class="center-items">
-        <h3 class="m-0 me-4">{{ theday|date:'j. F Y' }}</h3>
+        <h3 class="m-0 me-4">{{ theday|date:'l j. F Y' }}</h3>
         <a class="btn btn-success" href="{% url "overview_today" %}" title="{% trans "Jump to Today" %}">
           <i class="fa-solid fa-calendar-day"></i>
         </a>

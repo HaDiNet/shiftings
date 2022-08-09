@@ -41,6 +41,9 @@ class DayView(CalendarBaseView):
         if day == shift.end.date():
             end_hour = 24 - shift.end.hour
             duration = shift.end.hour
+            if duration == 0:
+                duration = 1
+                end_hour -= 1
         else:
             end_hour = 0
 

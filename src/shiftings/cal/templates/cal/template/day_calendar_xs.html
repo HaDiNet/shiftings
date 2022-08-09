@@ -16,7 +16,7 @@
               {{ entry.shift.start.date }}
             </a>
           {% else %}
-            {% trans "Today" %}
+            {% trans "This Day" %}
           {% endif %}
         </td>
         <td colspan="5" class="p-0">
@@ -34,9 +34,15 @@
               {{ entry.shift.end.date }}
             </a>
           {% else %}
-            {% trans "Today" %}
+            {% trans "This Day" %}
           {% endif %}
         </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="7" class="text-center text-warning fw-bolder">
+            <h3>{% trans "No Shifts on this day" %}</h3>
+          </td>
         </tr>
       {% endfor %}
     </tbody>
