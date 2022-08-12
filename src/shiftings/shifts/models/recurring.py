@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import date
+from datetime import date, datetime
 from typing import Optional
 
 import holidays
@@ -114,6 +114,14 @@ class RecurringShift(models.Model):
 
     def shift_exists(self, shift: Shift) -> bool:
         return self.created_shifts.filter(name=shift.name, shift_type=shift.shift_type, start=shift.start).exists()
+
+    def shifts_exist(self, _date: date) -> bool:
+        if self.template is None:
+            return True
+        for shift in self.template.create_shifts(_date, None, None):
+            if not self.shift_exists(shift):
+                return False
+        return True
 
     def matches_day(self, _date: date) -> bool:
         return self.time_frame_type.matches_day(self, _date)

@@ -77,7 +77,8 @@ class BaseCalendar(HTMLCalendar):
             return []
         if self.request.GET.get('filter') == 'organization' and 'organization' in self.request.GET:
             r_shifts = r_shifts.filter(organization__pk=self.request.GET.get('organization'))
-        return [recurring_shift for recurring_shift in r_shifts if recurring_shift.matches_day(_date)]
+        return [recurring_shift for recurring_shift in r_shifts if
+                recurring_shift.matches_day(_date) and recurring_shift.enabled]
 
     def can_see_recurring_shift(self, recurring_shift: RecurringShift) -> bool:
         return False
@@ -132,16 +133,13 @@ class BaseCalendar(HTMLCalendar):
         recurring_shifts = self.get_recurring_shifts(_date)
         entries: List[str] = []
         if len(shifts) + len(recurring_shifts) > 0:
-            r_shift_done = set()
             shift: Shift
             for shift in shifts:
                 if not self.can_see_shift(shift):
                     continue
                 entries.append(self.render_shift(shift))
-                if shift.based_on is not None:
-                    r_shift_done.add(shift.based_on)
             for r_shift in recurring_shifts:
-                if self.can_see_recurring_shift(r_shift) and r_shift not in r_shift_done:
+                if self.can_see_recurring_shift(r_shift) and not r_shift.shifts_exist(_date):
                     entries.append(self.render_recurring_shift(r_shift, _date))
         return {
             'class': 'day',
