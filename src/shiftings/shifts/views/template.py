@@ -1,3 +1,5 @@
+from typing import Any
+
 from django.db.models import QuerySet
 from django.forms import modelformset_factory
 from django.http import HttpResponse
@@ -27,6 +29,11 @@ class TemplateGroupAddShiftsView(BaseLoginMixin, ModelFormsetBaseView[ShiftTempl
 
     def get_form_data(self) -> list[ShiftTemplate]:
         return list()
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context['recurring_shift'] = self.get_recurring_shift()
+        return context
 
     def form_valid(self, formset: ShiftTemplateFormSet) -> HttpResponse:
         group = self.get_group()

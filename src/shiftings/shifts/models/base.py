@@ -12,8 +12,8 @@ class ShiftBase(models.Model):
     shift_type = models.ForeignKey('ShiftType', verbose_name=_('Shift Type'), on_delete=models.SET_NULL, blank=True,
                                    null=True)
 
-    required_users = models.PositiveIntegerField(verbose_name=_('Required User'), default=0)
-    max_users = models.PositiveIntegerField(verbose_name=_('Maximum User'), default=0)
+    required_users = models.PositiveIntegerField(verbose_name=_('Required Users'), default=0)
+    max_users = models.PositiveIntegerField(verbose_name=_('Maximum Users'), default=0)
 
     additional_infos = models.TextField(verbose_name=_('Additional Infos'), blank=True, null=True)
 

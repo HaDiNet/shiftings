@@ -158,6 +158,10 @@ input, textarea, select, .form-control, .form-select {
   cursor: pointer;
 }
 
+.pe-help {
+  cursor: help;
+}
+
 .alert-primary {
   color: #084298;
   background-color: #cfe2ff;

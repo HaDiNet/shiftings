@@ -10,27 +10,76 @@
       </div>
     {% endif %}
     <form method="post" {% include 'generic/include_params.html' with params=form_params only %}>
-      <div class="flex-row-wrap my-2">
-        <a id="formset_add" class="btn btn-primary"><i class="fas fa-plus" title="{% trans 'Add' %}"></i></a>
-        {% bootstrap_button _('Save') button_type="submit" button_class="btn-primary" %}
+      <div class="center-items flex-wrap my-2">
+        <h3 class="m-0">
+          <a class="link" href="{% url "recurring_shift" recurring_shift.pk %}">
+            {% trans "Edit Templates for" %} {{ recurring_shift }}
+          </a>
+        </h3>
+        <div class="my-2 my-lg-0">
+          <a id="formset_add" class="btn btn-primary ms-3 formset-form-remove">
+            <i class="fas fa-plus" title="{% trans 'Add Shift' %}"></i>
+          </a>
+          <a class="btn btn-secondary ms-1" href="{% url "recurring_shift" recurring_shift.pk %}">
+            {% trans "Cancel" %}
+          </a>
+          {% bootstrap_button _('Save') button_type="submit" button_class="btn-primary ms-1" %}
+        </div>
       </div>
       {% csrf_token %}
       {{ formset.management_form }}
       <div id="formset_insert" class="row g-2">
         {% for form in formset %}
-          <div class="col-lg-4">
-            <div class="card bg-dark border border-2 border-primary p-3">
-              {% bootstrap_form form %}
+          <div id="id_{{ form.prefix }}_container" class="col-lg-6">
+            <div class="card base-card bg-dark border border-2 border-primary p-3">
+              {{ form.id }}
+              <div class="card-header center-items justify-content-start px-0">
+                <h4 class="m-0 me-1 me-sm-3">{% trans "Name" %}</h4>
+                <div class="col-7 col-sm-9">
+                  {% bootstrap_field form.name show_label=False form_group_class='' %}
+                </div>
+                <a class="btn btn-danger ms-auto" id="id_{{ form.prefix }}_remove">
+                  <i class="fas fa-x" title="{% trans 'Remove Shift' %}"></i>
+                </a>
+              </div>
+              <div class="p-2 row">
+                <div class="center-items justify-content-start">
+                  <div class="me-1 me-sm-3">{% trans "Shift Type" %}:</div>
+                  <div class="col-sm-8">{% bootstrap_field form.shift_type show_label=False form_group_class='' %}</div>
+                </div>
+                <div class="col-12">{% trans "Users" %}:</div>
+                <div class="center-items">
+                  <div class="col-5 text-center shift-required pe-help"
+                       title="{% trans "Required number of users to fill this shift" %}">
+                    {% trans "Required" context "Shift users" %}{% bootstrap_field form.required_users show_label=False %}
+                  </div>
+                  <div class="col-1">/</div>
+                  <div class="col-5 text-center text-danger pe-help"
+                       title="{% trans "Maximum number of users allowed in this shift" %}">
+                    {% trans "Maximum" context "Shift users" %}{% bootstrap_field form.max_users show_label=False %}
+                  </div>
+                </div>
+                <div class="col-12">{% trans "Time" %}:</div>
+                <div class="center-items">
+                  <div class="col-5 text-center pe-help"
+                       title="{% trans "Required number of users to fill this shift" %}">
+                    {% trans "Start Delay" context "Shift time" %}{% bootstrap_field form.start_delay show_label=False %}
+                  </div>
+                  <div class="col-1">+</div>
+                  <div class="col-5 text-center pe-help"
+                       title="{% trans "Maximum number of users allowed in this shift" %}">
+                    {% trans "Duration" context "Shift time" %}{% bootstrap_field form.duration show_label=False %}
+                  </div>
+                </div>
+              </div>
+              {% bootstrap_field form.additional_infos %}
             </div>
           </div>
         {% endfor %}
         <template id="formset_template">
-          <div class="col-lg-4">
-            <div class="card bg-dark border border-2 border-success p-3">
+          <div class="col-lg-6">
+            <div class="card base-card bg-dark border border-2 border-success p-3">
               {% bootstrap_form formset.empty_form %}
-              <div class="flex-row-wrap">
-                {% bootstrap_button _('Save') button_type="submit" button_class="btn-primary" %}
-              </div>
             </div>
           </div>
         </template>
