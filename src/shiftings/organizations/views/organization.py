@@ -48,12 +48,24 @@ class OwnOrganizationListView(LoginRequiredMixin, ListView):
 class OrganizationDetailView(BaseMixin, DetailView):
     template_name = 'organizations/organization.html'
     model = Organization
+    object: Organization
     context_object_name = 'organization'
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
+        for membership_type in self.object.membership_types.all():
+            context.setdefault('membership_types', []).append({
+                'object': membership_type,
+                'members': self.object.all_members.filter(type=membership_type),
+                'form': MembershipForm(
+                    initial={
+                        'organization': self.object,
+                        'type': membership_type.pk
+                    })
+            })
         context.update({
-            'member_form': MembershipForm(initial={'organization': self.object, 'type': self.object.default_membership_type})
+            'member_form': MembershipForm(
+                initial={'organization': self.object, 'type': self.object.default_membership_type})
         })
         return context
 

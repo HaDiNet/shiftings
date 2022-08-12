@@ -77,6 +77,7 @@ TEMPLATES = [
                 'django.templatetags.static',
                 'django.templatetags.i18n',
                 'bootstrap5.templatetags.bootstrap5',
+                'shiftings.templatetags.base',
                 'shiftings.templatetags.modal',
                 'shiftings.cal.templatetags.calendar',
             ],

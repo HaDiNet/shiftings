@@ -36,41 +36,61 @@
     </div>
   </div>
   <div class="card base-card bg-dark mb-3 p-2">
-    <a class="btn btn-info mx-2 mt-2" href="{% url 'organization_shift_summary' organization.pk %}">
-      <i class="fas fa-ranking-star me-2"></i>{% trans "Member Shift Summary" %}
-    </a>
+    <div class="row g-1">
+      <div class="col-12 col-lg-6">
+        <a class="btn btn-info mx-2 mt-2 w-100" href="{% url 'organization_shift_summary' organization.pk %}">
+          <i class="fas fa-ranking-star me-2"></i>{% trans "Member Shift Summary" %}
+        </a>
+      </div>
+      <div class="col-12 col-lg-6">
+        <a class="btn btn-success mx-2 mt-2 w-100" href="{% url 'membership_type_add' organization.pk %}">
+          <i class="fas fa-shield-cat me-2"></i>{% trans "Add Membership Type" %}
+        </a>
+      </div>
+    </div>
     <div class="p-2">
       <div class="row">
-        <div class="col-md-4">
-          <div class="center-items justify-content-between p-1">
-            {% trans "Members" %}
-            <button type="button" class="btn btn-success py-1 px-2 my-1" data-bs-toggle="modal"
-                    data-bs-target="#memberFormModal">
-              <i class="fas fa-user-plus pe-none"></i>
-            </button>
-            {% url 'membership_add_member' organization.pk as add_member_url %}
-            {% simpleformmodal 'memberForm' _('Add member') add_member_url %}
-              {% for field in member_form %}
-                {% csrf_token %}
-                {% bootstrap_field field %}
+        {% for membership_type in membership_types %}
+          <div class="col-sm-6 col-lg-4">
+            <div class="center-items justify-content-between p-1">
+              <span>
+                {{ membership_type.object.name }}
+                {% if membership_type.object.admin %}<i class="fas fa-crown" title="{% trans "Admin" %}"></i>{% endif %}
+              </span>
+              <div>
+                <a class="btn btn-success py-1 px-2 my-1"
+                   href="{% url "membership_type_edit" organization.pk membership_type.object.pk %}">
+                  <i class="fa-solid fa-pen-to-square"></i>
+                </a>
+                <button type="button" class="btn btn-success py-1 px-2 my-1" data-bs-toggle="modal"
+                        data-bs-target="#{{ membership_type.object.name|concat:"FormModal" }}">
+                  <i class="fas fa-user-plus pe-none"></i>
+                </button>
+                {% url 'membership_add_member' organization.pk as add_member_url %}
+                {% simpleformmodal membership_type.object.name|concat:"Form" _('Add member') add_member_url %}
+                  {% for field in membership_type.form %}
+                    {% csrf_token %}
+                    {% bootstrap_field field %}
+                  {% endfor %}
+                {% endsimpleformmodal %}
+              </div>
+            </div>
+            <table class="table table-dark table-striped text-center m-0">
+              <tbody>
+              {% for member in membership_type.members %}
+                {% if member.group is None %}
+                  {% include 'organizations/template/member.html' %}
+                {% endif %}
               {% endfor %}
-            {% endsimpleformmodal %}
-          </div>
-          <table class="table table-dark table-striped text-center m-0">
-            <tbody>
-            {% for member in organization.members.all %}
-              {% if member.group is None %}
-                {% include 'organizations/template/member.html' %}
+              </tbody>
+            </table>
+            {% for member in membership_type.members %}
+              {% if member.user is None %}
+                {% include 'organizations/template/member_group.html' with member_group=member.group %}
               {% endif %}
             {% endfor %}
-            </tbody>
-          </table>
-          {% for member in organization.members.all %}
-            {% if member.user is None %}
-              {% include 'organizations/template/member_group.html' with member_group=member.group %}
-            {% endif %}
-          {% endfor %}
-        </div>
+          </div>
+        {% endfor %}
       </div>
     </div>
   </div>

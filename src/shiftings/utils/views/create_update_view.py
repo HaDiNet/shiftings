@@ -18,6 +18,7 @@ class CreateOrUpdateView(TemplateResponseMixin, ModelFormMixin, ProcessFormView)
         context_data = super().get_context_data(**kwargs)
         context_data['is_create'] = self.object is None
         context_data['form_params'] = self.form_params
+        context_data['model_name'] = self.model._meta.verbose_name
         return context_data
 
     def is_create(self) -> bool:

@@ -5,8 +5,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 from shiftings.accounts.models import User
-from shiftings.organizations.models import Membership
-from shiftings.organizations.models.membership import MembershipType
+from shiftings.organizations.models import Membership, MembershipType
 
 
 class MembershipForm(forms.ModelForm):
@@ -31,3 +30,10 @@ class MembershipForm(forms.ModelForm):
         except User.DoesNotExist as e:
             raise ValidationError(_('The user you entered could not be found.')) from e
         return user
+
+
+class MembershipTypeForm(forms.ModelForm):
+    class Meta:
+        model = MembershipType
+        fields = ['organization', 'name']
+        widgets = {'organization': forms.HiddenInput()}

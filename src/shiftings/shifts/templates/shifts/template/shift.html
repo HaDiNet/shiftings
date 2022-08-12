@@ -1,6 +1,10 @@
-<div>
-  <div>{{ shift.start|date }}</div>
-  <div>{{ shift.name }} {{ shift.shift_type }} {{ shift.start|time }} {{ shift.end|time }} {{ shift.participants|length }}/{{ shift.required_users }} {% trans "Users" %}</div>
+<div class="p-2">
+  {% url "shift" shift.pk as shift_url %}
+  <div><h5>{{ shift.start|date }}</h5></div>
+  <div>
+    <a class="link" href="{{ shift_url }}"> {{ shift.name }}</a>
+    {{ shift.name }} {{ shift.shift_type }} {{ shift.start|time }} {{ shift.end|time }} {{ shift.participants|length }}/{{ shift.required_users }} {% trans "Users" %}
+  </div>
   <div>
     {% for participant in shift.participants.all %}
       <div class="ms-3">{{ participant.user }}</div>
