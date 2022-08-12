@@ -38,12 +38,12 @@
   <div class="card base-card bg-dark mb-3 p-2">
     <div class="row g-1">
       <div class="col-12 col-lg-6">
-        <a class="btn btn-info mx-2 mt-2 w-100" href="{% url 'organization_shift_summary' organization.pk %}">
+        <a class="btn btn-info w-100" href="{% url 'organization_shift_summary' organization.pk %}">
           <i class="fas fa-ranking-star me-2"></i>{% trans "Member Shift Summary" %}
         </a>
       </div>
       <div class="col-12 col-lg-6">
-        <a class="btn btn-success mx-2 mt-2 w-100" href="{% url 'membership_type_add' organization.pk %}">
+        <a class="btn btn-success w-100" href="{% url 'membership_type_add' organization.pk %}">
           <i class="fas fa-shield-cat me-2"></i>{% trans "Add Membership Type" %}
         </a>
       </div>
@@ -143,23 +143,21 @@
         <table class="table table-striped table-dark m-0 text-center">
           <thead>
           <tr>
-            <th>{% trans "Display" %}</th>
-            <th>{% trans "Type" %}</th>
+            <th>{% trans "Name" %}</th>
+            <th>{% trans "Shift count" %}</th>
             <th>{% trans "Time" %}</th>
-            <th>{% trans "Duration" %}</th>
             <th>{% trans "Place" %}</th>
-            <th>{% trans "Required/Max" %}</th>
+            <th>{% trans "Status" %}</th>
           </tr>
           </thead>
           <tbody>
           {% for recurring_shift in organization.recurring_shifts.all %}
             <tr class="link pe-pointer" onclick="window.location.href='{% url 'recurring_shift' recurring_shift.pk %}'">
               <td>{{ recurring_shift.display }}</td>
-              <td>{{ recurring_shift.shift_type }}</td>
-              <td>{{ recurring_shift.time }}</td>
-              <td>{{ recurring_shift.duration }}</td>
-              <td>{{ recurring_shift.place }}</td>
-              <td>{{ recurring_shift.required_users }}/{{ recurring_shift.max_users }}</td>
+              <td>{{ recurring_shift.template.shifts.all|length }}</td>
+              <td>{{ recurring_shift.template.start_time }}</td>
+              <td>{{ recurring_shift.template.place }}</td>
+              <td>{{ recurring_shift.manually_disabled|yesno:_('Inactive,Active,Undefined') }}</td>
             </tr>
           {% endfor %}
           </tbody>
@@ -213,7 +211,6 @@
       {% endif %}
     </div>
   </div>
-
   <div class="card bg-dark mt-3">
     <div class="card-header center-items justify-content-between">
       <h5 class="m-0">{% trans "Shifts" %}</h5>

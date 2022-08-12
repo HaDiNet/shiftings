@@ -33,7 +33,7 @@
           {% include "shifts/template/template_form.html" %}
         {% endfor %}
         <template id="formset_template">
-          {% include "shifts/template/template_form.html" with form=formset.empty_form %}
+          {% include "shifts/template/template_form.html" with form=formset.empty_form new=True %}
         </template>
       </div>
     </form>
