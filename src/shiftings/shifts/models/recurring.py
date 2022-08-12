@@ -1,23 +1,22 @@
 from __future__ import annotations
 
-from datetime import date, datetime, timedelta
-from typing import Any, Optional
+from datetime import date
+from typing import Optional
 
 import holidays
+from django.conf import settings
 from django.contrib.humanize.templatetags.humanize import ordinal
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
-from django.db.models import DurationField, Q
 from django.urls import reverse
 from django.utils.translation import gettext as __, gettext_lazy as _
 
+from shiftings.shifts.models.shift import Shift
 from shiftings.shifts.utils.time_frame import TimeFrameType
-from shiftings.utils.fields.date_time import DateField, TimeField
+from shiftings.utils.fields.date_time import DateField
 from shiftings.utils.time.month import Month, MonthField
 from shiftings.utils.time.week import WeekDay, WeekDayField
-from .shift import Shift
-from .shift_base import ShiftBase
 
 
 class ProblemHandling(models.IntegerChoices):
@@ -26,14 +25,19 @@ class ProblemHandling(models.IntegerChoices):
     Warn = 3, _('show warning')
 
 
-class RecurringShift(ShiftBase):
+class RecurringShift(models.Model):
+    name = models.CharField(max_length=100, verbose_name=_('Name'))
+    organization = models.ForeignKey('organizations.Organization', on_delete=models.CASCADE,
+                                     related_name='recurring_shifts', verbose_name=_('Organization'))
+
     time_frame_field = models.PositiveSmallIntegerField(choices=TimeFrameType.choices, verbose_name=_('Timeframe Type'))
     ordinal = models.PositiveSmallIntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(31)])
     week_day_field = WeekDayField(blank=True, null=True)
     month_field = MonthField(blank=True, null=True)
     first_occurrence = DateField(_('First Occurrence'))
-    time = TimeField(verbose_name=_('Time'))
-    duration = DurationField(verbose_name=_('Duration'))
+
+    template = models.ForeignKey('ShiftTemplateGroup', on_delete=models.SET_NULL, verbose_name=_('Shift Template'),
+                                 related_name='recurring_shifts', blank=True, null=True)
 
     weekend_handling_field = models.PositiveSmallIntegerField(choices=ProblemHandling.choices,
                                                               verbose_name=_('Weekend problem handling'),
@@ -45,17 +49,14 @@ class RecurringShift(ShiftBase):
                                                               default=ProblemHandling.Ignore)
     holiday_warning = models.TextField(verbose_name=_('Warning text for holidays'), blank=True, null=True)
 
+    manually_disabled = models.BooleanField(verbose_name=_('Manuelly Disabled'), default=False)
+
     class Meta:
         default_permissions = ()
-        ordering = ['name', 'organization']
+        ordering = ['organization', 'name']
 
     def __str__(self) -> str:
         return self.display
-
-    def save(self, *args: Any, **kwargs: Any) -> None:
-        if self.duration < timedelta(0):
-            self.duration = timedelta(0)
-        super().save(*args, **kwargs)
 
     @property
     def display(self) -> str:
@@ -88,6 +89,10 @@ class RecurringShift(ShiftBase):
         return None
 
     @property
+    def enabled(self) -> bool:
+        return self.template is not None and not self.manually_disabled
+
+    @property
     def weekend_handling(self) -> ProblemHandling:
         return ProblemHandling(self.weekend_handling_field)
 
@@ -107,35 +112,34 @@ class RecurringShift(ShiftBase):
         if not self.matches_day(self.first_occurrence):
             raise ValidationError(_('Your first occurrence doesn\'t match your chosen time frame.'))
 
-    def shift_exists(self, _date: date) -> bool:
-        return self.created_shifts.filter(start=datetime.combine(_date, self.time)).exists()
+    def shift_exists(self, shift: Shift) -> bool:
+        return self.created_shifts.filter(name=shift.name, shift_type=shift.shift_type, start=shift.start).exists()
 
     def matches_day(self, _date: date) -> bool:
         return self.time_frame_type.matches_day(self, _date)
 
-    def create_shift(self, _date: date) -> Optional[Shift]:
-        if self.shift_exists(_date):
-            return None
+    def create_shifts(self, _date: date) -> None:
+        if self.template is None:
+            return
 
-        start = datetime.combine(_date, self.time)
-        shift = Shift(name=self.name, shift_group=self.shift_group, place=self.place, organization=self.organization,
-                      start=start, end=start + self.duration, required_users=self.required_users,
-                      max_users=self.max_users, additional_infos=self.additional_infos, based_on=self)
+        weekend_warning = None
         if WeekDay.is_weekend(_date):
             if self.weekend_handling is ProblemHandling.Cancel:
                 return None
             elif self.weekend_handling is ProblemHandling.Warn and self.weekend_warning is not None:
-                shift.warnings = self.weekend_warning
-        if _date in holidays.Germany(prov='BW'):
-            if self.holiday_handling is ProblemHandling.Cancel:
-                return None
-            elif self.holiday_handling is ProblemHandling.Warn and self.holiday_warning is not None:
-                if shift.warnings:
-                    shift.warnings += f'\n{self.holiday_warning}'
-                else:
-                    shift.warnings = self.holiday_warning
-        shift.save()
-        return shift
+                weekend_warning = self.weekend_warning
+        holiday_warning = None
+        for holiday in settings.HOLIDAY_REGIONS:
+            if _date in holidays.country_holidays(holiday.get('country'), holiday.get('region')):
+                if self.holiday_handling is ProblemHandling.Cancel:
+                    return None
+                elif self.weekend_handling is ProblemHandling.Warn and self.holiday_warning is not None:
+                    holiday_warning = self.holiday_warning
+
+        shifts = self.template.create_shifts(_date, weekend_warning, holiday_warning)
+        for shift in shifts:
+            if not self.shift_exists(shift):
+                shift.save()
 
     def get_absolute_url(self) -> str:
         return reverse('recurring_shift', args=[self.pk])

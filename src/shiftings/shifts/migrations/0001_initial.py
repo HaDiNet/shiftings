@@ -62,14 +62,14 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='ShiftGroup',
+            name='ShiftType',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=100, unique=True, verbose_name='Name')),
                 ('position', models.PositiveSmallIntegerField()),
                 ('color', colorfield.fields.ColorField(default='#FD7E14', image_field=None, max_length=18, samples=[('#0D6EFD', 'Blue'), ('#6610F2', 'Indigo'), ('#6F42C1', 'Purple'), ('#D63384', 'Pink'), ('#DC3545', 'Red'), ('#FD7E14', 'Orange'), ('#FFC107', 'Yellow'), ('#198754', 'Green'), ('#20C997', 'Teal'), ('#0DCAF0', 'Cyan')])),
-                ('event', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='shift_groups', to='events.event', verbose_name='Event')),
-                ('organization', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='shift_groups', to='organizations.organization', verbose_name='Organization')),
+                ('event', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='shift_types', to='events.event', verbose_name='Event')),
+                ('organization', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='shift_types', to='organizations.organization', verbose_name='Organization')),
             ],
             options={
                 'ordering': ['position', 'name'],
@@ -95,7 +95,7 @@ class Migration(migrations.Migration):
                 ('event', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='shifts', to='events.event', verbose_name='Event')),
                 ('organization', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='%(class)ss', to='organizations.organization', verbose_name='Organization')),
                 ('participants', models.ManyToManyField(blank=True, related_name='shift_set', to='shifts.participant', verbose_name='Users')),
-                ('shift_group', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='shifts.shiftgroup', verbose_name='Shift Group')),
+                ('shift_type', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='shifts.shifttype', verbose_name='Shift Type')),
             ],
             options={
                 'ordering': ['start', 'end', 'name', 'organization'],
@@ -104,8 +104,8 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='recurringshift',
-            name='shift_group',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='shifts.shiftgroup', verbose_name='Shift Group'),
+            name='shift_type',
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='shifts.shifttype', verbose_name='Shift Type'),
         ),
         migrations.CreateModel(
             name='OrganizationSummarySettings',
@@ -116,24 +116,24 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.AddConstraint(
-            model_name='shiftgroup',
-            constraint=models.UniqueConstraint(fields=('organization', 'position'), name='shift_group_organization_position_unique_constraint'),
+            model_name='shifttype',
+            constraint=models.UniqueConstraint(fields=('organization', 'position'), name='shift_type_organization_position_unique_constraint'),
         ),
         migrations.AddConstraint(
-            model_name='shiftgroup',
-            constraint=models.UniqueConstraint(fields=('event', 'position'), name='shift_group_event_position_unique_constraint'),
+            model_name='shifttype',
+            constraint=models.UniqueConstraint(fields=('event', 'position'), name='shift_type_event_position_unique_constraint'),
         ),
         migrations.AddConstraint(
-            model_name='shiftgroup',
-            constraint=models.UniqueConstraint(fields=('organization', 'name'), name='shift_group_organization_name_unique_constraint'),
+            model_name='shifttype',
+            constraint=models.UniqueConstraint(fields=('organization', 'name'), name='shift_type_organization_name_unique_constraint'),
         ),
         migrations.AddConstraint(
-            model_name='shiftgroup',
-            constraint=models.UniqueConstraint(fields=('event', 'name'), name='shift_group_event_name_unique_constraint'),
+            model_name='shifttype',
+            constraint=models.UniqueConstraint(fields=('event', 'name'), name='shift_type_event_name_unique_constraint'),
         ),
         migrations.AddConstraint(
-            model_name='shiftgroup',
-            constraint=models.CheckConstraint(check=models.Q(models.Q(('event__isnull', False), ('organization__isnull', True)), models.Q(('event__isnull', True), ('organization__isnull', False)), _connector='OR'), name='shift_group_name_or_organization'),
+            model_name='shifttype',
+            constraint=models.CheckConstraint(check=models.Q(models.Q(('event__isnull', False), ('organization__isnull', True)), models.Q(('event__isnull', True), ('organization__isnull', False)), _connector='OR'), name='shift_type_name_or_organization'),
         ),
         migrations.AddConstraint(
             model_name='shift',

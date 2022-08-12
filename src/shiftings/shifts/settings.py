@@ -1,3 +1,10 @@
+import holidays
+
+HOLIDAY_REGIONS = [
+    {'country': 'DE', 'region': 'BW'}
+
+]
+
 RECURRING_SHIFTS_AUTO_CREATE_DAYS = 14
 SHIFT_COLOR_PALETTE = [
     ('#0D6EFD', 'Blue'),

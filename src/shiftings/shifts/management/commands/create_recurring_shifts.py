@@ -20,4 +20,4 @@ class Command(BaseCommand):
             for _shift in RecurringShift.objects.all():
                 shift: RecurringShift = _shift
                 if shift.time_frame_type.matches_day(shift, day):
-                    shift.create_shift(day)
+                    shift.create_shifts(day)

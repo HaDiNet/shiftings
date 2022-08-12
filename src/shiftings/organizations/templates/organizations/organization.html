@@ -119,7 +119,7 @@
       </div>
     </div>
     <div class="table-responsive p-1">
-      {% if organization.recurringshifts.all|length > 0 %}
+      {% if organization.recurring_shifts.all|length > 0 %}
         <table class="table table-striped table-dark m-0 text-center">
           <thead>
           <tr>
@@ -132,10 +132,10 @@
           </tr>
           </thead>
           <tbody>
-          {% for recurring_shift in organization.recurringshifts.all %}
+          {% for recurring_shift in organization.recurring_shifts.all %}
             <tr class="link pe-pointer" onclick="window.location.href='{% url 'recurring_shift' recurring_shift.pk %}'">
               <td>{{ recurring_shift.display }}</td>
-              <td>{{ recurring_shift.shift_group }}</td>
+              <td>{{ recurring_shift.shift_type }}</td>
               <td>{{ recurring_shift.time }}</td>
               <td>{{ recurring_shift.duration }}</td>
               <td>{{ recurring_shift.place }}</td>
@@ -226,7 +226,7 @@
               <tr class="link pe-pointer"
                   onclick="window.location.href='{% url 'shift' shift.pk %}'">
                 <td>{{ shift.display }}</td>
-                <td>{{ shift.shift_group }}</td>
+                <td>{{ shift.shift_type }}</td>
                 <td>{{ shift.start }}</td>
                 <td>{{ shift.end }}</td>
                 <td>{{ shift.place }}</td>

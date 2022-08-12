@@ -9,7 +9,7 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from shiftings.utils.fields.date_time import DateTimeField
-from .shift_base import ShiftBase
+from .base import ShiftBase
 
 if TYPE_CHECKING:
     from shiftings.accounts.models import User

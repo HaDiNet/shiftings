@@ -6,7 +6,7 @@
       "name": "Frühschicht",
       "place": "K1 Bar",
       "organization": 1,
-      "shift_group": 1,
+      "shift_type": 1,
       "required_users": 1,
       "max_users": 3,
       "additional_infos": "",
@@ -30,7 +30,7 @@
       "name": "Spätschicht",
       "place": "K1 Bar",
       "organization": 1,
-      "shift_group": 2,
+      "shift_type": 2,
       "required_users": 1,
       "max_users": 2,
       "additional_infos": "",
@@ -54,7 +54,7 @@
       "name": "Barteamsitzung",
       "place": "K1 Bar",
       "organization": 1,
-      "shift_group": 3,
+      "shift_type": 3,
       "required_users": 0,
       "max_users": 0,
       "additional_infos": "",
@@ -72,7 +72,7 @@
     }
   },
   {
-    "model": "shifts.shiftgroup",
+    "model": "shifts.shifttype",
     "pk": 1,
     "fields": {
       "organization": 1,
@@ -83,7 +83,7 @@
     }
   },
   {
-    "model": "shifts.shiftgroup",
+    "model": "shifts.shifttype",
     "pk": 2,
     "fields": {
       "organization": 1,
@@ -94,7 +94,7 @@
     }
   },
   {
-    "model": "shifts.shiftgroup",
+    "model": "shifts.shifttype",
     "pk": 3,
     "fields": {
       "organization": 1,
@@ -105,7 +105,7 @@
     }
   },
   {
-    "model": "shifts.shiftgroup",
+    "model": "shifts.shifttype",
     "pk": 4,
     "fields": {
       "organization": 1,

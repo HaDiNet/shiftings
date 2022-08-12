@@ -1,6 +1,6 @@
 <div>
   <div>{{ shift.start|date }}</div>
-  <div>{{ shift.name }} {{ shift.shift_group }} {{ shift.start|time }} {{ shift.end|time }} {{ shift.participants|length }}/{{ shift.required_users }} {% trans "Users" %}</div>
+  <div>{{ shift.name }} {{ shift.shift_type }} {{ shift.start|time }} {{ shift.end|time }} {{ shift.participants|length }}/{{ shift.required_users }} {% trans "Users" %}</div>
   <div>
     {% for participant in shift.participants.all %}
       <div class="ms-3">{{ participant.user }}</div>

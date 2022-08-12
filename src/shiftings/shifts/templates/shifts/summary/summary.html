@@ -11,8 +11,8 @@
       <table>
         <thead>
         <th>{% trans 'Member' %}</th>
-        {% for group in groups %}
-          <th>{{ group.name }}</th>
+        {% for type in types %}
+          <th>{{ type.name }}</th>
         {% endfor %}
         {% if has_other_types %}
           <th>{% trans 'Other' %}</th>

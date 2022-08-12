@@ -20,7 +20,7 @@ class WeekView(CalendarBaseView):
         shift_filter = (Q(start__date=theday) | Q(end__date=theday) |
                         Q(start__lt=theday, end__gt=theday))
         shift_filter &= self.get_filters()
-        shifts = Shift.objects.filter(shift_filter).order_by('shift_group', 'start', 'end')
+        shifts = Shift.objects.filter(shift_filter).order_by('shift_type', 'start', 'end')
         context.update({
             'theday': theday,
             'nextday': theday + timedelta(days=1),

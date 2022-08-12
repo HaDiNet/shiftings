@@ -9,8 +9,8 @@ class ShiftBase(models.Model):
 
     organization = models.ForeignKey('organizations.Organization', on_delete=models.CASCADE, related_name='%(class)ss',
                                      verbose_name=_('Organization'))
-    shift_group = models.ForeignKey('ShiftGroup', verbose_name=_('Shift Group'), on_delete=models.SET_NULL, blank=True,
-                                    null=True)
+    shift_type = models.ForeignKey('ShiftType', verbose_name=_('Shift Type'), on_delete=models.SET_NULL, blank=True,
+                                   null=True)
 
     required_users = models.PositiveIntegerField(verbose_name=_('Required User'), default=0)
     max_users = models.PositiveIntegerField(verbose_name=_('Maximum User'), default=0)

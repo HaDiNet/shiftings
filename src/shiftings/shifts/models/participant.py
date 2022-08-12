@@ -1,7 +1,12 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from shiftings.shifts.models import Shift
+if TYPE_CHECKING:
+    from shiftings.shifts.models import Shift
 
 
 class Participant(models.Model):
