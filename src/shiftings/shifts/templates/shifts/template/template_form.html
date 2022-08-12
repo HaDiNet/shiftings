@@ -1,0 +1,45 @@
+<div id="id_{{ form.prefix }}_container" class="col-lg-6">
+  <div class="card base-card bg-dark border border-2 border-primary p-3">
+    {{ form.id }}
+    <div class="card-header center-items justify-content-start px-0">
+      <h4 class="m-0 me-1 me-sm-3">{% trans "Name" %}</h4>
+      <div class="col-7 col-sm-9">
+        {% bootstrap_field form.name show_label=False form_group_class='' %}
+      </div>
+      <a class="btn btn-danger ms-auto" id="id_{{ form.prefix }}_remove">
+        <i class="fas fa-x" title="{% trans 'Remove Shift' %}"></i>
+      </a>
+    </div>
+    <div class="p-2 row">
+      <div class="center-items justify-content-start">
+        <div class="me-1 me-sm-3">{% trans "Shift Type" %}:</div>
+        <div class="col-sm-8">{% bootstrap_field form.shift_type show_label=False form_group_class='' %}</div>
+      </div>
+      <div class="col-12">{% trans "Users" %}:</div>
+      <div class="center-items">
+        <div class="col-5 text-center shift-required pe-help"
+             title="{% trans "Required number of users to fill this shift" %}">
+          {% trans "Required" context "Shift users" %}{% bootstrap_field form.required_users show_label=False %}
+        </div>
+        <div class="col-1">/</div>
+        <div class="col-5 text-center text-danger pe-help"
+             title="{% trans "Maximum number of users allowed in this shift" %}">
+          {% trans "Maximum" context "Shift users" %}{% bootstrap_field form.max_users show_label=False %}
+        </div>
+      </div>
+      <div class="col-12">{% trans "Time" %}:</div>
+      <div class="center-items">
+        <div class="col-5 text-center pe-help"
+             title="{% trans "Required number of users to fill this shift" %}">
+          {% trans "Start Delay" context "Shift time" %}{% bootstrap_field form.start_delay show_label=False %}
+        </div>
+        <div class="col-1">+</div>
+        <div class="col-5 text-center pe-help"
+             title="{% trans "Maximum number of users allowed in this shift" %}">
+          {% trans "Duration" context "Shift time" %}{% bootstrap_field form.duration show_label=False %}
+        </div>
+      </div>
+    </div>
+    {% bootstrap_field form.additional_infos %}
+  </div>
+</div>
