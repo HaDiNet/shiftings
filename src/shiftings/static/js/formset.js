@@ -1,5 +1,18 @@
 'use strict';
 (function () {
+  function removeForm(event) {
+    const element = event.currentTarget;
+    if (!element.id) {
+      return;
+    }
+    const form = document.getElementById(element.id.replace('remove', 'container'));
+    if (form) {
+      const id = parseInt(element.id.replace('id_form-', '').replace('_remove', ''));
+      form.insertAdjacentHTML('beforeend', `<input type="checkbox" id="id_form-${id}-DELETE" name="form-${id}-DELETE" checked>`);
+      form.classList.add('d-none');
+    }
+  }
+
   function initialize() {
     const template = document.getElementById('formset_template');
     const totalElement = document.getElementById('id_form-TOTAL_FORMS');
@@ -22,14 +35,26 @@
     }
 
     addLink.addEventListener('click', () => {
-      let newForm = template.content.cloneNode(true);
-      Array.from(newForm.children).forEach(e => e.innerHTML = e.innerHTML.replaceAll('__prefix__', totalValue));
-      totalElement.value = ++totalValue;
+      const newForm = template.content.cloneNode(true);
+      newForm.id = `id_form-${totalValue}-container`;
+      Array.from(newForm.children).forEach(e => {
+        e.id = e.id.replaceAll('__prefix__', totalValue);
+        e.innerHTML = e.innerHTML.replaceAll('__prefix__', totalValue);
+      });
       insert.appendChild(newForm);
+      const removeLink = document.getElementById(`id_form-${totalValue}_remove`);
+      if (removeLink) {
+        removeLink.addEventListener('click', removeForm);
+      }
+      totalElement.value = ++totalValue;
       if (totalValue >= maxValue) {
-        addLink.classList.add('hidden');
+        addLink.classList.add('d-none');
       }
     });
+
+    for (const removeLink of document.getElementsByClassName('formset-form-remove')) {
+      removeLink.addEventListener('click', removeForm);
+    }
   }
 
   document.addEventListener('DOMContentLoaded', initialize);

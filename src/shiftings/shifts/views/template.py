@@ -10,7 +10,7 @@ from shiftings.shifts.models import RecurringShift, ShiftTemplate, ShiftTemplate
 from shiftings.utils.views.base import BaseLoginMixin
 from shiftings.utils.views.formset import ModelFormsetBaseView
 
-ShiftTemplateFormSet = modelformset_factory(ShiftTemplate, ShiftTemplateForm, extra=0)
+ShiftTemplateFormSet = modelformset_factory(ShiftTemplate, ShiftTemplateForm, extra=0, can_delete=True)
 
 
 class TemplateGroupAddShiftsView(BaseLoginMixin, ModelFormsetBaseView[ShiftTemplate], TemplateView):
@@ -39,7 +39,7 @@ class TemplateGroupAddShiftsView(BaseLoginMixin, ModelFormsetBaseView[ShiftTempl
         group = self.get_group()
         for form in formset.forms:
             form.instance.group = group
-            form.instance.save()
+        formset.save()
         return self.success
 
     def get_success_url(self) -> str:
