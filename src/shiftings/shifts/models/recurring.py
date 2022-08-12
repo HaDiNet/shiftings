@@ -139,6 +139,7 @@ class RecurringShift(models.Model):
         shifts = self.template.create_shifts(_date, weekend_warning, holiday_warning)
         for shift in shifts:
             if not self.shift_exists(shift):
+                shift.based_on = self
                 shift.save()
 
     def get_absolute_url(self) -> str:

@@ -3,72 +3,38 @@
     "model": "shifts.recurringshift",
     "pk": 1,
     "fields": {
-      "name": "Frühschicht",
-      "place": "K1 Bar",
+      "name": "Barabend",
       "organization": 1,
-      "shift_type": 1,
-      "required_users": 1,
-      "max_users": 3,
-      "additional_infos": "",
       "time_frame_field": 3,
       "ordinal": 1,
       "week_day_field": 6,
       "month_field": null,
-      "first_occurrence": "2022-07-31",
-      "time": "21:30:00",
-      "duration": "02:30:00",
+      "first_occurrence": "2022-07-03",
+      "template": 1,
       "weekend_handling_field": 1,
-      "weekend_warning": "",
+      "weekend_warning": null,
       "holiday_handling_field": 1,
-      "holiday_warning": ""
+      "holiday_warning": null,
+      "manually_disabled": false
     }
   },
   {
     "model": "shifts.recurringshift",
     "pk": 2,
     "fields": {
-      "name": "Spätschicht",
-      "place": "K1 Bar",
-      "organization": 1,
-      "shift_type": 2,
-      "required_users": 1,
-      "max_users": 2,
-      "additional_infos": "",
-      "time_frame_field": 3,
-      "ordinal": 1,
-      "week_day_field": 0,
-      "month_field": null,
-      "first_occurrence": "2022-08-01",
-      "time": "00:00:00",
-      "duration": "05:00:00",
-      "weekend_handling_field": 1,
-      "weekend_warning": "",
-      "holiday_handling_field": 1,
-      "holiday_warning": ""
-    }
-  },
-  {
-    "model": "shifts.recurringshift",
-    "pk": 3,
-    "fields": {
       "name": "Barteamsitzung",
-      "place": "K1 Bar",
       "organization": 1,
-      "shift_type": 3,
-      "required_users": 0,
-      "max_users": 0,
-      "additional_infos": "",
       "time_frame_field": 1,
       "ordinal": 1,
       "week_day_field": 6,
       "month_field": null,
-      "first_occurrence": "2022-08-07",
-      "time": "20:00:00",
-      "duration": "01:00:00",
+      "first_occurrence": "2022-07-03",
+      "template": 2,
       "weekend_handling_field": 1,
-      "weekend_warning": "",
+      "weekend_warning": null,
       "holiday_handling_field": 1,
-      "holiday_warning": ""
+      "holiday_warning": null,
+      "manually_disabled": false
     }
   },
   {
@@ -121,6 +87,68 @@
     "fields": {
       "organization": 1,
       "default_time_range_type": 3
+    }
+  },
+  {
+    "model": "shifts.shifttemplate",
+    "pk": 1,
+    "fields": {
+      "group": 1,
+      "name": "Frühschicht",
+      "shift_type": 1,
+      "start_delay": "00:00:00",
+      "duration": "02:30:00",
+      "required_users": 2,
+      "max_users": 3,
+      "additional_infos": ""
+    }
+  },
+  {
+    "model": "shifts.shifttemplate",
+    "pk": 2,
+    "fields": {
+      "group": 1,
+      "name": "Spätschicht",
+      "shift_type": 2,
+      "start_delay": "02:30:00",
+      "duration": "05:00:00",
+      "required_users": 1,
+      "max_users": 2,
+      "additional_infos": ""
+    }
+  },
+  {
+    "model": "shifts.shifttemplate",
+    "pk": 3,
+    "fields": {
+      "group": 2,
+      "name": "Sitzung",
+      "shift_type": 3,
+      "start_delay": "00:00:00",
+      "duration": "01:00:00",
+      "required_users": 0,
+      "max_users": 0,
+      "additional_infos": ""
+    }
+  },
+  {
+    "model": "shifts.shifttemplategroup",
+    "pk": 1,
+    "fields": {
+      "name": "",
+      "place": "K1 Bar",
+      "organization": 1,
+      "start_time": "21:30:00"
+    }
+  },
+  {
+    "model": "shifts.shifttemplategroup",
+    "pk": 2,
+    "fields": {
+      "name": "",
+      "place": "K1 Bar",
+      "organization": 1,
+      "start_time": "20:00:00"
     }
   }
 ]
