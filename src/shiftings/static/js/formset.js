@@ -1,16 +1,32 @@
 'use strict';
 (function () {
-  function removeForm(event) {
-    const element = event.currentTarget;
-    if (!element.id) {
+  function toggleRemove(event) {
+    const button = event.currentTarget;
+    if (!button.id) {
       return;
     }
-    const form = document.getElementById(element.id.replace('remove', 'container'));
-    if (form) {
-      const id = parseInt(element.id.replace('id_form-', '').replace('_remove', ''));
-      form.insertAdjacentHTML('beforeend', `<input type="checkbox" id="id_form-${id}-DELETE" name="form-${id}-DELETE" checked>`);
-      form.classList.add('d-none');
+    const id = parseInt(button.id.replace('id_form-', '').replace('_remove', '').replace('_restore', ''));
+    const form = document.getElementById(`id_form-${id}_container`);
+    if (!form) {
+      return;
     }
+    const remove = button.id.includes('remove');
+    const deleteId = `id_form-${id}-DELETE`;
+    const deleteElement = document.getElementById(deleteId);
+    if (remove && !deleteElement) {
+      form.insertAdjacentHTML('beforeend',
+          `<input type="checkbox" id="${deleteId}" name="form-${id}-DELETE" checked class="d-none">`);
+    } else if (deleteElement) {
+      deleteElement.checked = remove;
+    }
+    document.getElementById(`id_form-${id}_remove`).classList.toggle('d-none', remove);
+    document.getElementById(`id_form-${id}_restore`).classList.toggle('d-none', !remove);
+
+    for (const inner of form.getElementsByClassName('border')) {
+      inner.classList.toggle('border-danger', remove);
+    }
+    form.classList.toggle('border-danger', remove);
+    form.style.opacity = remove ? '.5' : '1';
   }
 
   function initialize() {
@@ -44,7 +60,11 @@
       insert.appendChild(newForm);
       const removeLink = document.getElementById(`id_form-${totalValue}_remove`);
       if (removeLink) {
-        removeLink.addEventListener('click', removeForm);
+        removeLink.addEventListener('click', toggleRemove);
+      }
+      const restoreLink = document.getElementById(`id_form-${totalValue}_restore`);
+      if (restoreLink) {
+        restoreLink.addEventListener('click', toggleRemove);
       }
       totalElement.value = ++totalValue;
       if (totalValue >= maxValue) {
@@ -53,7 +73,10 @@
     });
 
     for (const removeLink of document.getElementsByClassName('formset-form-remove')) {
-      removeLink.addEventListener('click', removeForm);
+      removeLink.addEventListener('click', toggleRemove);
+    }
+    for (const removeLink of document.getElementsByClassName('formset-form-restore')) {
+      removeLink.addEventListener('click', toggleRemove);
     }
   }
 
