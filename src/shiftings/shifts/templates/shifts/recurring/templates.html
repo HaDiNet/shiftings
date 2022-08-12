@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="container-fluid">
+    {% if formset.errors.entries|length %}
+      <div class="alert alert-error m-3 center-items justify-content-start">
+        {{ form.errors.entries }}
+      </div>
+    {% endif %}
+    <form method="post" {% include 'generic/include_params.html' with params=form_params only %}>
+      <div class="flex-row-wrap my-2">
+        {% bootstrap_button _('Save') button_type="submit" button_class="btn-primary" %}
+      </div>
+      {% csrf_token %}
+      {{ formset.management_form }}
+      <div class="row g-2">
+        {% for form in formset %}
+          <div class="col-lg-4">
+            <div class="card bg-dark border border-2 border-primary p-3">
+              {% bootstrap_form form %}
+            </div>
+          </div>
+        {% endfor %}
+        <template id="formset_template">
+          <div class="col-lg-4">
+            <div class="card bg-dark border border-2 border-success p-3">
+              {% bootstrap_form formset.empty_form %}
+              <div class="flex-row-wrap">
+                {% bootstrap_button _('Save') button_type="submit" button_class="btn-primary" %}
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+    </form>
+  </div>
+{% endblock %}
