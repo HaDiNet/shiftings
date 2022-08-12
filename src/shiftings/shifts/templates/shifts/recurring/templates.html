@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+{% block scripts %}
+  <script type="text/javascript" src="{% static "js/formset.js" %}"></script>
+{% endblock %}
 {% block content %}
   <div class="container-fluid">
     {% if formset.errors.entries|length %}
@@ -12,7 +15,7 @@
       </div>
       {% csrf_token %}
       {{ formset.management_form }}
-      <div class="row g-2">
+      <div id="formset_insert" class="row g-2">
         {% for form in formset %}
           <div class="col-lg-4">
             <div class="card bg-dark border border-2 border-primary p-3">

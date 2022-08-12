@@ -8,7 +8,7 @@ from shiftings.shifts.models import RecurringShift, ShiftTemplate, ShiftTemplate
 from shiftings.utils.views.base import BaseLoginMixin
 from shiftings.utils.views.formset import ModelFormsetBaseView
 
-ShiftTemplateFormSet = modelformset_factory(ShiftTemplate, ShiftTemplateForm,extra=0)
+ShiftTemplateFormSet = modelformset_factory(ShiftTemplate, ShiftTemplateForm, extra=0)
 
 
 class TemplateGroupAddShiftsView(BaseLoginMixin, ModelFormsetBaseView[ShiftTemplate], TemplateView):
