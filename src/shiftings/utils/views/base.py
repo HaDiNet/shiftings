@@ -51,6 +51,8 @@ class BaseMixin(AccessMixin, ContextMixin):
 
     @property
     def success(self) -> HttpResponse:
+        if 'success_url' in self.request.POST:
+            return HttpResponseRedirect(str(self.request.POST['success_url']))
         return HttpResponseRedirect(self.get_success_url())
 
     def get_fail_url(self) -> Optional[str]:

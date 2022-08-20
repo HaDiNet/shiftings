@@ -54,6 +54,37 @@ input, textarea, select, .form-control, .form-select {
   color: var(--bs-body-color) !important;
 }
 
+/*pagination*/
+
+.page-item.disabled .page-link {
+  color: var(--bs-body-color);
+  background-color: var(--bs-body-bg);
+  opacity: .4;
+}
+
+
+.page-link {
+  position: relative;
+  display: block;
+  padding: .5rem .75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: var(--bs-body-color);
+  background-color: var(--bs-body-bg);
+  border: 1px solid var(--bs-gray-700);
+}
+
+.page-item.active .page-link {
+  background-color: var(--bs-green);
+  border-color: var(--bs-gray-700);
+}
+
+.page-link:hover {
+  color: var(--bs-body-color);
+  background-color: var(--bs-teal);
+  border-color: var(--bs-gray-700);
+}
+
 .form-check-input {
   border-color: var(--bs-body-color) !important;
 }

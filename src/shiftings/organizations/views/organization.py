@@ -10,6 +10,7 @@ from django.views.generic import DetailView, ListView
 from shiftings.organizations.forms.membership import MembershipForm
 from shiftings.organizations.forms.organization import OrganizationForm
 from shiftings.organizations.models import Organization
+from shiftings.utils.pagination import get_pagination_context
 from shiftings.utils.views.base import BaseMixin
 from shiftings.utils.views.create_update_view import CreateOrUpdateViewWithImageUpload
 
@@ -45,8 +46,20 @@ class OwnOrganizationListView(LoginRequiredMixin, ListView):
         return Organization.objects.filter(query)
 
 
-class OrganizationDetailView(BaseMixin, DetailView):
-    template_name = 'organizations/organization.html'
+class OrganizationShiftsView(BaseMixin, DetailView):
+    template_name = 'organizations/organization_shifts.html'
+    model = Organization
+    object: Organization
+    context_object_name = 'organization'
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context['shifts'] = get_pagination_context(self.request, self.object.shifts.all(), 10, 'shifts')
+        return context
+
+
+class OrganizationAdminView(BaseMixin, DetailView):
+    template_name = 'organizations/organization_admin.html'
     model = Organization
     object: Organization
     context_object_name = 'organization'

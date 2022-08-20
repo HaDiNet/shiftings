@@ -63,6 +63,10 @@ class Organization(models.Model):
         return self.shifts.filter(end__gte=date.today()).order_by('start').first()
 
     @property
+    def next_event(self) -> Optional[Event]:
+        return self.events.filter(end_date__gte=date.today()).order_by('start_date').first()
+
+    @property
     def future_events(self) -> QuerySet[Event]:
         return self.events.filter(end_date__gte=date.today())
 
@@ -82,4 +86,4 @@ class Organization(models.Model):
         return user.groups.filter(pk__in=[member.group.pk for member in self.all_members.filter(group__isnull=False)])
 
     def get_absolute_url(self) -> str:
-        return reverse('organization', args=[self.pk])
+        return reverse('organization_admin', args=[self.pk])

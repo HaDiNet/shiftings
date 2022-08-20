@@ -21,14 +21,16 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <input class="d-none" name="remove_target" id="id_remove_target">
+          <input class="d-none" name="success_url" id="id_success_url">
           {% if remove_target_from %}
             {% blocktrans with target=remove_target_from %}
-              Are you sure you want to remove "<span id="remove_object_placeholder_2" class="fw-bold text-danger"></span>" from {{ target }}
+              Are you sure you want to remove
+              "<span id="remove_object_placeholder_2" class="fw-bold text-danger"></span>" from {{ target }}
             {% endblocktrans %}
           {% else %}
             {% blocktrans with target=remove_target_from %}
-              Are you sure you want to remove "<"span id="remove_object_placeholder_2"  class="fw-bold text-danger"></span>"
+              Are you sure you want to remove
+              "<span id="remove_object_placeholder_2"  class="fw-bold text-danger"></span>"
             {% endblocktrans %}
           {% endif %}
         </div>

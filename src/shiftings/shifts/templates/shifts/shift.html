@@ -59,7 +59,7 @@
                 {% for display,required in shift.get_slots_display %}
                   <div class="d-flex{% if required %} shift-required{% endif %}">
                     {% if display %}
-                      {% if request.user == display or request.user.is_superuser %}
+                      {% if request.user.pk == display.user.pk or request.user.is_superuser %}
                         <button type="button" class="btn border link w-100 mx-2" data-bs-toggle="modal"
                                 data-bs-target="#confirmRemoveModal" data-bs-remove-name="{{ display.display }}"
                                 data-bs-remove-url="{% url 'remove_participant' shift.pk display.pk %}">

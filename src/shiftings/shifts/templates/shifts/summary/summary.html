@@ -1,5 +1,5 @@
 {% extends 'generic/form_base.html' %}
-
+{% load shifts %}
 {% block form %}
   <div class="card bg-dark mb-3">
     <div class="card-header center-items justify-content-between">
@@ -8,30 +8,7 @@
       </div>
     </div>
     <div class="card-body">
-      <table>
-        <thead>
-        <th>{% trans 'Member' %}</th>
-        {% for type in types %}
-          <th>{{ type.name }}</th>
-        {% endfor %}
-        {% if has_other_types %}
-          <th>{% trans 'Other' %}</th>
-        {% endif %}
-        </thead>
-        <tbody>
-        {% for member in members %}
-          <tr>
-            <td>{{ member.name }}</td>
-            {% for group in member.groups %}
-              <td>{{ group }}</td>
-            {% endfor %}
-            {% if has_other_types %}
-              <td>{{ member.other }}</td>
-            {% endif %}
-          </tr>
-        {% endfor %}
-        </tbody>
-      </table>
+      {% member_shift_summary organization %}
     </div>
   </div>
 {% endblock %}

@@ -28,7 +28,7 @@
       </div>
       {% csrf_token %}
       {{ formset.management_form }}
-      <div id="formset_insert" class="row g-2">
+      <div id="formset_insert" class="row g-2 justify-content-center">
         {% for form in formset %}
           {% include "shifts/template/template_form.html" %}
         {% endfor %}

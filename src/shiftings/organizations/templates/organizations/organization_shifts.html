@@ -1,0 +1,107 @@
+{% extends 'generic/dual_column.html' %}
+{% load shifts %}
+
+{% block left %}
+  <div class="base-card card bg-dark my-3">
+    <div class="card-header center-items justify-content-between">
+      <h3 class="m-0">
+        {{ organization.name }}
+      </h3>
+      <div>
+        <a class="btn btn-info" href="{% url 'organization_admin' organization.pk %}"
+           title="{% trans "Administrate Organization" %}">
+          <i class="fas fa-building-shield"></i>
+        </a>
+        <a class="btn btn-success" href="{% url 'organization_update' organization.pk %}"
+           title="{% trans "Edit Organization" %}">
+          <i class="fas fa-edit"></i>
+        </a>
+      </div>
+    </div>
+    <div class="card-body">
+      {% if organization.logo %}
+        <div class="organization-detail-logo">
+          <img src="{{ organization.logo.url }}" alt="{% trans 'Logo' %}" />
+        </div>
+      {% endif %}
+      <dl class="detail-horizontal">
+        <dt>Email</dt>
+        <dd>{{ organization.email }}</dd>
+        <dt>Telephone</dt>
+        <dd>{{ organization.telephone_number }}</dd>
+        <dt>Website</dt>
+        <dd>{{ organization.website }}</dd>
+        <dt>Description</dt>
+        <dd class="organization-description">{{ organization.description|default:'None'|linebreaks }}</dd>
+      </dl>
+    </div>
+  </div>
+  <div class="mt-3 card base-card bg-dark">
+    <div class="card-header">
+      <h3>{% trans "Member Shift Summary" %}</h3>
+    </div>
+    <div class="p-1">
+      {% member_shift_summary organization %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block right %}
+  <div class="row my-3">
+    <div class="col-xxl-6 mb-3 mb-md-0">
+      <div class="card bg-dark p-2 h-100">
+        {% trans "Next Event" %}:
+        {% if organization.next_event %}
+          {{ organization.next_event }}
+        {% else %}
+          <div>{% trans "No Events planned" %}</div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="col-xxl-6 mt-2 mt-xxl-0">
+      <div class="card bg-dark h-100">
+        <div class="d-flex justify-content-between">
+          <div class="mx-auto pt-2">
+            {% trans "Month Overview" %}
+          </div>
+          <div>
+            <a class="btn btn-success" title="{% trans "Complete Overview" %}">
+              <i class="fas fa-calendar-week"></i>
+            </a>
+          </div>
+        </div>
+        <div class="card-body table-responsive">
+          {% month_overview_calendar organization request.GET %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card base-card bg-dark mt-3">
+    <div class="card-header center-items justify-content-between">
+      <h5 class="m-0">{% trans "Shifts" %}</h5>
+      <div>
+        <a class="btn btn-success" href="{% url 'organization_calendar' organization.pk %}"
+           title="{% trans "ical Export" %}">
+          <i class="fas fa-file-export"></i>
+        </a>
+        <a class="btn btn-success" href="{% url "shift_create" %}" title="{% trans "Create Shift" %}">
+          <i class="fa-solid fa-calendar-plus"></i>
+        </a>
+      </div>
+    </div>
+    <div>
+      {% if shifts|length > 0 %}
+        <div>
+          {% for shift in shifts.object_list %}
+            {% shift_card shift %}
+          {% endfor %}
+        </div>
+        <div class="d-flex justify-content-center bg-dark">
+          {% bootstrap_pagination shifts.page_obj parameter_name=shifts.page_name %}
+        </div>
+      {% else %}
+        <div class="center-items p-3">{% trans "No current shifts" %}</div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

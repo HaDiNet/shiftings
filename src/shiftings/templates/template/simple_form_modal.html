@@ -13,6 +13,9 @@
           {{ nodelist }}
         </div>
         <div class="modal-footer">
+          {% if success_url %}
+            <input name="success_url" class="d-none" type="text" value="{{ success_url }}">
+          {% endif %}
           <button type="submit" class="btn btn-primary">{% trans "Submit" %}</button>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Close" %}</button>
         </div>

@@ -11,6 +11,10 @@
         {{ organization.name }}
       </h3>
       <div>
+        <a class="btn btn-info" href="{% url 'organization' organization.pk %}"
+           title="{% trans "Shift Overview" %}">
+          <i class="fas fa-table-list"></i>
+        </a>
         <a class="btn btn-success" href="{% url 'organization_update' organization.pk %}"
            title="{% trans "Edit Organization" %}">
           <i class="fas fa-edit"></i>
@@ -217,7 +221,7 @@
       <div>
         <a class="btn btn-success" href="{% url 'organization_calendar' organization.pk %}"
            title="{% trans "ical Export" %}">
-          <i class="fas fa-file-export"></i> {% trans "ical Export" %}
+          <i class="fas fa-file-export"></i>
         </a>
         <a class="btn btn-success" href="{% url "shift_create" %}" title="{% trans "Create Shift" %}">
           <i class="fa-solid fa-calendar-plus"></i>

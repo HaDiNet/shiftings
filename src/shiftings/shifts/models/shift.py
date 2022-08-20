@@ -53,6 +53,12 @@ class Shift(ShiftBase):
         return self.name
 
     @property
+    def detailed_display(self) -> str:
+        return _('{name} from {start} to {end} ').format(name=self.name,
+                                                         start=self.start.strftime("%Y-%m-%d %H:%M"),
+                                                         end=self.end.strftime("%Y-%m-%d %H:%M"),)
+
+    @property
     def is_full(self):
         return self.max_users != 0 and len(self.participants.all()) >= self.max_users
 

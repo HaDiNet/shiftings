@@ -44,4 +44,6 @@ class RemoveParticipantView(BaseLoginMixin, DeleteView):
         return self._get_object(Shift, 'pk')
 
     def get_success_url(self) -> str:
+        if 'success_url' in self.request.POST:
+            return str(self.request.POST['success_url'])
         return self.get_shift().get_absolute_url()
