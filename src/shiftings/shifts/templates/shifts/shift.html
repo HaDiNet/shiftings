@@ -39,7 +39,11 @@
                 <dt>{% trans "End Time" %}</dt>
                 <dd>{{ shift.end }}</dd>
                 <dt>{% trans "Organization" %}</dt>
-                <dd>{{ shift.organization.name }}</dd>
+                <dd>
+                  <a class="link" href="{{ shift.organization.get_absolute_url }}">
+                    {{ shift.organization.name }}
+                  </a>
+                </dd>
                 <dt>{% trans "Created" %}</dt>
                 <dd>{{ shift.created }}</dd>
                 <dt>{% trans "Last Modified" %}</dt>
@@ -48,10 +52,10 @@
             </div>
             <div class="col-12 col-md-7">
               <div>
-                {% trans "Open Slots" %}:
+                {% trans "Shift Participants" %}:
                 {% if not shift.is_full and request.user.is_superuser %}
-                  <a class="btn btn-outline-success" href="{% url 'add_participant_self' shift.pk %}">
-                    <i class="fa-solid fa-person-circle-plus me-2"></i>{% trans "Add user" %}
+                  <a class="btn btn-outline-success" href="{% url 'add_participant_other' shift.pk %}">
+                    <i class="fa-solid fa-person-circle-plus me-2"></i>{% trans "Add participant" %}
                   </a>
                 {% endif %}
               </div>
@@ -60,9 +64,11 @@
                   <div class="d-flex{% if required %} shift-required{% endif %}">
                     {% if display %}
                       {% if request.user.pk == display.user.pk or request.user.is_superuser %}
-                        <button type="button" class="btn border link w-100 mx-2" data-bs-toggle="modal"
-                                data-bs-target="#confirmRemoveModal" data-bs-remove-name="{{ display.display }}"
-                                data-bs-remove-url="{% url 'remove_participant' shift.pk display.pk %}">
+                        <button type="button" class="btn border link w-100 mx-2 text-truncate mw-100"
+                                data-bs-toggle="modal" data-bs-target="#confirmRemoveModal"
+                                data-bs-remove-name="{{ display.display }}"
+                                data-bs-remove-url="{% url 'remove_participant' shift.pk display.pk %}"
+                                title="{{ display.display }}">
                           {{ display.display }}
                         </button>
                       {% else %}

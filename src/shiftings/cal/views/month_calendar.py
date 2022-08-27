@@ -61,7 +61,10 @@ class BaseCalendar(HTMLCalendar):
         self.shift_filter = shift_filter
 
     def get_shifts(self, _date: date) -> Union[List[Shift], QuerySet[Shift]]:
-        return Shift.objects.filter(self.shift_filter & Q(start__date=_date)).order_by('start', 'end')
+
+        time_filter = (Q(start__date=_date) | Q(end__date=_date, end__gt=_date) |
+                        Q(start__lt=_date, end__gt=_date))
+        return Shift.objects.filter(self.shift_filter & time_filter).order_by('start', 'end')
 
     def can_see_shift(self, shift: Shift) -> bool:
         return True  # shift.can_view(self.user)

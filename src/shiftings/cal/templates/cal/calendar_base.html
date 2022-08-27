@@ -5,8 +5,8 @@
 {% block content %}
   <div class="container-fluid">
     <div class="row g-3 mt-1">
-      <div class="col-12 col-md-3 col-xxl-12">
-        <div class="card bg-dark p-3">
+      <div class="col-12 col-lg-3 col-xxl-12">
+        <div class="card base-card bg-dark p-3">
           <div class="row">
             <div class="col-md-12 col-xxl-1 d-flex flex-column">
                 <a class="btn btn-success mb-1" title="{% trans "Day View" %}" href="{% url "overview_today" %}">
@@ -19,7 +19,7 @@
                   <i class="fa-solid fa-calendar-days"></i>{% trans "Month" %}
                 </a>
             </div>
-            <div class="col-3 col-md-12 col-xxl-3 mb-2">
+            <div class="col-4 col-md-12 col-xxl-3 mb-2">
               <h4>{% trans "Filters" %}:</h4>
               <a class="btn btn-success mb-2 active" href="?filter=all">All Shifts</a>
               <a class="btn btn-secondary mb-2" href="?filter=own">My Shifts</a>
@@ -62,7 +62,7 @@
           </div>
         </div>
       </div>
-      <div class="col-12 col-md-9 col-xxl-12">
+      <div class="col-12 col-lg-9 col-xxl-12">
         {% block calendar %}
         {% endblock %}
       </div>

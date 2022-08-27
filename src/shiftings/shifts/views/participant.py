@@ -3,15 +3,15 @@ from typing import Any
 from django.http import HttpResponse
 from django.views.generic import DeleteView
 
-from shiftings.shifts.forms.participant import AddSelfParticipantForm
+from shiftings.shifts.forms.participant import AddOtherParticipantForm, AddSelfParticipantForm
 from shiftings.shifts.models import Participant, Shift
 from shiftings.utils.views.base import BaseLoginMixin
 from shiftings.utils.views.create_update_view import CreateView
 
 
-class AddSelfParticipantView(CreateView, BaseLoginMixin):
+class AddOtherParticipantView(CreateView, BaseLoginMixin):
     model = Participant
-    form_class = AddSelfParticipantForm
+    form_class = AddOtherParticipantForm
 
     object: Participant
 
@@ -23,17 +23,21 @@ class AddSelfParticipantView(CreateView, BaseLoginMixin):
         kwargs['shift'] = self.get_shift()
         return kwargs
 
-    def get_initial(self) -> dict[str, Any]:
-        initial = super().get_initial()
-        initial['user'] = self.request.user
-        return initial
-
     def form_valid(self, form: AddSelfParticipantForm) -> HttpResponse:
         self.object = form.save()
         shift = self.get_shift()
         shift.participants.add(self.object)
         shift.save()
         return self.success
+
+
+class AddSelfParticipantView(AddOtherParticipantView):
+    form_class = AddSelfParticipantForm
+
+    def get_initial(self) -> dict[str, Any]:
+        initial = super().get_initial()
+        initial['user'] = self.request.user
+        return initial
 
 
 class RemoveParticipantView(BaseLoginMixin, DeleteView):
@@ -44,6 +48,6 @@ class RemoveParticipantView(BaseLoginMixin, DeleteView):
         return self._get_object(Shift, 'pk')
 
     def get_success_url(self) -> str:
-        if 'success_url' in self.request.POST:
+        if self.request.POST.get('success_url'):
             return str(self.request.POST['success_url'])
         return self.get_shift().get_absolute_url()

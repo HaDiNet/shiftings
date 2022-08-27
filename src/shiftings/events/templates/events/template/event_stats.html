@@ -1,0 +1,18 @@
+<table>
+  <tr title="{% trans "Shifts that are below the required amount of users" %}">
+    <th>{% trans "Shifts missing users" %}:</th>
+    <td class="ps-3">{{ event.needing_shifts|length }}</td>
+  </tr>
+  <tr title="{% trans "Shifts that are below the required and maximum amount of users" %}">
+    <th>{% trans "Shifts with open slots" %}:</th>
+    <td class="ps-3">{{ event.open_shifts|length }}</td>
+  </tr>
+  <tr title="{% trans "Number of Shift slots filled with users" %}">
+    <th>{% trans "Filled Slots" %}:</th>
+    <td class="ps-3">{{ event.filled_slots|default_if_none:_('No Shifts available') }}</td>
+  </tr>
+  <tr title="{% trans "Number of Shift slots that are still open" %}">
+    <th>{% trans "Open Slots" %}:</th>
+    <td class="ps-3">{{ event.needed_slots|default_if_none:_('No Shifts available') }}</td>
+  </tr>
+</table>

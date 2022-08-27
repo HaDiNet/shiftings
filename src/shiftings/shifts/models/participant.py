@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 class Participant(models.Model):
     user = models.ForeignKey('accounts.User', on_delete=models.CASCADE, verbose_name=_('User'), related_name='shifts')
     display_name = models.CharField(max_length=100, verbose_name=_('Display Name'), blank=True, null=True,
-                                    help_text=_('Display Name is optional'))
+                                    help_text=_('Display Name is optional, and will be shown instead of the username'))
 
     class Meta:
         default_permissions = ()

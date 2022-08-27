@@ -402,8 +402,9 @@ dl.detail-horizontal dd {
 
 .shift-slots {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 140px);
+  grid-template-columns: repeat(auto-fill, 200px);
   row-gap: 1rem;
+  justify-content: center;
   text-align: center;
 }
 

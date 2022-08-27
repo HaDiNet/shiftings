@@ -86,4 +86,4 @@ class Organization(models.Model):
         return user.groups.filter(pk__in=[member.group.pk for member in self.all_members.filter(group__isnull=False)])
 
     def get_absolute_url(self) -> str:
-        return reverse('organization_admin', args=[self.pk])
+        return reverse('organization', args=[self.pk])

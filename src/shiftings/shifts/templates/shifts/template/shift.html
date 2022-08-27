@@ -1,11 +1,19 @@
 <div class="p-2">
-  {% url "shift" shift.pk as shift_url %}
-  <div><h5>{{ shift.start|date }}</h5></div>
   <div>
-    <a class="link" href="{{ shift_url }}"> {{ shift.name }}</a>
-    {{ shift.name }} {{ shift.shift_type }} {{ shift.start|time }} {{ shift.end|time }} {{ shift.participants|length }}/{{ shift.required_users }} {% trans "Users" %}
+    <div class="d-flex align-items-center flex-wrap justify-content-between">
+      <h4 class="m-0">{{ shift.name }}</h4>
+      <a class="btn btn-outline-info" href="{{ shift.get_absolute_url }}"> {% trans "Go to Shift" %}</a>
+    </div>
+    <dl class="detail-horizontal">
+      <dt>{% trans "Type" %}</dt>
+      <dd>{{ shift.shift_type }}</dd>
+      <dt>{% trans "Time" %}</dt>
+      <dd>{{ shift.time_display }}</dd>
+      <dt>{% trans "Participants" %}</dt>
+      <dd>{{ shift.participants|length }}/{{ shift.required_users }} {% trans "Users" %}</dd>
+    </dl>
   </div>
-  <div>
+  <div class="d-flex flex-wrap">
     {% for participant in shift.participants.all %}
       <div class="ms-3">{{ participant.user }}</div>
     {% endfor %}

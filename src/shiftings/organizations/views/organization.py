@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from datetime import date
 from typing import Any, Optional
 
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -54,7 +55,11 @@ class OrganizationShiftsView(BaseMixin, DetailView):
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        context['shifts'] = get_pagination_context(self.request, self.object.shifts.all(), 10, 'shifts')
+        today = date.today()
+        context['shifts'] = get_pagination_context(self.request,
+                                                   self.object.shifts.filter(start__date__gte=today,
+                                                                             end__date__gte=today),
+                                                   5, 'shifts')
         return context
 
 

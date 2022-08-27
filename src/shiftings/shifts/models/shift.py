@@ -56,7 +56,18 @@ class Shift(ShiftBase):
     def detailed_display(self) -> str:
         return _('{name} from {start} to {end} ').format(name=self.name,
                                                          start=self.start.strftime("%Y-%m-%d %H:%M"),
-                                                         end=self.end.strftime("%Y-%m-%d %H:%M"),)
+                                                         end=self.end.strftime("%Y-%m-%d %H:%M"))
+
+    @property
+    def time_display(self) -> str:
+        if self.start.date() != self.end.date():
+            return _('{name} from {start} to {end_time} on {end_date} ').format(name=self.name,
+                                                                                start=self.start.strftime("%H:%M"),
+                                                                                end_time=self.end.strftime("%H:%M"),
+                                                                                end_date=self.end.date())
+        return _('{name} from {start} to {end_time}').format(name=self.name,
+                                                             start=self.start.strftime("%H:%M"),
+                                                             end_time=self.end.strftime("%H:%M"), )
 
     @property
     def is_full(self):
@@ -74,7 +85,7 @@ class Shift(ShiftBase):
             slots = [(False, True) for i in range(self.required_users)]
         if self.max_users != 0:
             slots += [(False, False) for i in range(self.max_users - self.required_users)]
-        for i, user in enumerate(self.participants.all()):
+        for i, user in enumerate(self.participants.all().order_by('pk')):
             try:
                 slots[i] = user, slots[i][1]
             except IndexError:

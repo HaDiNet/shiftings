@@ -18,12 +18,12 @@
   {% endifchanged %}
   <div class="mx-5 card bg-dark border border-1">
     <div class="card-header">
-      <a class="link" href="{{ shift_url }}"><h5 class="m-0">{{ shift.detailed_display }}</h5></a>
+      <a class="link" href="{{ shift_url }}"><h5 class="m-0">{{ shift.time_display }}</h5></a>
     </div>
     <div class="p-2">
       <div class="mb-2">{% trans "Place" %}: {{ shift.place }}</div>
       <div class="mb-2">{% trans "Shift Participants" %}:</div>
-      <div class="d-flex flex-wrap justify-content-center justify-content-md-start">
+      <div class="mx-3 mt-2 shift-slots">
         {% for display,required in shift.get_slots_display %}
           <div class="d-flex my-1{% if required %} shift-required{% endif %}"
               {% if required %}
@@ -33,7 +33,7 @@
               {% endif %}>
             {% if display %}
               {% if request.user == display.user or request.user.is_superuser %}
-                <button type="button" class="btn border link w-100 mx-2" data-bs-toggle="modal"
+                <button type="button" class="btn border link w-100 mx-2 text-truncate mw-100" data-bs-toggle="modal"
                         data-bs-target="#confirmRemoveModal" data-bs-remove-name="{{ display.display }}"
                         data-bs-remove-url="{% url 'remove_participant' shift.pk display.pk %}"
                         data-bs-success-url="{{ request.path }}">

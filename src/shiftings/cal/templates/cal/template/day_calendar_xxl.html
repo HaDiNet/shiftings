@@ -26,9 +26,9 @@
         {% endfor %}
         <td class="p-0" colspan="{{ entry.duration }}">
           <div class="card bg-danger">
-            <div class="card-body flex-wrap">
+            <div class="card-body flex-wrap mw-100 text-truncate" title="{{ entry.shift.time_display }}">
               <a class="link" href="{{ entry.shift.get_absolute_url }}">
-                {{ entry.shift }}
+                {{ entry.shift.time_display }}
               </a>
             </div>
           </div>
