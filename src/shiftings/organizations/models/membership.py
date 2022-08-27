@@ -1,4 +1,4 @@
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, Permission
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import CheckConstraint, Q, UniqueConstraint
@@ -10,6 +10,7 @@ class MembershipType(models.Model):
     name = models.CharField(max_length=50, verbose_name=_('Name'))
     admin = models.BooleanField(verbose_name=_('Admin'), default=None, blank=True, null=True)
     default = models.BooleanField(verbose_name=_('Default'), default=None, blank=True, null=True)
+    permissions = models.ManyToManyField(Permission, verbose_name=_('Permissions'), blank=True)
 
     class Meta:
         default_permissions = ()

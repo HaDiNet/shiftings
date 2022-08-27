@@ -35,6 +35,9 @@ class Organization(models.Model):
 
     class Meta:
         default_permissions = ()
+        permissions = [
+            ('test', _('Test Permission'))
+        ]
         ordering = ['name']
 
     def __str__(self) -> str:

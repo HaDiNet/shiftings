@@ -106,6 +106,11 @@ LOGIN_URL = reverse_lazy('login')
 LOGIN_REDIRECT_URL = reverse_lazy('user_profile')
 AUTH_USER_MODEL = 'accounts.User'
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'shiftings.organizations.backend.OrganizationPermissionBackend'
+]
+
 LOCAL_LOGIN_ENABLED = True
 OAUTH_ENABLED = False
 if OAUTH_ENABLED:
@@ -169,8 +174,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'shiftings', 'staticfiles')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'shiftings', 'media')
 MEDIA_URL = '/media/'
-
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

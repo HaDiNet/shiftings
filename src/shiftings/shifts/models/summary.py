@@ -11,6 +11,9 @@ class OrganizationSummarySettings(models.Model):
                                                                verbose_name=_('Default time range for summary'),
                                                                default=TimeRangeType.HalfYear)
 
+    class Meta:
+        default_permissions = ()
+
     @property
     def default_time_range(self) -> TimeRangeType:
         return TimeRangeType(self.default_time_range_type)
