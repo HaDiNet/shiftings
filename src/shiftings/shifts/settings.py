@@ -1,5 +1,3 @@
-import holidays
-
 HOLIDAY_REGIONS = [
     {'country': 'DE', 'region': 'BW'}
 
@@ -18,3 +16,6 @@ SHIFT_COLOR_PALETTE = [
     ('#20C997', 'Teal'),
     ('#0DCAF0', 'Cyan')
 ]
+
+MAX_SHIFT_LENGTH_MINUTES = 1440
+SHIFT_SLIDER_STEP = 15

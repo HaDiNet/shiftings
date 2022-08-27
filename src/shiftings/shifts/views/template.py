@@ -18,6 +18,11 @@ class TemplateGroupAddShiftsView(BaseLoginMixin, ModelFormsetBaseView[ShiftTempl
     form_class = ShiftTemplateFormSet
     template_name = 'shifts/recurring/templates.html'
 
+    def get_form_kwargs(self) -> dict[str, Any]:
+        kwargs = super().get_form_kwargs()
+        kwargs['template_group'] = self.get_group()
+        return kwargs
+
     def get_recurring_shift(self) -> RecurringShift:
         return self._get_object(RecurringShift, 'pk')
 

@@ -5,7 +5,7 @@ from django.utils.translation import get_language
 
 
 class FlatPickrMixin(DateTimeBaseInput):
-    template_name = 'flatpickr/flatpickr.html'
+    template_name = 'widgets/flatpickr.html'
 
     js_format: str
     python_format: str

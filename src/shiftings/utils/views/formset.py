@@ -1,5 +1,5 @@
 from abc import ABC
-from typing import Any, cast, Dict, Generic, List, Optional, Type, TypeVar
+from typing import Any, cast, Dict, Generic, Optional, Type, TypeVar
 
 from django.db import transaction
 from django.db.models import Model, QuerySet
@@ -18,10 +18,10 @@ class ModelFormsetBaseView(TemplateResponseMixin, ModelFormMixin, Generic[T], AB
     model_field_name: str
     item_field_name: str
 
-    def get_form_kwargs(self) -> Dict[str, Any]:
+    def get_form_kwargs(self) -> dict[str, Any]:
         return dict()
 
-    def get_form_data(self) -> List[T]:
+    def get_form_data(self) -> list[T]:
         return list(self.get_form_queryset())
 
     # noinspection PyTypeChecker
