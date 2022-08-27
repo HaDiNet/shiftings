@@ -2,6 +2,7 @@ from datetime import date, datetime
 from typing import Optional
 
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from shiftings.shifts.models import Shift, ShiftTemplate
@@ -29,3 +30,6 @@ class ShiftTemplateGroup(models.Model):
             template: ShiftTemplate = _template
             shifts.append(template.create_shift(start + template.start_delay, weekend_warning, holiday_warning))
         return shifts
+
+    def get_absolute_url(self) -> str:
+        return reverse('shift_template_group', args=[self.pk])
