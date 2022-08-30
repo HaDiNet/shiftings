@@ -41,20 +41,6 @@ class MembershipPermissionField(forms.ModelMultipleChoiceField):
         return str(obj.name)
 
 
-class MembershipPermissionForm(forms.ModelForm):
-    permissions = MembershipPermissionField(queryset=Permission.objects.none(), widget=forms.CheckboxSelectMultiple)
-
-    class Meta:
-        model = Membership
-        fields = ['permissions']
-        widgets = {'organization': forms.CheckboxSelectMultiple}
-
-    def __init__(self, *args: Any, **kwargs: Any) -> None:
-        super().__init__(*args, **kwargs)
-        ctypes = ContentType.objects.filter(app_label='organizations')
-        self.fields['permissions'].queryset = Permission.objects.filter(content_type__in=ctypes)
-
-
 class MembershipTypeForm(forms.ModelForm):
     permissions = MembershipPermissionField(queryset=Permission.objects.none(), widget=forms.CheckboxSelectMultiple)
 
