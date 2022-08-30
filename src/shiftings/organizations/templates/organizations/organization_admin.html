@@ -79,6 +79,19 @@
                 {% endsimpleformmodal %}
               </div>
             </div>
+            <div class="pb-1 d-flex flex-wrap align-content-stretch">
+              {% if membership_type.object.admin %}
+                <div class="badge bg-danger mx-auto">
+                {% trans "All Permissions" %}
+                </div>
+              {% else %}
+                {% for permission in membership_type.object.permissions.all %}
+                  <div class="badge bg-success me-1">
+                  {{ permission.name }}
+                  </div>
+                {% endfor %}
+              {% endif %}
+            </div>
             <table class="table table-dark table-striped text-center m-0">
               <tbody>
               {% for member in membership_type.members %}
