@@ -4,6 +4,7 @@ from django.db.models import Q, QuerySet
 from django.utils.translation import gettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
 
+from shiftings.events.models import Event
 from shiftings.organizations.models import Organization
 
 
@@ -26,6 +27,10 @@ class User(AbstractUser):
 
     @property
     def organizations(self) -> QuerySet[Organization]:
-        return Organization.objects \
-            .filter(Q(all_members__user=self) | Q(all_members__group__in=self.groups.all())) \
-            .distinct()
+        return Organization.objects.filter(Q(all_members__user=self) |
+                                           Q(all_members__group__in=self.groups.all())).distinct()
+
+    @property
+    def events(self) -> QuerySet[Event]:
+        return Event.objects.filter(Q(organization__all_members__user=self) | Q(public=True) |
+                                    Q(organization__all_members__group__in=self.groups.all())).distinct()

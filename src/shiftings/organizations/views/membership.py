@@ -2,6 +2,7 @@ from typing import Any, Dict
 
 from django.contrib import messages
 from django.http import HttpResponse
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import DeleteView
 from django.views.generic.edit import FormMixin
@@ -21,8 +22,8 @@ class MembershipViewMixin(BaseMixin):
     def get_organization(self) -> Organization:
         return self._get_object(Organization, 'pk')
 
-    def get_success_url(self) -> str:
-        return self.get_organization().get_absolute_url()
+    def get_success_url(self):
+        return reverse('organization_admin', args=[self.get_organization().pk])
 
 
 class MembershipAddView(MembershipViewMixin, CreateOrUpdateView):

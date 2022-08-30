@@ -1,4 +1,5 @@
 {% extends "generic/dual_column.html" %}
+{% load shifts %}
 {% block left %}
   <div class="card bg-dark p-3 my-2">
     <h4 class="text-center">{% trans "User" %} {{ user }}</h4>
@@ -55,9 +56,27 @@
 {% endblock %}
 
 {% block right %}
-  <div class="card bg-dark">
+  <div class="card bg-dark mt-2">
     <div class="card-header">
-      <h4>{% trans "" %}</h4>
+      <h4>{% trans "My Upcoming Shifts" %}</h4>
+    </div>
+    <div>
+      {% if shifts.object_list|length > 1 %}
+        <div>
+          {% for shift in shifts.object_list %}
+            {% shift_card shift %}
+          {% endfor %}
+        </div>
+        {% if shifts.is_paginated %}
+          <div class="d-flex justify-content-center bg-dark">
+            {% bootstrap_pagination shifts.page_obj parameter_name=shifts.page_name %}
+          </div>
+        {% endif %}
+      {% else %}
+        <div class="center-items p-3">
+          <h4>{% trans "No upcoming shifts" %}</h4>
+        </div>
+      {% endif %}
     </div>
   </div>
 {% endblock %}

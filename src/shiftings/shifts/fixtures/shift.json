@@ -135,7 +135,7 @@
     "model": "shifts.shifttemplategroup",
     "pk": 1,
     "fields": {
-      "name": "",
+      "name": "Barabend",
       "place": "K1 Bar",
       "organization": 1,
       "start_time": "21:30:00"

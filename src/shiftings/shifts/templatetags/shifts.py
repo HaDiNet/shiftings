@@ -1,8 +1,9 @@
-from datetime import date
-from typing import Any
+from datetime import date, datetime, time, timedelta
+from typing import Any, Optional
 
 from django import template
 from django.db.models import Q
+from django.utils.translation import gettext as _
 
 from shiftings.shifts.forms.participant import AddSelfParticipantForm
 from shiftings.utils.time.timerange import TimeRangeType
@@ -43,3 +44,14 @@ def member_shift_summary(context, org) -> dict[str, Any]:
         'other': org.shifts.filter(time_filter, shift_type__isnull=True, participants__user=member.user).count()
     } for member in org.all_members.all().order_by('user__username')]
     return context
+
+
+@register.simple_tag()
+def calculate_shift_time(shift_time: time, start_delay: timedelta, shift_duration: Optional[timedelta] = None) -> str:
+    delta = start_delay
+    if shift_duration is not None:
+        delta += shift_duration
+    format_str = f'%H:%M'
+    if delta.days > 0:
+        format_str += _('Days + {delta_days}').format(delta_days=delta.days)
+    return (datetime.combine(date.today(), shift_time) + delta).time().strftime(format_str)

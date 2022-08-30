@@ -1,0 +1,30 @@
+{% load shifts %}
+<div class="card bg-dark">
+  <div class="card-header center-items justify-content-between">
+    <h5 class="m-0">{{ template.name }}</h5>
+  </div>
+  <div class="card-body">
+    <dl class="detail-horizontal">
+      <dt>{% trans "Type" %}</dt>
+      <dd>{{ template.shift_type }}</dd>
+      <dt>{% trans "Start Time" %}</dt>
+      <dd>{% calculate_shift_time shift.template.start_time template.start_delay %}</dd>
+      <dt>{% trans "End Time" %}</dt>
+      <dd>{% calculate_shift_time shift.template.start_time template.start_delay template.duration %}</dd>
+      <dt>{% trans "Required Users/Max Users" %}</dt>
+      <dd>
+        {% if template.required_users != 0 %}{{ template.required_users }}{% else %}{% trans "None" %}{% endif %}
+        /
+        {% if template.max_users != 0 %}{{ template.max_users }}{% else %}{% trans "Unlimited" %}{% endif %}
+      </dd>
+    </dl>
+    {% if template.additional_infos %}
+      <div>
+        <h5>{% trans "Additional Infos" %}</h5>
+        <div class="overflow-auto">
+          {{ template.additional_infos|linebreaks }}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>

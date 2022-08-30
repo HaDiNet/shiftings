@@ -33,21 +33,37 @@
                 <dt class="ms-3">{% trans "Warning" %}</dt>
                 <dd class="ms-4">{{ shift.holiday_warning|linebreaks }}</dd>
               {% endif %}
-              <hr>
-              <dt>{% trans "Shift Type" %}</dt>
-              <dd>{{ shift.shift_type.name }}</dd>
-              <dt>{% trans "Duration" %}</dt>
-              <dd>{{ shift.duration }}</dd>
-              <dt>{% trans "Place" %}</dt>
-              <dd>{{ shift.place }}</dd>
-              <dt>{% trans "Organization" %}</dt>
-              <dd>{{ shift.organization.name }}</dd>
-              <dt>{% trans "Required Users" %}</dt>
-              <dd>{{ shift.required_users }}</dd>
-              <dt>{% trans "Max Users" %}</dt>
-              <dd>{{ shift.max_users }}</dd>
             </dl>
           </div>
+        </div>
+        <div class="card bg-dark mt-3">
+          <div class="card-header center-items justify-content-between">
+            <h3 class="m-0">Shift Template {{ shift.template.name }}</h3>
+            <div>
+              <a class="btn btn-outline-info" href="{{ shift.template.get_absolute_url }}"
+                 title="{% trans "Go to Shift Template" %}">
+                {% trans "Go to Shift Template" %}
+              </a>
+              <a class="btn btn-success" href="{% url "template_group_update" shift.pk %}"
+                 title="{% trans "Edit Shift Template" %}">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </a>
+            </div>
+          </div>
+          <div class="card-body">
+            <dl class="detail-horizontal">
+              <dt>{% trans "Place" %}</dt>
+              <dd>{{ shift.template.place }}</dd>
+              <dt>{% trans "Time" %}</dt>
+              <dd>{{ shift.template.start_time }}</dd>
+              <dt>{% trans "Organization" %}</dt>
+              <dd>{{ shift.template.organization.name }}</dd>
+            </dl>
+          </div>
+          {% for shift_template in shift.template.shifts.all %}
+            <hr class="my-1">
+            {% include "shifts/template/template.html" with template=shift_template start_time=shift.template.start_time %}
+          {% endfor %}
         </div>
       </div>
       <div class="col-12 col-lg-6 col-xl-4">
@@ -78,7 +94,7 @@
               {% for shift in passed_created_shifts %}
                 <li>
                   <a class="link" href="{% url "shift" shift.pk %}">
-                    {{ shift.name }} in {{ shift.start|timesince }}
+                    {{ shift.name }} {{ shift.start|timesince }} ago
                   </a>
                 </li>
               {% empty %}
