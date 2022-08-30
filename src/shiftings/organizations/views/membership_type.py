@@ -2,6 +2,7 @@ from typing import Any, Dict
 
 from django.contrib import messages
 from django.http import HttpResponse
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import DeleteView
 from django.views.generic.edit import FormMixin
@@ -35,6 +36,9 @@ class MembershipTypeEditView(MembershipTypeViewMixin, CreateOrUpdateView):
         if self.is_create():
             initial['organization'] = self.get_organization()
         return initial
+
+    def get_success_url(self):
+        return reverse('organization_admin', args=[self.get_organization().pk])
 
 
 class MembershipTypeRemoveView(MembershipTypeViewMixin, DeleteView, FormMixin):
