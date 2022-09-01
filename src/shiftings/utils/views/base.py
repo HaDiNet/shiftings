@@ -1,3 +1,4 @@
+from abc import ABC
 from typing import Any, Callable, Dict, Optional, Type, TypeVar, Union
 
 from django.contrib.auth.mixins import AccessMixin, LoginRequiredMixin, PermissionRequiredMixin
@@ -9,11 +10,12 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import ContextMixin
 
 from shiftings.utils.exceptions import Http403
+from shiftings.utils.typing import UserRequest
 
 T = TypeVar('T', bound=Model)
 
 
-class BaseMixin(AccessMixin, ContextMixin):
+class BaseMixin(AccessMixin, ContextMixin, ABC):
     request: HttpRequest
     object: Optional[T] = None
 
@@ -70,20 +72,9 @@ class BaseMixin(AccessMixin, ContextMixin):
         return HttpResponseRedirect(url)
 
 
-class BaseLoginMixin(LoginRequiredMixin, BaseMixin):
-    pass
+class BaseLoginMixin(LoginRequiredMixin, BaseMixin, ABC):
+    request: UserRequest
 
 
-class BasePermissionMixin(PermissionRequiredMixin, BaseMixin):
-    base_permission: Optional[str] = None
-
-    def handle_no_permission(self) -> HttpResponse:
-        handled = self._handle_no_permission()
-        if handled:
-            return handled
-        if self.base_permission is not None:
-            if not self.request.user.has_perm(self.base_permission):
-                raise PermissionDenied(self.get_permission_denied_message())
-        elif not self.request.user.has_perm(self.permission_required):
-            raise PermissionDenied(self.get_permission_denied_message())
-        return self.fail
+class BasePermissionMixin(PermissionRequiredMixin, BaseMixin, ABC):
+    request: UserRequest

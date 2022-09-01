@@ -11,32 +11,38 @@ from django.views.generic import DetailView, ListView
 
 from shiftings.organizations.forms.membership import MembershipForm
 from shiftings.organizations.forms.organization import OrganizationForm
-from shiftings.organizations.models import Organization
+from shiftings.organizations.models import MembershipType, Organization
 from shiftings.utils.pagination import get_pagination_context
 from shiftings.utils.permissions import has_any_permission
 from shiftings.utils.typing import UserRequest
-from shiftings.utils.views.base import BaseMixin, BasePermissionMixin
+from shiftings.utils.views.base import BaseLoginMixin, BaseMixin, BasePermissionMixin
 from shiftings.utils.views.create_update_view import CreateOrUpdateViewWithImageUpload
 
 
-class OrganizationMemberMixin(LoginRequiredMixin, UserPassesTestMixin, ABC):
+class OrganizationMemberMixin(BaseLoginMixin, UserPassesTestMixin, ABC):
+    model = Organization
+
+    organization_pk_arg: str = 'pk'
+
     request: UserRequest
 
-    @abstractmethod
     def get_organization(self) -> Organization:
-        raise NotImplementedError('View needs to implement get_organization().')
+        return self._get_object(Organization, self.organization_pk_arg)
 
     def test_func(self) -> bool:
         return self.request.user.has_perm('organizations.admin') or self.get_organization().is_member(self.request.user)
 
 
-class OrganizationPermissionMixin(PermissionRequiredMixin, ABC):
+class OrganizationPermissionMixin(BasePermissionMixin, ABC):
+    model = Organization
+
     require_only_one: bool = False
+    organization_pk_arg: str = 'pk'
+
     request: UserRequest
 
-    @abstractmethod
     def get_organization(self) -> Organization:
-        raise NotImplementedError('View needs to implement get_organization().')
+        return self._get_object(Organization, self.organization_pk_arg)
 
     def has_permission(self) -> bool:
         perms = self.get_permission_required()
@@ -58,10 +64,10 @@ class OrganizationListView(BasePermissionMixin, ListView):
         search_param = self.request.GET.get('search_param')
         if search_param is not None:
             return Organization.objects.filter(name__icontains=search_param)
-        return super().get_queryset()
+        return Organization.objects.all()
 
 
-class OwnOrganizationListView(LoginRequiredMixin, ListView):
+class OwnOrganizationListView(BaseLoginMixin, ListView):
     template_name = 'organizations/list.html'
     model = Organization
     context_object_name = 'organizations'
@@ -75,18 +81,14 @@ class OwnOrganizationListView(LoginRequiredMixin, ListView):
         search_param = self.request.GET.get('search_param')
         organizations = self.request.user.organizations
         if search_param is not None:
-            organizations = organizations.filter(name__icontains=search_param)
+            return organizations.filter(name__icontains=search_param)
         return organizations
 
 
-class OrganizationShiftsView(OrganizationMemberMixin, BaseMixin, DetailView):
+class OrganizationShiftsView(OrganizationMemberMixin, DetailView):
     template_name = 'organizations/organization_shifts.html'
-    model = Organization
     object: Organization
     context_object_name = 'organization'
-
-    def get_organization(self) -> Organization:
-        return self._get_object(Organization, 'pk')
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
@@ -98,9 +100,8 @@ class OrganizationShiftsView(OrganizationMemberMixin, BaseMixin, DetailView):
         return context
 
 
-class OrganizationAdminView(OrganizationPermissionMixin, BaseMixin, DetailView):
+class OrganizationAdminView(OrganizationPermissionMixin, DetailView):
     template_name = 'organizations/organization_admin.html'
-    model = Organization
     object: Organization
     context_object_name = 'organization'
     require_only_one = True
@@ -109,47 +110,29 @@ class OrganizationAdminView(OrganizationPermissionMixin, BaseMixin, DetailView):
         'organizations.edit_members', 'organizations.edit_recurring_shifts', 'organizations.edit_shift_templates'
     )
 
-    def get_organization(self) -> Organization:
-        return self._get_object(Organization, 'pk')
-
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
+        membership_types = []
         for membership_type in self.object.membership_types.all():
-            context.setdefault('membership_types', []).append({
+            membership_types.append({
                 'object': membership_type,
                 'members': self.object.members.filter(type=membership_type),
-                'form': MembershipForm(
-                    user=self.request.user,
-                    initial={
-                        'organization': self.object,
-                        'type': membership_type.pk
-                    })
+                'form': self.create_membership_form(membership_type)
             })
-        context.update({
-            'member_form': MembershipForm(
-                user=self.request.user,
-                initial={'organization': self.object, 'type': self.object.default_membership_type}
-            )
-        })
+        context['membership_types'] = membership_types
         return context
+
+    def create_membership_form(self, membership_type: MembershipType):
+        return MembershipForm(user=self.request.user, initial={'organization': self.object, 'type': membership_type})
 
 
 class OrganizationEditView(BasePermissionMixin, CreateOrUpdateViewWithImageUpload):
-    model = Organization
     form_class = OrganizationForm
 
     def has_permission(self):
         if self.is_create():
             return self.request.user.has_perm('organizations.admin')
-        return self.request.user.has_perm('organizations.edit_organization', self.get_obj())
-
-    def get_obj(self) -> Optional[Organization]:
-        if self.is_create():
-            return None
-        obj = super().get_object()
-        if not isinstance(obj, Organization):
-            return None
-        return obj
+        return self.request.user.has_perm('organizations.edit_organization', self.get_object())
 
     def get_success_url(self) -> str:
-        return reverse('organization', args=[self.object.pk])
+        return self.object.get_absolute_url()

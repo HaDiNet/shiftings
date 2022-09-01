@@ -9,20 +9,15 @@ from django.views.generic import DeleteView
 from django.views.generic.edit import FormMixin
 
 from shiftings.organizations.forms.membership import MembershipTypeForm
-from shiftings.organizations.models import Organization
 from shiftings.organizations.models.membership import MembershipType
 from shiftings.organizations.views.organization import OrganizationPermissionMixin
-from shiftings.utils.views.base import BaseMixin
 from shiftings.utils.views.create_update_view import CreateOrUpdateView
 
 
-class MembershipTypeViewMixin(OrganizationPermissionMixin, BaseMixin):
+class MembershipTypeViewMixin(OrganizationPermissionMixin):
     model = MembershipType
     slug = 'None'
     permission_required = 'organizations.edit_membership_types'
-
-    def get_organization(self) -> Organization:
-        return self._get_object(Organization, 'pk')
 
     def get_success_url(self) -> str:
         return self.get_organization().get_absolute_url()
