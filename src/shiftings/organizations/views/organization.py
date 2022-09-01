@@ -127,6 +127,7 @@ class OrganizationAdminView(OrganizationPermissionMixin, DetailView):
 
 
 class OrganizationEditView(BasePermissionMixin, CreateOrUpdateViewWithImageUpload):
+    model = Organization
     form_class = OrganizationForm
 
     def has_permission(self):
