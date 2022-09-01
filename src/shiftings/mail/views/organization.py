@@ -27,8 +27,8 @@ class OrganizationMailView(BaseMailView):
 
     def get_users(self, form: Optional[OrganizationMailForm] = None) -> QuerySet[User]:
         if form is None:
-            return self.get_organization().get_membership_users()
-        return self.get_organization().get_membership_users(form.cleaned_data['membership_types'])
+            return self.get_organization().get_users_with_membership()
+        return self.get_organization().get_users_with_membership(form.cleaned_data['membership_types'])
 
     def get_success_url(self) -> str:
         return self.get_organization().get_absolute_url()

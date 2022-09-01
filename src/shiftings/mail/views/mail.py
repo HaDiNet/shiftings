@@ -10,16 +10,17 @@ from django.views.generic import FormView
 
 from shiftings.accounts.models import User
 from shiftings.mail.forms.mail import MailForm
+from shiftings.organizations.views.organization import OrganizationPermissionMixin
 from shiftings.utils.typing import UserRequest
-from shiftings.utils.views.base import BaseLoginMixin
 
 
-class BaseMailView(BaseLoginMixin, FormView):
+class BaseMailView(OrganizationPermissionMixin, FormView):
     request: UserRequest
 
     template_name = 'mail/mail.html'
     form_class = MailForm
     form_params: Optional[dict[str, Any]] = {'enctype': 'multipart/form-data'}
+    permission_required = 'organization.send_mail'
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)

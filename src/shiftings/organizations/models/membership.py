@@ -19,6 +19,7 @@ class MembershipType(models.Model):
             ('edit_organization', _('edit organization details')),
             ('see_members', _('see members of the organization')),
             ('see_statistics', _('see shift participation statistics')),
+            ('send_mail', _('send emails to everyone in the organization')),
             # membership
             ('edit_membership_types', _('create and update membership types for the organization')),
             ('edit_members', _('add and remove members for the organization')),
