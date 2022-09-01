@@ -14,6 +14,26 @@ class MembershipType(models.Model):
 
     class Meta:
         default_permissions = ()
+        permissions = [
+            # organization
+            ('edit_organization', _('edit organization details')),
+            ('see_members', _('see members of the organization')),
+            ('see_statistics', _('see shift participation statistics')),
+            # membership
+            ('edit_membership_types', _('create and update membership types for the organization')),
+            ('edit_members', _('add and remove members for the organization')),
+            # events
+            ('edit_events', _('create and update events for the organization')),
+            # shifts
+            ('edit_recurring_shifts', _('create and update recurring shifts for the organization')),
+            ('edit_shift_templates', _('create and update shifts templates for the organization')),
+            ('edit_shifts', _('create and update shifts for the organization')),
+            # shift participation
+            ('remove_others_from_shifts', _('remove others from shifts')),
+            ('add_non_members_to_shifts', _('add other users that are not members of the organization to shifts')),
+            ('add_members_to_shifts', _('add other organization members to shifts')),
+            ('participate_in_shift', _('participate in shifts')),
+        ]
         ordering = ['organization', '-admin', '-default', 'name']
         constraints = [
             UniqueConstraint(fields=['organization', 'name'], name='name_unique_per_organization'),
@@ -38,7 +58,7 @@ class MembershipType(models.Model):
 
 
 class Membership(models.Model):
-    organization = models.ForeignKey('Organization', on_delete=models.CASCADE, related_name='all_members')
+    organization = models.ForeignKey('Organization', on_delete=models.CASCADE, related_name='members')
     type = models.ForeignKey('MembershipType', on_delete=models.CASCADE, verbose_name=_('Membership Type'),
                              related_name='memberships')
     user = models.ForeignKey('accounts.User', on_delete=models.CASCADE, related_name='memberships',
@@ -49,10 +69,12 @@ class Membership(models.Model):
     class Meta:
         default_permissions = ()
         ordering = ['type', 'group', 'user']
-        constraints = [UniqueConstraint(fields=['user', 'organization'], name='unique_user_organization'),
-                       UniqueConstraint(fields=['group', 'organization'], name='unique_group_organization'),
-                       CheckConstraint(check=(~(Q(user__isnull=True) & Q(group__isnull=True))), name='group_or_user')
-                       ]
+        constraints = [
+            UniqueConstraint(fields=['organization', 'type', 'user'], name='unique_membership_organization_type_user'),
+            UniqueConstraint(fields=['organization', 'type', 'group'],
+                             name='unique_membership_organization_type_group'),
+            CheckConstraint(check=(~(Q(user__isnull=True) & Q(group__isnull=True))), name='group_or_user')
+        ]
 
     def __str__(self) -> str:
         return f'{self.user.display if self.user else self.group.name}'

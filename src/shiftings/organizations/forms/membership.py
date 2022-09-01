@@ -4,9 +4,11 @@ from django import forms
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
+from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 
 from shiftings.accounts.models import User
+from shiftings.organizations.fields.membership import MembershipPermissionField
 from shiftings.organizations.models import Membership, MembershipType
 
 
@@ -18,9 +20,13 @@ class MembershipForm(forms.ModelForm):
         fields = ['organization', 'type', 'user', 'group']
         widgets = {'organization': forms.HiddenInput()}
 
-    def __init__(self, *args: Any, **kwargs: Any) -> None:
+    def __init__(self, user: User, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
-        self.fields['type'].queryset = MembershipType.objects.filter(organization=self.initial['organization'])
+        organization = self.initial['organization']
+        type_filter = Q(organization=organization)
+        if not organization.is_admin(user):
+            type_filter &= Q(admin=False)
+        self.fields['type'].queryset = MembershipType.objects.filter(type_filter)
         self.fields['user'].widget.attrs.update({'autofocus': 'autofocus'})
 
     def clean_user(self) -> Optional[User]:
@@ -34,22 +40,20 @@ class MembershipForm(forms.ModelForm):
         return user
 
 
-class MembershipPermissionField(forms.ModelMultipleChoiceField):
-    def label_from_instance(self, obj: Membership) -> str:
-        if not isinstance(obj, Permission):
-            return str(obj)
-        return str(obj.name)
-
-
 class MembershipTypeForm(forms.ModelForm):
-    permissions = MembershipPermissionField(queryset=Permission.objects.none(), widget=forms.CheckboxSelectMultiple)
+    permissions = MembershipPermissionField(queryset=Permission.objects.none(), widget=forms.CheckboxSelectMultiple,
+                                            required=False)
 
     class Meta:
         model = MembershipType
         fields = ['organization', 'name', 'permissions']
         widgets = {'organization': forms.HiddenInput()}
 
-    def __init__(self, *args: Any, **kwargs: Any) -> None:
+    def __init__(self, is_admin: bool, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
-        ctypes = ContentType.objects.filter(app_label='organizations')
-        self.fields['permissions'].queryset = Permission.objects.filter(content_type__in=ctypes)
+        if is_admin and not self.instance.admin:
+            self.fields['permissions'].queryset = Permission.objects.filter(
+                content_type=ContentType.objects.get_for_model(MembershipType))
+        else:
+            self.fields['permissions'].widget = forms.HiddenInput()
+            self.fields['permissions'].disabled = True

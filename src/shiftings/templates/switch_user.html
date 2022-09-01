@@ -1,0 +1,21 @@
+{% if debug %}
+  <div class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="switch-user-toggle" role="button"
+       data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      {% trans "Switch User" %}
+      <i class="fas fa-people-arrows"></i>
+    </a>
+    <div class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="switch-user-toggle">
+      {% all_users as users %}
+      {% for username, display in users %}
+        <form action="{% url 'relogin' %}" method="post">
+          {% csrf_token %}
+          <input name="next" type="hidden" value="{{ request.get_full_path }}" />
+          <input name="username" type="hidden" value="{{ username }}" />
+          <input name="password" type="hidden" value="{{ username }}" />
+          <button class="dropdown-item" type="submit">{{ display }}</button>
+        </form>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}

@@ -30,13 +30,12 @@ class Organization(models.Model):
 
     description = models.TextField(verbose_name=_('Description'), blank=True, null=True)
 
-    members = models.ManyToManyField('Membership', related_name='organization_memberships',
-                                     verbose_name=_('Members'), blank=True)
+    # members: RelatedManager[Membership]
 
     class Meta:
         default_permissions = ()
         permissions = [
-            ('test', _('Test Permission'))
+            ('admin', _('manage all organizations')),
         ]
         ordering = ['name']
 
@@ -83,10 +82,13 @@ class Organization(models.Model):
         from shiftings.accounts.models import User
         return User.objects.filter(pk__in=user_pks)
 
+    def is_admin(self, user: User) -> bool:
+        return user.has_perm('organizations.admin') or self.members.filter(type__admin=True).first().is_member(user)
+
     def is_member(self, user: User) -> bool:
-        if self.all_members.filter(user=user).exists():
+        if self.members.filter(user=user).exists():
             return True
-        return user.groups.filter(pk__in=[member.group.pk for member in self.all_members.filter(group__isnull=False)])
+        return user.groups.filter(pk__in=[member.group.pk for member in self.members.filter(group__isnull=False)])
 
     def get_absolute_url(self) -> str:
         return reverse('organization', args=[self.pk])

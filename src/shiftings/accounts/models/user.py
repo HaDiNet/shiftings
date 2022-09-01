@@ -27,10 +27,10 @@ class User(AbstractUser):
 
     @property
     def organizations(self) -> QuerySet[Organization]:
-        return Organization.objects.filter(Q(all_members__user=self) |
-                                           Q(all_members__group__in=self.groups.all())).distinct()
+        return Organization.objects.filter(Q(members__user=self) |
+                                           Q(members__group__in=self.groups.all())).distinct()
 
     @property
     def events(self) -> QuerySet[Event]:
-        return Event.objects.filter(Q(organization__all_members__user=self) | Q(public=True) |
-                                    Q(organization__all_members__group__in=self.groups.all())).distinct()
+        return Event.objects.filter(Q(organization__members__user=self) | Q(public=True) |
+                                    Q(organization__members__group__in=self.groups.all())).distinct()

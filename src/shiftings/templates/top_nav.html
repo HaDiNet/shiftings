@@ -33,6 +33,7 @@
           </button>
         </form>
       </div>
+      {% include "switch_user.html" %}
       {% include "language.html" %}
       {% if request.user.is_authenticated %}
         <div class="nav-item dropdown">

@@ -8,6 +8,8 @@ from django.http import Http404, HttpRequest, HttpResponse, HttpResponseNotFound
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import ContextMixin
 
+from shiftings.utils.exceptions import Http403
+
 T = TypeVar('T', bound=Model)
 
 
@@ -38,7 +40,7 @@ class BaseMixin(AccessMixin, ContextMixin):
             return redirect_to_login(self.request.get_full_path(), self.get_login_url(), self.get_redirect_field_name())
         if self.redirect_url is not None:
             return HttpResponseRedirect(self.redirect_url)
-        return None
+        raise Http403(_('You don\'t have the required permission.'))
 
     def handle_no_permission(self) -> HttpResponse:
         handled = self._handle_no_permission()

@@ -1,3 +1,4 @@
+{% load organization %}
 <div class="accordion accordion-flush border border-secondary" id="group{{ member_group.pk }}Accordion">
   <div class="accordion-item bg-secondary">
     <div class="accordion-header center-items justify-content-bewtween bg-secondary p-2" id="flush-headingOne">
@@ -9,11 +10,17 @@
           <span>{% trans "Group" %}: {{ member_group }}</span>
         </h5>
       </a>
-      <button type="button" class="btn btn-danger px-1 py-0 me-4" data-bs-toggle="modal"
-              data-bs-target="#confirmRemoveModal" data-bs-remove-name="{{ member_group }}"
-              data-bs-remove-url="{% url 'membership_remove' organization.pk member.pk %}">
-        <i class="fas fa-x pe-none"></i>
-      </button>
+      {% has_permission request 'organizations.edit_members' organization as can_edit_members %}
+      {% is_organization_admin request.user organization as is_org_admin %}
+      {% if can_edit_members %}
+        {% if is_org_admin or not membership_type.admin %}
+          <button type="button" class="btn btn-danger px-1 py-0 me-4" data-bs-toggle="modal"
+                  data-bs-target="#confirmRemoveModal" data-bs-remove-name="{{ member_group }}"
+                  data-bs-remove-url="{% url 'membership_remove' organization.pk member.pk %}">
+            <i class="fas fa-x pe-none"></i>
+          </button>
+        {% endif %}
+      {% endif %}
     </div>
     <div id="collapse{{ member_group.pk }}" class="accordion-collapse collapse bg-dark"
          aria-labelledby="flush-headingOne"

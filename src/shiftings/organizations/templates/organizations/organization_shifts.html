@@ -1,4 +1,5 @@
 {% extends 'generic/dual_column.html' %}
+{% load organization %}
 {% load shifts %}
 
 {% block left %}
@@ -8,14 +9,20 @@
         {{ organization.name }}
       </h3>
       <div>
-        <a class="btn btn-info" href="{% url 'organization_admin' organization.pk %}"
-           title="{% trans "Administrate Organization" %}">
-          <i class="fas fa-building-shield"></i>
-        </a>
-        <a class="btn btn-success" href="{% url 'organization_update' organization.pk %}"
-           title="{% trans "Edit Organization" %}">
-          <i class="fas fa-edit"></i>
-        </a>
+        {% check_can_see_admin request.user organization as can_see_admin %}
+        {% if can_see_admin %}
+          <a class="btn btn-info" href="{% url 'organization_admin' organization.pk %}"
+             title="{% trans "Administrate Organization" %}">
+            <i class="fas fa-building-shield"></i>
+          </a>
+        {% endif %}
+        {% has_permission request 'organizations.edit_organization' organization as can_edit %}
+        {% if can_edit %}
+          <a class="btn btn-success" href="{% url 'organization_update' organization.pk %}"
+             title="{% trans "Edit Organization" %}">
+            <i class="fas fa-edit"></i>
+          </a>
+        {% endif %}
       </div>
     </div>
     <div class="card-body">
@@ -36,19 +43,22 @@
       </dl>
     </div>
   </div>
-  <div class="mt-3 card base-card bg-dark">
-    <div class="card-header center-items justify-content-between">
-      <h3>{% trans "Member Shift Summary" %}</h3>
-      <div>
-        <a class="btn btn-info w-100" href="{% url 'organization_shift_summary' organization.pk %}">
-          <i class="fas fa-ranking-star me-2"></i>{% trans "Member Shift Summary" %}
-        </a>
+  {% has_permission request 'organizations.see_statistics' organization as can_see_shift_summary %}
+  {% if can_see_shift_summary %}
+    <div class="mt-3 card base-card bg-dark">
+      <div class="card-header center-items justify-content-between">
+        <h3>{% trans "Member Shift Summary" %}</h3>
+        <div>
+          <a class="btn btn-info w-100" href="{% url 'organization_shift_summary' organization.pk %}">
+            <i class="fas fa-ranking-star me-2"></i>{% trans "Member Shift Summary" %}
+          </a>
+        </div>
+      </div>
+      <div class="p-1">
+        {% member_shift_summary organization %}
       </div>
     </div>
-    <div class="p-1">
-      {% member_shift_summary organization %}
-    </div>
-  </div>
+  {% endif %}
 {% endblock %}
 
 {% block right %}
@@ -64,11 +74,14 @@
                title="{% trans "Expired Events" %}">
               <i class="fa-solid fa-hourglass-end"></i>
             </a>
-            <a class="btn btn-success ms-2" href="{% url 'event_create' %}?org={{ organization.pk }}"
-               title="{% trans "Add Event" %}">
-              <i class="fa-solid fa-beer-mug-empty"></i>
-              <i class="fa-solid fa-plus"></i>
-            </a>
+            {% has_permission request 'organizations.edit_events' organization as can_edit_events %}
+            {% if can_edit_events %}
+              <a class="btn btn-success ms-2" href="{% url 'event_create' %}?org={{ organization.pk }}"
+                 title="{% trans "Add Event" %}">
+                <i class="fa-solid fa-beer-mug-empty"></i>
+                <i class="fa-solid fa-plus"></i>
+              </a>
+            {% endif %}
           </div>
         </div>
         <div class="p-2">
@@ -138,9 +151,12 @@
            title="{% trans "ical Export" %}">
           <i class="fas fa-file-export"></i>
         </a>
-        <a class="btn btn-success" href="{% url "shift_create" %}" title="{% trans "Create Shift" %}">
-          <i class="fa-solid fa-calendar-plus"></i>
-        </a>
+        {% has_permission request 'organizations.edit_shifts' organization as can_create_shift %}
+        {% if can_create_shift %}
+          <a class="btn btn-success" href="{% url "shift_create" %}" title="{% trans "Create Shift" %}">
+            <i class="fa-solid fa-calendar-plus"></i>
+          </a>
+        {% endif %}
       </div>
     </div>
     <div>

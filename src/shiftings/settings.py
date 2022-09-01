@@ -25,6 +25,7 @@ SECRET_KEY = 'django-insecure-nz!p&+=-@g_@4xyd9u+5zj^l#)acpzt7li4b=lx4at(vaba1oi
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+TEMPLATE_DEBUG = True
 
 PROVIDER = 'Shiftings'
 
@@ -78,10 +79,12 @@ TEMPLATES = [
                 'django.templatetags.i18n',
                 'bootstrap5.templatetags.bootstrap5',
                 'shiftings.templatetags.base',
+                'shiftings.templatetags.debug',
                 'shiftings.templatetags.modal',
                 'shiftings.cal.templatetags.calendar',
             ],
             'context_processors': [
+                'shiftings.utils.context_processors.debug',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',

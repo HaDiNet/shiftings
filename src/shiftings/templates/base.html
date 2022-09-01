@@ -43,8 +43,10 @@
       <div
           class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} m-3 d-flex align-items-center justify-content-between"
           role="alert">
-        <i class="fas fa-warning"></i>
-        <span class="ms-3">{{ message }}</span>
+        <div>
+          <i class="fas fa-warning"></i>
+          <span class="ms-3">{{ message }}</span>
+        </div>
         <i class="fas fa-warning"></i>
       </div>
     {% endfor %}

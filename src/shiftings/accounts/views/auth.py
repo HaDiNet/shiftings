@@ -8,12 +8,14 @@ from authlib.integrations.django_client import OAuth
 from authlib.oauth2 import HttpRequest
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth import login as login_user, REDIRECT_FIELD_NAME
+from django.contrib.auth import login as login_user, logout, REDIRECT_FIELD_NAME
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.views import LoginView, LogoutView, UserModel
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
+from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
+from django.views.decorators.cache import never_cache
 from django.views.generic import RedirectView
 from mypyc.codegen.emitmodule import Groups
 
@@ -123,3 +125,10 @@ if settings.OAUTH_ENABLED:
 class UserLogoutView(LogoutView):
     template_name = 'accounts/logout.html'
     title = _('Logout')
+
+
+class UserReLoginView(LoginView):
+    @method_decorator(never_cache)
+    def dispatch(self, request, *args, **kwargs):
+        logout(request)
+        return super().dispatch(request, *args, **kwargs)

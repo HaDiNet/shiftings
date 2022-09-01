@@ -10,13 +10,15 @@ from django.views.generic.edit import FormMixin
 from shiftings.organizations.forms.membership import MembershipTypeForm
 from shiftings.organizations.models import Organization
 from shiftings.organizations.models.membership import MembershipType
+from shiftings.organizations.views.organization import OrganizationPermissionMixin
 from shiftings.utils.views.base import BaseMixin
 from shiftings.utils.views.create_update_view import CreateOrUpdateView
 
 
-class MembershipTypeViewMixin(BaseMixin):
+class MembershipTypeViewMixin(OrganizationPermissionMixin, BaseMixin):
     model = MembershipType
     slug = 'None'
+    permission_required = 'organizations.edit_membership_types'
 
     def get_organization(self) -> Organization:
         return self._get_object(Organization, 'pk')
@@ -30,6 +32,11 @@ class MembershipTypeEditView(MembershipTypeViewMixin, CreateOrUpdateView):
     form_class = MembershipTypeForm
     pk_url_kwarg = 'mpk'
     slug = 'mpk'
+
+    def get_form_kwargs(self) -> Dict[str, Any]:
+        kwargs = super().get_form_kwargs()
+        kwargs['is_admin'] = self.get_organization().is_admin(self.request.user)
+        return kwargs
 
     def get_initial(self) -> Dict[str, Any]:
         initial = super().get_initial()

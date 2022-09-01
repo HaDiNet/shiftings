@@ -5,7 +5,7 @@ from django.urls import path
 # from django.views.generic import TemplateView
 from django.views.generic import TemplateView
 
-from shiftings.accounts.views.auth import UserLoginView, UserLogoutView
+from shiftings.accounts.views.auth import UserLoginView, UserLogoutView, UserReLoginView
 
 # from shiftings.accounts.views.user_edit import (PasswordResetConfirmView, PasswordResetView, UserCreateView,
 #                                             UserUpdateOtherView, UserUpdateSelfView)
@@ -18,6 +18,7 @@ urlpatterns: List[Any] = [
     # auth
     path('login/', UserLoginView.as_view(), name='login'),
     path('logout/', UserLogoutView.as_view(), name='logout'),
+    path('relogin/', UserReLoginView.as_view(), name='relogin'),
     # user
     path('register/', UserRegisterView.as_view(), name='register'),
     path('profile/', UserProfileView.as_view(), name='user_profile'),

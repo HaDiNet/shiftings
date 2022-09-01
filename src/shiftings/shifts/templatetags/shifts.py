@@ -42,7 +42,7 @@ def member_shift_summary(context, org) -> dict[str, Any]:
                                      shift_type=shift_type).count()
                    for shift_type in types],
         'other': org.shifts.filter(time_filter, shift_type__isnull=True, participants__user=member.user).count()
-    } for member in org.all_members.all().order_by('user__username')]
+    } for member in org.members.all().order_by('user__username')]
     return context
 
 

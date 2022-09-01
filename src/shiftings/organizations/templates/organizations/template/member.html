@@ -1,12 +1,19 @@
+{% load organization %}
 <tr>
   <td>
     {{ member }}
   </td>
   <td class="text-end">
-    <button type="button" class="btn btn-danger px-1 py-0 ms-2 me-4" data-bs-toggle="modal"
-            data-bs-target="#confirmRemoveModal" data-bs-remove-name="{{ member }}"
-            data-bs-remove-url="{% url 'membership_remove' organization.pk member.pk %}">
-      <i class="fas fa-x pe-none"></i>
-    </button>
+    {% has_permission request 'organizations.edit_members' organization as can_edit_members %}
+    {% is_organization_admin request.user organization as is_org_admin %}
+    {% if can_edit_members %}
+      {% if is_org_admin or not membership_type.admin %}
+        <button type="button" class="btn btn-danger px-1 py-0 ms-2 me-4" data-bs-toggle="modal"
+                data-bs-target="#confirmRemoveModal" data-bs-remove-name="{{ member }}"
+                data-bs-remove-url="{% url 'membership_remove' organization.pk member.pk %}">
+          <i class="fas fa-x pe-none"></i>
+        </button>
+      {% endif %}
+    {% endif %}
   </td>
 </tr>
