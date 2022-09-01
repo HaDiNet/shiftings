@@ -23,8 +23,8 @@ class UserCreateForm(forms.ModelForm):
 
     def clean(self) -> Dict[str, Any]:
         cleaned_data = super().clean()
-        password = cleaned_data.get('password')
-        confirm_password = cleaned_data.get('confirm_password')
+        password = cleaned_data['password']
+        confirm_password = cleaned_data['confirm_password']
         if password != confirm_password:
             raise forms.ValidationError(
                 _('Please enter matching passwords')

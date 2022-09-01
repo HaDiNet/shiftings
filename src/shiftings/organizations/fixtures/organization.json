@@ -90,5 +90,15 @@
       "user": 7,
       "group": null
     }
+  },
+  {
+    "model": "organizations.membership",
+    "pk": 6,
+    "fields": {
+      "organization": 1,
+      "type": 3,
+      "user": null,
+      "group": 1
+    }
   }
 ]

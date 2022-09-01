@@ -68,6 +68,16 @@ class Organization(models.Model):
                 | User.objects.filter(groups__pk__in=self.members.filter(group__isnull=False).values_list('group__pk'))
         )
 
+    def get_users_with_membership(self, membership_types: Optional[QuerySet[MembershipType]] = None) -> QuerySet[User]:
+        query = Q()
+        if membership_types:
+            query = Q(type__in=membership_types)
+        user_pks = set()
+        for member in self.members.filter(query):
+            user_pks.update(member.user_pks)
+        from shiftings.accounts.models import User
+        return User.objects.filter(pk__in=user_pks)
+
     @property
     def next_shift(self) -> Optional[Shift]:
         return self.shifts.filter(end__gte=date.today()).order_by('start').first()
@@ -80,23 +90,14 @@ class Organization(models.Model):
     def future_events(self) -> QuerySet[Event]:
         return self.events.filter(end_date__gte=date.today())
 
-    def get_membership_users(self, membership_types: Optional[QuerySet[MembershipType]] = None) -> QuerySet[User]:
-        query = Q()
-        if membership_types:
-            query = Q(type__in=membership_types)
-        user_pks = set()
-        for member in self.members.filter(query):
-            user_pks.update(member.user_pks)
-        from shiftings.accounts.models import User
-        return User.objects.filter(pk__in=user_pks)
-
     def is_admin(self, user: User) -> bool:
-        return user.has_perm('organizations.admin') or self.members.filter(type__admin=True).first().is_member(user)
+        query = Q(type__admin=True) & (Q(user=user) | Q(group__in=user.groups.all()))
+        return user.has_perm('organizations.admin') or self.members.filter(query).exists()
 
     def is_member(self, user: User) -> bool:
         if self.members.filter(user=user).exists():
             return True
-        return user.groups.filter(pk__in=[member.group.pk for member in self.members.filter(group__isnull=False)])
+        return self.members.filter(group__in=user.groups.all()).exists()
 
     def get_absolute_url(self) -> str:
         return reverse('organization', args=[self.pk])

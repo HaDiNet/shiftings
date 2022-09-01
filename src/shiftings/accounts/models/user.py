@@ -32,5 +32,6 @@ class User(AbstractUser):
 
     @property
     def events(self) -> QuerySet[Event]:
-        return Event.objects.filter(Q(organization__members__user=self) | Q(public=True) |
-                                    Q(organization__members__group__in=self.groups.all())).distinct()
+        organizations = self.organizations
+        return Event.objects.filter(
+            Q(organization__in=organizations) | Q(allowed_organizations__in=organizations) | Q(public=True))
