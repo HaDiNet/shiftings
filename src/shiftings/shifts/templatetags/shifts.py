@@ -37,12 +37,12 @@ def member_shift_summary(context, org) -> dict[str, Any]:
     context['groups'] = types
     context['has_other'] = org.shifts.filter(time_filter, shift_type__isnull=True).exists()
     context['members'] = [{
-        'name': member.user.display,
-        'groups': [org.shifts.filter(time_filter, participants__user=member.user,
+        'name': user.display,
+        'groups': [org.shifts.filter(time_filter, participants__user=user,
                                      shift_type=shift_type).count()
                    for shift_type in types],
-        'other': org.shifts.filter(time_filter, shift_type__isnull=True, participants__user=member.user).count()
-    } for member in org.members.all().order_by('user__username')]
+        'other': org.shifts.filter(time_filter, shift_type__isnull=True, participants__user=user).count()
+    } for user in org.users.order_by('username')]
     return context
 
 

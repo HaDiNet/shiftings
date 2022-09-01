@@ -14,6 +14,8 @@ class OrganizationPermissionBackend(ModelBackend):
             return False
         if not isinstance(obj, Organization):
             return False
+        if super().has_perm(user_obj, 'organizations.admin'):
+            return True
         for member in obj.members.all():
             if member.type.admin and member.is_member(user_obj):
                 return True
@@ -31,8 +33,10 @@ class OrganizationPermissionBackend(ModelBackend):
         return {f'{ct}.{name}' for ct, name in perms}
 
     def get_all_permissions(self, user_obj: User, obj: Optional[Organization] = None) -> set[str]:
-        if not user_obj.is_active or user_obj.is_anonymous or obj is None:
+        if not user_obj.is_active or user_obj.is_anonymous:
             return set()
+        if obj is None:
+            return super().get_all_permissions(user_obj)
         if not hasattr(user_obj, '_org_perm_cache'):
             user_obj._org_perm_cache = dict()
         if obj.pk not in user_obj._org_perm_cache:

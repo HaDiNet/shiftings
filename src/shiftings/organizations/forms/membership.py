@@ -25,7 +25,7 @@ class MembershipForm(forms.ModelForm):
         organization = self.initial['organization']
         type_filter = Q(organization=organization)
         if not organization.is_admin(user):
-            type_filter &= Q(admin=False)
+            type_filter &= ~Q(admin=True)
         self.fields['type'].queryset = MembershipType.objects.filter(type_filter)
         self.fields['user'].widget.attrs.update({'autofocus': 'autofocus'})
 

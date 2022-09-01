@@ -61,6 +61,14 @@ class Organization(models.Model):
         return self.membership_types.filter(default=True).first()
 
     @property
+    def users(self) -> QuerySet[User]:
+        from shiftings.accounts.models import User
+        return (
+                User.objects.filter(pk__in=self.members.filter(user__isnull=False).values_list('user__pk'))
+                | User.objects.filter(groups__pk__in=self.members.filter(group__isnull=False).values_list('group__pk'))
+        )
+
+    @property
     def next_shift(self) -> Optional[Shift]:
         return self.shifts.filter(end__gte=date.today()).order_by('start').first()
 

@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 from datetime import date
 from typing import Any, Optional
 
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.db.models import QuerySet
 from django.urls import reverse
 from django.views.generic import DetailView, ListView
@@ -19,15 +19,26 @@ from shiftings.utils.views.base import BaseMixin, BasePermissionMixin
 from shiftings.utils.views.create_update_view import CreateOrUpdateViewWithImageUpload
 
 
+class OrganizationMemberMixin(LoginRequiredMixin, UserPassesTestMixin, ABC):
+    request: UserRequest
+
+    @abstractmethod
+    def get_organization(self) -> Organization:
+        raise NotImplementedError('View needs to implement get_organization().')
+
+    def test_func(self) -> bool:
+        return self.request.user.has_perm('organizations.admin') or self.get_organization().is_member(self.request.user)
+
+
 class OrganizationPermissionMixin(PermissionRequiredMixin, ABC):
     require_only_one: bool = False
     request: UserRequest
 
     @abstractmethod
     def get_organization(self) -> Organization:
-        raise NotImplementedError('Class needs to implement get_organization().')
+        raise NotImplementedError('View needs to implement get_organization().')
 
-    def has_permission(self):
+    def has_permission(self) -> bool:
         perms = self.get_permission_required()
         if self.require_only_one:
             return has_any_permission(self.request.user, perms, self.get_organization())
@@ -68,11 +79,14 @@ class OwnOrganizationListView(LoginRequiredMixin, ListView):
         return organizations
 
 
-class OrganizationShiftsView(BaseMixin, DetailView):
+class OrganizationShiftsView(OrganizationMemberMixin, BaseMixin, DetailView):
     template_name = 'organizations/organization_shifts.html'
     model = Organization
     object: Organization
     context_object_name = 'organization'
+
+    def get_organization(self) -> Organization:
+        return self._get_object(Organization, 'pk')
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)

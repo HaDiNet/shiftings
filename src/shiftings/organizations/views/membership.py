@@ -1,6 +1,7 @@
 from typing import Any
 
 from django.contrib import messages
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.http import HttpResponse
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -9,13 +10,15 @@ from django.views.generic.edit import FormMixin
 
 from shiftings.organizations.forms.membership import MembershipForm
 from shiftings.organizations.models import Membership, Organization
+from shiftings.organizations.views.organization import OrganizationPermissionMixin
 from shiftings.utils.views.base import BaseMixin
 from shiftings.utils.views.create_update_view import CreateOrUpdateView
 
 
-class MembershipViewMixin(BaseMixin):
+class MembershipViewMixin(OrganizationPermissionMixin, BaseMixin):
     model = Membership
     slug = 'None'
+    permission_required = 'organizations.edit_members'
 
     def get_organization(self) -> Organization:
         return self._get_object(Organization, 'pk')
@@ -41,8 +44,12 @@ class MembershipAddView(MembershipViewMixin, CreateOrUpdateView):
         return initial
 
 
-class MembershipRemoveView(MembershipViewMixin, DeleteView, FormMixin):
+class MembershipRemoveView(MembershipViewMixin, UserPassesTestMixin, DeleteView, FormMixin):
     pk_url_kwarg = 'mpk'
+
+    def test_func(self) -> bool:
+        return not self._get_object(Membership, self.pk_url_kwarg).type.admin \
+               or self.get_organization().is_admin(self.request.user)
 
     def form_valid(self, form: Any) -> HttpResponse:
         result = super().form_valid(form)

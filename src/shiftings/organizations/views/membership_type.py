@@ -1,6 +1,7 @@
 from typing import Any, Dict
 
 from django.contrib import messages
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.http import HttpResponse
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -48,8 +49,12 @@ class MembershipTypeEditView(MembershipTypeViewMixin, CreateOrUpdateView):
         return reverse('organization_admin', args=[self.get_organization().pk])
 
 
-class MembershipTypeRemoveView(MembershipTypeViewMixin, DeleteView, FormMixin):
+class MembershipTypeRemoveView(MembershipTypeViewMixin, UserPassesTestMixin, DeleteView, FormMixin):
     pk_url_kwarg = 'mpk'
+
+    def test_func(self) -> bool:
+        membership_type = self._get_object(MembershipType, self.pk_url_kwarg)
+        return membership_type.admin or membership_type.default
 
     def form_valid(self, form: Any) -> HttpResponse:
         result = super().form_valid(form)
