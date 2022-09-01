@@ -7,7 +7,7 @@ from django.template.loader import render_to_string
 register = template.Library()
 
 
-# define simplemodal block
+# define simpleformmodal block
 @register.tag('simpleformmodal')
 def simpleformmodal(parser: Parser, token):
     nodelist = parser.parse(('endsimpleformmodal',))
@@ -41,4 +41,32 @@ class SimpleFormModalNode(template.Node):
             'form_title': self.form_title.resolve(context),
             'form_url': self.form_url.resolve(context),
             'success_url': self.success_url.resolve(context) if self.success_url is not None else None,
+        })
+
+# define simpledisplaymodal block
+@register.tag('simpledisplaymodal')
+def simpledisplaymodal(parser: Parser, token):
+    nodelist = parser.parse(('endsimpledisplaymodal',))
+    parser.delete_first_token()
+    tokens = [parser.compile_filter(p_token) for p_token in token.split_contents()]
+    if len(tokens) != 3:
+        raise TemplateSyntaxError(f'\"{tokens[0]!r}\" simpledisplaymodal tag requires form id and title as arguments')
+    return SimpleDisplayModalNode(nodelist, tokens[1], tokens[2])
+
+
+class SimpleDisplayModalNode(template.Node):
+    """
+    Render a sidebar menuitem containing several others as a collapse
+    """
+
+    def __init__(self, nodelist, modal_id: FilterExpression, title: FilterExpression) -> None:
+        self.nodelist = nodelist
+        self.modal_id = modal_id
+        self.modal_title = title
+
+    def render(self, context):
+        return render_to_string('template/simple_display_modal.html', {
+            'nodelist': self.nodelist.render(context),
+            'modal_id': self.modal_id.resolve(context),
+            'modal_title': self.modal_title.resolve(context),
         })

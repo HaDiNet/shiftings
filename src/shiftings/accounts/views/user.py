@@ -30,9 +30,7 @@ class UserProfileView(DetailView):
         shifts = Shift.objects.filter(Q(start__date__gte=today) &
                                       (Q(event__in=self.object.events) |
                                        Q(organization__in=self.object.organizations)))
-        context['shifts'] = get_pagination_context(self.request,
-                                                   shifts,
-                                                   5, 'shifts')
+        context['shifts'] = get_pagination_context(self.request, shifts, 5, 'shifts')
         return context
 
 
