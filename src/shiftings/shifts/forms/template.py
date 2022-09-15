@@ -8,6 +8,16 @@ from shiftings.shifts.models import ShiftTemplate, ShiftTemplateGroup
 from shiftings.utils.fields.integer import TimeSliderField
 
 
+class ShiftTemplateGroupForm(forms.ModelForm):
+    class Meta:
+        model = ShiftTemplateGroup
+        fields = ['organization', 'name', 'place', 'start_time']
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.fields['organization'].disabled = True
+
+
 class ShiftTemplateForm(forms.ModelForm):
     start_delay = TimeSliderField(min_value=0, initial=0, max_value=settings.MAX_SHIFT_LENGTH_MINUTES,
                                   step=settings.SHIFT_SLIDER_STEP, label=_('Content Amount'), required=False)
@@ -33,3 +43,6 @@ class ShiftTemplateForm(forms.ModelForm):
     def clean_duration(self) -> timedelta:
         minutes = self.cleaned_data['duration']
         return timedelta(minutes=minutes)
+
+
+ShiftTemplateFormSet = forms.modelformset_factory(ShiftTemplate, ShiftTemplateForm, extra=0, can_delete=True)

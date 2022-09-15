@@ -1,15 +1,19 @@
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Generic, Optional, TypeVar
 
+from django.db.models import Model
 from django.http import HttpRequest
 from django.http.response import HttpResponseBase
 from django.views.generic.base import TemplateResponseMixin
 from django.views.generic.edit import ModelFormMixin, ProcessFormView
 
+T = TypeVar('T', bound=Model)
 
-class CreateOrUpdateView(TemplateResponseMixin, ModelFormMixin, ProcessFormView):
+
+class CreateOrUpdateView(TemplateResponseMixin, ModelFormMixin, ProcessFormView, Generic[T]):
+    model = T
     request: HttpRequest
-    slug: str = 'pk'
-    object: Any
+    pk_url_kwarg: Optional[str] = 'pk'
+    object: Optional[T]
 
     template_name = 'generic/create_or_update.html'
     form_params: Optional[Dict[str, Any]] = None
@@ -22,10 +26,10 @@ class CreateOrUpdateView(TemplateResponseMixin, ModelFormMixin, ProcessFormView)
         return context_data
 
     def is_create(self) -> bool:
-        return self.slug not in self.kwargs
+        return self.pk_url_kwarg not in self.kwargs
 
     def _set_object(self, **kwargs: Any) -> None:
-        if self.slug in kwargs:
+        if self.pk_url_kwarg in kwargs:
             self.object = self.get_object()
         else:
             self.object = None
@@ -39,7 +43,7 @@ class CreateOrUpdateView(TemplateResponseMixin, ModelFormMixin, ProcessFormView)
 
 
 class CreateView(CreateOrUpdateView):
-    slug = None
+    pk_url_kwarg = None
 
 
 class CreateOrUpdateViewWithImageUpload(CreateOrUpdateView):

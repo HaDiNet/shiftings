@@ -145,7 +145,7 @@
     "model": "shifts.shifttemplategroup",
     "pk": 2,
     "fields": {
-      "name": "",
+      "name": "Barteamsitzung",
       "place": "K1 Bar",
       "organization": 1,
       "start_time": "20:00:00"

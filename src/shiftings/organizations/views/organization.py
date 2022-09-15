@@ -1,54 +1,19 @@
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
 from datetime import date
-from typing import Any, Optional
+from typing import Any
 
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.db.models import QuerySet
-from django.urls import reverse
 from django.views.generic import DetailView, ListView
 
 from shiftings.organizations.forms.membership import MembershipForm
 from shiftings.organizations.forms.organization import OrganizationForm
 from shiftings.organizations.models import MembershipType, Organization
+from shiftings.organizations.views.organization_base import OrganizationMemberMixin, OrganizationPermissionMixin
 from shiftings.utils.pagination import get_pagination_context
-from shiftings.utils.permissions import has_any_permission
 from shiftings.utils.typing import UserRequest
-from shiftings.utils.views.base import BaseLoginMixin, BaseMixin, BasePermissionMixin
+from shiftings.utils.views.base import BaseLoginMixin, BasePermissionMixin
 from shiftings.utils.views.create_update_view import CreateOrUpdateViewWithImageUpload
-
-
-class OrganizationMemberMixin(BaseLoginMixin, UserPassesTestMixin, ABC):
-    model = Organization
-
-    organization_pk_arg: str = 'pk'
-
-    request: UserRequest
-
-    def get_organization(self) -> Organization:
-        return self._get_object(Organization, self.organization_pk_arg)
-
-    def test_func(self) -> bool:
-        return self.request.user.has_perm('organizations.admin') or self.get_organization().is_member(self.request.user)
-
-
-class OrganizationPermissionMixin(BasePermissionMixin, ABC):
-    model = Organization
-
-    require_only_one: bool = False
-    organization_pk_arg: str = 'pk'
-
-    request: UserRequest
-
-    def get_organization(self) -> Organization:
-        return self._get_object(Organization, self.organization_pk_arg)
-
-    def has_permission(self) -> bool:
-        perms = self.get_permission_required()
-        if self.require_only_one:
-            return has_any_permission(self.request.user, perms, self.get_organization())
-        return self.request.user.has_perms(perms, self.get_organization())
 
 
 class OrganizationListView(BasePermissionMixin, ListView):

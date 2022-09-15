@@ -16,8 +16,8 @@ from shiftings.utils.views.create_update_view import CreateOrUpdateView
 
 class MembershipTypeViewMixin(OrganizationPermissionMixin):
     model = MembershipType
-    slug = 'None'
     permission_required = 'organizations.edit_membership_types'
+    pk_url_kwarg = 'member_pk'
 
     def get_success_url(self) -> str:
         return self.get_organization().get_absolute_url()
@@ -26,8 +26,6 @@ class MembershipTypeViewMixin(OrganizationPermissionMixin):
 class MembershipTypeEditView(MembershipTypeViewMixin, CreateOrUpdateView):
     membership_name: str
     form_class = MembershipTypeForm
-    pk_url_kwarg = 'mpk'
-    slug = 'mpk'
 
     def get_form_kwargs(self) -> Dict[str, Any]:
         kwargs = super().get_form_kwargs()
@@ -45,11 +43,10 @@ class MembershipTypeEditView(MembershipTypeViewMixin, CreateOrUpdateView):
 
 
 class MembershipTypeRemoveView(MembershipTypeViewMixin, UserPassesTestMixin, DeleteView, FormMixin):
-    pk_url_kwarg = 'mpk'
 
     def test_func(self) -> bool:
         membership_type = self._get_object(MembershipType, self.pk_url_kwarg)
-        return membership_type.admin or membership_type.default
+        return not (membership_type.admin or membership_type.default)
 
     def form_valid(self, form: Any) -> HttpResponse:
         result = super().form_valid(form)

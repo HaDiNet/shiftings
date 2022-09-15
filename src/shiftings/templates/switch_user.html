@@ -6,7 +6,7 @@
       <i class="fas fa-people-arrows"></i>
     </a>
     <div class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="switch-user-toggle">
-      {% all_users as users %}
+      {% debug_users as users %}
       {% for username, display in users %}
         <form action="{% url 'relogin' %}" method="post">
           {% csrf_token %}

@@ -23,6 +23,10 @@ class ShiftTemplateGroup(models.Model):
     class Meta:
         default_permissions = ()
 
+    @property
+    def display(self) -> str:
+        return self.name
+
     def create_shifts(self, _date: date, weekend_warning: Optional[str], holiday_warning: Optional[str]) -> list[Shift]:
         start = datetime.combine(_date, self.start_time)
         shifts = []

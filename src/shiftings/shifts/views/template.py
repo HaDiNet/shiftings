@@ -1,35 +1,74 @@
 from typing import Any
 
 from django.db.models import QuerySet
-from django.forms import modelformset_factory
 from django.http import HttpResponse
-from django.views.generic import DetailView, ListView, TemplateView
+from django.views.generic import TemplateView
 
-from shiftings.shifts.forms.template import ShiftTemplateForm
+from shiftings.organizations.models import Organization
+from shiftings.shifts.forms.template import ShiftTemplateFormSet
 from shiftings.shifts.models import RecurringShift, ShiftTemplate, ShiftTemplateGroup
 from shiftings.utils.views.base import BaseLoginMixin
-from shiftings.utils.views.create_update_view import CreateOrUpdateView
 from shiftings.utils.views.formset import ModelFormsetBaseView
+from typing import Any
+
+from django.db.models import QuerySet
+from django.urls import reverse
+from django.views.generic import DetailView, ListView
+
+from shiftings.organizations.views.organization import OrganizationMemberMixin, OrganizationPermissionMixin
+from shiftings.organizations.views.organization_base import OrganizationMixin
+from shiftings.shifts.forms.template import ShiftTemplateGroupForm
+from shiftings.shifts.models import ShiftTemplateGroup
+from shiftings.utils.views.create_update_view import CreateOrUpdateView
+from shiftings.utils.views.delete_view import DeleteView
 
 
-class TemplateGroupListView(BaseLoginMixin, ListView):
+class ShiftTemplateGroupMixin(OrganizationMixin):
     model = ShiftTemplateGroup
+
+    def get_organization(self) -> Organization:
+        return self._get_object_from_get(Organization, 'org')
+
+
+class ShiftTemplateGroupListView(OrganizationMemberMixin, ShiftTemplateGroupMixin, ListView):
     template_name = 'shifts/template/group_list.html'
     context_object_name = 'groups'
 
+    def get_queryset(self) -> QuerySet[ShiftTemplateGroup]:
+        return ShiftTemplateGroup.objects.filter(organization=self.get_organization())
 
-class TemplateGroupDetailView(BaseLoginMixin, DetailView):
-    model = ShiftTemplateGroup
+
+class ShiftTemplateGroupDetailView(OrganizationMemberMixin, ShiftTemplateGroupMixin, DetailView):
     template_name = 'shifts/template/group.html'
     context_object_name = 'group'
 
-
-class TemplateGroupEditView(CreateOrUpdateView, BaseLoginMixin):
-    model = ShiftTemplateGroup
-    fields = ['name', 'place', 'organization', 'start_time']
+    def get_organization(self) -> Organization:
+        return self.get_object().organization
 
 
-ShiftTemplateFormSet = modelformset_factory(ShiftTemplate, ShiftTemplateForm, extra=0, can_delete=True)
+class ShiftTemplateGroupEditView(ShiftTemplateGroupMixin, CreateOrUpdateView, OrganizationPermissionMixin):
+    form_class = ShiftTemplateGroupForm
+    permission_required = 'organizations.edit_shift_templates'
+
+    def get_organization(self) -> Organization:
+        if self.is_create():
+            return self._get_object_from_get(Organization, 'org')
+        return self.object.organization
+
+    def get_initial(self) -> dict[str, Any]:
+        initial = super().get_initial()
+        initial['organization'] = self.get_organization()
+        return initial
+
+
+class ShiftTemplateGroupDeleteView(ShiftTemplateGroupMixin, OrganizationPermissionMixin, DeleteView):
+    permission_required = 'organizations.edit_shift_templates'
+
+    def get_organization(self) -> Organization:
+        return self.get_object().organization
+
+    def get_success_url(self) -> str:
+        return reverse('shift_template_groups', args=[self.get_organization().pk])
 
 
 class TemplateGroupAddShiftsView(BaseLoginMixin, ModelFormsetBaseView[ShiftTemplate], TemplateView):

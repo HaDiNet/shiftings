@@ -26,9 +26,17 @@ class BaseMixin(AccessMixin, ContextMixin, ABC):
     kwargs: Dict[str, Any]
 
     def _get_object(self, cls: Type[T], pk_url_kwarg: str) -> T:
-        pk = self.kwargs.get(pk_url_kwarg)
+        return self._get_object_from_pk(cls, self.kwargs.get(pk_url_kwarg))
+
+    def _get_object_from_get(self, cls: Type[T], pk_get_param: str) -> T:
+        param = self.request.GET.get(pk_get_param)
+        if param is not None:
+            param = int(param)
+        return self._get_object_from_pk(cls, param)
+
+    def _get_object_from_pk(self, cls: Type[T], pk: Optional[int]) -> T:
         if self.object and isinstance(self.object, cls):
-            if pk is None or pk == self.object.pk:
+            if pk is None or pk < 0 or pk == self.object.pk:
                 return self.object
         if pk is None:
             raise Http404(_('The pk is missing from the url. This is not supposed to be possible.'))

@@ -1,0 +1,14 @@
+{% extends 'generic/form_base.html' %}
+{% block form %}
+  <div class="card bg-dark border border-2 border-primary p-3">
+    <form method="post">
+      {% csrf_token %}
+      {% blocktranslate with display=object.display %}
+        <p>Are you sure you want to delete "{{ display }}"?</p>
+      {% endblocktranslate %}
+      {% bootstrap_button _('Yes') button_type="submit" button_class="btn-primary" %}
+      {% define object.get_absolute_url as back %}
+      {% bootstrap_button _('No') button_class="btn-primary" href=back %}
+    </form>
+  </div>
+{% endblock %}
