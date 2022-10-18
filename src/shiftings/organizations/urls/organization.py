@@ -10,11 +10,11 @@ urlpatterns = [
     path('create/', OrganizationEditView.as_view(), name='organization_create'),
     # members
     path('my/', OwnOrganizationListView.as_view(), name='own_organizations'),
-    path('<int:org_pk>/', OrganizationShiftsView.as_view(), name='organization'),
-    path('<int:org_pk>/admin/', OrganizationAdminView.as_view(), name='organization_admin'),
-    path('<int:org_pk>/update/', OrganizationEditView.as_view(), name='organization_update'),
+    path('<int:pk>/', OrganizationShiftsView.as_view(), name='organization'),
+    path('<int:pk>/admin/', OrganizationAdminView.as_view(), name='organization_admin'),
+    path('<int:pk>/update/', OrganizationEditView.as_view(), name='organization_update'),
     # feed
-    path('<int:org_pk>/calendar/', OrganizationFeed(), name='organization_calendar'),
+    path('<int:pk>/calendar/', OrganizationFeed(), name='organization_calendar'),
 
     # includes
     path('<int:org_pk>/membership/', include('shiftings.organizations.urls.membership')),

@@ -13,16 +13,15 @@ from shiftings.accounts.forms.user_form import UserCreateForm, UserUpdateForm
 from shiftings.accounts.models import User
 from shiftings.shifts.models import Shift
 from shiftings.utils.pagination import get_pagination_context
+from shiftings.utils.views.base import BaseLoginMixin
 
 
-class UserProfileView(DetailView):
+class UserProfileView(BaseLoginMixin, DetailView):
     model = User
     object: User
 
     def get_object(self, queryset=None):
-        if self.kwargs.get(self.pk_url_kwarg) is None:
-            return self.request.user
-        return super().get_object(queryset)
+        return self.request.user
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
@@ -49,12 +48,10 @@ class UserRegisterView(CreateView):
         return super().form_valid(form)
 
 
-class UserEditView(UpdateView):
+class UserEditView(BaseLoginMixin, UpdateView):
     model = User
     form_class = UserUpdateForm
     success_url = reverse_lazy('user_profile')
 
-    def get_object(self, queryset=None):
-        if self.pk_url_kwarg not in self.kwargs:
-            self.kwargs[self.pk_url_kwarg] = self.request.user.pk
-        return super().get_object(queryset)
+    def get_object(self):
+        return self.request.user

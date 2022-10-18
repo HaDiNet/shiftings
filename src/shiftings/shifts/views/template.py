@@ -30,14 +30,6 @@ class ShiftTemplateGroupMixin(OrganizationMixin):
         return self._get_object_from_get(Organization, 'org')
 
 
-class ShiftTemplateGroupListView(OrganizationMemberMixin, ShiftTemplateGroupMixin, ListView):
-    template_name = 'shifts/template/group_list.html'
-    context_object_name = 'groups'
-
-    def get_queryset(self) -> QuerySet[ShiftTemplateGroup]:
-        return ShiftTemplateGroup.objects.filter(organization=self.get_organization())
-
-
 class ShiftTemplateGroupDetailView(OrganizationMemberMixin, ShiftTemplateGroupMixin, DetailView):
     template_name = 'shifts/template/group.html'
     context_object_name = 'group'
@@ -52,7 +44,7 @@ class ShiftTemplateGroupEditView(ShiftTemplateGroupMixin, CreateOrUpdateView, Or
 
     def get_organization(self) -> Organization:
         if self.is_create():
-            return self._get_object_from_get(Organization, 'org')
+            return self._get_object(Organization, 'org_pk')
         return self.object.organization
 
     def get_initial(self) -> dict[str, Any]:
@@ -68,13 +60,17 @@ class ShiftTemplateGroupDeleteView(ShiftTemplateGroupMixin, OrganizationPermissi
         return self.get_object().organization
 
     def get_success_url(self) -> str:
-        return reverse('shift_template_groups', args=[self.get_organization().pk])
+        return self.get_organization().get_absolute_url()
 
 
-class TemplateGroupAddShiftsView(BaseLoginMixin, ModelFormsetBaseView[ShiftTemplate], TemplateView):
+class TemplateGroupAddShiftsView(OrganizationPermissionMixin, ModelFormsetBaseView[ShiftTemplate], TemplateView):
     model = ShiftTemplate
     form_class = ShiftTemplateFormSet
     template_name = 'shifts/recurring/templates.html'
+    permission_required = 'organizations.edit_shift_templates'
+
+    def get_organization(self) -> Organization:
+        return self.get_group().organization
 
     def get_form_kwargs(self) -> dict[str, Any]:
         kwargs = super().get_form_kwargs()

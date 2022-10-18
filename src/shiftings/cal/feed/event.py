@@ -16,12 +16,9 @@ class EventFeed(ShiftFeed[Event]):
         if not request.user.is_authenticated:
             raise Http403()
         event: Event = Event.objects.get(pk=kwargs['pk'])
-        if event.public or event.organization.is_member(request.user):
-            return event
-        for organization in event.allowed_organizations.all():
-            if organization.is_member(request.user):
-                return event
-        raise Http403()
+        if not event.can_see(request.user):
+            raise Http403()
+        return event
 
     def file_name(self, obj: Event) -> str:
         return f'event_{obj.display.lower().replace(" ", "_")}_shifts.ics'

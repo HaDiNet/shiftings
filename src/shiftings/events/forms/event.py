@@ -1,3 +1,5 @@
+from typing import Any
+
 from django.core.exceptions import ValidationError
 from django.forms import ModelForm
 from django.utils.translation import gettext_lazy as _
@@ -10,6 +12,10 @@ class EventForm(ModelForm):
         model = Event
         fields = ['organization', 'name', 'logo', 'email', 'telephone_number', 'website', 'start_date', 'end_date',
                   'description', 'allowed_organizations', 'public']
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
+        self.fields['organization'].disabled = True
 
     def clean_end_date(self):
         end_date = self.cleaned_data['end_date']

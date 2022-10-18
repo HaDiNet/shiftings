@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.db import models
@@ -12,6 +13,9 @@ from PIL import Image
 
 from shiftings.shifts.models import Shift
 from shiftings.utils.fields.date_time import DateField
+
+if TYPE_CHECKING:
+    from shiftings.accounts.models import User
 
 
 class Event(models.Model):
@@ -78,6 +82,9 @@ class Event(models.Model):
     @property
     def needed_slots(self) -> int:
         return self.shifts.aggregate(Sum('required_users')).get('required_users__sum')
+
+    def can_see(self, user: User) -> bool:
+        return self.public or user.events.filter(pk=self.pk).exists()
 
     def get_absolute_url(self) -> str:
         return reverse('event', args=[self.pk])

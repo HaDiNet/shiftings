@@ -5,24 +5,23 @@ from typing import Any, Optional
 
 from django.http import HttpResponse
 from django.urls import reverse
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView
 
-from shiftings.shifts.forms.recurring import RecurringShiftForm, RecurringShiftCreateForm
+from shiftings.organizations.models import Organization
+from shiftings.organizations.views.organization_base import OrganizationMemberMixin, OrganizationPermissionMixin
+from shiftings.shifts.forms.recurring import RecurringShiftCreateForm, RecurringShiftForm
 from shiftings.shifts.models import RecurringShift, ShiftTemplateGroup
-from shiftings.utils.views.base import BaseLoginMixin, BaseMixin
+from shiftings.utils.views.base import BaseLoginMixin
 from shiftings.utils.views.create_update_view import CreateOrUpdateView
 
 
-class RecurringShiftListView(BaseMixin, ListView):
-    template_name = 'shifts/recurring/list.html'
-    model = RecurringShift
-    context_object_name = 'shifts'
-
-
-class RecurringShiftDetailView(BaseMixin, DetailView):
+class RecurringShiftDetailView(OrganizationMemberMixin, DetailView):
     template_name = 'shifts/recurring/shift.html'
     model = RecurringShift
     context_object_name = 'shift'
+
+    def get_organization(self) -> Organization:
+        return self.get_object().organization
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
@@ -34,18 +33,22 @@ class RecurringShiftDetailView(BaseMixin, DetailView):
         return context
 
 
-class RecurringShiftEditView(BaseLoginMixin, CreateOrUpdateView):
+class RecurringShiftEditView(OrganizationPermissionMixin, CreateOrUpdateView):
     template_name = 'shifts/recurring/form.html'
     model = RecurringShift
     form_class = RecurringShiftForm
+    permission_required = 'organizations.edit_recurring_shifts'
 
-    def get_obj(self) -> Optional[RecurringShift]:
+    def get_organization(self) -> Organization:
         if self.is_create():
-            return None
-        obj = super().get_object()
-        if not isinstance(obj, RecurringShift):
-            return None
-        return obj
+            return self._get_object(Organization, 'org_pk')
+        return self.get_object().organization
+
+    def get_initial(self) -> dict[str, Any]:
+        initial = super().get_initial()
+        if self.is_create():
+            initial['organization'] = self.get_organization()
+        return initial
 
     def get_success_url(self) -> str:
         return reverse('recurring_shift', args=[self.object.pk])

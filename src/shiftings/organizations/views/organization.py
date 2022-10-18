@@ -55,6 +55,9 @@ class OrganizationShiftsView(OrganizationMemberMixin, DetailView):
     object: Organization
     context_object_name = 'organization'
 
+    def get_organization(self) -> Organization:
+        return self.get_object()
+
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         today = date.today()
@@ -74,6 +77,9 @@ class OrganizationAdminView(OrganizationPermissionMixin, DetailView):
         'organizations.see_members', 'organizations.see_statistics', 'organizations.edit_membership_types',
         'organizations.edit_members', 'organizations.edit_recurring_shifts', 'organizations.edit_shift_templates'
     )
+
+    def get_organization(self) -> Organization:
+        return self.get_object()
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)

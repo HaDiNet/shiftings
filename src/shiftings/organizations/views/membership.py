@@ -9,7 +9,7 @@ from django.views.generic import DeleteView
 from django.views.generic.edit import FormMixin
 
 from shiftings.organizations.forms.membership import MembershipForm
-from shiftings.organizations.models import Membership
+from shiftings.organizations.models import Membership, Organization
 from shiftings.organizations.views.organization import OrganizationPermissionMixin
 from shiftings.utils.views.create_update_view import CreateOrUpdateView
 
@@ -18,6 +18,9 @@ class MembershipViewMixin(OrganizationPermissionMixin):
     model = Membership
     pk_url_kwarg = 'None'
     permission_required = 'organizations.edit_members'
+
+    def get_organization(self) -> Organization:
+        return self._get_object(Organization, 'org_pk')
 
     def get_success_url(self):
         return reverse('organization_admin', args=[self.get_organization().pk])

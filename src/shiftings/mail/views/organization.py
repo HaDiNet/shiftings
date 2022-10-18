@@ -6,10 +6,13 @@ from shiftings.accounts.models import User
 from shiftings.mail.forms.mail import OrganizationMailForm
 from shiftings.mail.views.mail import BaseMailView
 from shiftings.organizations.models import Organization
+from shiftings.organizations.views.organization_base import OrganizationPermissionMixin
 
 
-class OrganizationMailView(BaseMailView):
+class OrganizationMailView(OrganizationPermissionMixin, BaseMailView):
     form_class = OrganizationMailForm
+    permission_required = 'organization.send_mail'
+    pk_url_kwarg = 'org_pk'
 
     def get_form_kwargs(self) -> dict[str, Any]:
         kwargs = super().get_form_kwargs()
@@ -23,7 +26,7 @@ class OrganizationMailView(BaseMailView):
         return replacements
 
     def get_organization(self) -> Organization:
-        return self._get_object(Organization, 'pk')
+        return self._get_object(Organization, self.pk_url_kwarg)
 
     def get_users(self, form: Optional[OrganizationMailForm] = None) -> QuerySet[User]:
         if form is None:

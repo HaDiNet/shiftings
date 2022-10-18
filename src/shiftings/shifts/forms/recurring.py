@@ -1,3 +1,5 @@
+from typing import Any
+
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
@@ -13,9 +15,12 @@ class RecurringShiftForm(forms.ModelForm):
         fields = ['name', 'organization', 'time_frame_field', 'ordinal', 'week_day_field', 'month_field',
                   'first_occurrence']
 
+    def __init__(self, *args: Any, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self.fields['organization'].disabled = True
 
-class RecurringShiftCreateForm(forms.ModelForm):
-    ordinal = forms.IntegerField(label=_('Ordinal'), min_value=1, max_value=31)
+
+class RecurringShiftCreateForm(RecurringShiftForm):
     place = forms.CharField(label=_('Place'), max_length=100, required=False)
     start_time = TimeFormField(label=_('Start Time'))
 

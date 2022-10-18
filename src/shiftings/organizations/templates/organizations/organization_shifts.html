@@ -76,7 +76,7 @@
             </a>
             {% has_permission request 'organizations.edit_events' organization as can_edit_events %}
             {% if can_edit_events %}
-              <a class="btn btn-success ms-2" href="{% url 'event_create' %}?org={{ organization.pk }}"
+              <a class="btn btn-success ms-2" href="{% url 'event_create' organization.pk %}"
                  title="{% trans "Add Event" %}">
                 <i class="fa-solid fa-beer-mug-empty"></i>
                 <i class="fa-solid fa-plus"></i>
@@ -153,7 +153,7 @@
         </a>
         {% has_permission request 'organizations.edit_shifts' organization as can_create_shift %}
         {% if can_create_shift %}
-          <a class="btn btn-success" href="{% url "shift_create" %}" title="{% trans "Create Shift" %}">
+          <a class="btn btn-success" href="{% url "shift_create" organization.pk %}" title="{% trans "Create Shift" %}">
             <i class="fa-solid fa-calendar-plus"></i>
           </a>
         {% endif %}

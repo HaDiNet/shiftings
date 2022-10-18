@@ -3,8 +3,10 @@ from abc import ABC
 from django.db.models import Q
 from django.views.generic import TemplateView
 
+from shiftings.utils.views.base import BaseLoginMixin
 
-class CalendarBaseView(TemplateView, ABC):
+
+class CalendarBaseView(BaseLoginMixin, TemplateView, ABC):
 
     def get_filters(self):
         shift_filter = Q()

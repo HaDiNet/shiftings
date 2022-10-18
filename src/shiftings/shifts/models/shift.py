@@ -92,5 +92,12 @@ class Shift(ShiftBase):
                 slots.append((user, False))
         return slots
 
+    def can_see(self, user: User) -> bool:
+        if self.participants.filter(user=user).exists():
+            return True
+        if self.event:
+            return self.event.can_see(user)
+        return self.organization.is_member(user)
+
     def get_absolute_url(self) -> str:
         return reverse('shift', args=[self.pk])

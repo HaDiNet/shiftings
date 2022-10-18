@@ -81,7 +81,7 @@
         <a class="btn btn-success" href="{% url 'event_calendar' event.pk %}" title="{% trans "ical Export" %}">
           <i class="fas fa-file-export"></i> {% trans "ical Export" %}
         </a>
-        <a class="btn btn-success" href="{% url "shift_create" %}" title="{% trans "Create Shift" %}">
+        <a class="btn btn-success" href="{% url "shift_create" event.organization.pk %}" title="{% trans "Create Shift" %}">
           <i class="fa-solid fa-calendar-plus"></i>
         </a>
       </div>

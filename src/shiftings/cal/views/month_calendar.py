@@ -15,9 +15,6 @@ from shiftings.cal.views.calendar_base import CalendarBaseView
 from shiftings.shifts.models import RecurringShift, Shift
 
 
-# pylint: disable=no-self-use
-
-
 class MonthCalenderView(CalendarBaseView):
     template_name = 'cal/month_calendar.html'
     title = _('Calendar')
@@ -63,7 +60,7 @@ class BaseCalendar(HTMLCalendar):
     def get_shifts(self, _date: date) -> Union[List[Shift], QuerySet[Shift]]:
 
         time_filter = (Q(start__date=_date) | Q(end__date=_date, end__gt=_date) |
-                        Q(start__lt=_date, end__gt=_date))
+                       Q(start__lt=_date, end__gt=_date))
         return Shift.objects.filter(self.shift_filter & time_filter).order_by('start', 'end')
 
     def can_see_shift(self, shift: Shift) -> bool:
