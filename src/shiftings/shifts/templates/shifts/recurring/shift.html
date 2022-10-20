@@ -36,35 +36,7 @@
             </dl>
           </div>
         </div>
-        <div class="card bg-dark mt-3">
-          <div class="card-header center-items justify-content-between">
-            <h3 class="m-0">Shift Template {{ shift.template.name }}</h3>
-            <div>
-              <a class="btn btn-outline-info" href="{{ shift.template.get_absolute_url }}"
-                 title="{% trans "Go to Shift Template" %}">
-                {% trans "Go to Shift Template" %}
-              </a>
-              <a class="btn btn-success" href="{% url "template_group_update" shift.pk %}"
-                 title="{% trans "Edit Shift Template" %}">
-                <i class="fa-solid fa-pen-to-square"></i>
-              </a>
-            </div>
-          </div>
-          <div class="card-body">
-            <dl class="detail-horizontal">
-              <dt>{% trans "Place" %}</dt>
-              <dd>{{ shift.template.place }}</dd>
-              <dt>{% trans "Time" %}</dt>
-              <dd>{{ shift.template.start_time }}</dd>
-              <dt>{% trans "Organization" %}</dt>
-              <dd>{{ shift.template.organization.name }}</dd>
-            </dl>
-          </div>
-          {% for shift_template in shift.template.shifts.all %}
-            <hr class="my-1">
-            {% include "shifts/template/template.html" with template=shift_template start_time=shift.template.start_time %}
-          {% endfor %}
-        </div>
+        {% include 'shifts/template/group_template.html' with group=shift.template %}
       </div>
       <div class="col-12 col-lg-6 col-xl-4">
         <div class="card bg-dark mt-3">

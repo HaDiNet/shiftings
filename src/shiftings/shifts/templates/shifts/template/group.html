@@ -3,33 +3,7 @@
 {% block content %}
   <div class="container-fluid container-lg d-flex justify-content-center">
     <div class="col-12 col-md-8">
-      <div class="card base-card bg-dark mt-3">
-        <div class="card-header center-items justify-content-between">
-          <h3 class="m-0">
-            {{ group.name }}
-          </h3>
-          <div>
-{#            <a class="btn btn-success px-2 py-1" href="{% url 'shift_update' shift.pk %}"#}
-{#               title="{% trans "Edit Shift" %}">#}
-{#              <i class="fa-solid fa-pen-to-square"></i>#}
-{#            </a>#}
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-12 col-md-5">
-              <dl class="detail-horizontal">
-                <dt>{% trans "Place" %}</dt>
-                <dd>{{ group.place }}</dd>
-                <dt>{% trans "Start Time" %}</dt>
-                <dd>{{ group.start_time }}</dd>
-                <dt>{% trans "Organization" %}</dt>
-                <dd>{{ group.organization.name }}</dd>
-              </dl>
-            </div>
-          </div>
-        </div>
-      </div>
+      {% include 'shifts/template/group_template.html' %}
     </div>
   </div>
 {% endblock %}
