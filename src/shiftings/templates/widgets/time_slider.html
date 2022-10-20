@@ -1,14 +1,16 @@
 <div class="time-slider-container"
-     style="display: flex; flex-flow: row nowrap; align-items: center; justify-content: space-between; width: 100%">
+     style="display: flex; flex-flow: row wrap; align-items: center; justify-content: space-between; width: 100%">
   <input type="range" id="{{ widget.attrs.id }}_slider" name="{{ widget.name }}" class="time-slider"
          min="{{ widget.attrs.min }}" max="{{ widget.attrs.max }}" step="{{ widget.attrs.step }}"
          start="{{ widget.attrs.start }}" startDay="0"
-         value="{{ widget.value }}" style="flex-grow: 1">
-  <input id="{{ widget.attrs.id }}_display" class="{{ widget.attrs.class }} time-slider-display" type="text"
-         pattern="\d?\d:\d\d" title="{% trans 'You need to enter a valid timeframe in the form of HH:MM.' %}"
-         style="max-width: 80px; min-width: 60px; margin-left: .25rem">
-  <div style="text-align: left; white-space: nowrap; margin-left: .5rem"
-       class="time-slider-day-container d-none">
-    {% trans 'Day: +' %}<span class="time-slider-day"></span>
+         value="{{ widget.value }}" style="flex-grow: 1; width: 100% !important; margin: 10px">
+  <div style="display: flex; flex-flow: row nowrap; align-items: center; justify-content: center; width: 100%">
+    <input id="{{ widget.attrs.id }}_display" class="{{ widget.attrs.class }} time-slider-display" type="text"
+           pattern="\d?\d:\d\d" title="{% trans 'You need to enter a valid timeframe in the form of HH:MM.' %}"
+           style="max-width: 80px; min-width: 60px; margin-left: .25rem">
+    <div style="text-align: left; white-space: nowrap; margin-left: .5rem"
+         class="time-slider-day-container d-none">
+      {% trans 'Day: +' %}<span class="time-slider-day"></span>
+    </div>
   </div>
 </div>

@@ -3,7 +3,7 @@
     {{ form.id }}
     <div class="card-header center-items justify-content-start px-0">
       <h4 class="m-0 me-1 me-sm-3">{% trans "Name" %}</h4>
-      <div class="col-7 col-sm-9">
+      <div class="col-7 col-sm-8">
         {% bootstrap_field form.name show_label=False form_group_class='' %}
       </div>
       <a class="btn btn-danger px-2 py-1 ms-auto formset-form-remove" id="id_{{ form.prefix }}_remove">
@@ -32,12 +32,12 @@
       </div>
       <div class="col-12">{% trans "Time" %}:</div>
       <div class="center-items">
-        <div class="col-5 text-center pe-help"
+        <div class="col-5 center-items flex-column flex-wrap pe-help"
              title="{% trans "Required number of users to fill this shift" %}">
           {% trans "Start Delay" context "Shift time" %}{% bootstrap_field form.start_delay show_label=False %}
         </div>
-        <div class="col-1">+</div>
-        <div class="col-5 text-center pe-help"
+        <div class="col-2">+</div>
+        <div class="col-5 center-items flex-column flex-wrap pe-help"
              title="{% trans "Maximum number of users allowed in this shift" %}">
           {% trans "Duration" context "Shift time" %}{% bootstrap_field form.duration show_label=False %}
         </div>
