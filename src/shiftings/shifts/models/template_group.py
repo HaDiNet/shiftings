@@ -13,8 +13,8 @@ class ShiftTemplateGroup(models.Model):
     name = models.CharField(max_length=100, verbose_name=_('Name'))
     place = models.CharField(max_length=100, verbose_name=_('Place'), blank=True, null=True)
 
-    organization = models.ForeignKey('organizations.Organization', on_delete=models.CASCADE, related_name='%(class)ss',
-                                     verbose_name=_('Organization'))
+    organization = models.ForeignKey('organizations.Organization', on_delete=models.CASCADE,
+                                     related_name='shift_template_groups', verbose_name=_('Organization'))
 
     start_time = TimeField(verbose_name=_('Start Time'), db_index=True)
 
