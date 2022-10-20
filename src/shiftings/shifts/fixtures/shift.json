@@ -42,9 +42,7 @@
     "pk": 1,
     "fields": {
       "organization": 1,
-      "event": null,
       "name": "Früh",
-      "position": 0,
       "color": "#DC3545"
     }
   },
@@ -53,9 +51,7 @@
     "pk": 2,
     "fields": {
       "organization": 1,
-      "event": null,
       "name": "Spät",
-      "position": 1,
       "color": "#DC3545"
     }
   },
@@ -64,9 +60,7 @@
     "pk": 3,
     "fields": {
       "organization": 1,
-      "event": null,
       "name": "Sitzung",
-      "position": 3,
       "color": "#DC3545"
     }
   },
@@ -75,9 +69,7 @@
     "pk": 4,
     "fields": {
       "organization": 1,
-      "event": null,
       "name": "GeMa Einkauf",
-      "position": 2,
       "color": "#DC3545"
     }
   },
