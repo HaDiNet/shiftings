@@ -1,26 +1,5 @@
 {% extends 'generic/fluid_split_title_card.html' %}
 
-{#{% block content %}#}
-{#  <table class="table table-responsive-sm table-dark table-striped table-hover table-bordered align-middle">#}
-{#    <tr>#}
-{#      <th>{% trans 'Organization' %}</th>#}
-{#      <th>{% trans 'Name' %}</th>#}
-{#      <th>{% trans 'Start Date' %}</th>#}
-{#      <th>{% trans 'End Date' %}</th>#}
-{#      <th>{% trans 'Public' %}</th>#}
-{#    </tr>#}
-{#    {% for event in events %}#}
-{#      <tr>#}
-{#        <td><a class="link" href="{{ event.organization.get_absolute_url }}">{{ event.organization.name }}</a></td>#}
-{#        <td><a class="link" href="{{ event.get_absolute_url }}">{{ event.name }}</a></td>#}
-{#        <td>{{ event.start_date }}</td>#}
-{#        <td>{{ event.end_date }}</td>#}
-{#        <td>{{ event.public }}</td>#}
-{#      </tr>#}
-{#    {% endfor %}#}
-{#  </table>#}
-{#{% endblock %}#}
-
 {% block left_card_title %}
   {% if full %}
     <h3>{% trans "All Events" %}</h3>
@@ -30,13 +9,21 @@
 {% endblock %}
 
 {% block right_card_title %}
+  {% if perms.organization.admin %}
+    <a class="btn btn-warning m-2" href="{% url 'events' %}" title="{% trans "All Events" %}">
+      <i class="fa-solid fa-list"></i>
+    </a>
+    <a class="btn btn-warning m-2" href="{% url 'future_events' %}" title="{% trans "All upcoming Events" %}">
+      <i class="fa-solid fa-hourglass-start"></i>
+    </a>
+  {% endif %}
   {% include 'generic/modular_search.html' with placeholder=_('Enter Name or Organization') %}
   {% if future %}
-    <a class="btn btn-success m-2" href="{% url 'events' %}" title="{% trans "All Events" %}">
+    <a class="btn btn-success m-2" href="{% url 'my_events' %}" title="{% trans "All Events" %}">
       <i class="fa-solid fa-hourglass-end"></i>
     </a>
   {% else %}
-    <a class="btn btn-success m-2" href="{% url 'next_events' %}"  title="{% trans "Future Events" %}">
+    <a class="btn btn-success m-2" href="{% url 'my_future_events' %}"  title="{% trans "Future Events" %}">
       <i class="fa-solid fa-hourglass-start"></i>
     </a>
   {% endif %}

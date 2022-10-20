@@ -32,7 +32,7 @@ class EventListView(BasePermissionMixin, ListView):
         return Event.objects.all()
 
 
-class FutureEventListView(EventListView):
+class FutureEventsListView(EventListView):
     extra_context = {
         'future': True
     }
@@ -58,7 +58,7 @@ class MyEventsListView(BaseMixin, ListView):
         return Event.objects.filter(public=True).filter(query)
 
 
-class MyFutureEventListView(MyEventsListView):
+class MyFutureEventsListView(MyEventsListView):
     extra_context = {
         'future': True
     }
