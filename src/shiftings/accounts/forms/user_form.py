@@ -39,7 +39,7 @@ class UserUpdateForm(forms.ModelForm):
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
-        if hasattr(self.instance, 'ldap_user'):
+        if not hasattr(self.instance, 'ldap_user'):
             self.fields['first_name'].required = True
             self.fields['last_name'].required = True
             self.fields['email'].required = True
