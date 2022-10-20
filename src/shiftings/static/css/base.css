@@ -49,9 +49,19 @@
   --bs-menu-bg: #0b0c0e;
 }
 
+footer {
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 10px;
+}
+
 input, textarea, select, .form-control, .form-select {
   background-color: transparent !important;
   color: var(--bs-body-color) !important;
+}
+
+input:disabled {
+  opacity: .2 !important;
 }
 
 /*pagination*/
