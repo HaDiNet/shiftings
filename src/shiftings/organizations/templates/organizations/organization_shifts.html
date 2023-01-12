@@ -63,68 +63,70 @@
 
 {% block right %}
   <div class="row my-3">
-    <div class="col-xxl-6 mb-3 mb-md-0">
-      <div class="card bg-dark h-100">
-        <div class="card-header center-items justify-content-between">
-          <div>
-            {% trans "Upcoming Event" %}
-          </div>
-          <div>
-            <a class="btn btn-secondary" href="{% url "events" %}?search_param={{ organization.name }}"
-               title="{% trans "Expired Events" %}">
-              <i class="fa-solid fa-hourglass-end"></i>
-            </a>
-            {% has_permission request 'organizations.edit_events' organization as can_edit_events %}
-            {% if can_edit_events %}
-              <a class="btn btn-success ms-2" href="{% url 'event_create' organization.pk %}"
-                 title="{% trans "Add Event" %}">
-                <i class="fa-solid fa-beer-mug-empty"></i>
-                <i class="fa-solid fa-plus"></i>
+    {% if feature.event %}
+      <div class="col-xxl-6 mb-3 mb-md-0">
+        <div class="card bg-dark h-100">
+          <div class="card-header center-items justify-content-between">
+            <div>
+              {% trans "Upcoming Event" %}
+            </div>
+            <div>
+              <a class="btn btn-secondary" href="{% url "events" %}?search_param={{ organization.name }}"
+                 title="{% trans "Expired Events" %}">
+                <i class="fa-solid fa-hourglass-end"></i>
               </a>
+              {% has_permission request 'organizations.edit_events' organization as can_edit_events %}
+              {% if can_edit_events %}
+                <a class="btn btn-success ms-2" href="{% url 'event_create' organization.pk %}"
+                   title="{% trans "Add Event" %}">
+                  <i class="fa-solid fa-beer-mug-empty"></i>
+                  <i class="fa-solid fa-plus"></i>
+                </a>
+              {% endif %}
+            </div>
+          </div>
+          <div class="p-2">
+            {% if organization.next_event %}
+              <div>
+                <div class="d-flex align-items-center flex-wrap justify-content-between">
+                  <h4 class="m-0">{% trans "Event" %}: {{ organization.next_event }}</h4>
+                  <a class="btn btn-outline-info"
+                     href="{{ organization.next_event.get_absolute_url }}">{% trans "Go to Event" %}</a>
+                </div>
+                <hr class="my-1">
+                <div class="px-2">
+                  <table class="mb-3">
+                    <tr>
+                      {% blocktrans with start_date=organization.next_event.start_date end_date=organization.next_event.end_date %}
+                        <th>Event Period:</th>
+                        <td class="ps-3">{{ start_date }} to {{ end_date }}</td>
+                      {% endblocktrans %}
+                    </tr>
+                    <tr>
+                      <th>{% trans "Scope" %}:</th>
+                      <td class="ps-3">{{ organization.next_event.public|yesno:_('Public,Private,Unknown') }}</td>
+                    </tr>
+                    {% if organization.next_event.website %}
+                      <tr>
+                        <th>{% trans "Website" %}:</th>
+                        <td class="ps-3">
+                          <a class="link" href="{{ organization.next_event.website }}">
+                            {{ organization.next_event.website }}
+                          </a>
+                        </td>
+                      </tr>
+                    {% endif %}
+                  </table>
+                  {% include "events/template/event_stats.html" with event=organization.next_event %}
+                </div>
+              </div>
+            {% else %}
+              <div><h2>{% trans "No Events planned" %}</h2></div>
             {% endif %}
           </div>
         </div>
-        <div class="p-2">
-          {% if organization.next_event %}
-            <div>
-              <div class="d-flex align-items-center flex-wrap justify-content-between">
-                <h4 class="m-0">{% trans "Event" %}: {{ organization.next_event }}</h4>
-                <a class="btn btn-outline-info"
-                   href="{{ organization.next_event.get_absolute_url }}">{% trans "Go to Event" %}</a>
-              </div>
-              <hr class="my-1">
-              <div class="px-2">
-                <table class="mb-3">
-                  <tr>
-                    {% blocktrans with start_date=organization.next_event.start_date end_date=organization.next_event.end_date %}
-                      <th>Event Period:</th>
-                      <td class="ps-3">{{ start_date }} to {{ end_date }}</td>
-                    {% endblocktrans %}
-                  </tr>
-                  <tr>
-                    <th>{% trans "Scope" %}:</th>
-                    <td class="ps-3">{{ organization.next_event.public|yesno:_('Public,Private,Unknown') }}</td>
-                  </tr>
-                  {% if organization.next_event.website %}
-                    <tr>
-                      <th>{% trans "Website" %}:</th>
-                      <td class="ps-3">
-                        <a class="link" href="{{ organization.next_event.website }}">
-                          {{ organization.next_event.website }}
-                        </a>
-                      </td>
-                    </tr>
-                  {% endif %}
-                </table>
-                {% include "events/template/event_stats.html" with event=organization.next_event %}
-              </div>
-            </div>
-          {% else %}
-            <div><h2>{% trans "No Events planned" %}</h2></div>
-          {% endif %}
-        </div>
       </div>
-    </div>
+    {% endif %}
     <div class="col-xxl-6 mt-2 mt-xxl-0">
       <div class="card bg-dark h-100">
         <div class="d-flex justify-content-between">

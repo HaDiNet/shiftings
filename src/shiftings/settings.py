@@ -51,6 +51,10 @@ INSTALLED_APPS = [
     'shiftings.mail'
 ]
 
+FEATURES = {
+    'event': False
+}
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -85,6 +89,7 @@ TEMPLATES = [
             ],
             'context_processors': [
                 'shiftings.utils.context_processors.debug',
+                'shiftings.utils.context_processors.feature',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',

@@ -91,7 +91,7 @@
                             <li>
                               {{ permission.name }}
                             </li>
-                          {% empty %}
+                            {% empty %}
                             {% trans "No permissions" %}
                           {% endfor %}
                         </ul>
@@ -258,53 +258,55 @@
       {% endif %}
     </div>
   </div>
-  <div class="card bg-dark mb-3 ">
-    <div class="card-header center-items justify-content-between">
-      <div>
-        {% trans "Upcoming Events" %}
-      </div>
-      <div>
-        <a class="btn btn-secondary" href="{% url "events" %}?search_param={{ organization.name }}"
-           title="{% trans "Expired Events" %}">
-          <i class="fa-solid fa-hourglass-end"></i>
-        </a>
-        {% has_permission request 'organizations.edit_events' organization as can_edit_events %}
-        {% if can_edit_recurring_shifts %}
-          <a class="btn btn-success ms-2" href="{% url 'event_create' organization.pk %}"
-             title="{% trans "Add Event" %}">
-            <i class="fa-solid fa-beer-mug-empty"></i>
-            <i class="fa-solid fa-plus"></i>
+  {% if feature.event %}
+    <div class="card bg-dark mb-3 ">
+      <div class="card-header center-items justify-content-between">
+        <div>
+          {% trans "Upcoming Events" %}
+        </div>
+        <div>
+          <a class="btn btn-secondary" href="{% url "events" %}?search_param={{ organization.name }}"
+             title="{% trans "Expired Events" %}">
+            <i class="fa-solid fa-hourglass-end"></i>
           </a>
+          {% has_permission request 'organizations.edit_events' organization as can_edit_events %}
+          {% if can_edit_recurring_shifts %}
+            <a class="btn btn-success ms-2" href="{% url 'event_create' organization.pk %}"
+               title="{% trans "Add Event" %}">
+              <i class="fa-solid fa-beer-mug-empty"></i>
+              <i class="fa-solid fa-plus"></i>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+      <div class="p-1">
+        {% if organization.future_events|length > 0 %}
+          <table class="table table-striped table-dark m-0">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>From</th>
+              <th>To</th>
+              <th>Visibility</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for event in organization.future_events %}
+              <tr class="link pe-pointer" onclick="window.location.href='{% url 'event' event.pk %}'">
+                <td>{{ event.name }}</td>
+                <td>{{ event.start_date }}</td>
+                <td>{{ event.end_date }}</td>
+                <td>{{ event.public|yesno:_('Public,Private,Unknown') }}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+          <div class="center-items p-3">{% trans "No upcoming Events planned" %}</div>
         {% endif %}
       </div>
     </div>
-    <div class="p-1">
-      {% if organization.future_events|length > 0 %}
-        <table class="table table-striped table-dark m-0">
-          <thead>
-          <tr>
-            <th>Name</th>
-            <th>From</th>
-            <th>To</th>
-            <th>Visibility</th>
-          </tr>
-          </thead>
-          <tbody>
-          {% for event in organization.future_events %}
-            <tr class="link pe-pointer" onclick="window.location.href='{% url 'event' event.pk %}'">
-              <td>{{ event.name }}</td>
-              <td>{{ event.start_date }}</td>
-              <td>{{ event.end_date }}</td>
-              <td>{{ event.public|yesno:_('Public,Private,Unknown') }}</td>
-            </tr>
-          {% endfor %}
-          </tbody>
-        </table>
-      {% else %}
-        <div class="center-items p-3">{% trans "No upcoming Events planned" %}</div>
-      {% endif %}
-    </div>
-  </div>
+  {% endif %}
   <div class="card bg-dark mt-3">
     <div class="card-header center-items justify-content-between">
       <h5 class="m-0">{% trans "Shifts" %}</h5>
