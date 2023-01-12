@@ -1,7 +1,7 @@
 {% url "organization" organization.pk as org_url %}
-<div class="organization-container">
+<div class="organization-container pe-pointer" onclick="window.location.href='{{ org_url }}'">
   <div class="card bg-dark border border-3 organization-content">
-    <a class="link organization-logo" href="{{ org_url }}">
+    <div class="organization-logo">
       {% if organization.logo %}
         <div>
           <img src="{{ organization.logo.url }}" alt="{{ membership.organization.name }}">
@@ -12,27 +12,27 @@
           {% trans "No Image available" %}
         </div>
       {% endif %}
-    </a>
+    </div>
     <div class="organization-data">
-      <a class="link" href="{{ org_url }}">
-        <div class="pt-1 border-bottom bg-secondary">
-          <h4 class="text-center">{{ organization.name }}</h4>
-        </div>
-      </a>
+      <div class="pt-1 border-bottom bg-secondary">
+        <h4 class="text-center">{{ organization.name }}</h4>
+      </div>
       <div class="p-2 overflow-auto">
-        <a class="link" href="{{ org_url }}">
-          {{ organization.description|linebreaks }}
-        </a>
+        {{ organization.description|linebreaks }}
       </div>
     </div>
     {% if organization.website %}
       <div class="organization-url text-center bg-secondary py-2">
-        <a class="link" href="{{ organization.website }}">{{ organization.website }}</a>
+        <a class="link" href="{{ organization.website }}">
+          <h4>{% trans "Website" %}</h4>
+        </a>
       </div>
     {% endif %}
     {% if organization.email %}
       <div class="organization-contact text-center bg-secondary py-2">
-        <a class="link" href="mailto:{{ organization.email }}">{{ organization.email }}</a>
+        <a class="link" href="mailto:{{ organization.email }}">
+          <h6>{{ organization.email }}</h6>
+        </a>
       </div>
     {% endif %}
   </div>

@@ -63,6 +63,23 @@
 
 {% block right %}
   <div class="row my-3">
+    <div class="col-xxl-6 mt-2 mt-xxl-0">
+      <div class="card bg-dark h-100">
+        <div class="d-flex justify-content-between">
+          <div class="mx-auto pt-2">
+            {% trans "Month Overview" %}
+          </div>
+          <div>
+            <a class="btn btn-success" title="{% trans "Complete Overview" %}" href="{% url "overview_thismonth" %}">
+              <i class="fas fa-calendar-week"></i>
+            </a>
+          </div>
+        </div>
+        <div class="card-body table-responsive">
+          {% month_overview_calendar organization request.GET %}
+        </div>
+      </div>
+    </div>
     {% if feature.event %}
       <div class="col-xxl-6 mb-3 mb-md-0">
         <div class="card bg-dark h-100">
@@ -126,24 +143,13 @@
           </div>
         </div>
       </div>
-    {% endif %}
-    <div class="col-xxl-6 mt-2 mt-xxl-0">
-      <div class="card bg-dark h-100">
-        <div class="d-flex justify-content-between">
-          <div class="mx-auto pt-2">
-            {% trans "Month Overview" %}
-          </div>
-          <div>
-            <a class="btn btn-success" title="{% trans "Complete Overview" %}" href="{% url "overview_thismonth" %}">
-              <i class="fas fa-calendar-week"></i>
-            </a>
-          </div>
-        </div>
-        <div class="card-body table-responsive">
-          {% month_overview_calendar organization request.GET %}
+      {% else %}
+      <div class="col-xxl-6 mb-3 mb-md-0">
+        <div class="card bg-dark h-100 center-items">
+          <h1>{% trans "Events disabled" %}</h1>
         </div>
       </div>
-    </div>
+    {% endif %}
   </div>
   <div class="card base-card bg-dark mt-3">
     <div class="card-header center-items justify-content-between">
@@ -155,6 +161,15 @@
         </a>
         {% has_permission request 'organizations.edit_shifts' organization as can_create_shift %}
         {% if can_create_shift %}
+          <a class="btn btn-success" href="{% url "shift_from_template" %}"
+             title="{% trans "Create Shift from Template" %}">
+            <span class="fa-layers fa-fw">
+              <i class="fa-inverse fa-solid fa-calendar-plus" data-fa-transform="shrink-6 up-6 right-6"></i>
+              <i class="fa-inverse fa-solid fa-calendar-plus" data-fa-transform="shrink-6 up-6 left-6"></i>
+              <i class="fa-inverse fa-solid fa-calendar-plus" data-fa-transform="shrink-6 down-6 right-6"></i>
+              <i class="fa-inverse fa-solid fa-calendar-plus" data-fa-transform="shrink-6 down-6 left-6"></i>
+            </span>
+          </a>
           <a class="btn btn-success" href="{% url "shift_create" organization.pk %}" title="{% trans "Create Shift" %}">
             <i class="fa-solid fa-calendar-plus"></i>
           </a>

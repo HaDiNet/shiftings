@@ -7,7 +7,7 @@
     </button>
     {% if request.user.is_authenticated %}
       <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
-      <div class="navbar-nav">
+      <div class="navbar-nav flex-wrap">
         <a class="nav-link d-flex align-items-center" href="{% url "overview_thismonth" %}">
           {% trans "Overview" %} <i class="fas fa-calendar-days ms-2"></i>
         </a>

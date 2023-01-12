@@ -93,14 +93,14 @@ input:disabled {
   border-color: var(--bs-body-color) !important;
 }
 
-.link {
+.plain-link, .link {
   cursor: pointer;
   text-decoration: none;
   color: var(--bs-body-color);
 }
 
 .link:hover {
-  color: var(--bs-success) !important;
+  color: var(--bs-teal) !important;
 }
 
 .base-card {
@@ -333,6 +333,10 @@ dl.detail-horizontal dd {
   grid-template-rows: 1fr auto;
   grid-template-columns: 2fr 1fr;
   height: 100%;
+}
+
+.organization-content:hover {
+  border: 6px solid var(--bs-green) !important;
 }
 
 .organization-logo {
