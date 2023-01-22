@@ -1,0 +1,12 @@
+{% extends "generic/form_base.html" %}
+{% block form %}
+  <div class="card bg-dark p-3">
+    <form method="post" {% include 'generic/include_params.html' with params=form_params only %}>
+      {% csrf_token %}
+      {% bootstrap_form form %}
+      <div class="flex-row-wrap">
+        {% bootstrap_button _('Create') button_type="submit" button_class="btn-primary me-2" %}
+      </div>
+    </form>
+  </div>
+{% endblock %}

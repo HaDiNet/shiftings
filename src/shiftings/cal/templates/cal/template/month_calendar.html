@@ -34,6 +34,9 @@
             {% for entry in day.entries %}
               {{ entry }}
             {% endfor %}
+          {% if day.class != 'noday' %}
+            {% include "cal/calendar_templates/cal_shift_create_entry.html" with date=day.date|date:'Y-m-d' %}
+          {% endif %}
           </div>
         </div>
       {% endfor %}

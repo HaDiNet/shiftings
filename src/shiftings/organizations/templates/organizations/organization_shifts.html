@@ -143,7 +143,7 @@
           </div>
         </div>
       </div>
-      {% else %}
+    {% else %}
       <div class="col-xxl-6 mb-3 mb-md-0">
         <div class="card bg-dark h-100 center-items">
           <h1>{% trans "Events disabled" %}</h1>
@@ -161,14 +161,9 @@
         </a>
         {% has_permission request 'organizations.edit_shifts' organization as can_create_shift %}
         {% if can_create_shift %}
-          <a class="btn btn-success" href="{% url "shift_from_template" %}"
+          <a class="btn btn-success" href="{% url "shift_create_from_template" organization.pk %}"
              title="{% trans "Create Shift from Template" %}">
-            <span class="fa-layers fa-fw">
-              <i class="fa-inverse fa-solid fa-calendar-plus" data-fa-transform="shrink-6 up-6 right-6"></i>
-              <i class="fa-inverse fa-solid fa-calendar-plus" data-fa-transform="shrink-6 up-6 left-6"></i>
-              <i class="fa-inverse fa-solid fa-calendar-plus" data-fa-transform="shrink-6 down-6 right-6"></i>
-              <i class="fa-inverse fa-solid fa-calendar-plus" data-fa-transform="shrink-6 down-6 left-6"></i>
-            </span>
+            <i class="fa-solid fa-sim-card"></i>
           </a>
           <a class="btn btn-success" href="{% url "shift_create" organization.pk %}" title="{% trans "Create Shift" %}">
             <i class="fa-solid fa-calendar-plus"></i>
@@ -177,20 +172,20 @@
       </div>
     </div>
     <div>
-      {% if shifts.object_list|length > 1 %}
+      {% if shifts.object_list|length > 0 %}
         <div>
           {% for shift in shifts.object_list %}
             {% shift_card shift %}
           {% endfor %}
         </div>
-        {% if shifts.is_paginated %}
-          <div class="d-flex justify-content-center bg-dark">
-            {% bootstrap_pagination shifts.page_obj parameter_name=shifts.page_name %}
-          </div>
-        {% endif %}
       {% else %}
         <div class="center-items p-3">
           <h4>{% trans "No upcoming shifts" %}</h4>
+        </div>
+      {% endif %}
+      {% if shifts.is_paginated %}
+        <div class="d-flex justify-content-center bg-dark">
+          {% bootstrap_pagination shifts.page_obj parameter_name=shifts.page_name %}
         </div>
       {% endif %}
     </div>

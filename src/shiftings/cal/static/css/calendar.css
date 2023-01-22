@@ -119,18 +119,6 @@ a.calendar-shift > a:hover {
   color: var(--bs-white);
 }
 
-.calendar-shift-create {
-  text-align: center;
-  border: 1px solid var(--bs-body-color);
-  background-color: var(--bs-blue);
-  width: 100%;
-  display: none;
-  cursor: pointer;
-}
-
-.calendar-entry-wrapper:hover .calendar-shift-create {
-  display: block;
-}
 
 .calendar-entry {
   margin-bottom: .25rem;
@@ -142,6 +130,25 @@ a.calendar-shift > a:hover {
   display: flex;
   flex-direction: column;
 }
+.calendar-shift-create {
+  text-align: center;
+  border: 1px solid var(--bs-body-color);
+  background-color: var(--bs-green);
+  color: var(--bs-body-color);
+  width: 100%;
+  display: none;
+  cursor: pointer;
+}
+
+.calendar-shift-create:hover {
+  color: var(--bs-body-color);
+}
+
+.calendar-entry-wrapper:hover .calendar-shift-create {
+  display: block;
+}
+
+
 
 .noday {
   background: repeating-linear-gradient(

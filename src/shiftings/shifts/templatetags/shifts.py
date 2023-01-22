@@ -6,6 +6,7 @@ from django.db.models import Q
 from django.utils.translation import gettext as _
 
 from shiftings.shifts.forms.participant import AddSelfParticipantForm
+from shiftings.shifts.forms.shift import SelectOrgForm
 from shiftings.utils.time.timerange import TimeRangeType
 
 register = template.Library()
@@ -25,6 +26,7 @@ def member_shift_summary(context, org) -> dict[str, Any]:
             return int(context['request'].GET.get(name, default))
         except ValueError:
             return default
+
     try:
         time_range_type = TimeRangeType(get_int('time_range', org.summary_settings.default_time_range_type))
     except ValueError:
@@ -55,3 +57,9 @@ def calculate_shift_time(shift_time: time, start_delay: timedelta, shift_duratio
     if delta.days > 0:
         format_str += _('Days + {delta_days}').format(delta_days=delta.days)
     return (datetime.combine(date.today(), shift_time) + delta).time().strftime(format_str)
+
+
+@register.inclusion_tag('shifts/template/select_org.html', takes_context=True)
+def select_org_form_modal(context: dict[str, Any]):
+    context['form'] = SelectOrgForm(context['request'].user)
+    return context

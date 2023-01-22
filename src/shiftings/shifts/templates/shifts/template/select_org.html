@@ -1,0 +1,5 @@
+{% url "shift_org_select" as shift_org_select %}
+{% simpleformmodal 'selectShiftOrg' _('Select Organization to create Shift for') shift_org_select %}
+  {% csrf_token %}
+  {% bootstrap_form form %}
+{% endsimpleformmodal %}

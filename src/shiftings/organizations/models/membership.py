@@ -29,6 +29,7 @@ class MembershipType(models.Model):
             ('edit_recurring_shifts', _('create and update recurring shifts for the organization')),
             ('edit_shift_templates', _('create and update shifts templates for the organization')),
             ('edit_shifts', _('create and update shifts for the organization')),
+            ('delete_shifts', _('delete uncompleted shifts for the organization')),
             # shift participation
             ('remove_others_from_shifts', _('remove others from shifts')),
             ('add_non_members_to_shifts', _('add other users that are not members of the organization to shifts')),

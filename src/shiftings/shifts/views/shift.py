@@ -3,17 +3,22 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Any, Dict, Optional
 
+from django.contrib import messages
 from django.contrib.auth.mixins import UserPassesTestMixin
-from django.db.models import QuerySet
+from django.forms import BaseForm
+from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
-from django.views.generic import DetailView, ListView
+from django.utils.translation import gettext_lazy as _
+from django.views.generic import DetailView
+from django.views.generic.edit import BaseFormView, DeleteView, FormView
 
 from shiftings.organizations.models import Organization
 from shiftings.organizations.views.organization_base import OrganizationPermissionMixin
 from shiftings.shifts.forms.participant import AddSelfParticipantForm
-from shiftings.shifts.forms.shift import ShiftForm
-from shiftings.shifts.models import Shift
-from shiftings.utils.views.base import BaseLoginMixin, BaseMixin
+from shiftings.shifts.forms.shift import SelectOrgForm, ShiftForm
+from shiftings.shifts.forms.template import SelectOrgShiftTemplateGroupForm
+from shiftings.shifts.models import Shift, ShiftTemplateGroup
+from shiftings.utils.views.base import BaseLoginMixin
 from shiftings.utils.views.create_update_view import CreateOrUpdateView
 
 
@@ -35,10 +40,29 @@ class ShiftDetailView(UserPassesTestMixin, BaseLoginMixin, DetailView):
         return context
 
 
+class ShiftOrgSelectView(BaseLoginMixin, BaseFormView):
+    form_class = SelectOrgForm
+    template_name = 'generic/form_card.html'
+    org_id: int
+
+    def get_form_kwargs(self) -> dict[str, Any]:
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def form_valid(self, form: BaseForm) -> HttpResponse:
+        self.org_id = form.cleaned_data['organization'].pk
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('shift_create', args=[self.org_id])
+
+
 class ShiftEditView(OrganizationPermissionMixin, CreateOrUpdateView):
     model = Shift
     form_class = ShiftForm
     permission_required = 'organizations.edit_shifts'
+    template_name = 'shifts/create_shift.html'
 
     def get_organization(self) -> Organization:
         if self.is_create():
@@ -60,5 +84,55 @@ class ShiftEditView(OrganizationPermissionMixin, CreateOrUpdateView):
             return None
         return obj
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.is_create():
+            org = self.get_organization()
+            context['org_template_form'] = SelectOrgShiftTemplateGroupForm(organization=org)
+            context['org_template_success'] = reverse('shift_create_from_template', args=[org.pk])
+        return context
+
     def get_success_url(self) -> str:
         return reverse('shift', args=[self.object.pk])
+
+
+class CreateShiftFromTemplateGroup(OrganizationPermissionMixin, FormView):
+    form_class = SelectOrgShiftTemplateGroupForm
+    permission_required = 'organizations.edit_shifts'
+    template_name = 'generic/form_card.html'
+
+    def get_organization(self) -> Organization:
+        return self._get_object(Organization, 'org_pk')
+
+    def get_form_kwargs(self) -> dict[str, Any]:
+        kwargs = super().get_form_kwargs()
+        kwargs['organization'] = self.get_organization()
+        return kwargs
+
+    def form_valid(self, form: BaseForm) -> HttpResponse:
+        template_group: ShiftTemplateGroup = form.cleaned_data['template_group']
+        template_group.create_shifts(form.cleaned_data['date_field'], None, None)
+        return super().form_valid(form)
+
+    def get_success_url(self) -> str:
+        return self.get_organization().get_absolute_url()
+
+
+class PastShiftDeleteView(OrganizationPermissionMixin, DeleteView):
+    model = Shift
+    object: Shift
+    permission_required = 'organizations.delete_shifts'
+    template_name = 'generic/delete.html'
+
+    def get_organization(self) -> Organization:
+        return self.get_object().organization
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if self.object.start < datetime.now():
+            messages.error(request, _('Unable to delete past shifts.'))
+            return self.render_to_response(self.get_context_data())
+        self.object.delete()
+
+    def get_success_url(self) -> str:
+        return reverse('organization', args=[self.object.organization.pk])

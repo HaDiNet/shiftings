@@ -1,7 +1,7 @@
 from datetime import date, datetime
 from typing import Optional
 
-from django.db import models
+from django.db import models, transaction
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
@@ -27,12 +27,18 @@ class ShiftTemplateGroup(models.Model):
     def display(self) -> str:
         return self.name
 
+    def __str__(self):
+        return self.display
+
     def create_shifts(self, _date: date, weekend_warning: Optional[str], holiday_warning: Optional[str]) -> list[Shift]:
         start = datetime.combine(_date, self.start_time)
         shifts = []
         for _template in self.shifts.all():
             template: ShiftTemplate = _template
             shifts.append(template.create_shift(start + template.start_delay, weekend_warning, holiday_warning))
+        with transaction.atomic():
+            for shift in shifts:
+                shift.save()
         return shifts
 
     def get_absolute_url(self) -> str:

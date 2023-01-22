@@ -1,0 +1,76 @@
+{% extends 'generic/fluid_form_base.html' %}
+{% block form %}
+  <div class="row">
+    <div class="col-lg-7">
+      <div class="card bg-dark border border-2 border-success p-3">
+        <form method="post">
+          <div class="card-header center-items justify-content-between">
+            <div>
+              {% blocktrans with organization=organization %}
+                <h4>Create New Shift for {{ organization }}</h4>
+              {% endblocktrans %}
+            </div>
+            <div>
+              {% bootstrap_button _('Create') button_type="submit" button_class="btn-success me-2" %}
+            </div>
+          </div>
+          {% csrf_token %}
+          {% bootstrap_field form.name %}
+          {% bootstrap_field form.place %}
+          <div class="center-items">
+            <div class="col-6 me-1">
+              {% bootstrap_field form.organization %}
+            </div>
+            <div class="col-6 ms-1">
+              {% bootstrap_field form.shift_type %}
+            </div>
+          </div>
+          {% if feature.event %}
+            {% bootstrap_field form.event %}
+          {% endif %}
+          <div class="center-items row">
+            <div class="col-sm-5 center-items flex-column flex-wrap pe-help"
+                 title="{% trans "Shift starting time" %}">
+              {% trans "Start Time" context "Shift time" %}{% bootstrap_field form.start show_label=False %}
+            </div>
+            <div class="col-sm-2">-</div>
+            <div class="col-sm-5 center-items flex-column flex-wrap pe-help"
+                 title="{% trans "Shift end time" %}">
+              {% trans "End Time" context "Shift time" %}{% bootstrap_field form.end show_label=False %}
+            </div>
+          </div>
+          <div class="text-center"><h4>{% trans "Participants" %}</h4></div>
+          <div class="center-items">
+            <div class="col-5 text-center shift-required pe-help"
+                 title="{% trans "Required number of users to fill this shift" %}">
+              {% trans "Required" context "Shift users" %}{% bootstrap_field form.required_users show_label=False %}
+            </div>
+            <div class="col-1">/</div>
+            <div class="col-5 text-center text-danger pe-help"
+                 title="{% trans "Maximum number of users allowed in this shift" %}">
+              {% trans "Maximum" context "Shift users" %}{% bootstrap_field form.max_users show_label=False %}
+            </div>
+          </div>
+          {% bootstrap_field form.additional_infos %}
+        </form>
+      </div>
+    </div>
+  {% if is_create %}
+    <div class="col-lg-5 mt-3 mt-lg-0">
+      <div class="card bg-dark border border-2 border-success p-3">
+        <div class="card-header">
+          <h4>{% trans "Create from template" %}</h4>
+        </div>
+        <div>
+          {% trans "Organization" %}: {{ organization }}
+          <form method="post" action="{{ org_template_success }}">
+            {% csrf_token %}
+            {% bootstrap_form org_template_form %}
+            <button class="btn btn-success" type="submit">{% trans "Create" %}</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+  </div>
+{% endblock %}
