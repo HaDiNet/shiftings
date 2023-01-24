@@ -109,11 +109,12 @@ input:disabled {
 
 .menu {
   background-color: var(--bs-menu-bg);
+  min-width: 200px;
 }
 
 .search-menu {
   width: 20rem;
-  max-width: 275px;
+  max-width: 250px;
   border: 0;
   flex-direction: row-reverse;
   flex-grow: 1;

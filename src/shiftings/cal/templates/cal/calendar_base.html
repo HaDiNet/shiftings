@@ -5,10 +5,10 @@
 {% block content %}
   <div class="container-fluid">
     <div class="row g-3 mt-1">
-      <div class="col-12 col-lg-3 col-xxl-12">
+      <div class="col-12 col-xl-3">
         <div class="card base-card bg-dark p-3">
           <div class="row">
-            <div class="col-md-12 col-xxl-1 d-flex flex-column">
+            <div class="col-md-12 d-flex flex-column">
               <a class="btn btn-success mb-1" title="{% trans "Day View" %}" href="{% url "overview_today" %}">
                 <i class="fa-solid fa-calendar-day me-2"></i>{% trans "Day" %}
               </a>
@@ -19,10 +19,10 @@
                 <i class="fa-solid fa-calendar-days"></i>{% trans "Month" %}
               </a>
             </div>
-            <div class="col-4 col-md-12 col-xxl-3 mb-2">
+            <div class="col-4 col-md-12 mb-2">
               <h4>{% trans "Filters" %}:</h4>
-              <a class="btn btn-success mb-2 active" href="?filter=all">All Shifts</a>
-              <a class="btn btn-secondary mb-2" href="?filter=own">My Shifts</a>
+              <a class="btn btn-secondary mb-2 {% active_param 'filter' 'all' %}" href="?filter=all">All Shifts</a>
+              <a class="btn btn-secondary mb-2 {% active_param 'filter' 'own' %}" href="?filter=own">My Shifts</a>
               {% if feature.event %}
                 <div class="dropdown">
                   <button class="btn btn-secondary dropdown-toggle{% if not public_events %} disabled {% endif %}"
@@ -43,7 +43,7 @@
               <div class="d-flex flex-row flex-wrap">
                 {% for org in request.user.organizations %}
                   <div class="mx-2 mb-3">
-                    <a class="btn btn-secondary" href="?filter=organization&organization={{ org.pk }}">{{ org }}</a>
+                    <a class="btn btn-secondary {% active_param 'organization' org.pk %}" href="?filter=organization&organization={{ org.pk }}">{{ org }}</a>
                     {% if org.future_events %}
                       <div class="dropdown mt-1">
                         <button class="btn btn-secondary dropdown-toggle" type="button"
@@ -64,7 +64,7 @@
           </div>
         </div>
       </div>
-      <div class="col-12 col-lg-9 col-xxl-12">
+      <div class="col-12 col-xl-9">
         {% block calendar %}
         {% endblock %}
       </div>

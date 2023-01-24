@@ -1,58 +1,84 @@
 {% extends "generic/dual_column.html" %}
 {% load shifts %}
 {% block left %}
-  <div class="card bg-dark p-3 my-2">
-    <h4 class="text-center">{% trans "User" %} {{ user }}</h4>
-    <dl class="detail-horizontal">
-      <dt>{% trans "Name" %}</dt>
-      <dd>{{ user.first_name }} {{ user.last_name }}</dd>
-      <dt>{% trans "Display Name" %}</dt>
-      <dd>{{ user.display_name|default:_('Unknown') }}</dd>
-      <dt>{% trans "Email" %}</dt>
-      <dd>{{ user.email }}</dd>
-      <dt>{% trans "Phone Number" %}</dt>
-      <dd>{{ user.phone_number|default:_('Unknown') }}</dd>
-      <dt>{% trans "Member since" %}</dt>
-      <dd>{{ user.date_joined|timesince }}</dd>
-      <dt>{% trans "Total Shifts" %}</dt>
-      <dd>{{ user.shifts.count }}</dd>
-      <dt>{% trans "Groups" %}</dt>
-      <dd>{{ user.groups.all|join:", "| default:_('None') }}</dd>
-    </dl>
-    <a class="btn btn-success" href="{% url "user_edit_self" %}">
-      <i class="fa-solid fa-user-pen"></i>
-      {% trans "Edit user data" %}
-    </a>
-  </div>
-  <div class="card bg-dark">
-    <div class="card-header">
-      <h5>{% trans "Organizations" %}</h5>
+  <div class="sticky-top">
+    <div class="card bg-dark p-3 my-2">
+      <div class="center-items justify-content-between">
+        <h4 class="text-center">{% trans "User" %} {{ user }}</h4>
+        <div class="center-items">
+          <a class="btn btn-success" href="{% url "user_edit_self" %}" title="{% trans "Edit user data" %}">
+            <i class="fa-solid fa-user-pen"></i>
+          </a>
+          <button class="d-block d-lg-none btn btn-secondary ms-2" data-bs-toggle="collapse"
+                  data-bs-target="#collapseUserBody" aria-expanded="true" aria-controls="collapseUserBody"><i
+              class="fas fa-angle-up"></i>
+          </button>
+        </div>
+      </div>
+      <div id="collapseUserBody" class="collapse show">
+        <dl class="detail-horizontal">
+          <dt>{% trans "Username" %}</dt>
+          <dd>{{ user.username }}</dd>
+          <dt>{% trans "Name" %}</dt>
+          <dd>{{ user.first_name }} {{ user.last_name }}</dd>
+          <dt>{% trans "Display Name" %}</dt>
+          <dd>{{ user.display_name|default:_('Unknown') }}</dd>
+          <dt>{% trans "Email" %}</dt>
+          <dd>{{ user.email }}</dd>
+          <dt>{% trans "Phone Number" %}</dt>
+          <dd>{{ user.phone_number|default:_('Unknown') }}</dd>
+          <dt>{% trans "Member since" %}</dt>
+          <dd>{{ user.date_joined|timesince }}</dd>
+          <dt>{% trans "Total Shifts" %}</dt>
+          <dd>{{ user.shifts.count }}</dd>
+          <dt>{% trans "Groups" %}</dt>
+          <dd>{{ user.groups.all|join:", "| default:_('None') }}</dd>
+        </dl>
+      </div>
     </div>
-    <div class="card-body">
-      {% for membership in user.memberships.all %}
-        <a class="link" href="{% url "organization" membership.organization.pk %}">
-          <div class="card bg-dark border my-2">
-            <div class="center-items justify-content-start">
-              <div class="col-2">
-                {% if membership.organization.logo %}
-                  <div>
-                    <img src="{{ membership.organization.logo.url }}" alt="{{ membership.organization.name }}"
-                         height="100px">
-                  </div>
-                {% else %}
-                  <div class="center-items" style="height: 100px">
-                    <i class="fa-solid fa-eye-slash me-2"></i>
-                    {% trans "No Image available" %}
-                  </div>
-                {% endif %}
-              </div>
-              <div class="col-3">
-                {{ membership.organization }}
+    <div class="card bg-dark">
+      <div class="card-header center-items justify-content-between">
+        <h5>{% trans "Organizations" %}</h5>
+        <div>
+          <button class="d-block d-lg-none btn btn-secondary" data-bs-toggle="collapse"
+                  data-bs-target="#collapseOrgBody"
+                  aria-expanded="true"
+                  aria-controls="collapseOrgBody">
+            <i class="fas fa-angle-up"></i> {% trans "Hide organizations" %}
+          </button>
+        </div>
+      </div>
+      <div id="collapseOrgBody" class="collapse show">
+        {% for membership in user.memberships.all %}
+          <a class="link" href="{% url "organization" membership.organization.pk %}">
+            <div class="card bg-dark border my-2">
+              <div class="center-items justify-content-start row">
+                <div class="col-5">
+                  {% if membership.organization.logo %}
+                    <div class="text-start overflow-hidden p-1">
+                      <img style="aspect-ratio: 1" src="{{ membership.organization.logo.url }}"
+                           alt="{{ membership.organization.name }}"
+                           height="100px">
+                    </div>
+                  {% else %}
+                    <div class="center-items" style="height: 100px">
+                      <i class="fa-solid fa-eye-slash me-2"></i>
+                      {% trans "No Image available" %}
+                    </div>
+                  {% endif %}
+                </div>
+                <div class="col-7 center-items flex-nowrap">
+                  {{ membership.organization }}
+                  {{ membership.type.name }}
+                  {% if membership.type.admin %}
+                    <i class="fas fa-user-shield"></i>
+                  {% endif %}
+                </div>
               </div>
             </div>
-          </div>
-        </a>
-      {% endfor %}
+          </a>
+        {% endfor %}
+      </div>
     </div>
   </div>
 {% endblock %}
@@ -71,7 +97,7 @@
         </div>
         {% if shifts.is_paginated %}
           <div class="d-flex justify-content-center bg-dark">
-            {% bootstrap_pagination shifts.page_obj parameter_name=shifts.page_name %}
+            {% bootstrap_pagination shifts.page_obj parameter_name=shifts.page_name pages_to_show=5 %}
           </div>
         {% endif %}
       {% else %}

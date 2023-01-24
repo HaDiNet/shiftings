@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+{#  <meta name="viewport" content="">#}
   {% bootstrap_css %}
-  <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
   <script type="text/javascript" src="{% static 'js/modal_autofocus.js' %}"></script>
   {#  enable tooltips and popovers #}
   <script>
@@ -53,7 +54,7 @@
   {% endif %}
   {% block content %}{% endblock %}
 </main>
-<footer id="footer" class="container-fluid d-flex mt-auto">
+<footer id="footer" class="container-fluid d-flex mt-auto fixed-bottom">
   © bjökgda🐔, 2022
 </footer>
 </body>

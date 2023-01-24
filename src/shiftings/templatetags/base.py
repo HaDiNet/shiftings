@@ -24,3 +24,10 @@ def has_permission(user_or_request: Union[User, UserRequest], permission: str, o
 @register.simple_tag()
 def define(obj: T) -> T:
     return obj
+
+
+@register.simple_tag(takes_context=True)
+def active_param(context: dict[str, Any], param_name: str, param_value: Any) -> str:
+    if context['request'].GET.get(param_name) == str(param_value):
+        return 'btn-success'
+    return ''
