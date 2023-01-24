@@ -101,6 +101,7 @@ input:disabled {
 
 .link:hover {
   color: var(--bs-teal) !important;
+  --bs-table-striped-color: var(--bs-teal) !important;
 }
 
 .card-link:hover {

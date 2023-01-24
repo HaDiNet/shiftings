@@ -9,5 +9,4 @@ urlpatterns = [
     path('<int:pk>/', RecurringShiftDetailView.as_view(), name='recurring_shift'),
     path('create/<int:org_pk>', RecurringShiftCreateView.as_view(), name='recurring_shift_create'),
     path('<int:pk>/update/', RecurringShiftEditView.as_view(), name='recurring_shift_update'),
-    path('<int:pk>/template/', TemplateGroupAddShiftsView.as_view(), name='template_group_update'),
 ]

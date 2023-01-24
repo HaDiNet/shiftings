@@ -77,11 +77,8 @@ class TemplateGroupAddShiftsView(OrganizationPermissionMixin, ModelFormsetBaseVi
         kwargs['template_group'] = self.get_group()
         return kwargs
 
-    def get_recurring_shift(self) -> RecurringShift:
-        return self._get_object(RecurringShift, 'pk')
-
     def get_group(self) -> ShiftTemplateGroup:
-        return self.get_recurring_shift().template
+        return self._get_object(ShiftTemplateGroup, 'pk')
 
     def get_form_queryset(self) -> QuerySet[ShiftTemplate]:
         return self.get_group().shifts.all()
@@ -91,7 +88,7 @@ class TemplateGroupAddShiftsView(OrganizationPermissionMixin, ModelFormsetBaseVi
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        context['recurring_shift'] = self.get_recurring_shift()
+        context['group'] = self.get_group()
         return context
 
     def form_valid(self, formset: ShiftTemplateFormSet) -> HttpResponse:

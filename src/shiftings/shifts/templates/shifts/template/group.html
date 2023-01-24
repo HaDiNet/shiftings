@@ -1,9 +1,51 @@
-{% extends 'base.html' %}
+{% extends 'generic/dual_column.html' %}
 
-{% block content %}
-  <div class="container-fluid container-lg d-flex justify-content-center">
-    <div class="col-12 col-md-8">
-      {% include 'shifts/template/group_template.html' %}
+{% block left %}
+  <div class="card bg-dark mt-3">
+    <div class="card-header center-items justify-content-between">
+      <h3 class="m-0">Shift Template {{ group.name }}</h3>
+      <div>
+        <a class="btn btn-success" href="{% url "shift_template_group_update" group.pk %}"
+           title="{% trans "Edit Template" %}">
+          <i class="fa-solid fa-pen-to-square"></i>
+        </a>
+        <a class="btn btn-success" href="{% url "template_group_update_shifts" group.pk %}"
+           title="{% trans "Edit Shifts" %}">
+          <i class="fa-solid fa-file-pen"></i>
+        </a>
+      </div>
     </div>
+    <div class="card-body">
+      <dl class="detail-horizontal">
+        <dt>{% trans "Organization" %}</dt>
+        <dd><a class="link" href="{{ group.organization.get_absolute_url }}">{{ group.organization }}</a></dd>
+        <dt>{% trans "Place" %}</dt>
+        <dd>{{ group.place }}</dd>
+        <dt>{% trans "Time" %}</dt>
+        <dd>{{ group.start_time }}</dd>
+        <dt>{% trans "Organization" %}</dt>
+        <dd>{{ group.organization.name }}</dd>
+      </dl>
+    </div>
+  </div>
+  <div class="card bg-dark mt-3">
+    <div class="card-header">
+      <h5>{% trans "Recurring Shifts" %}</h5>
+    </div>
+    <div class="card-body">
+      {% for rec_shift in group.recurring_shifts.all %}
+        <a class="link" href="{{ rec_shift.get_absolute_url }}">{{ rec_shift }}</a>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
+{% block right %}
+  <div class="card bg-dark mt-3">
+    {% for shift_template in group.shifts.all %}
+      {% if forloop.counter > 1 %}
+        <hr class="my-1">
+      {% endif %}
+      {% include "shifts/template/template.html" with template=shift_template start_time=group.start_time %}
+    {% endfor %}
   </div>
 {% endblock %}
