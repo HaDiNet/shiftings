@@ -5,6 +5,7 @@ from typing import Any, Dict, Optional
 
 from django.contrib import messages
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.db import transaction
 from django.forms import BaseForm
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
@@ -111,7 +112,10 @@ class CreateShiftFromTemplateGroup(OrganizationPermissionMixin, FormView):
 
     def form_valid(self, form: BaseForm) -> HttpResponse:
         template_group: ShiftTemplateGroup = form.cleaned_data['template_group']
-        template_group.create_shifts(form.cleaned_data['date_field'], None, None)
+        shifts = template_group.get_shift_objs(form.cleaned_data['date_field'], None, None)
+        with transaction.atomic():
+            for shift in shifts:
+                shift.save()
         return super().form_valid(form)
 
     def get_success_url(self) -> str:

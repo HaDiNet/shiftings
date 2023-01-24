@@ -49,35 +49,39 @@
         </div>
       </div>
       <div id="collapseOrgBody" class="collapse show">
-        {% for membership in user.memberships.all %}
-          <a class="link" href="{% url "organization" membership.organization.pk %}">
-            <div class="card bg-dark border my-2">
-              <div class="center-items justify-content-start row">
-                <div class="col-5">
+        <div class="d-flex gap-2 py-1 px-2">
+          {% for membership in user.memberships.all %}
+            <a class="link" href="{% url "organization" membership.organization.pk %}">
+              <div class="bg-dark border border-2 my-2 center-items justify-content-start flex-row card-link">
+                <div>
                   {% if membership.organization.logo %}
                     <div class="text-start overflow-hidden p-1">
-                      <img style="aspect-ratio: 1" src="{{ membership.organization.logo.url }}"
+                      <img style="aspect-ratio: 1;" src="{{ membership.organization.logo.url }}"
                            alt="{{ membership.organization.name }}"
-                           height="100px">
+                           height="92px">
                     </div>
                   {% else %}
-                    <div class="center-items" style="height: 100px">
+                    <div class="center-items flex-wrap p-1" style="height: 100px; aspect-ratio: 1;">
                       <i class="fa-solid fa-eye-slash me-2"></i>
-                      {% trans "No Image available" %}
+                      {% trans "No Logo available" %}
                     </div>
                   {% endif %}
                 </div>
-                <div class="col-7 center-items flex-nowrap">
-                  {{ membership.organization }}
-                  {{ membership.type.name }}
-                  {% if membership.type.admin %}
-                    <i class="fas fa-user-shield"></i>
-                  {% endif %}
+                <div class="center-items flex-column flex-nowrap p-3">
+                  <div>
+                    {{ membership.organization }}
+                  </div>
+                  <div>
+                    {{ membership.type.name }}
+                    {% if membership.type.admin %}
+                      <i class="fas fa-user-shield"></i>
+                    {% endif %}
+                  </div>
                 </div>
               </div>
-            </div>
-          </a>
-        {% endfor %}
+            </a>
+          {% endfor %}
+        </div>
       </div>
     </div>
   </div>

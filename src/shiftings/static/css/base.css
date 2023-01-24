@@ -103,6 +103,10 @@ input:disabled {
   color: var(--bs-teal) !important;
 }
 
+.card-link:hover {
+  border: 2px solid var(--bs-green) !important;
+}
+
 .base-card {
   min-width: 300px;
 }
@@ -279,6 +283,12 @@ dl.detail-horizontal dt::after {
 
 dl.detail-horizontal dd {
   padding-left: .5rem;
+}
+
+.card-grid {
+  grid-template-columns: repeat(auto-fill, 1fr);
+  row-gap: .5rem;
+  column-gap: .5rem;
 }
 
 .content-container {

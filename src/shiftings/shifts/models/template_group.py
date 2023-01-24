@@ -30,15 +30,12 @@ class ShiftTemplateGroup(models.Model):
     def __str__(self):
         return self.display
 
-    def create_shifts(self, _date: date, weekend_warning: Optional[str], holiday_warning: Optional[str]) -> list[Shift]:
+    def get_shift_objs(self, _date: date, weekend_warning: Optional[str], holiday_warning: Optional[str]) -> list[Shift]:
         start = datetime.combine(_date, self.start_time)
         shifts = []
         for _template in self.shifts.all():
             template: ShiftTemplate = _template
             shifts.append(template.create_shift(start + template.start_delay, weekend_warning, holiday_warning))
-        with transaction.atomic():
-            for shift in shifts:
-                shift.save()
         return shifts
 
     def get_absolute_url(self) -> str:

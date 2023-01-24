@@ -118,7 +118,7 @@ class RecurringShift(models.Model):
     def shifts_exist(self, _date: date) -> bool:
         if self.template is None:
             return True
-        for shift in self.template.create_shifts(_date, None, None):
+        for shift in self.template.get_shift_objs(_date, None, None):
             if not self.shift_exists(shift):
                 return False
         return True
@@ -144,7 +144,7 @@ class RecurringShift(models.Model):
                 elif self.weekend_handling is ProblemHandling.Warn and self.holiday_warning is not None:
                     holiday_warning = self.holiday_warning
 
-        shifts = self.template.create_shifts(_date, weekend_warning, holiday_warning)
+        shifts = self.template.get_shift_objs(_date, weekend_warning, holiday_warning)
         for shift in shifts:
             if not self.shift_exists(shift):
                 shift.based_on = self

@@ -88,7 +88,7 @@
                         <span class="btn border link pe-none w-100 mx-2">{{ display.display }}</span>
                       {% endif %}
                     {% else %}
-                      <button type="button" class="btn border link w-100 mx-2" data-bs-toggle="modal"
+                      <button type="button" class="btn border border-2 card-link link w-100 mx-2" data-bs-toggle="modal"
                               data-bs-target="#addSelfFormModal">
                         <i class="fa-solid fa-person-circle-plus me-2"></i>{% trans 'Add me' %}
                       </button>
@@ -97,7 +97,7 @@
                 {% endfor %}
                 {% if shift.max_users == 0 %}
                   <div class="d-flex">
-                    <button type="button" class="btn border link w-100 mx-2" data-bs-toggle="modal"
+                    <button type="button" class="btn border border-2 card-link link w-100 mx-2 " data-bs-toggle="modal"
                             data-bs-target="#addSelfFormModal">
                       <i class="fa-solid fa-person-circle-plus me-2"></i>{% trans 'Add me' %}
                     </button>

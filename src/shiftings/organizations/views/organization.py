@@ -91,6 +91,9 @@ class OrganizationAdminView(OrganizationPermissionMixin, DetailView):
                 'form': self.create_membership_form(membership_type)
             })
         context['membership_types'] = membership_types
+        context['shifts'] = get_pagination_context(self.request,
+                                                   self.object.shifts.order_by('-start', '-end', 'name').all(),
+                                                   25, 'shifts')
         return context
 
     def create_membership_form(self, membership_type: MembershipType):
