@@ -1,9 +1,10 @@
 from __future__ import annotations
 
-from datetime import date, datetime
+from datetime import date
 from typing import Optional
 
 import holidays
+from colorfield.fields import ColorField
 from django.conf import settings
 from django.contrib.humanize.templatetags.humanize import ordinal
 from django.core.exceptions import ValidationError
@@ -48,6 +49,8 @@ class RecurringShift(models.Model):
                                                               verbose_name=_('Holidays problem handling'),
                                                               default=ProblemHandling.Ignore)
     holiday_warning = models.TextField(verbose_name=_('Warning text for holidays'), blank=True, null=True)
+
+    color = ColorField(default='#FD7E14', format='hex', samples=settings.SHIFT_COLOR_PALETTE)
 
     manually_disabled = models.BooleanField(verbose_name=_('Manuelly Disabled'), default=False)
 

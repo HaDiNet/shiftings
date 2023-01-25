@@ -26,5 +26,9 @@ class RecurringShiftCreateForm(RecurringShiftForm):
 
     class Meta:
         model = RecurringShift
-        fields = ['name', 'organization', 'time_frame_field', 'ordinal',  'week_day_field', 'month_field',
+        fields = ['name', 'organization', 'time_frame_field', 'ordinal', 'week_day_field', 'month_field',
                   'first_occurrence', 'start_time']
+
+
+class RecurringShiftCreateShiftsForm(forms.Form):
+    create_date = forms.DateField()

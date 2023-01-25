@@ -39,6 +39,18 @@
         {% include 'shifts/template/group_template.html' with group=shift.template %}
       </div>
       <div class="col-12 col-lg-6 col-xl-4">
+      {% if 'date' in request.GET %}
+        <div class="card bg-dark mt-3 p-3 border-success border-3">
+          <form method="post" action="{% url 'recurring_create_shifts' shift.pk %}">
+            {% csrf_token %}
+            <input id="id_create_date" name="create_date" class="d-none" value="{{ request.GET.date }}">
+            {% blocktrans with date=request.GET.date %}
+              Do you want to create this recurring shift on {{ date }}
+            {% endblocktrans %}
+            <button class="btn btn-success" type="submit">{% trans "Create" %}</button>
+          </form>
+        </div>
+      {% endif %}
         <div class="card bg-dark mt-3">
           <div class="card-header">
             {% trans "Upcoming recurring Shifts" %}

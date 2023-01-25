@@ -1,17 +1,22 @@
 from __future__ import annotations
 
 from datetime import date
-from typing import Any, Optional
+from typing import Any
 
-from django.http import HttpResponse
+from django.contrib import messages
+from django.forms import BaseForm
+from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import DetailView
+from django.views.generic.detail import SingleObjectMixin
+from django.views.generic.edit import BaseFormView
 
 from shiftings.organizations.models import Organization
 from shiftings.organizations.views.organization_base import OrganizationMemberMixin, OrganizationPermissionMixin
-from shiftings.shifts.forms.recurring import RecurringShiftCreateForm, RecurringShiftForm
+from shiftings.shifts.forms.recurring import RecurringShiftCreateForm, RecurringShiftCreateShiftsForm, \
+    RecurringShiftForm
 from shiftings.shifts.models import RecurringShift, ShiftTemplateGroup
-from shiftings.utils.views.base import BaseLoginMixin
 from shiftings.utils.views.create_update_view import CreateOrUpdateView
 
 
@@ -68,3 +73,34 @@ class RecurringShiftCreateView(RecurringShiftEditView):
         self.object.template = template
         self.object.save()
         return response
+
+
+class RecurringShiftCreateShiftsView(OrganizationPermissionMixin, SingleObjectMixin, BaseFormView):
+    permission_required = 'organizations.edit_recurring_shifts'
+    form_class = RecurringShiftCreateShiftsForm
+    model = RecurringShift
+
+    object: RecurringShift
+
+    def get(self, request, *args, **kwargs):
+        messages.error(self.request, _('Forbidden Method GET'))
+        return HttpResponseRedirect(self.object.get_absolute_url())
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return super().post(request, *args, **kwargs)
+
+    def get_organization(self) -> Organization:
+        return self.get_object().organization
+
+    def form_valid(self, form: BaseForm) -> HttpResponse:
+        self.object.create_shifts(form.cleaned_data['create_date'])
+        messages.success(self.request, _('Created Shifts on {}').format(form.cleaned_data['create_date']))
+        return super().form_valid(form)
+
+    def form_invalid(self, form: BaseForm) -> HttpResponse:
+        messages.error(self.request, _('Error while creating shifts. Invalid Date'))
+        return HttpResponseRedirect(self.object.get_absolute_url())
+
+    def get_success_url(self):
+        return self.object.get_absolute_url()
