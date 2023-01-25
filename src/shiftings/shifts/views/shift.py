@@ -1,13 +1,13 @@
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import date, datetime
 from typing import Any, Dict, Optional
 
 from django.contrib import messages
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.db import transaction
 from django.forms import BaseForm
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import DetailView
@@ -45,6 +45,7 @@ class ShiftOrgSelectView(BaseLoginMixin, BaseFormView):
     form_class = SelectOrgForm
     template_name = 'generic/form_card.html'
     org_id: int
+    action_date: date
 
     def get_form_kwargs(self) -> dict[str, Any]:
         kwargs = super().get_form_kwargs()
@@ -53,10 +54,11 @@ class ShiftOrgSelectView(BaseLoginMixin, BaseFormView):
 
     def form_valid(self, form: BaseForm) -> HttpResponse:
         self.org_id = form.cleaned_data['organization'].pk
+        self.action_date = form.cleaned_data['action_date']
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('shift_create', args=[self.org_id])
+        return reverse('shift_create', args=[self.org_id]) + f'?date={self.action_date.strftime("%Y-%m-%d")}'
 
 
 class ShiftEditView(OrganizationPermissionMixin, CreateOrUpdateView):
@@ -89,7 +91,12 @@ class ShiftEditView(OrganizationPermissionMixin, CreateOrUpdateView):
         context = super().get_context_data(**kwargs)
         if self.is_create():
             org = self.get_organization()
-            context['org_template_form'] = SelectOrgShiftTemplateGroupForm(organization=org)
+            context['org_template_form'] = SelectOrgShiftTemplateGroupForm(organization=org,
+                                                                           initial={
+                                                                               'date_field': self.request.GET.get(
+                                                                                   'date',
+                                                                                   date.today())
+                                                                           })
             context['org_template_success'] = reverse('shift_create_from_template', args=[org.pk])
         return context
 

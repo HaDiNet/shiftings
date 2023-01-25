@@ -13,7 +13,7 @@ class RecurringShiftForm(forms.ModelForm):
     class Meta:
         model = RecurringShift
         fields = ['name', 'organization', 'time_frame_field', 'ordinal', 'week_day_field', 'month_field',
-                  'first_occurrence']
+                  'first_occurrence', 'color']
 
     def __init__(self, *args: Any, **kwargs) -> None:
         super().__init__(*args, **kwargs)
@@ -27,7 +27,7 @@ class RecurringShiftCreateForm(RecurringShiftForm):
     class Meta:
         model = RecurringShift
         fields = ['name', 'organization', 'time_frame_field', 'ordinal', 'week_day_field', 'month_field',
-                  'first_occurrence', 'start_time']
+                  'first_occurrence', 'start_time', 'color']
 
 
 class RecurringShiftCreateShiftsForm(forms.Form):

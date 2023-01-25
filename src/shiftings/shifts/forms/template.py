@@ -21,7 +21,6 @@ class SelectOrgShiftTemplateGroupForm(forms.Form):
         super().__init__(*args, **kwargs)
         self.fields['template_group'].queryset = ShiftTemplateGroup.objects.filter(
             organization=organization).order_by('place', 'name')
-        self.fields['date_field'].initial = date.today
 
 
 class ShiftTemplateGroupForm(forms.ModelForm):

@@ -33,7 +33,7 @@ class RecurringShiftDetailView(OrganizationMemberMixin, DetailView):
         today = date.today()
         context.update({
             'passed_created_shifts': self.object.created_shifts.filter(start__lt=today).order_by('-start')[:5],
-            'upcoming_created_shifts': self.object.created_shifts.filter(start__gte=today).order_by('-start')[:5]
+            'upcoming_created_shifts': self.object.created_shifts.filter(start__gte=today).order_by('start')[:5]
         })
         return context
 

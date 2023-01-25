@@ -1,3 +1,4 @@
+<script type="text/javascript" src="{% static "js/set_cal_shift_create_date.js" %}"></script>
 {% url "shift_org_select" as shift_org_select %}
 {% simpleformmodal 'selectShiftOrg' _('Select Organization to create Shift for') shift_org_select %}
   {% csrf_token %}
