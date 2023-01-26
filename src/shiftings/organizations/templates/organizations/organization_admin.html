@@ -7,7 +7,6 @@
 
 {% block left %}
   <div class="sticky-top">
-    {% is_organization_admin request.user organization as is_org_admin %}
     <div class="base-card card bg-dark my-3">
       <div class="card-header center-items justify-content-between">
         <h3 class="m-0">
@@ -72,7 +71,7 @@
                     <i class="fas fa-crown" title="{% trans "Admin" %}"></i>{% endif %}
                 </span>
                 <div>
-                  {% if is_org_admin %}
+                  {% if org_perms.admin %}
                     <button type="button" class="btn btn-info py-1 px-2 my-1" data-bs-toggle="modal"
                             data-bs-target="#permissionModal{{ membership_type.object.pk }}"
                             title="{% trans "Show user permissions" %}">
@@ -105,7 +104,7 @@
                     </a>
                   {% endif %}
                   {% if org_perms.edit_members %}
-                    {% if is_org_admin or not membership_type.object.admin %}
+                    {% if org_perms.admin or not membership_type.object.admin %}
                       <button type="button" class="btn btn-success py-1 px-2 my-1" data-bs-toggle="modal"
                               data-bs-target="#{{ membership_type.object.name|concat:"FormModal" }}">
                         <i class="fas fa-user-plus pe-none"></i>
