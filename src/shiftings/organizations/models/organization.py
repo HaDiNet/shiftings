@@ -91,6 +91,9 @@ class Organization(models.Model):
         return self.events.filter(end_date__gte=date.today())
 
     def is_admin(self, user: User) -> bool:
+        from shiftings.accounts.models import User
+        if not isinstance(user, User):
+            return False
         query = Q(type__admin=True) & (Q(user=user) | Q(group__in=user.groups.all()))
         return user.has_perm('organizations.admin') or self.members.filter(query).exists()
 
