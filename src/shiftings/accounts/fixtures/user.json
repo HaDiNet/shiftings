@@ -8,7 +8,7 @@
     }
   },
   {
-    "model": "accounts.user",
+    "model": "accounts.baseuser",
     "pk": 1,
     "fields": {
       "password": "pbkdf2_sha256$320000$DvJNvIoAD658pzE9gTitob$w/P6Vz3B5pTDWKkIcSz4+JJv3xjiRrXLE5GT12gJRD4=",
@@ -21,14 +21,21 @@
       "is_staff": true,
       "is_active": true,
       "date_joined": "2022-07-29T17:48:32.919",
-      "display_name": "Bob",
-      "phone_number": null,
       "groups": [],
       "user_permissions": []
     }
   },
   {
     "model": "accounts.user",
+    "pk": 1,
+    "fields": {
+      "baseuser_ptr_id": 1,
+      "display_name": "Bob",
+      "phone_number": null
+    }
+  },
+  {
+    "model": "accounts.baseuser",
     "pk": 2,
     "fields": {
       "password": "pbkdf2_sha256$320000$vS9apcCxgz7lri9g2VdKnq$b3EuS6L4TBI45PGH70H8DM02y6tRKLHQE03CO6Gq4Eg=",
@@ -41,13 +48,20 @@
       "is_staff": true,
       "is_active": true,
       "date_joined": "2022-07-29T17:49:02",
-      "display_name": "Perry",
-      "phone_number": null,
       "groups": []
     }
   },
   {
     "model": "accounts.user",
+    "pk": 2,
+    "fields": {
+      "baseuser_ptr_id": 2,
+      "display_name": "Perry",
+      "phone_number": null
+    }
+  },
+  {
+    "model": "accounts.baseuser",
     "pk": 3,
     "fields": {
       "password": "pbkdf2_sha256$320000$9G3aZY3bshjPUgFcs4khjU$vSlWgLCxGfMnhNoUjqQDRe8CgcyeK5rfOOiftLQPXDg=",
@@ -60,14 +74,21 @@
       "is_staff": false,
       "is_active": true,
       "date_joined": "2022-07-29T17:49:57",
-      "display_name": null,
-      "phone_number": null,
       "groups": [],
       "user_permissions": []
     }
   },
   {
     "model": "accounts.user",
+    "pk": 3,
+    "fields": {
+      "baseuser_ptr_id": 3,
+      "display_name": null,
+      "phone_number": null
+    }
+  },
+  {
+    "model": "accounts.baseuser",
     "pk": 4,
     "fields": {
       "password": "pbkdf2_sha256$320000$MAUp2qGPIb4SdbB3KspnoA$9pU/a60HK/UhzFIxTTzm3a8u67fHlWngKJoydhgLyrI=",
@@ -80,14 +101,21 @@
       "is_staff": false,
       "is_active": true,
       "date_joined": "2022-07-29T17:50:22",
-      "display_name": "J.D.",
-      "phone_number": null,
       "groups": [],
       "user_permissions": []
     }
   },
   {
     "model": "accounts.user",
+    "pk": 4,
+    "fields": {
+      "baseuser_ptr_id": 4,
+      "display_name": "J.D.",
+      "phone_number": null
+    }
+  },
+  {
+    "model": "accounts.baseuser",
     "pk": 5,
     "fields": {
       "password": "pbkdf2_sha256$320000$LwtkKDvPMYIaXivDpImXEH$fLAYDU9cwSdaxV8tKGfkj1aL0ZYyfwbFyePoKE8hqC8=",
@@ -100,14 +128,21 @@
       "is_staff": false,
       "is_active": true,
       "date_joined": "2022-07-29T17:51:53",
-      "display_name": "Turk",
-      "phone_number": null,
       "groups": [],
       "user_permissions": []
     }
   },
   {
     "model": "accounts.user",
+    "pk": 5,
+    "fields": {
+      "baseuser_ptr_id": 5,
+      "display_name": "Turk",
+      "phone_number": null
+    }
+  },
+  {
+    "model": "accounts.baseuser",
     "pk": 6,
     "fields": {
       "password": "pbkdf2_sha256$320000$vrlmU2hob6bMFO6x34dvLA$JQOCTMNgB4TJxiZ1XzKOzS5V7IsZDESHk2tDhcRcx7Q=",
@@ -120,14 +155,21 @@
       "is_staff": false,
       "is_active": true,
       "date_joined": "2022-07-29T17:52:11",
-      "display_name": null,
-      "phone_number": null,
       "groups": [],
       "user_permissions": []
     }
   },
   {
     "model": "accounts.user",
+    "pk": 6,
+    "fields": {
+      "baseuser_ptr_id": 6,
+      "display_name": null,
+      "phone_number": null
+    }
+  },
+  {
+    "model": "accounts.baseuser",
     "pk": 7,
     "fields": {
       "password": "pbkdf2_sha256$320000$LfHLzUs5I1zvc6uu6cdNWc$JhGZgkDq21vMlzTcRmNCzzd/dP7SfRC4ZfhgYW9qN8c=",
@@ -140,14 +182,21 @@
       "is_staff": false,
       "is_active": true,
       "date_joined": "2022-07-29T17:52:34",
-      "display_name": "Janitor",
-      "phone_number": null,
       "groups": [],
       "user_permissions": []
     }
   },
   {
     "model": "accounts.user",
+    "pk": 7,
+    "fields": {
+      "baseuser_ptr_id": 7,
+      "display_name": "Janitor",
+      "phone_number": null
+    }
+  },
+  {
+    "model": "accounts.baseuser",
     "pk": 8,
     "fields": {
       "password": "pbkdf2_sha256$320000$tFTAAJ3sqiHr0bCHfk4ZAE$jWOV5sWDNSO4w7ICCKfOG3v9rlja3TNmpl+hYXrt3kM=",
@@ -160,14 +209,21 @@
       "is_staff": false,
       "is_active": true,
       "date_joined": "2022-07-29T17:54:21",
-      "display_name": null,
-      "phone_number": null,
       "groups": [],
       "user_permissions": []
     }
   },
   {
     "model": "accounts.user",
+    "pk": 8,
+    "fields": {
+      "baseuser_ptr_id": 8,
+      "display_name": null,
+      "phone_number": null
+    }
+  },
+  {
+    "model": "accounts.baseuser",
     "pk": 9,
     "fields": {
       "password": "pbkdf2_sha256$320000$BjDj184pIgtD38usgYDNFp$dYlmkmuMq6EQ2T8M/pWKFuxqoX5ilhiCwaCjz1dy+KE=",
@@ -180,14 +236,21 @@
       "is_staff": false,
       "is_active": true,
       "date_joined": "2022-07-29T17:54:54",
-      "display_name": null,
-      "phone_number": null,
       "groups": [],
       "user_permissions": []
     }
   },
   {
     "model": "accounts.user",
+    "pk": 9,
+    "fields": {
+      "baseuser_ptr_id": 9,
+      "display_name": null,
+      "phone_number": null
+    }
+  },
+  {
+    "model": "accounts.baseuser",
     "pk": 10,
     "fields": {
       "password": "pbkdf2_sha256$320000$ZVbNMMIFrbN61YC5BRFn6N$a8/VxXShSwdhgc+hXjerAZ7rhH7Ole2sLsW0BULpExQ=",
@@ -200,12 +263,19 @@
       "is_staff": false,
       "is_active": true,
       "date_joined": "2022-07-29T17:55:16",
-      "display_name": "The Gooch",
-      "phone_number": null,
       "groups": [
         1
       ],
       "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 10,
+    "fields": {
+      "baseuser_ptr_id": 10,
+      "display_name": "The Gooch",
+      "phone_number": null
     }
   }
 ]

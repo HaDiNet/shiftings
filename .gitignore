@@ -1,6 +1,7 @@
 /venv/
 /.idea/
 /backup/
+/ignore_**/
 /**/.mypy_cache/
 /**/__pycache__/
 /src/shiftings/media/
