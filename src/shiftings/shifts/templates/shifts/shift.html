@@ -62,9 +62,7 @@
               <div>
                 {% trans "Shift Participants" %}:
                 {% if not shift.is_full %}
-                  {% has_permission request 'organizations.add_non_members_to_shifts' shift.organization as can_add_others %}
-                  {% has_permission request 'organizations.add_members_to_shifts' shift.organization as can_add_members %}
-                  {% if can_add_members or can_add_others %}
+                  {% if org_perms.add_non_members_to_shifts or org_perms.add_members_to_shifts %}
                     <a class="btn btn-outline-success" href="{% url 'add_participant_other' shift.pk %}">
                       <i class="fa-solid fa-person-circle-plus me-2"></i>{% trans "Add participant" %}
                     </a>
@@ -75,8 +73,7 @@
                 {% for display,required in shift.get_slots_display %}
                   <div class="d-flex{% if required %} shift-required{% endif %}">
                     {% if display %}
-                      {% has_permission request 'organizations.remove_others_from_shifts' shift.organization as can_remove_member %}
-                      {% if request.user.pk == display.user.pk or can_remove_member %}
+                      {% if request.user.pk == display.user.pk or org_perms.remove_others_from_shifts %}
                         <button type="button" class="btn border link w-100 mx-2 text-truncate mw-100"
                                 data-bs-toggle="modal" data-bs-target="#confirmRemoveModal"
                                 data-bs-remove-name="{{ display.display }}"

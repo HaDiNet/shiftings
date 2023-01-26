@@ -9,16 +9,13 @@ from shiftings.organizations.models import Organization
 
 
 class OrganizationPermissionBackend(ModelBackend):
-    def has_perm(self, user_obj: User, perm: str, obj: Optional[Model] = ...) -> bool:
+    def has_perm(self, user_obj: User, perm: str, obj: Optional[Model] = None) -> bool:
         if obj is None:
             return False
         if not isinstance(obj, Organization):
             return False
-        if super().has_perm(user_obj, 'organizations.admin'):
+        if obj.is_admin(user_obj):
             return True
-        for member in obj.members.all():
-            if member.type.admin and member.is_member(user_obj):
-                return True
         return super().has_perm(user_obj, perm, obj)
 
     def _collect_permissions(self, user_obj: User, obj: Organization) -> set[str]:

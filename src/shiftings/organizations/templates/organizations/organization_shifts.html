@@ -9,15 +9,13 @@
         {{ organization.name }}
       </h3>
       <div>
-        {% check_can_see_admin request.user organization as can_see_admin %}
-        {% if can_see_admin %}
+        {% if org_perms.see_admin_page %}
           <a class="btn btn-info" href="{% url 'organization_admin' organization.pk %}"
              title="{% trans "Administrate Organization" %}">
             <i class="fas fa-building-shield"></i>
           </a>
         {% endif %}
-        {% has_permission request 'organizations.edit_organization' organization as can_edit %}
-        {% if can_edit %}
+        {% if org_perms.edit_organizations %}
           <a class="btn btn-success" href="{% url 'organization_update' organization.pk %}"
              title="{% trans "Edit Organization" %}">
             <i class="fas fa-edit"></i>
@@ -43,8 +41,7 @@
       </dl>
     </div>
   </div>
-  {% has_permission request 'organizations.see_statistics' organization as can_see_shift_summary %}
-  {% if can_see_shift_summary %}
+  {% if org_perms.see_statistics %}
     <div class="mt-3 card base-card bg-dark">
       <div class="card-header center-items justify-content-between">
         <h3>{% trans "Member Shift Summary" %}</h3>
@@ -92,8 +89,7 @@
                  title="{% trans "Expired Events" %}">
                 <i class="fa-solid fa-hourglass-end"></i>
               </a>
-              {% has_permission request 'organizations.edit_events' organization as can_edit_events %}
-              {% if can_edit_events %}
+              {% if org_perms.edit_events %}
                 <a class="btn btn-success ms-2" href="{% url 'event_create' organization.pk %}"
                    title="{% trans "Add Event" %}">
                   <i class="fa-solid fa-beer-mug-empty"></i>
@@ -159,8 +155,7 @@
            title="{% trans "ical Export" %}">
           <i class="fas fa-file-export"></i>
         </a>
-        {% has_permission request 'organizations.edit_shifts' organization as can_create_shift %}
-        {% if can_create_shift %}
+        {% if org_perms.edit_shifts %}
           <a class="btn btn-success" href="{% url "shift_create_from_template" organization.pk %}"
              title="{% trans "Create Shift from Template" %}">
             <i class="fa-solid fa-sim-card"></i>

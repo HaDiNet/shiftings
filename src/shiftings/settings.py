@@ -63,7 +63,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'shiftings.utils.middlewares.http403.Http403Middleware'
+    'shiftings.utils.middlewares.http403.Http403Middleware',
+    'shiftings.organizations.middleware.OrganizationPermissionMiddleware'
 ]
 
 ROOT_URLCONF = 'shiftings.urls'
@@ -90,6 +91,7 @@ TEMPLATES = [
             'context_processors': [
                 'shiftings.utils.context_processors.debug',
                 'shiftings.utils.context_processors.feature',
+                'shiftings.organizations.context_processors.organization_permissions',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -116,7 +118,7 @@ AUTH_USER_MODEL = 'accounts.User'
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    'shiftings.organizations.backend.OrganizationPermissionBackend'
+    'shiftings.organizations.backends.OrganizationPermissionBackend'
 ]
 
 LOCAL_LOGIN_ENABLED = True
