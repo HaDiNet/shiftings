@@ -159,3 +159,6 @@ class BaseCalendar(HTMLCalendar):
 class MonthCalendar(BaseCalendar):
     def can_see_recurring_shift(self, recurring_shift: RecurringShift) -> bool:
         return any(membership.is_member(self.user) for membership in recurring_shift.organization.members.all())
+
+    def can_see_shift(self, shift: Shift) -> bool:
+        return any(membership.is_member(self.user) for membership in shift.organization.members.all())

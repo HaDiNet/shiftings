@@ -5,6 +5,8 @@ from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from shiftings.utils.fields.html_color import calc_text_color
+
 
 class ShiftType(models.Model):
     organization = models.ForeignKey('organizations.Organization', on_delete=models.CASCADE,
@@ -26,3 +28,7 @@ class ShiftType(models.Model):
     @property
     def display(self) -> str:
         return self.name
+
+    @property
+    def text_color(self):
+        return calc_text_color(self.color)

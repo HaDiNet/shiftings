@@ -468,3 +468,11 @@ td.disabled {
 .hour-container:hover {
   overflow: unset;
 }
+
+.color-sample {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  display: inline-block;
+  border: 1px solid var(--bs-body-color);
+}

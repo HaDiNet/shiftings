@@ -1,5 +1,7 @@
 <div class="calendar-entry">
-  <a class="card calendar-shift planned" style="--shift-color: {{ recurring_shift.color }}" href="{{ recurring_shift_link }}">
+  <a class="card calendar-shift planned"
+     style="--shift-bg-color: {{ recurring_shift.color }}; --shift-color: {{ recurring_shift.text_color }}"
+     href="{{ recurring_shift_link }}">
     {% trans "Recurring" %}: {{ recurring_shift.organization.name }}: {{ recurring_shift.name }}
   </a>
 </div>

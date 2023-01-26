@@ -3,14 +3,16 @@
     <form action="{{ shift_link }}" method="post">
       {% csrf_token %}
       <input type="hidden" name="shift" value="{{ shift.pk }}">
-      <button class="card calendar-shift" style="background-color: {{ shift.shift_type.color }}" type="submit">
+      <button class="card calendar-shift" style="background-color: {{ shift.shift_type.color }}; color: {{ shift.shift_type.text_color }};"
+              type="submit">
         {{ shift.organization.name }}: {{ shift.name }}
       </button>
     </form>
   </div>
 {% else %}
   <div class="calendar-entry">
-    <a class="card calendar-shift" style="background-color: {{ shift.shift_type.color }}" href="{{ shift_link }}">
+    <a class="card calendar-shift" style="background-color: {{ shift.shift_type.color }}; color: {{ shift.shift_type.text_color }};"
+       href="{{ shift_link }}">
       {{ shift.organization.name }}: {{ shift.name }}
     </a>
   </div>

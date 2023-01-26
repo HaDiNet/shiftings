@@ -2,16 +2,27 @@
 {% block form %}
   <div class="row">
     <div class="col-lg-7">
-      <div class="card bg-dark border border-2 border-success p-3">
+      <div
+          class="card bg-dark border border-2 p-3{% if is_create %} border-success{% else %} border-primary{% endif %}">
         <form method="post">
           <div class="card-header center-items justify-content-between">
             <div>
-              {% blocktrans with organization=organization %}
-                <h4>Create New Shift for {{ organization }}</h4>
-              {% endblocktrans %}
+              {% if is_create %}
+                {% blocktrans with organization=organization %}
+                  <h4>Create New Shift for {{ organization }}</h4>
+                {% endblocktrans %}
+              {% else %}
+                {% blocktrans with name=form.instance.name organization=organization %}
+                  <h4>Update Shift {{ name }} for {{ organization }}</h4>
+                {% endblocktrans %}
+              {% endif %}
             </div>
             <div>
-              {% bootstrap_button _('Create') button_type="submit" button_class="btn-success me-2" %}
+              {% if is_create %}
+                {% bootstrap_button _('Create') button_type="submit" button_class="btn-success ms-2" %}
+              {% else %}
+                {% bootstrap_button _('Update') button_type="submit" button_class="btn-success ms-2" %}
+              {% endif %}
             </div>
           </div>
           {% csrf_token %}
@@ -55,22 +66,22 @@
         </form>
       </div>
     </div>
-  {% if is_create %}
-    <div class="col-lg-5 mt-3 mt-lg-0">
-      <div class="card bg-dark border border-2 border-success p-3">
-        <div class="card-header">
-          <h4>{% trans "Create from template" %}</h4>
-        </div>
-        <div>
-          {% trans "Organization" %}: {{ organization }}
-          <form method="post" action="{{ org_template_success }}">
-            {% csrf_token %}
-            {% bootstrap_form org_template_form %}
-            <button class="btn btn-success" type="submit">{% trans "Create" %}</button>
-          </form>
+    {% if is_create %}
+      <div class="col-lg-5 mt-3 mt-lg-0">
+        <div class="card bg-dark border border-2 border-success p-3">
+          <div class="card-header">
+            <h4>{% trans "Create from template" %}</h4>
+          </div>
+          <div>
+            {% trans "Organization" %}: {{ organization }}
+            <form method="post" action="{{ org_template_success }}">
+              {% csrf_token %}
+              {% bootstrap_form org_template_form %}
+              <button class="btn btn-success" type="submit">{% trans "Create" %}</button>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
-  {% endif %}
+    {% endif %}
   </div>
 {% endblock %}

@@ -16,6 +16,7 @@ from django.utils.translation import gettext as __, gettext_lazy as _
 from shiftings.shifts.models.shift import Shift
 from shiftings.shifts.utils.time_frame import TimeFrameType
 from shiftings.utils.fields.date_time import DateField
+from shiftings.utils.fields.html_color import calc_text_color
 from shiftings.utils.time.month import Month, MonthField
 from shiftings.utils.time.week import WeekDay, WeekDayField
 
@@ -102,6 +103,10 @@ class RecurringShift(models.Model):
     @property
     def holiday_handling(self) -> ProblemHandling:
         return ProblemHandling(self.holiday_handling_field)
+
+    @property
+    def text_color(self):
+        return calc_text_color(self.color)
 
     def clean(self) -> None:
         if self.week_day_field is None and self.time_frame_type in TimeFrameType.get_weekday_types():

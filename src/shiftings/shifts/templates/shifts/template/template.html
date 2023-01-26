@@ -6,7 +6,11 @@
   <div class="card-body">
     <dl class="detail-horizontal">
       <dt>{% trans "Type" %}</dt>
-      <dd>{{ template.shift_type }}</dd>
+      <dd class="center-items justify-content-start">
+        {{ template.shift_type }}
+        <div class="ms-3 color-sample pe-help" style="background-color:{{ template.shift_type.color }}"
+             title="{% trans "Calendar Background Color" %}"></div>
+      </dd>
       <dt>{% trans "Start Time" %}</dt>
       <dd>{% calculate_shift_time group.start_time template.start_delay %}</dd>
       <dt>{% trans "End Time" %}</dt>

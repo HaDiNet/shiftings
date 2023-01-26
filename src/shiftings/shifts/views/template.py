@@ -99,4 +99,4 @@ class TemplateGroupAddShiftsView(OrganizationPermissionMixin, ModelFormsetBaseVi
         return self.success
 
     def get_success_url(self) -> str:
-        return self.get_recurring_shift().get_absolute_url()
+        return self.get_group().get_absolute_url()

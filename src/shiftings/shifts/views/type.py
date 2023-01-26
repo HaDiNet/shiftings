@@ -17,7 +17,7 @@ class ShiftTypeEditView(OrganizationAdminMixin, CreateOrUpdateView[ShiftType]):
     def get_organization(self) -> Organization:
         if self.is_create():
             return self._get_object(Organization, 'org_pk')
-        return self.object.organization
+        return self.get_object().organization
 
     def get_initial(self) -> dict[str, Any]:
         initial = super().get_initial()
