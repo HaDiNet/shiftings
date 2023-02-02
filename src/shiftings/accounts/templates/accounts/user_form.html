@@ -13,10 +13,7 @@
     <form method="post" id="user_form">
       {% csrf_token %}
       {% bootstrap_form form %}
-      {% buttons %}
-        {% bootstrap_button _("Submit") id="submit_button" button_type="submit" button_class="btn-primary" %}
-        <a></a>
-      {% endbuttons %}
+      {% bootstrap_button _("Submit") id="submit_button" button_type="submit" button_class="btn-primary" %}
     </form>
   </div>
 {% endblock %}
