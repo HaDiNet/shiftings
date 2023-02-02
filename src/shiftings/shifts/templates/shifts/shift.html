@@ -73,7 +73,7 @@
                   <div class="d-flex{% if required %} shift-required{% endif %}">
                     {% if display %}
                       {% if request.user.pk == display.user.pk or org_perms.remove_others_from_shifts %}
-                        <button type="button" class="btn border link w-100 mx-2 text-truncate mw-100"
+                        <button type="button" class="btn border border-2 link w-100 mx-2 text-truncate mw-100"
                                 data-bs-toggle="modal" data-bs-target="#confirmRemoveModal"
                                 data-bs-remove-name="{{ display.display }}"
                                 data-bs-remove-url="{% url 'remove_participant' shift.pk display.pk %}"
@@ -81,7 +81,7 @@
                           {{ display.display }}
                         </button>
                       {% else %}
-                        <span class="btn border link pe-none w-100 mx-2">{{ display.display }}</span>
+                        <span class="btn border-2 link pe-none w-100 mx-2">{{ display.display }}</span>
                       {% endif %}
                     {% else %}
                       <button type="button" class="btn border border-2 card-link link w-100 mx-2" data-bs-toggle="modal"

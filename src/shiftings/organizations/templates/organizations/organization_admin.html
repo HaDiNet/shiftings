@@ -255,6 +255,49 @@
         {% endif %}
       </div>
     </div>
+    <div class="card bg-dark mb-3">
+      <div class="card-header center-items justify-content-between">
+        <div>
+          {% trans "Shifts Types" %}
+        </div>
+        {% if org_perms.edit_organization %}
+          <div>
+            <a class="btn btn-success" href="{% url 'shift_type_create' organization.pk %}"
+               title="{% trans "Add Shift Type" %}">
+              <i class="fa-solid  fa-square-plus"></i>
+            </a>
+          </div>
+        {% endif %}
+      </div>
+      <div class="table-responsive p-1">
+        {% if organization.shift_types.all|length > 0 %}
+          <table class="table table-striped table-hover table-dark m-0 text-center">
+            <thead>
+            <tr>
+              <th>{% trans "Name" %}</th>
+              <th>{% trans "Color" %}</th>
+              <th>{% trans "Shift Count" %}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for shift_type in organization.shift_types.all %}
+              <tr class="link pe-pointer" onclick="window.location.href='{% url 'shift_type_update' shift_type.pk %}'">
+                <td>{{ shift_type.display }}</td>
+                <td>
+                  <div class="color-sample pe-help" style="background-color:{{ shift_type.color }}"
+                       title="{% trans "Shift Type Background Color" %}">
+                  </div>
+                </td>
+                <td>{{ shift_type.shift_set.all|length }}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+          <div class="center-items p-3">{% trans "No shifts templates" %}</div>
+        {% endif %}
+      </div>
+    </div>
     {% if feature.event %}
       <div class="card bg-dark mb-3 ">
         <div class="card-header center-items justify-content-between">

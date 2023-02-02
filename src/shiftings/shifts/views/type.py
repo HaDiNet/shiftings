@@ -1,6 +1,6 @@
 from typing import Any
 
-from django.urls import reverse_lazy
+from django.urls import reverse
 
 from shiftings.organizations.models import Organization
 from shiftings.organizations.views.organization_base import OrganizationAdminMixin
@@ -12,7 +12,6 @@ from shiftings.utils.views.create_update_view import CreateOrUpdateView
 class ShiftTypeEditView(OrganizationAdminMixin, CreateOrUpdateView[ShiftType]):
     model = ShiftType
     form_class = ShiftTypeForm
-    success_url = reverse_lazy('shift_types')
 
     def get_organization(self) -> Organization:
         if self.is_create():
@@ -23,3 +22,6 @@ class ShiftTypeEditView(OrganizationAdminMixin, CreateOrUpdateView[ShiftType]):
         initial = super().get_initial()
         initial['organization'] = self.get_organization()
         return initial
+
+    def get_success_url(self):
+        return reverse('organization_admin', args=[self.object.organization.pk])

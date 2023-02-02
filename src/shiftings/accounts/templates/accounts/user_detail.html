@@ -89,11 +89,14 @@
 
 {% block right %}
   <div class="card bg-dark mt-2">
-    <div class="card-header">
+    <div class="card-header center-items justify-content-between">
       <h4>{% trans "My Upcoming Shifts" %}</h4>
+      <div>
+        <a class="btn btn-secondary" href="#"><i class="fa-solid fa-hourglass"></i></a>
+      </div>
     </div>
     <div>
-      {% if shifts.object_list|length > 1 %}
+      {% if shifts.object_list|length > 0 %}
         <div>
           {% for shift in shifts.object_list %}
             {% shift_card shift %}

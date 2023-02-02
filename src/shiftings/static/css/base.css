@@ -429,7 +429,8 @@ dl.detail-horizontal dd {
 }
 
 .shift-required, .shift-required button, .shift-required span {
-  color: var(--bs-orange);
+  color: var(--bs-orange) !important;
+  border-color: var(--bs-orange) !important;
 }
 
 .table-fixed {

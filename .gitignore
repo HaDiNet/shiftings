@@ -12,3 +12,4 @@
 /**/*.egg-info
 /test_db/
 gunicorn.py
+/build/
