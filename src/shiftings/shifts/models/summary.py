@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from shiftings.utils.time.timerange import TimeRangeType
@@ -10,6 +11,7 @@ class OrganizationSummarySettings(models.Model):
     default_time_range_type = models.PositiveSmallIntegerField(choices=TimeRangeType.choices,
                                                                verbose_name=_('Default time range for summary'),
                                                                default=TimeRangeType.HalfYear)
+    default_shift_types = models.JSONField(verbose_name=_('Shift Summary Shift Types'), blank=True, null=True)
 
     class Meta:
         default_permissions = ()
@@ -20,3 +22,6 @@ class OrganizationSummarySettings(models.Model):
 
     def __str__(self) -> str:
         return _('Organization summary settings of {organization}').format(organization=self.organization.display)
+
+    def get_absolute_url(self) -> str:
+        return reverse('organization_shift_summary', args = [self.organization.pk])

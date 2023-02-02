@@ -30,5 +30,9 @@ class ShiftType(models.Model):
         return self.name
 
     @property
+    def choice(self) -> tuple[int, str]:
+        return self.pk, self.name
+
+    @property
     def text_color(self):
         return calc_text_color(self.color)

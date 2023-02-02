@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.forms',
-    'bootstrap5',
+    'django_bootstrap5',
     'colorfield',
     'phonenumber_field',
     'shiftings.accounts',
@@ -82,7 +82,7 @@ TEMPLATES = [
             'builtins': [
                 'django.templatetags.static',
                 'django.templatetags.i18n',
-                'bootstrap5.templatetags.bootstrap5',
+                'django_bootstrap5.templatetags.django_bootstrap5',
                 'shiftings.templatetags.base',
                 'shiftings.templatetags.debug',
                 'shiftings.templatetags.modal',

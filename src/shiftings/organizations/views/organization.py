@@ -10,6 +10,7 @@ from shiftings.organizations.forms.membership import MembershipForm
 from shiftings.organizations.forms.organization import OrganizationForm
 from shiftings.organizations.models import MembershipType, Organization
 from shiftings.organizations.views.organization_base import OrganizationMemberMixin, OrganizationPermissionMixin
+from shiftings.shifts.forms.summary import OrganizationShiftSummaryForm
 from shiftings.utils.pagination import get_pagination_context
 from shiftings.utils.typing import UserRequest
 from shiftings.utils.views.base import BaseLoginMixin, BasePermissionMixin
@@ -65,6 +66,7 @@ class OrganizationShiftsView(OrganizationMemberMixin, DetailView):
                                                    self.object.shifts.filter(start__date__gte=today,
                                                                              end__date__gte=today),
                                                    5, 'shifts')
+        context['summary_settings_form'] = OrganizationShiftSummaryForm(instance=self.object.summary_settings)
         return context
 
 

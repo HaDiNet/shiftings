@@ -31,6 +31,7 @@ class Organization(models.Model):
     description = models.TextField(verbose_name=_('Description'), blank=True, null=True)
 
     # members: RelatedManager[Membership]
+    # summary_settings: RelatedManager[OrganizationSummarySettings]
 
     class Meta:
         default_permissions = ()

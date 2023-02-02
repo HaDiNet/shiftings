@@ -44,8 +44,17 @@
     <div class="mt-3 card base-card bg-dark">
       <div class="card-header center-items justify-content-between">
         <h3>{% trans "Member Shift Summary" %}</h3>
-        <div>
-          <a class="btn btn-info w-100" href="{% url 'organization_shift_summary' organization.pk %}">
+        <div class="center-items">
+          {% url 'edit_summary_settings' organization.summary_settings.pk as edit_summary_url %}
+          {% simpleformmodal 'summarySettings' _('Summary Settings') edit_summary_url organization.get_absolute_url %}
+            {% csrf_token %}
+            {% bootstrap_form summary_settings_form %}
+          {% endsimpleformmodal %}
+          <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#summarySettingsModal"
+                  data-bs-date="{{ date }}" title="{% trans "Set default Summary" %}">
+            <i class="fas fa-filter"></i>
+          </button>
+          <a class="btn btn-info w-100 ms-1" href="{% url 'organization_shift_summary' organization.pk %}">
             <i class="fas fa-ranking-star me-2"></i>{% trans "Member Shift Summary" %}
           </a>
         </div>
