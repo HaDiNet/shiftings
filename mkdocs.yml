@@ -1,0 +1,43 @@
+site_name: Shiftings Documentation
+site_dir: src/shiftings/staticfiles/docs
+site_url: https://shiftings.hadiko.de/
+repo_name: HaDiNet/shiftings
+repo_url: https://github.com/HaDiNet/shiftings
+theme:
+  name: material
+  icon:
+    repo: fontawesome/brands/github
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/lightbulb-outline
+        name: Switch to Dark Mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/lightbulb
+        name: Switch to Light Mode
+plugins:
+  - search
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/HaDiNet/shiftings
+    - icon: fontawesome/brands/git
+      link: https://gerrit.hadiko.de/
+    - icon: fontawesome/solid/globe
+      link: https://www.hadiko.de/
+nav:
+  - Introduction: 'introduction.md'
+  - Shifts: 'shifts.md'
+  - Organizations:
+    - Overview: 'organizations/index.md'
+    - Shift Summary: 'organizations/shift_summary.md'
+    - Member Management: 'organizations/members.md'
+    - Recurring Shifts: 'organizations/recurring.md'
+    - Shift Templates: 'organizations/shift_templates.md'
+    - Shift Types: 'organizations/shift_types.md'
+  - Events:
+    - Coming Soon: 'events/index.md'
+  - Development: 'development.md'
