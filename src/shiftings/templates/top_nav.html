@@ -37,6 +37,13 @@
             </button>
           </form>
         </div>
+        {% if request.user.is_authenticated %}
+          <div class="nav-item me-md-2 d-flex align-items-center">
+            <a class="nav-link center-items justify-content-start" href="/static/docs" title="{% trans "Help" %}">
+              <span class="me-2 d-block d-xl-none">{% trans "Help" %}</span> <i class="fas fa-circle-info"></i>
+            </a>
+          </div>
+        {% endif %}
         {% include "switch_user.html" %}
         {% include "language.html" %}
         {% if request.user.is_authenticated %}
@@ -61,6 +68,6 @@
           </a>
         {% endif %}
       </div>
-      </div>
     </div>
+  </div>
 </nav>

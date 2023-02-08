@@ -46,6 +46,10 @@
         <hr class="my-1">
       {% endif %}
       {% include "shifts/template/template.html" with template=shift_template start_time=group.start_time %}
+    {% empty %}
+      <a class="btn btn-success" href="{% url "template_group_update_shifts" group.pk %}">
+        <i class="fa-solid fa-plus"></i> {% trans "Create Shift Templates" %} <i class="fa-solid fa-plus"></i>
+      </a>
     {% endfor %}
   </div>
 {% endblock %}

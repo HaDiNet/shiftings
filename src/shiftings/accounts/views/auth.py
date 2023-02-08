@@ -105,6 +105,7 @@ if settings.OAUTH_ENABLED:
         def _populate_user(user_data: dict[str, Any]) -> AbstractUser:
             username = user_data.get(settings.OAUTH_USERNAME_CLAIM, '')
             groups = user_data.get(settings.OAUTH_GROUP_CLAIM, [])
+            group_objs = Groups.objects.bulk_create(groups, ignore_conflicts=True)
             try:
                 user: AbstractUser = User.objects.get_by_natural_key(username)
             except UserModel.DoesNotExist:
@@ -114,10 +115,10 @@ if settings.OAUTH_ENABLED:
             user.last_name = user_data.get(settings.OAUTH_LAST_NAME_CLAIM, '')
             user.room_number = user_data.get(settings.OAUTH_ROOM_NUMBER_CLAIM, '')
             user.email = user_data.get(settings.OAUTH_EMAIL_CLAIM, '')
-            user.groups.set(Groups.objects.filter(name__in=groups))
+            user.groups.set(group_objs)
 
-            user.is_superuser = settings.ADMIN_GROUP in groups
-            user.is_staff = settings.ADMIN_GROUP in groups
+            user.is_superuser = settings.OAUTH_ADMIN_GROUP in groups
+            user.is_staff = settings.OAUTH_ADMIN_GROUP in groups
             user.save()
             return user
 

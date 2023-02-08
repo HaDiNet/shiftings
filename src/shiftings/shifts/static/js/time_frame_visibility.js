@@ -3,15 +3,15 @@
   let time_frame;
   let month;
   let weekday;
-  let month_label;
-  let weekday_label;
+  let month_wrapper;
+  let weekday_wrapper;
 
   function initialize() {
     time_frame = document.getElementById('id_time_frame_field');
     month = document.getElementById('id_month_field');
     weekday = document.getElementById('id_week_day_field');
-    month_label = document.getElementById('month_label');
-    weekday_label = document.getElementById('week_day_label');
+    month_wrapper = month.parentElement;
+    weekday_wrapper = weekday.parentElement;
 
     time_frame.addEventListener('change', onTimeFrameChange);
     onTimeFrameChange();
@@ -32,17 +32,17 @@
     }
     if (month_visible) {
       saveAndRestore.restore(true, month);
-      month_label.classList.remove('d-none');
+      month_wrapper.classList.remove('d-none');
     } else {
       saveAndRestore.save(true, true, month);
-      month_label.classList.add('d-none');
+      month_wrapper.classList.add('d-none');
     }
     if (week_visible) {
       saveAndRestore.restore(true, weekday);
-      weekday_label.classList.remove('d-none');
+      weekday_wrapper.classList.remove('d-none');
     } else {
       saveAndRestore.save(true, true, weekday);
-      weekday_label.classList.add('d-none');
+      weekday_wrapper.classList.add('d-none');
     }
   }
 

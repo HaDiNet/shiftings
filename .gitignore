@@ -5,7 +5,8 @@
 /**/.mypy_cache/
 /**/__pycache__/
 /src/shiftings/media/
-/src/shiftings/staticfiles/
+/src/shiftings/static/docs
+/src/shiftings/staticfiles
 /src/**/local_settings.py
 /src/**/ldap_settings.py
 /src/**/sso_settings.py

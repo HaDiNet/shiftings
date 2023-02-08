@@ -14,9 +14,8 @@ from django.views.generic.edit import BaseFormView
 
 from shiftings.organizations.models import Organization
 from shiftings.organizations.views.organization_base import OrganizationMemberMixin, OrganizationPermissionMixin
-from shiftings.shifts.forms.recurring import RecurringShiftCreateForm, RecurringShiftCreateShiftsForm, \
-    RecurringShiftForm
-from shiftings.shifts.models import RecurringShift, ShiftTemplateGroup
+from shiftings.shifts.forms.recurring import RecurringShiftCreateShiftsForm, RecurringShiftForm
+from shiftings.shifts.models import RecurringShift
 from shiftings.utils.views.create_update_view import CreateOrUpdateView
 
 
@@ -57,22 +56,6 @@ class RecurringShiftEditView(OrganizationPermissionMixin, CreateOrUpdateView):
 
     def get_success_url(self) -> str:
         return reverse('recurring_shift', args=[self.object.pk])
-
-
-class RecurringShiftCreateView(RecurringShiftEditView):
-    template_name = 'generic/create_or_update.html'
-    form_class = RecurringShiftCreateForm
-
-    object: RecurringShift
-
-    def form_valid(self, form: RecurringShiftCreateForm) -> HttpResponse:
-        response = super().form_valid(form)
-        template = ShiftTemplateGroup.objects.create(place=form.cleaned_data['place'],
-                                                     organization=self.object.organization,
-                                                     start_time=form.cleaned_data['start_time'])
-        self.object.template = template
-        self.object.save()
-        return response
 
 
 class RecurringShiftCreateShiftsView(OrganizationPermissionMixin, SingleObjectMixin, BaseFormView):

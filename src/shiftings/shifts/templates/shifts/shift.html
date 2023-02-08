@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
 {% block top_level %}
-  {% include "template/remove_modal.html" with remove_target_from=shift %}
   {% url 'add_participant_self' shift.pk as add_self_url %}
-  {% simpleformmodal 'addSelfForm' _('Add with Name to Shift') add_self_url %}
+  {% simpleformmodal 'addSelfForm'|concat:shift.pk _('Add with Name to Shift') add_self_url request.path %}
     {% for field in add_self_form %}
       {% csrf_token %}
       {% bootstrap_field field %}
     {% endfor %}
   {% endsimpleformmodal %}
+  {% include "template/remove_modal.html" %}
 {% endblock %}
 
 {% block content %}
@@ -54,7 +54,11 @@
                 <dt>{% trans "Created" %}</dt>
                 <dd>{{ shift.created }}</dd>
                 <dt>{% trans "Last Modified" %}</dt>
-                <dd>{{ shift.modified }}</dd>
+                <dd>
+                  {% blocktrans with time=shift.modified|timesince %}
+                    {{ time }} ago
+                  {% endblocktrans %}
+                </dd>
               </dl>
             </div>
             <div class="col-12 col-md-7">
@@ -62,44 +66,13 @@
                 {% trans "Shift Participants" %}:
                 {% if not shift.is_full %}
                   {% if org_perms.add_non_members_to_shifts or org_perms.add_members_to_shifts %}
-                    <a class="btn btn-outline-success" href="{% url 'add_participant_other' shift.pk %}">
+                    <a class="btn btn-outline-success ms-3" href="{% url 'add_participant_other' shift.pk %}">
                       <i class="fa-solid fa-person-circle-plus me-2"></i>{% trans "Add participant" %}
                     </a>
                   {% endif %}
                 {% endif %}
               </div>
-              <div class="mx-3 mt-2 shift-slots">
-                {% for display,required in shift.get_slots_display %}
-                  <div class="d-flex{% if required %} shift-required{% endif %}">
-                    {% if display %}
-                      {% if request.user.pk == display.user.pk or org_perms.remove_others_from_shifts %}
-                        <button type="button" class="btn border border-2 link w-100 mx-2 text-truncate mw-100"
-                                data-bs-toggle="modal" data-bs-target="#confirmRemoveModal"
-                                data-bs-remove-name="{{ display.display }}"
-                                data-bs-remove-url="{% url 'remove_participant' shift.pk display.pk %}"
-                                title="{{ display.display }}">
-                          {{ display.display }}
-                        </button>
-                      {% else %}
-                        <span class="btn border-2 link pe-none w-100 mx-2">{{ display.display }}</span>
-                      {% endif %}
-                    {% else %}
-                      <button type="button" class="btn border border-2 card-link link w-100 mx-2" data-bs-toggle="modal"
-                              data-bs-target="#addSelfFormModal">
-                        <i class="fa-solid fa-person-circle-plus me-2"></i>{% trans 'Add me' %}
-                      </button>
-                    {% endif %}
-                  </div>
-                {% endfor %}
-                {% if shift.max_users == 0 %}
-                  <div class="d-flex">
-                    <button type="button" class="btn border border-2 card-link link w-100 mx-2 " data-bs-toggle="modal"
-                            data-bs-target="#addSelfFormModal">
-                      <i class="fa-solid fa-person-circle-plus me-2"></i>{% trans 'Add me' %}
-                    </button>
-                  </div>
-                {% endif %}
-              </div>
+              {% include "shifts/shift_participants.html" with shift=shift %}
               <div class="mt-3">
                 {% trans "Additional Infos" %}:
                 <div class="px-3">

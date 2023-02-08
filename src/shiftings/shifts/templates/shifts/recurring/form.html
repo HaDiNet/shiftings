@@ -6,36 +6,50 @@
 {% block content %}
   <div class="container-lg">
     {% bootstrap_form_errors form layout='inline' %}
-    <div class="card base-card bg-dark border border-success border-3 mt-3">
+    <div class="card base-card bg-dark border {% form_border is_create %} border-3 mt-3">
       <form method="post">
         {% csrf_token %}
         <div class="card-header center-items justify-content-between">
-          <div class="col-8">
+          <div class="col-8 col-xl-5">
             <h4>
-              {% bootstrap_field form.name form_group_class='d-flex flex-row align-items-center' label_class='m-0 me-3' %}
+              {% bootstrap_field form.name wrapper_class='d-flex flex-row align-items-center' label_class='m-0 me-3' %}
             </h4>
           </div>
           <div class="col-1">
-            {% bootstrap_button _('Save') button_type="submit" button_class="btn-success" %}
+            {% if is_create %}
+              {% bootstrap_button _('Create') button_type="submit" button_class="btn-success" %}
+            {% else %}
+              {% bootstrap_button _('Save') button_type="submit" button_class="btn-primary" %}
+            {% endif %}
           </div>
         </div>
         <div>
-          <div class="p-2">
+          <div class="p-3">
             <div class="row">
-              <div class="col-sm-4">{% trans "Time Frame" %}:</div>
-              <div class="col-sm-8">
-                {% bootstrap_field form.time_frame_field show_label=False %}
+              <div class="col-lg-6">
+                <div class="col-12"><h4>{% trans "Recurring Time Frame" %}:</h4></div>
+                {% bootstrap_field form.time_frame_field %}
+                {% bootstrap_field form.ordinal %}
+                {% bootstrap_field form.month_field %}
+                {% bootstrap_field form.week_day_field %}
+                {% bootstrap_field form.first_occurrence %}
               </div>
-              <div class="col-sm-4">{% trans "Ordinal" %}:</div>
-              <div class="col-sm-8">{% bootstrap_field form.ordinal show_label=False %}</div>
-              <div class="col-sm-4"><span id="month_label">{% trans "Month" %}:</span></div>
-              <div class="col-sm-8">{% bootstrap_field form.month_field show_label=False %}</div>
-              <div class="col-sm-4"><span id="week_day_label">{% trans "Weekday" %}:</span></div>
-              <div class="col-sm-8">{% bootstrap_field form.week_day_field show_label=False %}</div>
-              <div class="col-sm-4">{% trans "First Occurence" %}:</div>
-              <div class="col-sm-8">{% bootstrap_field form.first_occurrence show_label=False %}</div>
-              <div class="col-sm-4">{% trans "Color" %}:</div>
-              <div class="col-sm-8">{% bootstrap_field form.color show_label=False %}</div>
+              <div class="col-lg-6">
+                <div class="col-12"><h4>{% trans "Shift Information" %}:</h4></div>
+                {% bootstrap_field form.organization %}
+                <div class="row">
+                  <div class="col-9 col-sm-10">
+                    {% bootstrap_field form.template %}
+                  </div>
+                  <div class="col-3 col-sm-2 d-flex flex-column">
+                    <div class="form-label text-center">&nbsp;</div>
+                    <a class="btn btn-success" href="{% url "shift_template_group_create" form.initial.organization %}">
+                      <i class="fa-solid fa-plus"></i>
+                    </a>
+                  </div>
+                </div>
+                {% bootstrap_field form.color %}
+              </div>
             </div>
           </div>
         </div>

@@ -21,3 +21,8 @@ def active_param(context: dict[str, Any], param_name: str, param_value: Any) -> 
     if context['request'].GET.get(param_name) == str(param_value):
         return 'btn-success'
     return ''
+
+
+@register.simple_tag()
+def form_border(is_create: bool) -> str:
+    return 'border-success' if is_create else 'border-primary'

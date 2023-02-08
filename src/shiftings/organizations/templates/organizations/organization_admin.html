@@ -97,7 +97,7 @@
                     {% endsimpledisplaymodal %}
                   {% endif %}
                   {% if org_perms.edit_membership_types %}
-                    <a class="btn btn-success py-1 px-2 my-1"
+                    <a class="btn btn-success py-1 px-2 my-1" title="{% trans "Edit Membership Type" %}"
                        href="{% url "membership_type_edit" organization.pk membership_type.object.pk %}">
                       <i class="fa-solid fa-pen-to-square"></i>
                     </a>
@@ -105,7 +105,8 @@
                   {% if org_perms.edit_members %}
                     {% if org_perms.admin or not membership_type.object.admin %}
                       <button type="button" class="btn btn-success py-1 px-2 my-1" data-bs-toggle="modal"
-                              data-bs-target="#{{ membership_type.object.name|concat:"FormModal" }}">
+                              data-bs-target="#{{ membership_type.object.name|concat:"FormModal" }}"
+                              title="{% trans "Add Member" %}">
                         <i class="fas fa-user-plus pe-none"></i>
                       </button>
                       {% url 'membership_add_member' organization.pk as add_member_url %}

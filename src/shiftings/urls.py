@@ -33,5 +33,5 @@ urlpatterns = [
     path('search/', RedirectView.as_view(url='https://www.youtube.com/watch?v=dQw4w9WgXcQ'))
 ]
 
-urlpatterns.extend(static(settings.STATIC_URL))
+urlpatterns.extend(static(settings.STATIC_URL, document_root=settings.STATIC_ROOT, show_indexes=True))
 urlpatterns.extend(static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT))

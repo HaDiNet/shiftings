@@ -13,7 +13,7 @@
                 {% endblocktrans %}
               {% else %}
                 {% blocktrans with name=form.instance.name organization=organization %}
-                  <h4>Update Shift {{ name }} for {{ organization }}</h4>
+                  <h4>Update Shift "{{ name }} for {{ organization }}"</h4>
                 {% endblocktrans %}
               {% endif %}
             </div>
@@ -30,7 +30,7 @@
           {% bootstrap_field form.place %}
           <div class="center-items">
             <div class="col-6 me-1">
-              {% bootstrap_field form.organization %}
+              {% bootstrap_field form.organization field_class="d-none" %}
             </div>
             <div class="col-6 ms-1">
               {% bootstrap_field form.shift_type %}
@@ -70,7 +70,7 @@
       <div class="col-lg-5 mt-3 mt-lg-0">
         <div class="card bg-dark border border-2 border-success p-3">
           <div class="card-header">
-            <h4>{% trans "Create from template" %}</h4>
+            <h4>{% trans "Create from Template" %}</h4>
           </div>
           <div>
             {% trans "Organization" %}: {{ organization }}

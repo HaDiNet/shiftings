@@ -93,7 +93,7 @@ input:disabled {
   border-color: var(--bs-body-color) !important;
 }
 
-.plain-link, .link {
+.plain-link, .link, .link-remove {
   cursor: pointer;
   text-decoration: none;
   color: var(--bs-body-color);
@@ -102,6 +102,12 @@ input:disabled {
 .link:hover {
   color: var(--bs-teal) !important;
   --bs-table-striped-color: var(--bs-teal) !important;
+}
+
+.link-remove:hover {
+  color: var(--bs-danger) !important;
+  --bs-table-striped-color: var(--bs-danger) !important;
+  border-color: var(--bs-danger) !important;
 }
 
 .card-link:hover {
