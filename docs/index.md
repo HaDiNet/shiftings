@@ -1,4 +1,3 @@
-![Shiftings](assets/HaDiKo-Logo.svg "HaDiKo logo"){style="height: 100px; margin-bottom: 3em"}
 # Introduction to Shiftings
 
 ## What is Shiftings
