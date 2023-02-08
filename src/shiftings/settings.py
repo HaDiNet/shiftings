@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.forms',
+    'bootstrap',
     'django_bootstrap5',
     'colorfield',
     'phonenumber_field',
@@ -178,6 +179,7 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'bootstrap', 'static'),
     os.path.join(BASE_DIR, 'shiftings', 'static'),
     ('docs', os.path.join(BASE_DIR, 'shiftings', 'static', 'docs')),  # Prefix with /docs
 ]
@@ -185,7 +187,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'shiftings', 'staticfiles')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'shiftings', 'media')
 MEDIA_URL = '/media/'
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
@@ -194,6 +195,7 @@ try:
     from shiftings.events.settings import *
     from shiftings.organizations.settings import *
     from shiftings.shifts.settings import *
+    from bootstrap.settings import BOOTSTRAP5
 
     # try to load local settings (for production settings or rpc passwords)
     from .local_settings import *
