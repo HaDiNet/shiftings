@@ -38,11 +38,11 @@ nav:
   - Shifts: 'shifts.md'
   - Organizations:
     - Overview: 'organizations/index.md'
-    - Shift Summary: 'organizations/shift_summary.md'
     - Member Management: 'organizations/members.md'
     - Recurring Shifts: 'organizations/recurring.md'
     - Shift Templates: 'organizations/shift_templates.md'
     - Shift Types: 'organizations/shift_types.md'
+    - Shift Summary: 'organizations/shift_summary.md'
   - Events:
     - Coming Soon: 'events/index.md'
   - Development: 'development.md'

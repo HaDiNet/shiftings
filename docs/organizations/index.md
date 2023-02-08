@@ -8,6 +8,7 @@ Every organization has Multiple Roles. One of these is an Admin.
 The Admin can manage the Organization and configure it to the Desired State.
 
 They can manage :
+
 * [Members](members.md) and their permissions
 * [Recurring Shifts](recurring.md) for recurring shift tasks
 * [Shift Templates](shift_templates.md) for common Shift Layouts

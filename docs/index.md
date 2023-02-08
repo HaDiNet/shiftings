@@ -4,7 +4,7 @@
 Shiftings is a Tool for long Term Shift Management in Organizations.
 
 
-## :material-key: Key Features
+## Key Features
 * Join Shifts in your Organization
 * Import Members from LDAP or OIDC Datasources
 * Member level permission management
