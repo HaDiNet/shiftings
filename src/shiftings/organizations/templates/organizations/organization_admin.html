@@ -2,6 +2,34 @@
 
 {% block top_level %}
   {% include "template/remove_modal.html" with remove_target_from=organization.name %}
+  {% for membership_type in membership_types %}
+    {% simpledisplaymodal "permissionModal"|concat:membership_type.object.pk _("Show membership Permissions") %}
+      <div class="pb-1 d-flex flex-wrap align-content-stretch">
+        {% if membership_type.object.admin %}
+          <div>
+            {% trans "All Permissions" %}
+          </div>
+        {% else %}
+          <ul>
+            {% for permission in membership_type.object.permissions.all %}
+              <li>
+                {{ permission.name }}
+              </li>
+            {% empty %}
+              {% trans "No permissions" %}
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+    {% endsimpledisplaymodal %}
+    {% url 'membership_add_member' organization.pk as add_member_url %}
+    {% simpleformmodal membership_type.object.name|concat:"Form" _('Add member') add_member_url %}
+      {% for field in membership_type.form %}
+        {% csrf_token %}
+        {% bootstrap_field field %}
+      {% endfor %}
+    {% endsimpleformmodal %}
+  {% endfor %}
 {% endblock %}
 
 {% block left %}
@@ -70,33 +98,12 @@
                     <i class="fas fa-crown" title="{% trans "Admin" %}"></i>{% endif %}
                 </span>
                 <div>
-                  {% if org_perms.admin %}
+                  {% if org_perms.edit_membership_types %}
                     <button type="button" class="btn btn-info py-1 px-2 my-1" data-bs-toggle="modal"
                             data-bs-target="#permissionModal{{ membership_type.object.pk }}"
                             title="{% trans "Show user permissions" %}">
                       <i class="fa-solid fa-user-shield"></i>
                     </button>
-                    {% simpledisplaymodal "permissionModal"|concat:membership_type.object.pk _("Show membership Permissions") %}
-                      <div class="pb-1 d-flex flex-wrap align-content-stretch">
-                        {% if membership_type.object.admin %}
-                          <div>
-                            {% trans "All Permissions" %}
-                          </div>
-                        {% else %}
-                          <ul>
-                            {% for permission in membership_type.object.permissions.all %}
-                              <li>
-                                {{ permission.name }}
-                              </li>
-                            {% empty %}
-                              {% trans "No permissions" %}
-                            {% endfor %}
-                          </ul>
-                        {% endif %}
-                      </div>
-                    {% endsimpledisplaymodal %}
-                  {% endif %}
-                  {% if org_perms.edit_membership_types %}
                     <a class="btn btn-success py-1 px-2 my-1" title="{% trans "Edit Membership Type" %}"
                        href="{% url "membership_type_edit" organization.pk membership_type.object.pk %}">
                       <i class="fa-solid fa-pen-to-square"></i>
@@ -109,13 +116,6 @@
                               title="{% trans "Add Member" %}">
                         <i class="fas fa-user-plus pe-none"></i>
                       </button>
-                      {% url 'membership_add_member' organization.pk as add_member_url %}
-                      {% simpleformmodal membership_type.object.name|concat:"Form" _('Add member') add_member_url %}
-                        {% for field in membership_type.form %}
-                          {% csrf_token %}
-                          {% bootstrap_field field %}
-                        {% endfor %}
-                      {% endsimpleformmodal %}
                     {% endif %}
                   {% endif %}
                 </div>

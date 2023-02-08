@@ -95,7 +95,7 @@ if settings.OAUTH_ENABLED:
             try:
                 token = oauth.shiftings.authorize_access_token(request)
                 if 'userinfo' in token:
-                    return self._populate_user(token['user_info'])
+                    return self._populate_user(token['userinfo'])
             except JSONDecodeError:
                 pass
             return None
@@ -110,16 +110,16 @@ if settings.OAUTH_ENABLED:
             try:
                 user: AbstractUser = User.objects.get_by_natural_key(username)
             except UserModel.DoesNotExist:
-                user = AbstractUser.objects.create(username=username)
+                user = User.objects.create(username=username)
                 user.set_unusable_password()
             user.first_name = user_data.get(settings.OAUTH_FIRST_NAME_CLAIM, '').split(' ')[0]  # ignore secondary names
             user.last_name = user_data.get(settings.OAUTH_LAST_NAME_CLAIM, '')
-            user.room_number = user_data.get(settings.OAUTH_ROOM_NUMBER_CLAIM, '')
             user.email = user_data.get(settings.OAUTH_EMAIL_CLAIM, '')
             user.groups.set(Group.objects.filter(name__in=groups))
 
             user.is_superuser = settings.OAUTH_ADMIN_GROUP in groups
             user.is_staff = settings.OAUTH_ADMIN_GROUP in groups
+            user.backend = 'django.contrib.auth.backends.ModelBackend'
             user.save()
             return user
 
