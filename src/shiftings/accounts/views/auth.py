@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from json import JSONDecodeError
 from typing import Any, Optional
 
@@ -9,7 +10,7 @@ from authlib.oauth2 import HttpRequest
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login as login_user, logout, REDIRECT_FIELD_NAME
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, Group
 from django.contrib.auth.views import LoginView, LogoutView, UserModel
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
@@ -17,7 +18,6 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.cache import never_cache
 from django.views.generic import RedirectView
-from mypyc.codegen.emitmodule import Groups
 
 from shiftings.accounts.models import User
 
@@ -94,9 +94,8 @@ if settings.OAUTH_ENABLED:
         def authenticate(self, request: HttpRequest) -> Optional[AbstractUser]:
             try:
                 token = oauth.shiftings.authorize_access_token(request)
-                user_data = oauth.shiftings.parse_id_token(request, token)
-                if user_data is not None:
-                    return self._populate_user(user_data)
+                if 'userinfo' in token:
+                    return self._populate_user(token['user_info'])
             except JSONDecodeError:
                 pass
             return None
@@ -104,8 +103,10 @@ if settings.OAUTH_ENABLED:
         @staticmethod
         def _populate_user(user_data: dict[str, Any]) -> AbstractUser:
             username = user_data.get(settings.OAUTH_USERNAME_CLAIM, '')
-            groups = user_data.get(settings.OAUTH_GROUP_CLAIM, [])
-            group_objs = Groups.objects.bulk_create(groups, ignore_conflicts=True)
+            groups: list[str] = user_data.get(settings.OAUTH_GROUP_CLAIM, [])
+            for group in groups:
+                if re.match(settings.OAUTH_GROUP_IGNORE_REGEX, group) is None:
+                    Group.objects.get_or_create(name=group)
             try:
                 user: AbstractUser = User.objects.get_by_natural_key(username)
             except UserModel.DoesNotExist:
@@ -115,7 +116,7 @@ if settings.OAUTH_ENABLED:
             user.last_name = user_data.get(settings.OAUTH_LAST_NAME_CLAIM, '')
             user.room_number = user_data.get(settings.OAUTH_ROOM_NUMBER_CLAIM, '')
             user.email = user_data.get(settings.OAUTH_EMAIL_CLAIM, '')
-            user.groups.set(group_objs)
+            user.groups.set(Group.objects.filter(name__in=groups))
 
             user.is_superuser = settings.OAUTH_ADMIN_GROUP in groups
             user.is_staff = settings.OAUTH_ADMIN_GROUP in groups
