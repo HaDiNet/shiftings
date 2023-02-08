@@ -15,11 +15,11 @@ This has multiple Parameters:
 The following Time Frame Types are available:
 
 * '`Nth` `weekday` of each month' - The Recurring Shift will be every `Nth` `weekday` of each month. 
-If N is 1 it will be every week. 
+ If N is 1 and the weekday is sunday it will be on the first Sunday of every month.
 * '`Nth` day of each month' - The Recurring Shift will be every `Nth` day of each month. 
 If N is 5 it will always be on the 5th.
 * 'every `Nth` `weekday`' - The Recurring Shift will be every `Nth` `weekday`. 
-If N is 2, the weekday is Sunday and a month has 5 Sundays the next month will have the shift on the 1st Sunday.
+If N is 1 it will be every week.
 * '`Nth` workday of each month' - The Recurring Shift will on the `Nth` working day of each Month.
 if N is 1 and the first day of the month is a Sunday the shift will be on the following Monday.
 * '`Nth` day of `month`' - The Recurring Shift will on the `Nth` day of the selected `month` every year.
