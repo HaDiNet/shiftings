@@ -13,7 +13,6 @@ class OrganizationSummarySettings(models.Model):
     default_time_range_type = models.PositiveSmallIntegerField(choices=TimeRangeType.choices,
                                                                verbose_name=_('Default time range for summary'),
                                                                default=TimeRangeType.HalfYear)
-    default_shift_types = models.JSONField(verbose_name=_('Shift Summary Shift Types'), blank=True, null=True)
 
     class Meta:
         default_permissions = ()
