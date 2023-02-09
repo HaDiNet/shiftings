@@ -5,7 +5,8 @@ from django import template
 from django.db.models import Q
 from django.utils.translation import gettext as _
 
-from shiftings.accounts.models import BaseUser
+from shiftings.accounts.models import BaseUser, User
+from shiftings.organizations.models import OrganizationDummyUser
 from shiftings.shifts.forms.participant import AddSelfParticipantForm
 from shiftings.shifts.forms.shift import SelectOrgForm
 from shiftings.utils.time.timerange import TimeRangeType
@@ -44,13 +45,24 @@ def member_shift_summary(context, org, show_all_users: bool = False) -> dict[str
     if show_all_users:
         user_ids = set(org.shifts.filter(time_filter).values_list('participants__user', flat=True))
         user_ids.discard(None)
-        users = BaseUser.objects.filter(pk__in=user_ids)
-    context['members'] = [{
-        'name': user.display,
-        'groups': [org.shifts.filter(time_filter, participants__user=user, shift_type__group=shift_type_group).count()
-                   for shift_type_group in groups],
-        'other': org.shifts.filter(time_filter, other_filter, participants__user=user).count()
-    } for user in users.order_by('username')]
+        filtered_user_ids = set(User.objects.filter(pk__in=user_ids).values_list('pk', flat=True))
+        filtered_dummy_users = OrganizationDummyUser.objects.filter(pk__in=user_ids)
+        filtered_user_ids.update(filtered_dummy_users.filter(claimed_by__isnull=True).values_list('pk', flat=True))
+        claimed_ids = filtered_dummy_users.filter(claimed_by__isnull=False).values_list('claimed_by__pk', flat=True)
+        filtered_user_ids.update(BaseUser.objects.filter(pk__in=claimed_ids).values_list('pk', flat=True))
+        users = BaseUser.objects.filter(pk__in=filtered_user_ids)
+    members = []
+    for user in users.order_by('username'):
+        pks = [user.pk] + list(OrganizationDummyUser.objects.filter(claimed_by=user).values_list('pk', flat=True))
+        members.append({
+            'name': user.display,
+            'groups': [
+                org.shifts.filter(time_filter, participants__user__pk__in=pks,
+                                  shift_type__group=shift_type_group).count()
+                for shift_type_group in groups],
+            'other': org.shifts.filter(time_filter, other_filter, participants__user__pk__in=pks).count()
+        })
+    context['members'] = members
     return context
 
 

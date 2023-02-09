@@ -1,0 +1,50 @@
+{% extends 'generic/form_base.html' %}
+{% load shifts %}
+{% block form %}
+  <div class="card bg-dark mb-3">
+    <div class="card-header center-items justify-content-between">
+      <div>
+        {% trans 'Imported Users' %}
+      </div>
+    </div>
+    <div class="card-body">
+      <table>
+        <thead>
+        <th>{% trans 'Name' %}</th>
+        <th>{% trans 'Claimed' %}</th>
+        <th>{% trans 'Action' %}</th>
+        </thead>
+        <tbody>
+        {% for user in users %}
+          <tr>
+            <td>{{ user.display }}</td>
+            <td>
+              {% if user.claimed_by %}
+                {{ user.claimed_by.display }}
+              {% else %}
+                -
+              {% endif %}
+            </td>
+            <td>
+              {% if user.can_be_claimed %}
+                <form action="{% url 'claim_user' organization.pk user.pk %}" method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="pk" value="{{ user.pk }}">
+                  <button type="submit">{% trans 'Claim' %}</button>
+                </form>
+              {% endif %}
+              {% if org_perms.admin and user.claimed_by %}
+                <form action="{% url 'unclaim_user' organization.pk user.pk %}" method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="pk" value="{{ user.pk }}">
+                  <button type="submit">{% trans 'Unclaim' %}</button>
+                </form>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}

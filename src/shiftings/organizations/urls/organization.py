@@ -17,6 +17,7 @@ urlpatterns = [
     path('<int:pk>/calendar/', OrganizationFeed(), name='organization_calendar'),
 
     # includes
+    path('<int:org_pk>/claim_users/', include('shiftings.organizations.urls.user')),
     path('<int:org_pk>/membership/', include('shiftings.organizations.urls.membership')),
     path('<int:org_pk>/mail/', include('shiftings.mail.urls.organization')),
 ]
