@@ -38,10 +38,29 @@
     }
   },
   {
+    "model": "shifts.shifttypegroup",
+    "pk": 1,
+    "fields": {
+      "organization": 1,
+      "order": 0,
+      "name": "Früh"
+    }
+  },
+  {
+    "model": "shifts.shifttypegroup",
+    "pk": 2,
+    "fields": {
+      "organization": 1,
+      "order": 1,
+      "name": "Spät"
+    }
+  },
+  {
     "model": "shifts.shifttype",
     "pk": 1,
     "fields": {
       "organization": 1,
+      "group": 1,
       "name": "Früh",
       "color": "#DC3545"
     }
@@ -51,6 +70,7 @@
     "pk": 2,
     "fields": {
       "organization": 1,
+      "group": 2,
       "name": "Spät",
       "color": "#DC3545"
     }
@@ -78,6 +98,7 @@
     "pk": 1,
     "fields": {
       "organization": 1,
+      "other_shifts_group_name": "Sonstige",
       "default_time_range_type": 3
     }
   },

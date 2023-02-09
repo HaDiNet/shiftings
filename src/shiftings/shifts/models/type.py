@@ -11,12 +11,14 @@ from shiftings.utils.fields.html_color import calc_text_color
 class ShiftType(models.Model):
     organization = models.ForeignKey('organizations.Organization', on_delete=models.CASCADE,
                                      verbose_name=_('Organization'), related_name='shift_types')
+    group = models.ForeignKey('ShiftTypeGroup', on_delete=models.SET_NULL, verbose_name=_('Group'),
+                              related_name='shift_types', blank=True, null=True)
     name = models.CharField(max_length=100, verbose_name=_('Name'))
     color = ColorField(default='#FD7E14', format='hex', samples=settings.SHIFT_COLOR_PALETTE)
 
     class Meta:
         default_permissions = ()
-        ordering = ['name']
+        ordering = ['group', 'name']
         constraints = [
             models.UniqueConstraint(fields=['organization', 'name'],
                                     name='shift_type_organization_name_unique_constraint'),

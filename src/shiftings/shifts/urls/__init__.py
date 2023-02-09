@@ -5,5 +5,6 @@ urlpatterns = [
     path('recurring/', include('shiftings.shifts.urls.recurring')),
     path('summary/', include('shiftings.shifts.urls.summary')),
     path('template/', include('shiftings.shifts.urls.templates')),
-    path('type/', include('shiftings.shifts.urls.type'))
+    path('type/', include('shiftings.shifts.urls.type')),
+    path('groups/', include('shiftings.shifts.urls.type_group')),
 ]

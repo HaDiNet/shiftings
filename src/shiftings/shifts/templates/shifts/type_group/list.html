@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  Shift Type Groups {{ organization }}
+  <table class="table table-responsive-sm table-dark table-striped table-hover table-bordered align-middle">
+    <tr>
+      <th>{% trans 'Name' %}</th>
+      <th>{% trans 'Actions' %}</th>
+    </tr>
+    {% for group in groups %}
+      <tr>
+        <td>{{ group.name }}</td>
+        <td>Edit, Up, Down</td>
+      </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

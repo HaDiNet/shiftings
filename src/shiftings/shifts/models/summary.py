@@ -8,6 +8,8 @@ from shiftings.utils.time.timerange import TimeRangeType
 class OrganizationSummarySettings(models.Model):
     organization = models.OneToOneField('organizations.Organization', on_delete=models.CASCADE,
                                         related_name='summary_settings')
+    other_shifts_group_name = models.CharField(max_length=30, verbose_name=_('"Other" Shift Type Group Name'),
+                                               default='Other')
     default_time_range_type = models.PositiveSmallIntegerField(choices=TimeRangeType.choices,
                                                                verbose_name=_('Default time range for summary'),
                                                                default=TimeRangeType.HalfYear)
