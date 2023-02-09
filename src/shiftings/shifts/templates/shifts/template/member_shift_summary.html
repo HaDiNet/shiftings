@@ -1,11 +1,11 @@
 <table class="table table-dark table-fixed table-hover text-center m-0">
   <thead>
   <th>{% trans 'Member' %}</th>
-  {% for type in groups %}
-    <th>{{ type.name }}</th>
+  {% for group in groups %}
+    <th>{{ group.name }}</th>
   {% endfor %}
-  {% if has_other_types %}
-    <th>{% trans 'Other' %}</th>
+  {% if has_others %}
+    <th>{{ organization.summary_settings.other_shifts_group_name }}</th>
   {% endif %}
   </thead>
   <tbody>
@@ -15,7 +15,7 @@
       {% for group in member.groups %}
         <td>{{ group }}</td>
       {% endfor %}
-      {% if has_other_types %}
+      {% if has_others %}
         <td>{{ member.other }}</td>
       {% endif %}
     </tr>
