@@ -64,6 +64,7 @@ class RecurringShiftCreateShiftsView(OrganizationPermissionMixin, SingleObjectMi
     model = RecurringShift
 
     object: RecurringShift
+    create_date: date
 
     def get(self, request, *args, **kwargs):
         messages.error(self.request, _('Forbidden Method GET'))
@@ -77,6 +78,7 @@ class RecurringShiftCreateShiftsView(OrganizationPermissionMixin, SingleObjectMi
         return self.get_object().organization
 
     def form_valid(self, form: BaseForm) -> HttpResponse:
+        self.create_date = form.cleaned_data['create_date']
         self.object.create_shifts(form.cleaned_data['create_date'])
         messages.success(self.request, _('Created Shifts on {}').format(form.cleaned_data['create_date']))
         return super().form_valid(form)
@@ -86,4 +88,4 @@ class RecurringShiftCreateShiftsView(OrganizationPermissionMixin, SingleObjectMi
         return HttpResponseRedirect(self.object.get_absolute_url())
 
     def get_success_url(self):
-        return self.object.get_absolute_url()
+        return reverse('overview_day', args=[self.create_date])

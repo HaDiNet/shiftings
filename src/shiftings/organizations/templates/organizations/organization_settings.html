@@ -1,0 +1,76 @@
+{% extends 'generic/dual_column.html' %}
+
+{% block top_level %}
+  {% include "template/remove_modal.html" with remove_target_from=organization.name %}
+{% endblock %}
+{% block left %}
+  <div class="sticky-top">
+    {% include "organizations/template/org_info.html" %}
+  </div>
+{% endblock %}
+
+{% block right %}
+  <div class="card bg-dark mt-3">
+    <div class="card-body">
+      <form method="post" action="{% url 'edit_summary_settings' organization.summary_settings.pk %}">
+        {% csrf_token %}
+        {% bootstrap_form summary_settings_form %}
+        <button class="btn btn-success">
+          {% trans "Save" %}
+        </button>
+      </form>
+    </div>
+  </div>
+  <div class="card bg-dark mt-3">
+    <div class="card-header center-items justify-content-between">
+      <h4>{% trans "Shift Type Groups" %}</h4>
+      <div>
+        <a class="btn btn-success" href="{% url "shift_type_group_create" organization.pk %}"
+           title="{% trans "Create Type Group" %}">
+          <i class="fa-solid fa-plus"></i>
+        </a>
+      </div>
+    </div>
+    <div class="card-body center-items">
+      <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+          <th>{% trans "Order" %}</th>
+          <th>{% trans "Name" %}</th>
+          <th>{% trans "Types" %}</th>
+          <th>{% trans "Action" %}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for type_group in organization.shift_type_groups.all %}
+          <tr>
+            <td>{{ type_group.order }}</td>
+            <td>{{ type_group.name }}</td>
+            <td>
+              <div>
+                {% for shift_type in type_group.shift_types.all %}
+                  <div class="badge"
+                       style="background-color: {{ shift_type.color }}; color: {{ shift_type.text_color }}">
+                    {{ shift_type }}
+                  </div>
+                {% endfor %}
+              </div>
+            </td>
+            <td class="align">
+              <a class="btn btn-primary" href="{% url "shift_type_group_update" type_group.pk %}"
+                 title="{% trans "Edit Type Group" %}">
+                <i class="fas fa-pencil-square"></i>
+              </a>
+              <a class="btn btn-danger" data-bs-toggle="modal" href="#confirmRemoveModal"
+                 role="button" data-bs-remove-name="{{ type_group.name }}"
+                 data-bs-remove-url="{% url 'shift_type_group_remove' type_group.pk %}">
+                <i class="fas fa-trash"></i>
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}

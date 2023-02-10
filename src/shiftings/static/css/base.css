@@ -110,6 +110,10 @@ input:disabled {
   border-color: var(--bs-danger) !important;
 }
 
+.btn.active {
+  background-color: var(--bs-green) !important;
+}
+
 .card-link:hover {
   border: 2px solid var(--bs-green) !important;
 }

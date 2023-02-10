@@ -23,6 +23,14 @@ def active_param(context: dict[str, Any], param_name: str, param_value: Any) -> 
     return ''
 
 
+@register.simple_tag(takes_context=True)
+def active(context: dict[str, Any], url: str) -> str:
+    print(context.get('request').path, url)
+    if str(context.get('request').path) == url:
+        return 'active'
+    return ''
+
+
 @register.simple_tag()
 def form_border(is_create: bool) -> str:
     return 'border-success' if is_create else 'border-primary'

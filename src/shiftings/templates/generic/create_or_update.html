@@ -2,11 +2,11 @@
 {% block form %}
   <div class="card bg-dark border border-2 {% if is_create %}border-success{% else %}border-primary{% endif %} p-3">
     {% if is_create %}
-      {% blocktrans with object=model_name %}
+      {% blocktrans with object=model_name.title %}
         <h4>Create {{ object }}</h4>
       {% endblocktrans %}
     {% else %}
-      {% blocktrans with object_name=model_name %}
+      {% blocktrans with object_name=model_name.title %}
         <h4>Update {{ object_name }}</h4>
       {% endblocktrans %}
     {% endif %}

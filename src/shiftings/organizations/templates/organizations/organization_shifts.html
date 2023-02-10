@@ -2,58 +2,13 @@
 {% load shifts %}
 
 {% block left %}
-  <div class="base-card card bg-dark my-3">
-    <div class="card-header center-items justify-content-between">
-      <h3 class="m-0">
-        {{ organization.name }}
-      </h3>
-      <div>
-        {% if org_perms.see_admin_page %}
-          <a class="btn btn-info" href="{% url 'organization_admin' organization.pk %}"
-             title="{% trans "Administrate Organization" %}">
-            <i class="fas fa-building-shield"></i>
-          </a>
-        {% endif %}
-        {% if org_perms.edit_organizations %}
-          <a class="btn btn-success" href="{% url 'organization_update' organization.pk %}"
-             title="{% trans "Edit Organization" %}">
-            <i class="fas fa-edit"></i>
-          </a>
-        {% endif %}
-      </div>
-    </div>
-    <div class="card-body">
-      {% if organization.logo %}
-        <div class="organization-detail-logo">
-          <img src="{{ organization.logo.url }}" alt="{% trans 'Logo' %}" />
-        </div>
-      {% endif %}
-      <dl class="detail-horizontal">
-        <dt>Email</dt>
-        <dd>{{ organization.email }}</dd>
-        <dt>Telephone</dt>
-        <dd>{{ organization.telephone_number }}</dd>
-        <dt>Website</dt>
-        <dd>{{ organization.website }}</dd>
-        <dt>Description</dt>
-        <dd class="organization-description">{{ organization.description|default:'None'|linebreaks }}</dd>
-      </dl>
-    </div>
-  </div>
+  {% url 'organization_admin' organization.pk as admin_url %}
+  {% include "organizations/template/org_info.html" with settings_url=admin_url %}
   {% if org_perms.see_statistics %}
     <div class="mt-3 card base-card bg-dark">
       <div class="card-header center-items justify-content-between">
         <h3>{% trans "Member Shift Summary" %}</h3>
         <div class="center-items">
-          {% url 'edit_summary_settings' organization.summary_settings.pk as edit_summary_url %}
-          {% simpleformmodal 'summarySettings' _('Summary Settings') edit_summary_url organization.get_absolute_url %}
-            {% csrf_token %}
-            {% bootstrap_form summary_settings_form %}
-          {% endsimpleformmodal %}
-          <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#summarySettingsModal"
-                  data-bs-date="{{ date }}" title="{% trans "Set default Summary" %}">
-            <i class="fas fa-filter"></i>
-          </button>
           <a class="btn btn-info w-100 ms-1" href="{% url 'organization_shift_summary' organization.pk %}">
             <i title="{% trans "Full Summary" %}" class="fas fa-ranking-star me-2"></i>
           </a>

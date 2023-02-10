@@ -34,42 +34,7 @@
 
 {% block left %}
   <div class="sticky-top">
-    <div class="base-card card bg-dark my-3">
-      <div class="card-header center-items justify-content-between">
-        <h3 class="m-0">
-          {{ organization.name }}
-        </h3>
-        <div>
-          <a class="btn btn-info" href="{% url 'organization' organization.pk %}"
-             title="{% trans "Shift Overview" %}">
-            <i class="fas fa-table-list"></i>
-          </a>
-          {% if org_perms.edit_organization %}
-            <a class="btn btn-success" href="{% url 'organization_update' organization.pk %}"
-               title="{% trans "Edit Organization" %}">
-              <i class="fas fa-edit"></i>
-            </a>
-          {% endif %}
-        </div>
-      </div>
-      <div class="card-body">
-        {% if organization.logo %}
-          <div class="organization-detail-logo">
-            <img src="{{ organization.logo.url }}" alt="{% trans 'Logo' %}" />
-          </div>
-        {% endif %}
-        <dl class="detail-horizontal">
-          <dt>Email</dt>
-          <dd>{{ organization.email }}</dd>
-          <dt>Telephone</dt>
-          <dd>{{ organization.telephone_number }}</dd>
-          <dt>Website</dt>
-          <dd>{{ organization.website }}</dd>
-          <dt>Description</dt>
-          <dd class="organization-description">{{ organization.description|default:'None'|linebreaks }}</dd>
-        </dl>
-      </div>
-    </div>
+    {% include "organizations/template/org_info.html" %}
     <div class="card base-card bg-dark mb-3 p-2">
       <div class="row g-1">
         <div class="col-12 col-lg-6">
