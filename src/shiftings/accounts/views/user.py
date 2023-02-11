@@ -30,9 +30,7 @@ class UserProfileView(BaseLoginMixin, DetailView):
         context = super().get_context_data(**kwargs)
         today = date.today()
         if self.request.path == reverse('user_profile_past'):
-            shifts = Shift.objects.filter(Q(start__date__lte=today) &
-                                          (Q(event__in=self.object.events) |
-                                           Q(organization__in=self.object.organizations)))
+            shifts = Shift.objects.filter(start__date__lt=today, participants__user=self.object)
         else:
             shifts = Shift.objects.filter(Q(start__date__gte=today) &
                                           (Q(event__in=self.object.events) |

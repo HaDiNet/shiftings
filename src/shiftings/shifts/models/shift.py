@@ -99,5 +99,8 @@ class Shift(ShiftBase):
             return self.event.can_see(user)
         return self.organization.is_member(user)
 
+    def is_participant(self, user: User) -> bool:
+        return user.pk in self.participants.values_list('user__pk', flat=True)
+
     def get_absolute_url(self) -> str:
         return reverse('shift', args=[self.pk])

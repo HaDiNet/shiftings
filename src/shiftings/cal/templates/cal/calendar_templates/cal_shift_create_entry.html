@@ -6,5 +6,7 @@
     </button>
   </div>
 {% elif request.user.organizations|length == 1 %}
-  <a class="card calendar-shift-create" href="{% url "shift_create" user.organizations.0.pk %}"><i class="fa-solid fa-plus"></i></a>
+  <a class="card calendar-shift-create" href="{% url "shift_create" user.organizations.0.pk %}?date={{ date }}">
+    <i class="fa-solid fa-plus"></i>
+  </a>
 {% endif %}

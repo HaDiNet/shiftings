@@ -36,7 +36,9 @@ class ShiftDetailView(UserPassesTestMixin, BaseLoginMixin, DetailView):
         context.update({
             'add_self_form': AddSelfParticipantForm(self.object, initial={
                 'user': self.request.user,
-            })
+            }),
+            'current_date': date.today(),
+            'user_is_participant': self.object.is_participant(self.request.user)
         })
         return context
 

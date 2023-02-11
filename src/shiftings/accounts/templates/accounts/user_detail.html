@@ -90,7 +90,12 @@
 {% block right %}
   <div class="card bg-dark mt-2">
     <div class="card-header center-items justify-content-between">
-      <h4>{% trans "My Upcoming Shifts" %}</h4>
+      {% url "user_profile_past" as past_url %}
+      {% if request.path == past_url %}
+        <h4>{% trans "My recent Shifts" %}</h4>
+      {% else %}
+        <h4>{% trans "My upcoming Shifts" %}</h4>
+      {% endif %}
       <div class="center-items">
         <div class="dropdown">
           {% if filter_object %}
@@ -113,10 +118,9 @@
             {% endfor %}
           </ul>
         </div>
-        {% url "user_profile_past" as past_url %}
         {% if request.path == past_url %}
           <a class="btn btn-secondary" href="{% url "user_profile" %}?{{ request.GET.urlencode }}">
-            <i class="fa-solid fa-hourglass-end" title="{% trans "Past Shifts" %}"></i>
+            <i class="fa-solid fa-hourglass-end" title="{% trans "Upcoming Shifts" %}"></i>
           </a>
         {% else %}
           <a class="btn btn-secondary" href="{{ past_url }}?{{ request.GET.urlencode }}">
@@ -139,7 +143,11 @@
         {% endif %}
       {% else %}
         <div class="center-items p-3">
-          <h4>{% trans "No upcoming shifts" %}</h4>
+          {% if request.path == past_url %}
+            <h4>{% trans "No recent Shifts" %}</h4>
+          {% else %}
+            <h4>{% trans "No upcoming shifts" %}</h4>
+          {% endif %}
         </div>
       {% endif %}
     </div>

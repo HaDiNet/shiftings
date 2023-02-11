@@ -16,8 +16,13 @@ register = template.Library()
 
 @register.inclusion_tag('shifts/template/shift_card.html', takes_context=True)
 def shift_card(context, shift) -> dict[str, Any]:
-    context['shift'] = shift
-    context['add_self_form'] = AddSelfParticipantForm(shift, initial={'user': context['request'].user})
+    context.update({
+        'shift': shift,
+        'organization': shift.organization,
+        'current_date': date.today(),
+        'add_self_form': AddSelfParticipantForm(shift, initial={'user': context['request'].user}),
+        'user_is_participant': shift.is_participant(context['request'].user),
+    })
     return context
 
 
