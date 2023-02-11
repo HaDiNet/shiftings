@@ -16,8 +16,8 @@ class OrganizationPermissionMiddleware:
         if 'organization' in response.context_data:
             setattr(request, 'organization', response.context_data['organization'])
             return response
-        for obj in response.context_data.values():
-            if isinstance(obj, Organization):
+        for key, obj in response.context_data.items():
+            if isinstance(obj, Organization) and key == 'organization':
                 setattr(request, 'organization', response.context_data['organization'])
                 return response
         for obj in response.context_data.values():

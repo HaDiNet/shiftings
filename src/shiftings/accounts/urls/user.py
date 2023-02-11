@@ -21,6 +21,7 @@ urlpatterns: List[Any] = [
     # user
     path('register/', UserRegisterView.as_view(), name='register'),
     path('profile/', UserProfileView.as_view(), name='user_profile'),
+    path('profile/past/', UserProfileView.as_view(), name='user_profile_past'),
     path('edit/', UserEditView.as_view(), name='user_edit_self'),
     path('password_reset/', PasswordResetView.as_view(), name='password_reset'),
     path('password_reset_done/', TemplateView.as_view(template_name='accounts/password_reset/done.html'),
