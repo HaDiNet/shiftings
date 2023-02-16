@@ -1,6 +1,9 @@
+from abc import ABC
 from typing import Any
 
+from django.db import transaction
 from django.db.models import QuerySet
+from django.forms import ModelForm
 from django.http import HttpResponse
 from django.urls import reverse
 from django.views.generic import DetailView, ListView
@@ -69,3 +72,43 @@ class ShiftTypeGroupRemoveView(OrganizationAdminMixin, DeleteView):
 
     def get_success_url(self) -> str:
         return reverse('organization_settings', args=[self.get_organization().pk])
+
+
+class ShiftTypeGroupMoveView(OrganizationAdminMixin, CreateOrUpdateView[ShiftTypeGroup]):
+    http_method_names = 'post'
+    model = ShiftTypeGroup
+    fields = []
+    compare: int
+
+    def get_organization(self) -> Organization:
+        return self.get_object().organization
+
+    def form_valid(self, form: ModelForm) -> HttpResponse:
+        pk = form.instance.pk
+        groups: list[ShiftTypeGroup] = list(ShiftTypeGroup.objects.filter(organization=self.get_organization()))
+        for i, group in enumerate(groups):
+            if group.pk != pk:
+                continue
+            if i + self.compare < 0 or i + self.compare >= len(groups):
+                break
+            other_group: ShiftTypeGroup = groups[i + self.compare]
+            orders = other_group.order, group.order
+            with transaction.atomic():
+                other_group.order = group.order
+                group.order = ShiftTypeGroup.get_next_free_order(group.organization)
+                group.save()
+                other_group.save()
+            group.order = orders[0]
+            group.save()
+        return self.success
+
+    def get_success_url(self) -> str:
+        return reverse('organization_settings', args=[self.get_organization().pk])
+
+
+class ShiftTypeGroupMoveUpView(ShiftTypeGroupMoveView):
+    compare = -1
+
+
+class ShiftTypeGroupMoveDownView(ShiftTypeGroupMoveView):
+    compare = 1

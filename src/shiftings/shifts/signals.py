@@ -1,6 +1,5 @@
 from typing import Any
 
-from django.db.models import Max
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 
@@ -18,6 +17,4 @@ def create_organization_summary_settings(instance: Organization, created: bool, 
 @receiver(pre_save, sender=ShiftTypeGroup)
 def set_order(instance: ShiftTypeGroup, **kwargs: Any) -> None:
     if instance.order is None:
-        instance.order = ShiftTypeGroup.objects \
-                             .filter(organization=instance.organization) \
-                             .aggregate(Max('order'))['order__max'] + 1
+        instance.order = ShiftTypeGroup.get_next_free_order(instance.organization)

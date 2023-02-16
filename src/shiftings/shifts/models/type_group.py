@@ -1,7 +1,12 @@
-from colorfield.fields import ColorField
-from django.conf import settings
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+
+if TYPE_CHECKING:
+    from shiftings.organizations.models import Organization
 
 
 class ShiftTypeGroup(models.Model):
@@ -26,3 +31,7 @@ class ShiftTypeGroup(models.Model):
     @property
     def display(self) -> str:
         return self.name
+
+    @staticmethod
+    def get_next_free_order(organization: Organization) -> int:
+        return ShiftTypeGroup.objects.filter(organization=organization).aggregate(models.Max('order'))['order__max'] + 1
