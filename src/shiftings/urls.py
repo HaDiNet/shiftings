@@ -40,4 +40,4 @@ urlpatterns.extend(static(settings.STATIC_URL, document_root=settings.STATIC_ROO
 urlpatterns.extend(static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT))
 
 if not settings.DEBUG:
-    urlpatterns.extend(re_path(r'^media/(?P<file>.*)$', serve_protected, name='serve_protected_media'),)
+    urlpatterns.append(re_path(r'^media/(?P<file>.*)$', serve_protected, name='serve_protected_media'),)

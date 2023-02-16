@@ -1,17 +1,19 @@
 import posixpath
+from pathlib import Path
 
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django.utils._os import safe_join
 
 
 @login_required
 def serve_protected(request, path: str):
     path = posixpath.normpath(path).lstrip("/")
-    _, name = path.rsplit('/', 1)
+    fullpath = Path(safe_join(settings.MEDIA_ROOT, path))
     response = HttpResponse()
-    response["Content-Disposition"] = "attachment; filename=" + name
     # nginx uses this path to serve the file
-    response["X-Accel-Redirect"] = path
+    response["X-Accel-Redirect"] = fullpath
     # apache uses this path to send a file
-    response["X-SENDFILE"] = path
+    response["X-SENDFILE"] = fullpath
     return response
