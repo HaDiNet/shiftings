@@ -2,13 +2,23 @@
 {% load shifts %}
 {% block form %}
   <div class="card bg-dark mb-3">
-    <div class="card-header center-items justify-content-between">
+    <div class="card-header d-flex flex-column">
       <div>
-        {% trans "Shift Summary" %} {{ display }}
+        <h4>{% trans "Shift Summary" %} {{ display }}</h4>
       </div>
-      <div>
-        <a href="{{ previous_url }}"><< {{ previous_display }}</a>
-        <a href="{{ next_url }}">{{ next_display }} >></a>
+      <div class="center-items flex-column flex-sm-row">
+        <a class="btn btn-success me-0 me-sm-2 mb-2 mb-sm-0" href="{{ previous_url }}"><i
+            class="fas fa-angles-left"></i> {{ previous_display }}
+        </a>
+        <form method="get">
+          <div class="center-items">
+            {% bootstrap_form select_timerange_form show_label=False wrapper_class='' %}
+            <button class="btn btn-secondary ms-1" type="submit"><i class="fas fa-filter"></i></button>
+          </div>
+        </form>
+        <a class="btn btn-success ms-0 ms-sm-2 mt-2 mt-sm-0" href="{{ next_url }}">
+          {{ next_display }} <i class="fas fa-angles-right"></i>
+        </a>
       </div>
     </div>
     <div class="card-body">

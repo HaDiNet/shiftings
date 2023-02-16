@@ -7,6 +7,7 @@ from django.views.generic import DetailView
 
 from shiftings.organizations.models import Organization
 from shiftings.organizations.views.organization_base import OrganizationPermissionMixin
+from shiftings.shifts.forms.summary import SelectSummaryTimeRangeForm
 from shiftings.utils.time.timerange import TimeRangeType
 
 
@@ -47,4 +48,10 @@ class OrganizationShiftSummaryView(OrganizationPermissionMixin, DetailView):
         next_date = end + timedelta(days=1)
         context_data['next_display'] = time_range.display(next_date.year, next_date.month)
         context_data['next_url'] = get_url(next_date)
+        context_data['select_timerange_form'] = SelectSummaryTimeRangeForm(
+            initial={
+                'time_range': time_range,
+                'year': year,
+                'month': month,
+            })
         return context_data
