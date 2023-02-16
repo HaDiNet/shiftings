@@ -16,8 +16,10 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import include, path, re_path
 from django.views.generic import RedirectView, TemplateView
+
+from shiftings.utils.views.protected_content import serve_protected
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -35,3 +37,6 @@ urlpatterns = [
 
 urlpatterns.extend(static(settings.STATIC_URL, document_root=settings.STATIC_ROOT, show_indexes=True))
 urlpatterns.extend(static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT))
+
+if not settings.DEBUG:
+    urlpatterns.extend(re_path(r'^media/(?P<file>.*)$', serve_protected, name='serve_protected_media'),)
