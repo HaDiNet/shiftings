@@ -58,12 +58,18 @@ class OrganizationShiftSummaryView(OrganizationPermissionMixin, DetailView):
         month = get_int('month', date.today().month)
         context_data['display'] = time_range.display(year, month)
         start, end = time_range.get_time_range(year, month)
-        previous_date = start - timedelta(days=1)
-        context_data['previous_display'] = time_range.display(previous_date.year, previous_date.month)
-        context_data['previous_url'] = get_url(previous_date)
-        next_date = end + timedelta(days=1)
-        context_data['next_display'] = time_range.display(next_date.year, next_date.month)
-        context_data['next_url'] = get_url(next_date)
+        try:
+            previous_date = start - timedelta(days=1)
+            context_data['previous_display'] = time_range.display(previous_date.year, previous_date.month)
+            context_data['previous_url'] = get_url(previous_date)
+        except OverflowError:
+            pass
+        try:
+            next_date = end + timedelta(days=1)
+            context_data['next_display'] = time_range.display(next_date.year, next_date.month)
+            context_data['next_url'] = get_url(next_date)
+        except OverflowError:
+            pass
         context_data['select_timerange_form'] = SelectSummaryTimeRangeForm(
             initial={
                 'time_range': time_range,

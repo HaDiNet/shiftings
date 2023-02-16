@@ -7,18 +7,22 @@
         <h4>{% trans "Shift Summary" %} {{ display }}</h4>
       </div>
       <div class="center-items flex-column flex-sm-row">
-        <a class="btn btn-success me-0 me-sm-2 mb-2 mb-sm-0" href="{{ previous_url }}"><i
-            class="fas fa-angles-left"></i> {{ previous_display }}
-        </a>
+        {% if previous_url %}
+          <a class="btn btn-success me-0 me-sm-2 mb-2 mb-sm-0" href="{{ previous_url }}"><i
+              class="fas fa-angles-left"></i> {{ previous_display }}
+          </a>
+        {% endif %}
         <form method="get">
           <div class="center-items">
             {% bootstrap_form select_timerange_form show_label=False wrapper_class='' %}
             <button class="btn btn-secondary ms-1" type="submit"><i class="fas fa-filter"></i></button>
           </div>
         </form>
-        <a class="btn btn-success ms-0 ms-sm-2 mt-2 mt-sm-0" href="{{ next_url }}">
-          {{ next_display }} <i class="fas fa-angles-right"></i>
-        </a>
+        {% if next_url %}
+          <a class="btn btn-success ms-0 ms-sm-2 mt-2 mt-sm-0" href="{{ next_url }}">
+            {{ next_display }} <i class="fas fa-angles-right"></i>
+          </a>
+        {% endif %}
       </div>
     </div>
     <div class="card-body">

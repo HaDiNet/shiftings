@@ -1,5 +1,5 @@
 import calendar
-from datetime import date, datetime
+from datetime import date, datetime, MINYEAR, MAXYEAR
 from typing import Optional
 
 from django.db import models
@@ -34,10 +34,13 @@ class TimeRangeType(models.IntegerChoices):
         return f'{start.year} - {end.year}'
 
     def get_time_range(self, year: int, month: int) -> tuple[datetime, datetime]:
+        def fix(_year: int) -> int:
+            return min(max(_year, MINYEAR), MAXYEAR)
+
         start_year, end_year = self.get_years(year)
         start_month, end_month = self.get_months(month)
-        return (datetime(start_year, start_month, 1),
-                datetime(end_year, end_month, calendar.monthrange(end_year, end_month)[1], 23, 59, 59, 999999))
+        return (datetime(fix(start_year), start_month, 1),
+                datetime(fix(end_year), end_month, calendar.monthrange(end_year, end_month)[1], 23, 59, 59, 999999))
 
     def get_months(self, month: int) -> tuple[int, int]:
         if self is TimeRangeType.Month:
