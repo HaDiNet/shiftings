@@ -4,7 +4,11 @@
   <div class="card bg-dark mb-3">
     <div class="card-header center-items justify-content-between">
       <div>
-        {% trans "Shift Summary" %}
+        {% trans "Shift Summary" %} {{ display }}
+      </div>
+      <div>
+        <a href="{{ previous_url }}"><< {{ previous_display }}</a>
+        <a href="{{ next_url }}">{{ next_display }} >></a>
       </div>
     </div>
     <div class="card-body">

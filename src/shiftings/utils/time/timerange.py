@@ -1,8 +1,11 @@
 import calendar
-from datetime import datetime
+from datetime import date, datetime
+from typing import Optional
 
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+
+from shiftings.utils.time.month import Month
 
 
 class TimeRangeType(models.IntegerChoices):
@@ -13,6 +16,22 @@ class TimeRangeType(models.IntegerChoices):
     Decade = 5, _('Decade')
     Century = 6, _('Century')
     Millennium = 7, _('Millennium')
+
+    def display(self, year: Optional[int] = None, month: Optional[int] = None) -> str:
+        if year is None:
+            year = date.today().year
+        if month is None:
+            month = date.today().month
+        if self is TimeRangeType.Month:
+            return f'{Month(month).label} {year}'
+        if self is TimeRangeType.Quarter:
+            return f'{(month - 1) // 3 + 1}. {self.label} {year}'
+        if self is TimeRangeType.HalfYear:
+            return f'{(month - 1) // 6 + 1}. {self.label} {year}'
+        if self is TimeRangeType.Year:
+            return f'{year}'
+        start, end = self.get_time_range(year, month)
+        return f'{start.year} - {end.year}'
 
     def get_time_range(self, year: int, month: int) -> tuple[datetime, datetime]:
         start_year, end_year = self.get_years(year)
