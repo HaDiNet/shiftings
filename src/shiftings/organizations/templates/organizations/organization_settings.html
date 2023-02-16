@@ -61,23 +61,35 @@
                  title="{% trans "Edit Type Group" %}">
                 <i class="fas fa-pencil-square"></i>
               </a>
-              <a class="btn btn-danger" data-bs-toggle="modal" href="#confirmRemoveModal"
+              <a class="btn btn-danger ms-1" data-bs-toggle="modal" href="#confirmRemoveModal"
                  role="button" data-bs-remove-name="{{ type_group.name }}"
                  data-bs-remove-url="{% url 'shift_type_group_remove' type_group.pk %}">
                 <i class="fas fa-trash"></i>
               </a>
-              <form action="{% url 'shift_type_group_move_up' type_group.pk %}" method="post">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-secondary" title="{% trans 'Move Up' %}">
+              {% if not forloop.first %}
+                <form class="ms-2" action="{% url 'shift_type_group_move_up' type_group.pk %}" method="post">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-secondary" title="{% trans 'Move Up' %}">
+                    <i class="fas fa-caret-up"></i>
+                  </button>
+                </form>
+                {% else %}
+                <button type="button" class="btn btn-secondary ms-2 disabled" title="{% trans 'Move Up' %}">
                   <i class="fas fa-caret-up"></i>
                 </button>
-              </form>
-              <form action="{% url 'shift_type_group_move_down' type_group.pk %}" method="post">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-secondary" title="{% trans 'Move Down' %}">
+              {% endif %}
+              {% if not forloop.last %}
+                <form class="ms-1" action="{% url 'shift_type_group_move_down' type_group.pk %}" method="post">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-secondary" title="{% trans 'Move Down' %}">
+                    <i class="fas fa-caret-down"></i>
+                  </button>
+                </form>
+              {% else %}
+                <button type="button" class="btn btn-secondary ms-1 disabled" title="{% trans 'Move Down' %}">
                   <i class="fas fa-caret-down"></i>
                 </button>
-              </form>
+              {% endif %}
             </td>
           </tr>
         {% endfor %}
