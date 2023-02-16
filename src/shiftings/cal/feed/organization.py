@@ -15,7 +15,7 @@ class OrganizationFeed(ShiftFeed[Organization]):
         if not request.user.is_authenticated:
             raise Http403()
         org: Organization = Organization.objects.get(pk=kwargs['pk'])
-        if not org.is_member(request.user):
+        if not org.is_member(request.user) and not org.is_admin(request.user):
             raise Http403()
         return org
 
@@ -24,6 +24,9 @@ class OrganizationFeed(ShiftFeed[Organization]):
 
     def title(self, obj: Organization) -> str:
         return obj.display
+
+    def description(self, obj: Organization) -> str:
+        return obj.description
 
     def items(self, obj: Organization) -> QuerySet[Shift]:
         return obj.shifts.filter(end__gte=date.today())

@@ -26,11 +26,14 @@ class EventFeed(ShiftFeed[Event]):
     def title(self, obj: Event) -> str:
         return obj.display
 
+    def description(self, obj: Event) -> str:
+        return obj.description
+
     def items(self, obj: Event) -> QuerySet[Shift]:
         return obj.shifts.filter(end__gte=date.today())
 
 
-class PublicEventsFeed(ShiftFeed):
+class PublicEventsFeed(ShiftFeed[Event]):
     def get_object(self, request: HttpRequest, *args: Any, **kwargs: Any) -> None:
         return None
 
@@ -39,6 +42,9 @@ class PublicEventsFeed(ShiftFeed):
 
     def title(self, obj: Event) -> str:
         return _('Public Events')
+
+    def description(self, obj: Event) -> str:
+        return obj.description
 
     def items(self, obj: Event) -> QuerySet[Shift]:
         return Shift.objects.filter(event__public=True)

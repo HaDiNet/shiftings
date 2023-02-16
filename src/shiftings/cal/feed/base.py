@@ -32,8 +32,9 @@ class ShiftFeed(ABC, ICalFeed, Generic[T]):
     def title(self, obj: T) -> str:
         pass
 
+    @abstractmethod
     def description(self, obj: T) -> str:
-        return ''
+        pass
 
     @abstractmethod
     def items(self, obj: T) -> QuerySet[Shift]:

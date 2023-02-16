@@ -21,6 +21,9 @@ class UserFeed(ShiftFeed[User]):
     def title(self, obj: User) -> str:
         return obj.display
 
+    def description(self, obj: User) -> str:
+        return ''
+
     def items(self, obj: User) -> QuerySet[Shift]:
         organizations = obj.organizations
         query = Q(organization__in=organizations)
