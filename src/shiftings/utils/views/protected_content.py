@@ -1,3 +1,4 @@
+import mimetypes
 import posixpath
 from pathlib import Path
 
@@ -11,7 +12,10 @@ from django.utils._os import safe_join
 def serve_protected(request, file: str):
     path = posixpath.normpath(file).lstrip("/")
     fullpath = Path(safe_join(settings.MEDIA_ROOT, path))
+    content_type, encoding = mimetypes.guess_type(str(fullpath))
+    content_type = content_type or "application/octet-stream"
     response = HttpResponse()
+    response['Content-Type'] = content_type
     # nginx uses this path to serve the file
     if settings.SERVE_MEDIA_SERVER == 'nginx':
         response["X-Accel-Redirect"] = str(fullpath)
