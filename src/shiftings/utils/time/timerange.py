@@ -20,8 +20,12 @@ class TimeRangeType(models.IntegerChoices):
     def display(self, year: Optional[int] = None, month: Optional[int] = None) -> str:
         if year is None:
             year = date.today().year
+        else:
+            year = min(max(year, MINYEAR), MAXYEAR)
         if month is None:
             month = date.today().month
+        else:
+            month = min(max(month, 1), 12)
         if self is TimeRangeType.Month:
             return f'{Month(month).label} {year}'
         if self is TimeRangeType.Quarter:
@@ -34,13 +38,16 @@ class TimeRangeType(models.IntegerChoices):
         return f'{start.year} - {end.year}'
 
     def get_time_range(self, year: int, month: int) -> tuple[datetime, datetime]:
-        def fix(_year: int) -> int:
-            return min(max(_year, MINYEAR), MAXYEAR)
+        def fix_years(start: int, end: int) -> tuple[int, int]:
+            return min(max(start, MINYEAR), MAXYEAR), min(max(end, MINYEAR), MAXYEAR)
 
-        start_year, end_year = self.get_years(year)
-        start_month, end_month = self.get_months(month)
-        return (datetime(fix(start_year), start_month, 1),
-                datetime(fix(end_year), end_month, calendar.monthrange(end_year, end_month)[1], 23, 59, 59, 999999))
+        def fix_months(start: int, end: int) -> tuple[int, int]:
+            return min(max(start, 1), 12), min(max(end, 1), 12)
+
+        start_year, end_year = fix_years(*self.get_years(year))
+        start_month, end_month = fix_months(*self.get_months(month))
+        return (datetime(start_year, start_month, 1),
+                datetime(end_year, end_month, calendar.monthrange(end_year, end_month)[1], 23, 59, 59, 999999))
 
     def get_months(self, month: int) -> tuple[int, int]:
         if self is TimeRangeType.Month:
