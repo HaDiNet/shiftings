@@ -19,11 +19,12 @@ from django.contrib import admin
 from django.urls import include, path, re_path
 from django.views.generic import RedirectView, TemplateView
 
+from shiftings.accounts.views.landing_page import LandingPageView
 from shiftings.utils.views.protected_content import serve_protected
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', TemplateView.as_view(template_name='base.html')),
+    path('', LandingPageView.as_view()),
     path('i18n/', include('django.conf.urls.i18n')),
     path('user/', include('shiftings.accounts.urls.user')),
     path('shifts/', include('shiftings.shifts.urls')),
