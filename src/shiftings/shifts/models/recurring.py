@@ -53,7 +53,7 @@ class RecurringShift(models.Model):
 
     color = ColorField(default='#FD7E14', format='hex', samples=settings.SHIFT_COLOR_PALETTE)
 
-    manually_disabled = models.BooleanField(verbose_name=_('Manuelly Disabled'), default=False)
+    manually_disabled = models.BooleanField(verbose_name=_('Manually Disabled'), default=False)
 
     class Meta:
         default_permissions = ()
