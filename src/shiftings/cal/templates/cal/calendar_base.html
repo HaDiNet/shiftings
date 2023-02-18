@@ -43,7 +43,8 @@
               <div class="d-flex flex-row flex-wrap">
                 {% for org in request.user.organizations %}
                   <div class="mx-2 mb-3">
-                    <a class="btn btn-secondary {% active_param 'organization' org.pk %}" href="?filter=organization&organization={{ org.pk }}">{{ org }}</a>
+                    <a class="btn btn-secondary {% active_param 'organization' org.pk %}"
+                       href="?filter=organization&organization={{ org.pk }}">{{ org }}</a>
                     {% if org.future_events %}
                       <div class="dropdown mt-1">
                         <button class="btn btn-secondary dropdown-toggle" type="button"

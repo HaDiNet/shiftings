@@ -189,3 +189,15 @@ a.calendar-shift > a:hover {
   color: var(--shift-color) !important;
   border: 3px solid var(--bs-gray-500);
 }
+
+.shift-type {
+  background-color: var(--shift-bg-color) !important;
+  --bs-table-accent-bg: var(--shift-bg-color) !important;
+  color: var(--shift-color) !important;
+  opacity: .7;
+}
+
+.shift-type a:hover {
+  background-color: rgba(var(--bs-dark-rgb), .5);
+  padding: .1rem .25rem;
+}

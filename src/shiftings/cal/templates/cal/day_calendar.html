@@ -1,10 +1,14 @@
 {% extends "cal/calendar_base.html" %}
+
 {% block calendar %}
-  <div class="card base-card bg-dark">
-    <div class="card-header center-items justify-content-between">
+  <div class="base-card bg-dark">
+    <div class="bg-dark center-items justify-content-between p-2 sticky-top">
       <div>
-        <a class="link" href="{% url "overview_day" prevday.isoformat %}">
-          <div><i class="fa-solid fa-angles-left"></i> {% trans 'Previous Day' context calendar %}</div>
+        <a class="btn btn-success me-1" href="{% url "overview_day" prevday.isoformat %}">
+          <div class="center-items flex-wrap">
+            <i class="fa-solid fa-angles-left"></i>
+            <span class="d-none d-md-block ms-1">{% trans 'Previous Day' context calendar %}</span>
+          </div>
         </a></div>
       <div class="center-items">
         <h3 class="m-0 me-4">{{ theday|date:'l j. F Y' }}</h3>
@@ -13,13 +17,15 @@
         </a>
       </div>
       <div>
-        <a class="link" href="{% url "overview_day" nextday.isoformat %}">
-          <div>{% trans 'Next Day' context calendar %} <i class="fa-solid fa-angles-right"></i></div>
+        <a class="btn btn-success ms-1" href="{% url "overview_day" nextday.isoformat %}">
+          <div class="center-items  flex-wrap">
+            <span class="d-none d-md-block me-1">{% trans 'Next Day' context calendar %}</span>
+            <i class="fa-solid fa-angles-right"></i>
+          </div>
         </a>
       </div>
     </div>
     <div class="p-2">
-      {% include "cal/template/day_calendar_xxl.html" %}
       {% include "cal/template/day_calendar_xs.html" %}
     </div>
   </div>

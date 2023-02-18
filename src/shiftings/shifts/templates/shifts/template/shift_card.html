@@ -1,15 +1,3 @@
-{% block top_level %}
-  {% url 'add_participant_self' shift.pk as add_self_url %}
-  {% simpleformmodal 'addSelfForm'|concat:shift.pk _('Add with Name to Shift') add_self_url request.path %}
-    {% for field in add_self_form %}
-      {% csrf_token %}
-      {% bootstrap_field field %}
-    {% endfor %}
-  {% endsimpleformmodal %}
-  {% include "template/remove_modal.html" %}
-{% endblock %}
-
-
 <div class="mb-2">
   {% url "shift" shift.pk as shift_url %}
   {% ifchanged shift.start|date %}

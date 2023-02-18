@@ -1,46 +1,58 @@
-<div class="d-flex d-xxl-none table-responsive">
+<div class="d-flex table-responsive">
   <table class="table table-dark table-striped table-bordered table-hover border-secondary table-fixed text-wrap">
     <thead>
-    <tr>
-      <th>{% trans "Start" %}</th>
-      <th colspan="5">{% trans "Shift" %}</th>
-      <th>{% trans "End" %}</th>
+    <tr class="text-center">
+      <th class="d-none d-md-table-cell">{% trans "Organization" %}</th>
+      <th class="d-md-none">{% trans "Org" %}</th>
+      <th colspan="3">{% trans "Shift" %}</th>
+      <th colspan="4">{% trans "Participants" %}</th>
+      <th class="d-none d-md-table-cell">{% trans "Start" %}</th>
+      <th class="d-none d-md-table-cell">{% trans "End" %}</th>
     </tr>
     </thead>
     <tbody>
     <tr>
       {% for entry in shifts %}
         <td>
-          {% if entry.shift.start.date != theday %}
-            <a class="link" href="{% url "overview_day" entry.shift.start.date.isoformat %}">
-              {{ entry.shift.start.date }}
-            </a>
-          {% else %}
-            {% trans "This Day" %}
-          {% endif %}
+          {{ entry.shift.organization }}
         </td>
-        <td colspan="5" class="p-0">
-          <div class="card bg-danger">
-            <div class="card-body flex-wrap mw-100 text-wrap" title="{{ entry.shift.time_display }}">
-              <a class="link" href="{{ entry.shift.get_absolute_url }}">
-                {{ entry.shift.time_display }}
-              </a>
-            </div>
+        <td colspan="3" class="shift-type"
+            {% if entry.shift.shift_type.color %}style="--shift-bg-color: {{ entry.shift.shift_type.color }}; --shift-color: {{ entry.shift.shift_type.text_color }}"{% endif %}>
+          <div class="center-items flex-wrap" title="{{ entry.shift.time_display }}">
+            <a class="link" href="{{ entry.shift.get_absolute_url }}">
+              {{ entry.shift.time_display }}
+            </a>
           </div>
         </td>
-        <td>
-          {% if entry.shift.end.date != theday %}
-            <a class="link" href="{% url "overview_day" entry.shift.end.date.isoformat %}">
-              {{ entry.shift.end.date }}
+        <td colspan="4">
+          <div class="center-items flex-wrap">
+            {% for display,required in entry.shift.get_slots_display %}
+              {% include 'shifts/template/slots_display.html' with shift=entry.shift organization=entry.shift.organization current_date=theday %}
+            {% endfor %}
+          </div>
+        </td>
+        <td class="d-none d-md-table-cell text-center">
+          {% if entry.shift.start.date != theday %}
+            <a class="link" href="{% url "overview_day" entry.shift.start.date.isoformat %}">
+              {{ entry.shift.start }}
             </a>
           {% else %}
-            {% trans "This Day" %}
+            {{ entry.shift.start.time }}
+          {% endif %}
+        </td>
+        <td class="d-none d-md-table-cell text-center">
+          {% if entry.shift.end.date != theday %}
+            <a class="link" href="{% url "overview_day" entry.shift.end.date.isoformat %}">
+              {{ entry.shift.end }}
+            </a>
+          {% else %}
+            {{ entry.shift.end.time }}
           {% endif %}
         </td>
         </tr>
       {% empty %}
         <tr>
-          <td colspan="7" class="text-center text-warning fw-bolder">
+          <td colspan="10" class="text-center text-warning fw-bolder">
             <h3>{% trans "No Shifts on this day" %}</h3>
           </td>
         </tr>

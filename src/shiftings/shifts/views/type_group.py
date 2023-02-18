@@ -50,7 +50,8 @@ class ShiftTypeGroupEditView(OrganizationAdminMixin, CreateOrUpdateView[ShiftTyp
     def get_initial(self) -> dict[str, Any]:
         initial = super().get_initial()
         initial['organization'] = self.get_organization()
-        initial['shift_types'] = self.get_object().shift_types.all()
+        if not self.is_create():
+            initial['shift_types'] = self.get_object().shift_types.all()
         return initial
 
     def form_valid(self, form: ShiftTypeGroupForm) -> HttpResponse:

@@ -1,38 +1,6 @@
 <div class="mx-3 mt-2 shift-slots">
   {% for display,required in shift.get_slots_display %}
-    <div class="d-flex my-1{% if required %} shift-required{% endif %}"
-        {% if required %}
-         title="{% trans "Required to carry out this Shift" %}"
-        {% else %}
-         title="{% trans "Open Shift Slot" %}"
-        {% endif %}>
-      {% if display %}
-        {% if request.user.pk == display.user.pk or org_perms.remove_others_from_shifts %}
-          {% if org_perms.admin or shift.start.date >= current_date %}
-            <button type="button" class="btn border border-2 link-remove w-100 mx-2 text-truncate mw-100"
-                    data-bs-toggle="modal"
-                    data-bs-target="#confirmRemoveModal" data-bs-remove-name="{{ display.display }}"
-                    data-bs-remove-url="{% url 'remove_participant' shift.pk display.pk %}"
-                    data-bs-success-url="{{ request.path }}">
-              {{ display.display }}
-            </button>
-          {% endif %}
-        {% else %}
-          <span class="btn border border-2 link pe-none w-100 mx-2">{{ display.display }}</span>
-        {% endif %}
-      {% else %}
-        {% if shift.start.date >= current_date %}
-          {% if not user_is_participant %}
-            <button type="button" class="btn border border-2 card-link link w-100 mx-2" data-bs-toggle="modal"
-                    data-bs-target="#addSelfForm{{ shift.pk }}Modal">
-              <i class="fa-solid fa-person-circle-plus me-2"></i>{% trans 'Add me' %}
-            </button>
-          {% else %}
-            <span class="btn border border-2 w-100 mx-2 pe-none text-white">{% trans "Free" %}</span>
-          {% endif %}
-        {% endif %}
-      {% endif %}
-    </div>
+    {% include 'shifts/template/slots_display.html' %}
   {% endfor %}
   {% if shift.start.date >= current_date and shift.max_users == 0 %}
     <div class="d-flex">
