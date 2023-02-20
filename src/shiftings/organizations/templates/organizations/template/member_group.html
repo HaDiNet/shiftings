@@ -24,13 +24,13 @@
          data-bs-parent="#group{{ member_group.pk }}Accordion">
       <div class="bg-dark p-0">
         <table class="table table-dark table-striped text-center m-0">
-          <tr>
-            {% for name in member_group.user_set.all %}
+          {% for name in member_group.user_set.all %}
+            <tr>
               <td>
                 {{ name }}
               </td>
-            {% endfor %}
-          </tr>
+            </tr>
+          {% endfor %}
         </table>
       </div>
     </div>
