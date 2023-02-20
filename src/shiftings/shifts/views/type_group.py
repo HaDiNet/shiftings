@@ -55,7 +55,7 @@ class ShiftTypeGroupEditView(OrganizationAdminMixin, CreateOrUpdateView[ShiftTyp
         return initial
 
     def form_valid(self, form: ShiftTypeGroupForm) -> HttpResponse:
-        if 'shift_types' in form.cleaned_data:
+        if len(form.cleaned_data.get('shift_types', [])) > 0:
             for shift_type in form.cleaned_data['shift_types']:
                 shift_type.group = self.get_object()
                 shift_type.save()
