@@ -112,8 +112,8 @@ if settings.OAUTH_ENABLED:
             except UserModel.DoesNotExist:
                 user = User.objects.create(username=username)
                 user.set_unusable_password()
-            user.first_name = user_data.get(settings.OAUTH_FIRST_NAME_CLAIM, '').split(' ')[0]  # ignore secondary names
-            user.last_name = user_data.get(settings.OAUTH_LAST_NAME_CLAIM, '')
+                user.first_name = user_data.get(settings.OAUTH_FIRST_NAME_CLAIM, '').split(' ')[0]  # ignore secondary names
+                user.last_name = user_data.get(settings.OAUTH_LAST_NAME_CLAIM, '')
             user.email = user_data.get(settings.OAUTH_EMAIL_CLAIM, '')
             user.groups.set(Group.objects.filter(name__in=groups))
 
