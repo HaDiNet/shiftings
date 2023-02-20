@@ -6,7 +6,7 @@ from django.forms import CharField, ModelChoiceField, Textarea
 from django.utils.translation import gettext_lazy as _
 
 from shiftings.organizations.models import Organization
-from shiftings.shifts.models import ShiftTemplate, ShiftTemplateGroup
+from shiftings.shifts.models import ShiftTemplate, ShiftTemplateGroup, ShiftType
 from shiftings.utils.fields.date_time import DateFormField
 from shiftings.utils.fields.integer import TimeSliderField
 
@@ -49,6 +49,7 @@ class ShiftTemplateForm(forms.ModelForm):
         self.template_group = template_group
         self.declared_fields['start_delay'].set_start(template_group.start_time.strftime('%H:%M'))
         self.declared_fields['duration'].set_start(template_group.start_time.strftime('%H:%M'))
+        self.declared_fields['shift_type'].queryset = ShiftType.objects.organization(template_group.organization)
         super().__init__(**kwargs)
 
     def clean_start_delay(self) -> timedelta:
