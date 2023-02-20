@@ -47,9 +47,10 @@ class ShiftTemplateForm(forms.ModelForm):
 
     def __init__(self, template_group: ShiftTemplateGroup, **kwargs):
         self.template_group = template_group
+        print(self.base_fields)
         self.declared_fields['start_delay'].set_start(template_group.start_time.strftime('%H:%M'))
         self.declared_fields['duration'].set_start(template_group.start_time.strftime('%H:%M'))
-        self.declared_fields['shift_type'].queryset = ShiftType.objects.organization(template_group.organization)
+        self.base_fields['shift_type'].queryset = ShiftType.objects.organization(template_group.organization)
         super().__init__(**kwargs)
 
     def clean_start_delay(self) -> timedelta:
