@@ -54,3 +54,11 @@ class User(BaseUser):
         organizations = self.organizations
         return Event.objects.filter(
             Q(organization__in=organizations) | Q(allowed_organizations__in=organizations) | Q(public=True))
+
+    @property
+    def shift_count(self) -> int:
+        from shiftings.shifts.models import Shift
+        total = Shift.objects.filter(participants__user=self).count()
+        for claimed_user in self.claimed_org_dummy_users.all():
+            total += Shift.objects.filter(participants__user=claimed_user).count()
+        return total

@@ -30,7 +30,7 @@
           <dt>{% trans "Member since" %}</dt>
           <dd>{{ user.date_joined|timesince }}</dd>
           <dt>{% trans "Total Shifts" %}</dt>
-          <dd>{{ user.shifts.count }}</dd>
+          <dd>{{ user.shift_count }}</dd>
           <dt>{% trans "Groups" %}</dt>
           <dd>{{ user.groups.all|join:", "| default:_('None') }}</dd>
         </dl>
