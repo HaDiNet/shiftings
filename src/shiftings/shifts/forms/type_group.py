@@ -6,7 +6,8 @@ from shiftings.shifts.models import ShiftType, ShiftTypeGroup
 
 
 class ShiftTypeGroupForm(forms.ModelForm):
-    shift_types = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple, queryset=ShiftType.objects.none())
+    shift_types = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple, queryset=ShiftType.objects.none(),
+                                                 required=False)
 
     class Meta:
         model = ShiftTypeGroup
