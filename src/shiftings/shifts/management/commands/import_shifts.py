@@ -43,7 +43,7 @@ class Command(BaseCommand):
         else:
             end_date = start_date if end_time >= start_time else start_date + timedelta(days=1)
 
-        shift_type = ShiftType.objects.filter(organization=organization, name='System').first()
+        shift_type = ShiftType.objects.system(organization=organization)
         if not shift_type:
             shift_type = ShiftType.objects.create(organization=organization, name='System', color='#000080')
 

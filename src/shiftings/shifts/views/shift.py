@@ -69,6 +69,14 @@ class ShiftEditView(OrganizationPermissionMixin, CreateOrUpdateView):
     permission_required = 'organizations.edit_shifts'
     template_name = 'shifts/create_shift.html'
 
+    def has_permission(self) -> bool:
+        if self.is_create():
+            return super().has_permission()
+        shift: Shift = self.get_object()
+        if shift.shift_type and shift.shift_type.is_system:
+            return self.request.user.has_perm('organizations.admin')
+        return super().has_permission()
+
     def get_organization(self) -> Organization:
         if self.is_create():
             return self._get_object(Organization, 'org_pk')

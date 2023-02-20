@@ -13,6 +13,12 @@ class ShiftTypeEditView(OrganizationAdminMixin, CreateOrUpdateView[ShiftType]):
     model = ShiftType
     form_class = ShiftTypeForm
 
+    def test_func(self) -> bool:
+        test = super().test_func()
+        if self.is_create() or not test:
+            return test
+        return self.get_object().name != 'System'
+
     def get_organization(self) -> Organization:
         if self.is_create():
             return self._get_object(Organization, 'org_pk')
