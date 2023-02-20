@@ -34,4 +34,7 @@ class ShiftTypeGroup(models.Model):
 
     @staticmethod
     def get_next_free_order(organization: Organization) -> int:
+        curr = ShiftTypeGroup.objects.filter(organization=organization).aggregate(models.Max('order'))['order__max']
+        if curr is None:
+            return 0
         return ShiftTypeGroup.objects.filter(organization=organization).aggregate(models.Max('order'))['order__max'] + 1
