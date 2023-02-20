@@ -53,7 +53,8 @@ INSTALLED_APPS = [
 ]
 
 FEATURES = {
-    'event': False
+    'event': False,
+    'registration': False
 }
 
 MIDDLEWARE = [

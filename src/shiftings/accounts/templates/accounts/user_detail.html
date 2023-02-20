@@ -50,14 +50,14 @@
       </div>
       <div id="collapseOrgBody" class="collapse show">
         <div class="d-flex gap-2 py-1 px-2">
-          {% for membership in user.memberships.all %}
-            <a class="link" href="{% url "organization" membership.organization.pk %}">
+          {% for organization in user.organizations.all %}
+            <a class="link" href="{% url "organization" organization.pk %}">
               <div class="bg-dark border border-2 my-2 center-items justify-content-start flex-row card-link">
                 <div>
-                  {% if membership.organization.logo %}
+                  {% if organization.logo %}
                     <div class="text-start overflow-hidden p-1">
-                      <img style="aspect-ratio: 1;" src="{{ membership.organization.logo.url }}"
-                           alt="{{ membership.organization.name }}"
+                      <img style="aspect-ratio: 1;" src="{{ organization.logo.url }}"
+                           alt="{{ organization.name }}"
                            height="92px">
                     </div>
                   {% else %}
@@ -69,13 +69,7 @@
                 </div>
                 <div class="center-items flex-column flex-nowrap p-3">
                   <div>
-                    {{ membership.organization }}
-                  </div>
-                  <div>
-                    {{ membership.type.name }}
-                    {% if membership.type.admin %}
-                      <i class="fas fa-user-shield"></i>
-                    {% endif %}
+                    {{ organization }}
                   </div>
                 </div>
               </div>

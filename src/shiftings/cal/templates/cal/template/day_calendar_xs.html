@@ -58,5 +58,24 @@
         </tr>
       {% endfor %}
     </tbody>
+    <tfoot>
+    <tr>
+      <td colspan="10" class="p-0 pt-3 text-center">
+        {% if request.user.organizations|length > 1 %}
+          <div class="calendar-entry">
+            <button class="btn btn-success w-100 rounded-0" data-bs-toggle="modal" data-bs-target="#selectShiftOrgModal"
+                    data-bs-date="{{ date|date:"%Y-%m-%d" }}">
+              {% trans 'Create Shift' %} <i class="fa-solid fa-plus"></i>
+            </button>
+          </div>
+        {% elif request.user.organizations|length == 1 %}
+          <a class="btn btn-success w-100 rounded-0"
+             href="{% url "shift_create" user.organizations.0.pk %}?date={{ theday|date:"Y-m-d" }}">
+            {% trans 'Add Shift' %} <i class="fa-solid fa-plus"></i>
+          </a>
+        {% endif %}
+      </td>
+    </tr>
+    </tfoot>
   </table>
 </div>

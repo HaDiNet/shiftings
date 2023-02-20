@@ -3,7 +3,7 @@
     <div class="month-head">
       <div class="calendar-nav">
         <div>
-          <a class="link" href="{{ last_url }}">
+          <a class="link" href="{{ last_url }}?{{ request.GET.urlencode }}">
             &laquo; {% trans 'Previous Month' %}
           </a>
         </div>
@@ -11,7 +11,7 @@
           <h3>{{ month|date:"F Y" }}</h3>
         </div>
         <div>
-          <a class="link" href="{{ next_url }}">
+          <a class="link" href="{{ next_url }}?{{ request.GET.urlencode }}">
             <div>{% trans 'Next Month' %} &raquo;</div>
           </a>
         </div>
@@ -37,7 +37,7 @@
               {{ entry }}
             {% endfor %}
             {% if day.class != 'noday' %}
-              {% include "cal/calendar_templates/cal_shift_create_entry.html" with date=day.date|date:'Y-m-d' %}
+              {% include "cal/calendar_templates/cal_shift_create_entry.html" with date=day.date|date:'%y/%m/%D' %}
             {% endif %}
           </div>
         </div>

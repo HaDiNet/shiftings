@@ -18,7 +18,7 @@
       {% endif %}
     </form>
   </div>
-  {% if is_local %}
+  {% if is_local and feature.registrtation %}
     <div class="card bg-secondary p-3 text-center mt-3">
       <h4>{% trans "You don't have an Account?" %}</h4>
       <a class="btn btn-success" href="{% url "register" %}">{% trans "Register here" %}</a>

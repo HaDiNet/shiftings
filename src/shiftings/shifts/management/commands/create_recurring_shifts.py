@@ -13,7 +13,6 @@ class Command(BaseCommand):
         parser.add_argument('--days', type=int, help='override days to create')
 
     def handle(self, *args, **options):
-        print(options)
         for i in range(options['days'] or settings.RECURRING_SHIFTS_AUTO_CREATE_DAYS):
             day = date.today() + timedelta(days=i)
             self.stdout.write(self.style.NOTICE(f'Creating for {day}.'))

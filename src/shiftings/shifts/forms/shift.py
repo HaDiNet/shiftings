@@ -17,6 +17,8 @@ class ShiftForm(ModelForm):
     def __init__(self, *args: Any, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.fields['organization'].disabled = True
+        organization = self.initial['organization'] if 'organization' in self.initial else self.instance.organization
+        self.fields['shift_type'].queryset = organization.shift_types.all()
 
 
 class SelectOrgForm(Form):

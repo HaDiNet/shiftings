@@ -25,7 +25,6 @@ def active_param(context: dict[str, Any], param_name: str, param_value: Any) -> 
 
 @register.simple_tag(takes_context=True)
 def active(context: dict[str, Any], url: str) -> str:
-    print(context.get('request').path, url)
     if str(context.get('request').path) == url:
         return 'active'
     return ''
