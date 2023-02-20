@@ -50,7 +50,7 @@
 }
 
 input, textarea, select, .form-control, .form-select {
-  background-color: transparent !important;
+  background-color: var(--bs-dark) !important;
   color: var(--bs-body-color) !important;
 }
 

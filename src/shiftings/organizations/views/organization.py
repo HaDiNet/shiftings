@@ -8,7 +8,7 @@ from django.views.generic import DetailView, ListView
 
 from shiftings.organizations.forms.membership import MembershipForm
 from shiftings.organizations.forms.organization import OrganizationForm
-from shiftings.organizations.models import MembershipType, Organization
+from shiftings.organizations.models import MembershipType, Organization, OrganizationDummyUser
 from shiftings.organizations.views.organization_base import OrganizationMemberMixin, OrganizationPermissionMixin
 from shiftings.shifts.forms.summary import OrganizationShiftSummaryForm
 from shiftings.shifts.forms.type_group import ShiftTypeGroupForm
@@ -96,6 +96,7 @@ class OrganizationAdminView(OrganizationPermissionMixin, DetailView):
         context['shifts'] = get_pagination_context(self.request,
                                                    self.object.shifts.order_by('-start', '-end', 'name').all(),
                                                    25, 'shifts')
+        context['shifts_claimable'] = OrganizationDummyUser.objects.filter(organization=self.object).count() > 0
         return context
 
     def create_membership_form(self, membership_type: MembershipType):

@@ -320,6 +320,11 @@
       <div class="card-header center-items justify-content-between">
         <h5 class="m-0">{% trans "Shifts" %}</h5>
         <div>
+          {% if shifts_claimable %}
+            <a class="btn btn-primary" href="{% url "claim_user_list" organization.pk %}">
+            {% trans "Claim Legacy Shifts" %}
+            </a>
+          {% endif %}
           <a class="btn btn-success" href="{% url 'organization_calendar' organization.pk %}"
              title="{% trans "ical Export" %}">
             <i class="fas fa-file-export"></i>
