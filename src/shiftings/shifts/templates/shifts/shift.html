@@ -9,16 +9,18 @@
             {{ shift.name }}
           </h3>
           <div>
-            <a class="btn btn-success px-2 py-1" href="{% url 'shift_update' shift.pk %}"
-               title="{% trans "Edit Shift" %}">
-              <i class="fa-solid fa-pen-to-square"></i>
-            </a>
-            {% now "Y-m-d" as today %}
-            {% if shift.start|date:"Y-m-d" >= today %}
-              <a class="btn btn-danger px-2 py-1" href="{% url 'shift_delete' shift.pk %}"
+            {% if not shift.shift_type.is_system or perms.organizations.admin %}
+              <a class="btn btn-success px-2 py-1" href="{% url 'shift_update' shift.pk %}"
                  title="{% trans "Edit Shift" %}">
-                <i class="fa-solid fa-trash"></i>
+                <i class="fa-solid fa-pen-to-square"></i>
               </a>
+              {% now "Y-m-d" as today %}
+              {% if shift.start|date:"Y-m-d" >= today %}
+                <a class="btn btn-danger px-2 py-1" href="{% url 'shift_delete' shift.pk %}"
+                   title="{% trans "Edit Shift" %}">
+                  <i class="fa-solid fa-trash"></i>
+                </a>
+              {% endif %}
             {% endif %}
           </div>
         </div>
