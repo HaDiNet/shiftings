@@ -9,11 +9,11 @@
             <div>
               {% if is_create %}
                 {% blocktrans with organization=organization %}
-                  <h4>Create New Shift for {{ organization }}</h4>
+                  <h4 class="w-75">Create New Shift for {{ organization }}</h4>
                 {% endblocktrans %}
               {% else %}
                 {% blocktrans with name=form.instance.name organization=organization %}
-                  <h4>Update Shift "{{ name }} for {{ organization }}"</h4>
+                  <h4 class="w-75">Update Shift "{{ name }} for {{ organization }}"</h4>
                 {% endblocktrans %}
               {% endif %}
             </div>

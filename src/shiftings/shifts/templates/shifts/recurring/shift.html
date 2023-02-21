@@ -20,7 +20,7 @@
       <div class="col-12 col-lg-6 col-xl-4">
         <div class="card bg-dark mt-3">
           <div class="card-header center-items justify-content-between">
-            <h3 class="m-0">{{ shift.name }}</h3>
+            <h3 class="m-0 w-75">{{ shift.name }}</h3>
             <div>
               {% if org_perms.edit_recurring_shifts %}
                 <a class="btn btn-success" href="{% url "recurring_shift_update" shift.pk %}"
