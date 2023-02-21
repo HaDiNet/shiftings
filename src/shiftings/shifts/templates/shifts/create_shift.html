@@ -6,14 +6,14 @@
           class="card bg-dark border border-2 p-3{% if is_create %} border-success{% else %} border-primary{% endif %}">
         <form method="post">
           <div class="card-header center-items justify-content-between">
-            <div>
+            <div class="w-75">
               {% if is_create %}
                 {% blocktrans with organization=organization %}
-                  <h4 class="w-75">Create New Shift for {{ organization }}</h4>
+                  <h4>Create New Shift for {{ organization }}</h4>
                 {% endblocktrans %}
               {% else %}
                 {% blocktrans with name=form.instance.name organization=organization %}
-                  <h4 class="w-75">Update Shift "{{ name }} for {{ organization }}"</h4>
+                  <h4>Update Shift "{{ name }} for {{ organization }}"</h4>
                 {% endblocktrans %}
               {% endif %}
             </div>

@@ -18,9 +18,9 @@
         </td>
         <td colspan="3" class="shift-type"
             {% if entry.shift.shift_type.color %}style="--shift-bg-color: {{ entry.shift.shift_type.color }}; --shift-color: {{ entry.shift.shift_type.text_color }}"{% endif %}>
-          <div class="center-items flex-wrap" title="{{ entry.shift.time_display }}">
+          <div class="center-items flex-wrap overflow-auto" title="{{ entry.shift.detailed_display }}">
             <a class="link" href="{{ entry.shift.get_absolute_url }}">
-              {{ entry.shift.time_display }}
+              {{ entry.shift.detailed_display }}
             </a>
           </div>
         </td>

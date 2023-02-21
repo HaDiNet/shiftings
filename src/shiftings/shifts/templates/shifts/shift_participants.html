@@ -1,4 +1,5 @@
-<div class="mx-3 mt-2 shift-slots">
+<div class="mx-3 mt-2 shift-slots shift-info overflow-auto">
+  {% include "template/remove_modal.html" %}
   {% for display,required in shift.get_slots_display %}
     {% include 'shifts/template/slots_display.html' %}
   {% endfor %}

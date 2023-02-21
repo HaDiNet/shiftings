@@ -7,7 +7,6 @@
         {% bootstrap_field field %}
       {% endfor %}
     {% endsimpleformmodal %}
-    {% include "template/remove_modal.html" %}
   </div>
   <div class="d-flex my-1{% if required %} shift-required{% endif %}"
       {% if required %}
@@ -17,7 +16,7 @@
       {% endif %}>
     {% if display %}
       {% if request.user.pk == display.user.pk or org_perms.remove_others_from_shifts %}
-        {% if org_perms.admin or shift.start.date >= current_date %}
+        {% if org_perms.admin or shift.end.date > current_date %}
           <button type="button" class="btn border border-2 link-remove w-100 mx-2 text-truncate mw-100"
                   data-bs-toggle="modal"
                   data-bs-target="#confirmRemoveModal" data-bs-remove-name="{{ display.display }}"
@@ -30,7 +29,7 @@
         <span class="btn border border-2 link pe-none w-100 mx-2">{{ display.display }}</span>
       {% endif %}
     {% else %}
-      {% if shift.start.date >= current_date %}
+      {% if shift.end.date > current_date %}
         {% if not user_is_participant %}
           <button type="button" class="btn border border-2 card-link link w-100 mx-2" data-bs-toggle="modal"
                   data-bs-target="#addSelfForm{{ shift.pk }}Modal">
