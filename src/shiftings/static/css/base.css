@@ -438,6 +438,10 @@ dl.detail-horizontal dd {
   text-align: center;
 }
 
+.shift-info {
+  max-height: 500px
+}
+
 .shift-required, .shift-required button, .shift-required span {
   color: var(--bs-orange) !important;
   border-color: var(--bs-orange) !important;

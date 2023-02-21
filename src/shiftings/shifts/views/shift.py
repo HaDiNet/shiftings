@@ -43,7 +43,7 @@ class ShiftDetailView(UserPassesTestMixin, BaseLoginMixin, DetailView):
         return context
 
 
-class ShiftOrgSelectView(BaseLoginMixin, BaseFormView):
+class ShiftOrgSelectView(BaseLoginMixin, FormView):
     form_class = SelectOrgForm
     template_name = 'generic/form_card.html'
     org_id: int

@@ -68,7 +68,7 @@
               {% include "shifts/shift_participants.html" with shift=shift %}
               <div class="mt-3">
                 {% trans "Additional Infos" %}:
-                <div class="px-3">
+                <div class="px-3 shift-info overflow-auto">
                   {% if shift.additional_infos %}
                     {{ shift.additional_infos|linebreaks }}
                   {% else %}
