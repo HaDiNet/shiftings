@@ -2,6 +2,7 @@ from typing import Any
 
 from django import forms
 
+from shiftings.organizations.models import Organization
 from shiftings.shifts.models import ShiftType, ShiftTypeGroup
 
 
@@ -13,10 +14,7 @@ class ShiftTypeGroupForm(forms.ModelForm):
         model = ShiftTypeGroup
         fields = ['organization', 'name']
 
-    def __init__(self, **kwargs: Any) -> None:
+    def __init__(self, organization: Organization, **kwargs: Any) -> None:
         super().__init__(**kwargs)
         self.fields['organization'].disabled = True
-        try:
-            self.fields['shift_types'].queryset = ShiftType.objects.filter(organization=self.instance.organization)
-        except ShiftTypeGroup.organization.RelatedObjectDoesNotExist:
-            pass
+        self.fields['shift_types'].queryset = ShiftType.objects.filter(organization=organization)

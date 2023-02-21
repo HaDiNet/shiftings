@@ -1,4 +1,3 @@
-from abc import ABC
 from typing import Any
 
 from django.db import transaction
@@ -54,12 +53,19 @@ class ShiftTypeGroupEditView(OrganizationAdminMixin, CreateOrUpdateView[ShiftTyp
             initial['shift_types'] = self.get_object().shift_types.all()
         return initial
 
+    def get_form_kwargs(self) -> dict[str, Any]:
+        kwargs = super().get_form_kwargs()
+        kwargs['organization'] = self.get_organization()
+        return kwargs
+
     def form_valid(self, form: ShiftTypeGroupForm) -> HttpResponse:
-        if len(form.cleaned_data.get('shift_types', [])) > 0:
-            for shift_type in form.cleaned_data['shift_types']:
-                shift_type.group = self.get_object()
-                shift_type.save()
-        return super().form_valid(form)
+        with transaction.atomic():
+            response = super().form_valid(form)
+            if len(form.cleaned_data.get('shift_types', [])) > 0:
+                for shift_type in form.cleaned_data['shift_types']:
+                    shift_type.group = self.object
+                    shift_type.save()
+        return response
 
     def get_success_url(self):
         return reverse('organization_settings', args=[self.get_organization().pk])
