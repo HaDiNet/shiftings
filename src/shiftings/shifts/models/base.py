@@ -1,3 +1,4 @@
+from django.core.validators import MaxValueValidator
 from django.db import models
 from django.db.models import F, Q
 from django.utils.translation import gettext_lazy as _
@@ -12,8 +13,10 @@ class ShiftBase(models.Model):
     shift_type = models.ForeignKey('ShiftType', verbose_name=_('Shift Type'), on_delete=models.SET_NULL, blank=True,
                                    null=True)
 
-    required_users = models.PositiveIntegerField(verbose_name=_('Required Users'), default=0)
-    max_users = models.PositiveIntegerField(verbose_name=_('Maximum Users'), default=0)
+    required_users = models.PositiveSmallIntegerField(verbose_name=_('Required Users'), default=0,
+                                                      validators=[MaxValueValidator(32)])
+    max_users = models.PositiveSmallIntegerField(verbose_name=_('Maximum Users'), default=0,
+                                                 validators=[MaxValueValidator(64)])
 
     additional_infos = models.TextField(verbose_name=_('Additional Infos'), blank=True, null=True)
 
