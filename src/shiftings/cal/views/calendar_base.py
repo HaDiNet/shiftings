@@ -8,7 +8,7 @@ from shiftings.utils.views.base import BaseLoginMixin
 
 class CalendarBaseView(BaseLoginMixin, TemplateView, ABC):
 
-    def get_filters(self):
+    def get_filters(self) -> Q:
         shift_filter = Q()
         if 'filter' in self.request.GET:
             if self.request.GET['filter'] == 'own':

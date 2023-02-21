@@ -86,9 +86,9 @@
     <div class="card-header center-items justify-content-between">
       {% url "user_profile_past" as past_url %}
       {% if request.path == past_url %}
-        <h4>{% trans "My recent Shifts" %}</h4>
+        <h4>{% trans "Recent Shifts" %}</h4>
       {% else %}
-        <h4>{% trans "My upcoming Shifts" %}</h4>
+        <h4>{% trans "Upcoming Shifts" %}</h4>
       {% endif %}
       <div class="center-items">
         <div class="dropdown">
@@ -102,6 +102,12 @@
             <i class="fa-solid fa-filter"></i>
           </button>
           <ul class="dropdown-menu dropdown-menu-dark">
+            <li>
+              <a class="dropdown-item {% active_param 'filter' 'own' %}"
+                 href="?filter=own">
+                {% trans "My Shifts" %}
+              </a>
+            </li>
             {% for org in user.organizations.all %}
               <li>
                 <a class="dropdown-item {% active_param 'filter' org.pk %}"

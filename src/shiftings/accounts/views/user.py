@@ -36,18 +36,20 @@ class UserProfileView(BaseLoginMixin, DetailView):
                                           (Q(event__in=self.object.events) |
                                            Q(organization__in=self.object.organizations)))
         _filter, context['filter_object'] = self.get_filters()
-        shifts.filter(_filter)
-        context['shifts'] = get_pagination_context(self.request, shifts, 5, 'shifts')
+        context['shifts'] = get_pagination_context(self.request, shifts.filter(_filter), 5, 'shifts')
         return context
 
     def get_filters(self) -> tuple[Q, Optional[Union[Event, Organization]]]:
         shift_filter = Q()
         filter_obj = None
         if 'filter' in self.request.GET:
+            if self.request.GET['filter'] == 'own':
+                filter_obj = self.request.user
+                shift_filter &= Q(participants__user=self.request.user)
             if self.request.GET['filter'] == 'organization' and 'organization' in self.request.GET:
                 filter_obj = get_object_or_404(Organization, pk=self.request.GET.get('organization'))
                 shift_filter &= Q(organization=filter_obj)
-            elif self.request.GET['filter'] == 'event' and 'event' in self.request.GET:
+            if self.request.GET['filter'] == 'event' and 'event' in self.request.GET:
                 filter_obj = get_object_or_404(Event, pk=self.request.GET.get('event'))
                 shift_filter &= Q(event__pk=filter_obj)
         return shift_filter, filter_obj
