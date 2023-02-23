@@ -52,6 +52,7 @@ class RecurringShiftEditView(OrganizationPermissionMixin, CreateOrUpdateView):
         initial = super().get_initial()
         if self.is_create():
             initial['organization'] = self.get_organization()
+            initial['first_occurrence'] = date.today()
         return initial
 
     def get_success_url(self) -> str:

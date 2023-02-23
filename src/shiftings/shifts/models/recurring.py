@@ -7,7 +7,6 @@ import holidays
 from colorfield.fields import ColorField
 from django.conf import settings
 from django.contrib.humanize.templatetags.humanize import ordinal
-from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.urls import reverse
@@ -37,7 +36,8 @@ class RecurringShift(models.Model):
                                                help_text='')
     week_day_field = WeekDayField(blank=True, null=True)
     month_field = MonthField(blank=True, null=True)
-    first_occurrence = DateField(_('First Occurrence'))
+    first_occurrence = DateField(_('First Occurrence'), help_text=_(
+        'Choose a minimum day for first occurrence and the system will automatically choose the next applicable day.'))
 
     template = models.ForeignKey('ShiftTemplateGroup', on_delete=models.SET_NULL, verbose_name=_('Shift Template'),
                                  related_name='recurring_shifts', blank=False, null=True)
@@ -112,18 +112,6 @@ class RecurringShift(models.Model):
     @property
     def text_color(self):
         return calc_text_color(self.color)
-
-    def clean(self) -> None:
-        if self.week_day_field is None and self.time_frame_type in TimeFrameType.get_weekday_types():
-            raise ValidationError(_('Weekday can\'t be empty with the chosen time frame type.'))
-        if self.month_field is None and self.time_frame_field in TimeFrameType.get_monthday_types():
-            raise ValidationError(_('Month can\'t be empty with the chosen time frame type.'))
-        if self.weekend_handling is not ProblemHandling.Ignore and self.weekend_warning is None:
-            raise ValidationError(_('You need to add a warning for weekend handling.'))
-        if self.holiday_handling is not ProblemHandling.Ignore and self.holiday_warning is None:
-            raise ValidationError(_('You need to add a warning for holiday handling.'))
-        if not self.matches_day(self.first_occurrence):
-            raise ValidationError(_('Your first occurrence doesn\'t match your chosen time frame.'))
 
     def shift_exists(self, shift: Shift) -> bool:
         return self.created_shifts.filter(name=shift.name, shift_type=shift.shift_type, start=shift.start).exists()
