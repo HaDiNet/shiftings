@@ -14,11 +14,14 @@ class ShiftBase(models.Model):
                                    null=True)
 
     required_users = models.PositiveSmallIntegerField(verbose_name=_('Required Users'), default=0,
-                                                      validators=[MaxValueValidator(32)])
+                                                      validators=[MaxValueValidator(32)],
+                                                      help_text=_('A maximum of 32 users can be required'))
     max_users = models.PositiveSmallIntegerField(verbose_name=_('Maximum Users'), default=0,
-                                                 validators=[MaxValueValidator(64)])
+                                                 validators=[MaxValueValidator(64)],
+                                                 help_text=_('A maximum of 64 users can be present'))
 
-    additional_infos = models.TextField(verbose_name=_('Additional Infos'), blank=True, null=True)
+    additional_infos = models.TextField(max_length=1000, verbose_name=_('Additional Infos'), blank=True, null=True,
+                                        help_text=_('A maximum of {amount} characters is allowed').format(amount=1000))
 
     class Meta:
         abstract = True

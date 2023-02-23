@@ -26,7 +26,8 @@ class Shift(ShiftBase):
                                           related_name='shift_set')
 
     locked = models.BooleanField(verbose_name=_('Locked for Participation'), default=False)
-    warnings = models.TextField(verbose_name=_('Warning'), blank=True, null=True)
+    warnings = models.TextField(max_length=500, verbose_name=_('Warning'), blank=True, null=True,
+                                help_text=_('A maximum of {amount} characters is allowed').format(amount=500))
 
     based_on = models.ForeignKey('RecurringShift', on_delete=models.SET_NULL, related_name='created_shifts',
                                  verbose_name=_('Created by Recurring Shift'), blank=True, null=True)
@@ -62,12 +63,12 @@ class Shift(ShiftBase):
     def time_display(self) -> str:
         if self.start.date() != self.end.date():
             return _('{start} to {end_time} on {end_date} ').format(name=self.name,
-                                                                                start=self.start.strftime("%H:%M"),
-                                                                                end_time=self.end.strftime("%H:%M"),
-                                                                                end_date=self.end.date())
+                                                                    start=self.start.strftime("%H:%M"),
+                                                                    end_time=self.end.strftime("%H:%M"),
+                                                                    end_date=self.end.date())
         return _('{start} to {end_time}').format(name=self.name,
-                                                             start=self.start.strftime("%H:%M"),
-                                                             end_time=self.end.strftime("%H:%M"), )
+                                                 start=self.start.strftime("%H:%M"),
+                                                 end_time=self.end.strftime("%H:%M"), )
 
     @property
     def is_full(self):

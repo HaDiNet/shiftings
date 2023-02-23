@@ -33,23 +33,28 @@ class RecurringShift(models.Model):
                                      related_name='recurring_shifts', verbose_name=_('Organization'))
 
     time_frame_field = models.PositiveSmallIntegerField(choices=TimeFrameType.choices, verbose_name=_('Timeframe Type'))
-    ordinal = models.PositiveSmallIntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(31)])
+    ordinal = models.PositiveSmallIntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(31)],
+                                               help_text='')
     week_day_field = WeekDayField(blank=True, null=True)
     month_field = MonthField(blank=True, null=True)
     first_occurrence = DateField(_('First Occurrence'))
 
     template = models.ForeignKey('ShiftTemplateGroup', on_delete=models.SET_NULL, verbose_name=_('Shift Template'),
-                                 related_name='recurring_shifts', blank=True, null=True)
+                                 related_name='recurring_shifts', blank=False, null=True)
 
     weekend_handling_field = models.PositiveSmallIntegerField(choices=ProblemHandling.choices,
                                                               verbose_name=_('Weekend problem handling'),
                                                               default=ProblemHandling.Ignore)
-    weekend_warning = models.TextField(verbose_name=_('Warning text for weekend'), blank=True, null=True)
+    weekend_warning = models.TextField(max_length=250, verbose_name=_('Warning text for weekend'), blank=True,
+                                       null=True,
+                                       help_text=_('A maximum of {amount} characters is allowed').format(amount=250))
 
     holiday_handling_field = models.PositiveSmallIntegerField(choices=ProblemHandling.choices,
                                                               verbose_name=_('Holidays problem handling'),
                                                               default=ProblemHandling.Ignore)
-    holiday_warning = models.TextField(verbose_name=_('Warning text for holidays'), blank=True, null=True)
+    holiday_warning = models.TextField(max_length=250, verbose_name=_('Warning text for holidays'), blank=True,
+                                       null=True,
+                                       help_text=_('A maximum of {amount} characters is allowed').format(amount=250))
 
     color = ColorField(default='#FD7E14', format='hex', samples=settings.SHIFT_COLOR_PALETTE)
 

@@ -28,7 +28,8 @@ class Organization(models.Model):
     website = models.URLField(verbose_name=_('Website'), blank=True, null=True,
                               help_text=_('Include Protocol i.E. https://example.com'))
 
-    description = models.TextField(verbose_name=_('Description'), blank=True, null=True)
+    description = models.TextField(max_length=1000, verbose_name=_('Description'), blank=True, null=True,
+                                   help_text=_('A maximum of {amount} characters is allowed').format(amount=1000))
 
     # members: RelatedManager[Membership]
     # summary_settings: RelatedManager[OrganizationSummarySettings]

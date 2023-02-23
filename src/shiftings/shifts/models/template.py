@@ -1,6 +1,7 @@
 from datetime import datetime
 from typing import Optional
 
+from django.core.validators import MaxValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -18,10 +19,15 @@ class ShiftTemplate(models.Model):
     start_delay = models.DurationField(verbose_name=_('Start Delay'))
     duration = models.DurationField(verbose_name=_('Duration'))
 
-    required_users = models.PositiveIntegerField(verbose_name=_('Required User'), default=0)
-    max_users = models.PositiveIntegerField(verbose_name=_('Maximum User'), default=0)
+    required_users = models.PositiveSmallIntegerField(verbose_name=_('Required User'), default=0,
+                                                      validators=[MaxValueValidator(32)],
+                                                      help_text=_('A maximum of 32 users can be required'))
+    max_users = models.PositiveSmallIntegerField(verbose_name=_('Maximum User'), default=0,
+                                                 validators=[MaxValueValidator(64)],
+                                                 help_text=_('A maximum of 64 users can be present'))
 
-    additional_infos = models.TextField(verbose_name=_('Additional Infos'), blank=True, null=True)
+    additional_infos = models.TextField(max_length=1000, verbose_name=_('Additional Infos'), blank=True, null=True,
+                                        help_text=_('A maximum of {amount} characters is allowed').format(amount=1000))
 
     class Meta:
         default_permissions = ()
