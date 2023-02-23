@@ -1,4 +1,5 @@
 from typing import Optional
+
 from django import template
 from django.template import TemplateSyntaxError
 from django.template.base import FilterExpression, Parser
@@ -42,6 +43,7 @@ class SimpleFormModalNode(template.Node):
             'form_url': self.form_url.resolve(context),
             'success_url': self.success_url.resolve(context) if self.success_url is not None else None,
         })
+
 
 # define simpledisplaymodal block
 @register.tag('simpledisplaymodal')

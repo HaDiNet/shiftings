@@ -4,7 +4,6 @@ from shiftings.shifts.views.recurring import (
     RecurringShiftCreateShiftsView, RecurringShiftDetailView, RecurringShiftEditView
 )
 
-
 urlpatterns = [
     path('<int:pk>/', RecurringShiftDetailView.as_view(), name='recurring_shift'),
     path('create/<int:org_pk>', RecurringShiftEditView.as_view(), name='recurring_shift_create'),

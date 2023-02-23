@@ -1,8 +1,8 @@
 from django.urls import include, path
 
-from shiftings.shifts.views.shift import CreateShiftFromTemplateGroup, PastShiftDeleteView, ShiftOrgSelectView, \
-    ShiftDetailView, \
-    ShiftEditView
+from shiftings.shifts.views.shift import (
+    CreateShiftFromTemplateGroup, PastShiftDeleteView, ShiftDetailView, ShiftEditView, ShiftOrgSelectView
+)
 
 urlpatterns = [
     path('<int:pk>/', ShiftDetailView.as_view(), name='shift'),

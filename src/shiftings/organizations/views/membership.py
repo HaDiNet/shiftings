@@ -48,7 +48,7 @@ class MembershipRemoveView(MembershipViewMixin, UserPassesTestMixin, DeleteView,
 
     def test_func(self) -> bool:
         return not self._get_object(Membership, self.pk_url_kwarg).type.admin \
-               or self.get_organization().is_admin(self.request.user)
+            or self.get_organization().is_admin(self.request.user)
 
     def form_valid(self, form: Any) -> HttpResponse:
         result = super().form_valid(form)

@@ -98,4 +98,4 @@ class TimeFrameType(models.IntegerChoices):
     @staticmethod
     def _matches_nth_workday_of_a_specific_month(shift: RecurringShift, _date: date) -> bool:
         return _date.month == shift.month_field \
-               and TimeFrameType._matches_nth_workday_of_the_month(shift, _date)
+            and TimeFrameType._matches_nth_workday_of_the_month(shift, _date)

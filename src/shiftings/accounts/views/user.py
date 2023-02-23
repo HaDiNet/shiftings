@@ -39,7 +39,7 @@ class UserProfileView(BaseLoginMixin, DetailView):
         context['shifts'] = get_pagination_context(self.request, shifts.filter(_filter), 5, 'shifts')
         return context
 
-    def get_filters(self) -> tuple[Q, Optional[Union[Event, Organization]]]:
+    def get_filters(self) -> tuple[Q, Union[Event, Organization, None]]:
         shift_filter = Q()
         filter_obj = None
         if 'filter' in self.request.GET:

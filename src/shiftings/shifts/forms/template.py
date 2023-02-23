@@ -1,8 +1,8 @@
-from datetime import date, timedelta
+from datetime import timedelta
 
 from django import forms
 from django.conf import settings
-from django.forms import CharField, ModelChoiceField, Textarea
+from django.forms import ModelChoiceField
 from django.utils.translation import gettext_lazy as _
 
 from shiftings.organizations.models import Organization
@@ -14,8 +14,6 @@ from shiftings.utils.fields.integer import TimeSliderField
 class SelectOrgShiftTemplateGroupForm(forms.Form):
     template_group = ModelChoiceField(queryset=ShiftTemplateGroup.objects.none())
     date_field = DateFormField(label=_('Date'), help_text=_('Date to create the template on'))
-    # weekend_warning = CharField(widget=Textarea, help_text=_('Optional Warning'))
-    # holiday_warning = CharField(widget=Textarea, help_text=_('Date to create the template on'))
 
     def __init__(self, organization: Organization, *args, **kwargs):
         super().__init__(*args, **kwargs)

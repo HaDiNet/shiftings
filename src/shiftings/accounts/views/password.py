@@ -1,8 +1,9 @@
 from typing import Any
 
 from django.conf import settings
-from django.contrib.auth.views import (PasswordResetView as DjangoPasswordResetView,
-                                       PasswordResetConfirmView as DjangoPasswordResetConfirmView)
+from django.contrib.auth.views import (
+    PasswordResetConfirmView as DjangoPasswordResetConfirmView, PasswordResetView as DjangoPasswordResetView
+)
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 

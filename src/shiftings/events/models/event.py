@@ -11,11 +11,11 @@ from django.utils.translation import gettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
 from PIL import Image
 
-from shiftings.shifts.models import Shift
 from shiftings.utils.fields.date_time import DateField
 
 if TYPE_CHECKING:
     from shiftings.accounts.models import User
+    from shiftings.shifts.models import Shift
 
 
 class Event(models.Model):

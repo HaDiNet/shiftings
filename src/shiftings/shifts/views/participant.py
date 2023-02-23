@@ -8,7 +8,6 @@ from shiftings.organizations.views.organization_base import OrganizationPermissi
 from shiftings.shifts.forms.participant import AddOtherParticipantForm, AddSelfParticipantForm
 from shiftings.shifts.models import Participant, Shift
 from shiftings.utils.exceptions import Http403
-from shiftings.utils.views.base import BaseLoginMixin
 from shiftings.utils.views.create_update_view import CreateView
 
 
@@ -40,7 +39,7 @@ class AddOtherParticipantView(OrganizationPermissionMixin, CreateView):
         shift.participants.add(self.object)
         shift.save()
         return self.success
-    
+
     def get_success_url(self) -> str:
         return self.get_shift().get_absolute_url()
 

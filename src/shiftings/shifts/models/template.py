@@ -1,11 +1,14 @@
+from __future__ import annotations
+
 from datetime import datetime
-from typing import Optional
+from typing import Optional, TYPE_CHECKING
 
 from django.core.validators import MaxValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from shiftings.shifts.models import Shift
+if TYPE_CHECKING:
+    from shiftings.shifts.models import Shift
 
 
 class ShiftTemplate(models.Model):
@@ -39,6 +42,7 @@ class ShiftTemplate(models.Model):
                 warnings += f'\n{holiday_warning}'
             else:
                 warnings = holiday_warning
+        from shiftings.shifts.models import Shift
         return Shift(name=self.name, shift_type=self.shift_type, place=self.group.place,
                      organization=self.group.organization, start=start, end=start + self.duration,
                      required_users=self.required_users, max_users=self.max_users,

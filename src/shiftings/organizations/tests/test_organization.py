@@ -1,6 +1,5 @@
-from django.test import TestCase
-
 from django.contrib.auth.models import Group
+from django.test import TestCase
 
 from shiftings.accounts.models import User
 from shiftings.organizations.models import Membership, MembershipType, Organization

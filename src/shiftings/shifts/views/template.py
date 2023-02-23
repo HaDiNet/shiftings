@@ -2,25 +2,16 @@ from typing import Any
 
 from django.db.models import QuerySet
 from django.http import HttpResponse
-from django.views.generic import TemplateView
+from django.views.generic import DetailView, TemplateView
 
 from shiftings.organizations.models import Organization
-from shiftings.shifts.forms.template import ShiftTemplateFormSet
-from shiftings.shifts.models import RecurringShift, ShiftTemplate, ShiftTemplateGroup
-from shiftings.utils.views.base import BaseLoginMixin
-from shiftings.utils.views.formset import ModelFormsetBaseView
-from typing import Any
-
-from django.db.models import QuerySet
-from django.urls import reverse
-from django.views.generic import DetailView, ListView
-
 from shiftings.organizations.views.organization import OrganizationMemberMixin, OrganizationPermissionMixin
 from shiftings.organizations.views.organization_base import OrganizationMixin
-from shiftings.shifts.forms.template import ShiftTemplateGroupForm
-from shiftings.shifts.models import ShiftTemplateGroup
+from shiftings.shifts.forms.template import ShiftTemplateFormSet, ShiftTemplateGroupForm
+from shiftings.shifts.models import ShiftTemplate, ShiftTemplateGroup
 from shiftings.utils.views.create_update_view import CreateOrUpdateView
 from shiftings.utils.views.delete_view import DeleteView
+from shiftings.utils.views.formset import ModelFormsetBaseView
 
 
 class ShiftTemplateGroupMixin(OrganizationMixin):

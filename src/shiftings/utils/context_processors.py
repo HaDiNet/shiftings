@@ -1,5 +1,5 @@
-from typing import Any
 from datetime import date
+from typing import Any
 
 from django.conf import settings
 from django.http import HttpRequest
@@ -15,7 +15,7 @@ def feature(request: HttpRequest) -> dict[str, dict[str, bool]]:
     }
 
 
-def today(request: HttpRequest) -> dict[str, dict[str, date]]:
+def today(request: HttpRequest) -> dict[str, date]:
     return {
-        'today': date.today
+        'today': date.today()
     }

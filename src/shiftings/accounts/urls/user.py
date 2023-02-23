@@ -2,13 +2,9 @@ from typing import Any, List
 
 from django.conf import settings
 from django.urls import path
-# from django.views.generic import TemplateView
 from django.views.generic import TemplateView
 
 from shiftings.accounts.views.auth import UserLoginView, UserLogoutView, UserReLoginView
-# from shiftings.accounts.views.user_edit import (PasswordResetConfirmView, PasswordResetView, UserCreateView,
-#                                             UserUpdateOtherView, UserUpdateSelfView)
-# from shiftings.accounts.views.user_profile import UserProfileView
 from shiftings.accounts.views.password import PasswordResetConfirmView, PasswordResetView
 from shiftings.accounts.views.user import UserEditView, UserProfileView, UserRegisterView
 from shiftings.cal.feed.user import OwnShiftsFeed, UserFeed

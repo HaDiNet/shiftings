@@ -11,7 +11,7 @@ from django.http import HttpResponse
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import DetailView
-from django.views.generic.edit import BaseFormView, DeleteView, FormView
+from django.views.generic.edit import DeleteView, FormView
 
 from shiftings.organizations.models import Organization
 from shiftings.organizations.views.organization_base import OrganizationPermissionMixin

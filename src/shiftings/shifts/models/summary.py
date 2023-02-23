@@ -25,4 +25,4 @@ class OrganizationSummarySettings(models.Model):
         return _('Organization summary settings of {organization}').format(organization=self.organization.display)
 
     def get_absolute_url(self) -> str:
-        return reverse('organization_shift_summary', args = [self.organization.pk])
+        return reverse('organization_shift_summary', args=[self.organization.pk])

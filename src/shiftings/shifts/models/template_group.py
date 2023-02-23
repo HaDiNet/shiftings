@@ -1,12 +1,16 @@
-from datetime import date, datetime
-from typing import Optional
+from __future__ import annotations
 
-from django.db import models, transaction
+from datetime import date, datetime
+from typing import Optional, TYPE_CHECKING
+
+from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
-from shiftings.shifts.models import Shift, ShiftTemplate
 from shiftings.utils.fields.date_time import TimeField
+
+if TYPE_CHECKING:
+    from shiftings.shifts.models import Shift, ShiftTemplate
 
 
 class ShiftTemplateGroup(models.Model):
@@ -30,7 +34,8 @@ class ShiftTemplateGroup(models.Model):
     def __str__(self):
         return self.display
 
-    def get_shift_objs(self, _date: date, weekend_warning: Optional[str], holiday_warning: Optional[str]) -> list[Shift]:
+    def get_shift_objs(self, _date: date, weekend_warning: Optional[str], holiday_warning: Optional[str]) \
+            -> list[Shift]:
         start = datetime.combine(_date, self.start_time)
         shifts = []
         for _template in self.shifts.all():

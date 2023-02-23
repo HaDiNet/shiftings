@@ -1,5 +1,5 @@
 import calendar
-from datetime import date, datetime, MINYEAR, MAXYEAR
+from datetime import date, datetime, MAXYEAR, MINYEAR
 from typing import Optional
 
 from django.db import models

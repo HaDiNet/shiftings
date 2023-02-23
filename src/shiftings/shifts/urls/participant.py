@@ -1,6 +1,6 @@
 from django.urls import path
 
-from shiftings.shifts.views.participant import AddSelfParticipantView, RemoveParticipantView, AddOtherParticipantView
+from shiftings.shifts.views.participant import AddOtherParticipantView, AddSelfParticipantView, RemoveParticipantView
 
 urlpatterns = [
     path('add_me/', AddSelfParticipantView.as_view(), name='add_participant_self'),

@@ -1,8 +1,10 @@
 from django.urls import include, path
 
 from shiftings.cal.feed.organization import OrganizationFeed
-from shiftings.organizations.views.organization import OrganizationAdminView, OrganizationEditView, \
-    OrganizationListView, OrganizationSettingsView, OrganizationShiftsView, OwnOrganizationListView
+from shiftings.organizations.views.organization import (
+    OrganizationAdminView, OrganizationEditView, OrganizationListView, OrganizationSettingsView, OrganizationShiftsView,
+    OwnOrganizationListView
+)
 
 urlpatterns = [
     # admin only

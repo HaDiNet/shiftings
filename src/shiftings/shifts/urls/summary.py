@@ -4,5 +4,6 @@ from shiftings.shifts.views.summary import OrganizationEditShiftSummarySettingsV
 
 urlpatterns = [
     path('organization/<int:pk>/', OrganizationShiftSummaryView.as_view(), name='organization_shift_summary'),
-    path('organization/<int:pk>/edit', OrganizationEditShiftSummarySettingsView.as_view(), name='edit_summary_settings'),
+    path('organization/<int:pk>/edit', OrganizationEditShiftSummarySettingsView.as_view(),
+         name='edit_summary_settings'),
 ]

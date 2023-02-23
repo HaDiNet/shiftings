@@ -11,7 +11,6 @@ from shiftings.organizations.forms.organization import OrganizationForm
 from shiftings.organizations.models import MembershipType, Organization, OrganizationDummyUser
 from shiftings.organizations.views.organization_base import OrganizationMemberMixin, OrganizationPermissionMixin
 from shiftings.shifts.forms.summary import OrganizationShiftSummaryForm
-from shiftings.shifts.forms.type_group import ShiftTypeGroupForm
 from shiftings.utils.pagination import get_pagination_context
 from shiftings.utils.typing import UserRequest
 from shiftings.utils.views.base import BaseLoginMixin, BasePermissionMixin
