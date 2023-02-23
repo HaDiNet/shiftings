@@ -23,6 +23,8 @@ class BaseMixin(AccessMixin, ContextMixin, ABC):
     fail_url: Optional[str] = None
     redirect_url: Optional[str] = None
 
+    title: Optional[str] = None
+
     kwargs: Dict[str, Any]
 
     def _get_object(self, cls: Type[T], pk_url_kwarg: str) -> T:
@@ -51,6 +53,14 @@ class BaseMixin(AccessMixin, ContextMixin, ABC):
         if self.redirect_url is not None:
             return HttpResponseRedirect(self.redirect_url)
         raise Http403(_('You don\'t have the required permission.'))
+
+    def get_title(self) -> str:
+        return self.title or 'Shiftings'
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context_data = super().get_context_data(**kwargs)
+        context_data['title'] = self.get_title()
+        return context_data
 
     def handle_no_permission(self) -> HttpResponse:
         handled = self._handle_no_permission()
