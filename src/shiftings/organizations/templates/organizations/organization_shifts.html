@@ -7,7 +7,7 @@
   {% if org_perms.see_statistics %}
     <div class="mt-3 card base-card bg-dark">
       <div class="card-header center-items justify-content-between">
-        <h3>{% trans "Member Shift Summary" %}</h3>
+        <h3>{% trans "Member Shift Summary" %} ({{ organization.summary_settings.default_time_range.display }})</h3>
         <div class="center-items">
           <a class="btn btn-info w-100 ms-1" href="{% url 'organization_shift_summary' organization.pk %}">
             <i title="{% trans "Full Summary" %}" class="fas fa-ranking-star me-2"></i>

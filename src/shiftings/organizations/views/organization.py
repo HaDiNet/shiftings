@@ -88,7 +88,8 @@ class OrganizationAdminView(OrganizationPermissionMixin, DetailView):
         for membership_type in self.object.membership_types.all():
             membership_types.append({
                 'object': membership_type,
-                'members': self.object.members.filter(type=membership_type),
+                'members': self.object.members.filter(type=membership_type, user__isnull=False),
+                'groups': self.object.members.filter(type=membership_type, group__isnull=False),
                 'form': self.create_membership_form(membership_type)
             })
         context['membership_types'] = membership_types

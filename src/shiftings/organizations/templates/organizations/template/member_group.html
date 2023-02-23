@@ -1,17 +1,17 @@
-<div class="accordion accordion-flush border border-secondary" id="group{{ member_group.pk }}Accordion">
-  <div class="accordion-item bg-secondary">
-    <div class="accordion-header center-items justify-content-bewtween bg-secondary p-2" id="flush-headingOne">
-      <a class="collapsed text-decoration-none text-white w-100 ms-4" type="button" data-bs-toggle="collapse"
+<div class="accordion accordion-flush" id="group{{ member_group.pk }}Accordion">
+  <div class="accordion-item bg-secondary border-start border-light border-1">
+    <div class="accordion-header center-items justify-content-bewtween bg-secondary" id="flush-headingOne">
+      <a class="bg-transparent link collapsed w-100 p-2" type="button" data-bs-toggle="collapse"
          data-bs-target="#collapse{{ member_group.pk }}" aria-expanded="false"
          aria-controls="collapse{{ member_group.pk }}" title="{% trans "Click to expand members" %}">
-        <h5 class="m-0 center-items justify-content-start">
-          <i class="fa-solid fa-square-caret-down me-2"></i>
-          <span>{% trans "Group" %}: {{ member_group }}</span>
+        <h5 class=" m-0 center-items justify-content-start w-100">
+          <i class="fas fa-square-minus me-2"></i>
+          <span class="text-wrap text-break">{{ member_group }}</span>
         </h5>
       </a>
       {% if org_perms.edit_members %}
         {% if org_perms.admin or not membership_type.admin %}
-          <button type="button" class="btn btn-danger px-1 py-0 me-4" data-bs-toggle="modal"
+          <button type="button" class="btn btn-danger py-0 px-2 me-2" data-bs-toggle="modal"
                   data-bs-target="#confirmRemoveModal" data-bs-remove-name="{{ member_group }}"
                   data-bs-remove-url="{% url 'membership_remove' organization.pk member.pk %}">
             <i class="fas fa-x pe-none"></i>
@@ -19,10 +19,10 @@
         {% endif %}
       {% endif %}
     </div>
-    <div id="collapse{{ member_group.pk }}" class="accordion-collapse collapse bg-dark"
+    <div id="collapse{{ member_group.pk }}" class="accordion-collapse collapse bg-dark show"
          aria-labelledby="flush-headingOne"
          data-bs-parent="#group{{ member_group.pk }}Accordion">
-      <div class="bg-dark p-0">
+      <div class="bg-dark border-start border-light border-5 p-0">
         <table class="table table-dark table-striped text-center m-0">
           {% for name in member_group.user_set.all %}
             <tr>

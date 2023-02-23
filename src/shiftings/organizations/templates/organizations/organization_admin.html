@@ -35,29 +35,34 @@
 {% block left %}
   <div class="sticky-top">
     {% include "organizations/template/org_info.html" %}
-    <div class="card base-card bg-dark mb-3 p-2">
-      <div class="row g-1">
-        <div class="col-12 col-lg-6">
+    <div class="card bg-dark mb-3 p-2">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <h4 class="w-75">
+          {% blocktrans %}
+            Members of {{ organization }}
+          {% endblocktrans %}
+        </h4>
+        <div class="center-items">
           {% if org_perms.see_statistics %}
-            <a class="btn btn-info w-100" href="{% url 'organization_shift_summary' organization.pk %}">
-              <i class="fas fa-ranking-star me-2"></i>{% trans "Member Shift Summary" %}
+            <a class="btn btn-info me-2" href="{% url 'organization_shift_summary' organization.pk %}"
+               title="{% trans "Member Shift Summary" %}">
+              <i class="fas fa-ranking-star"></i>
             </a>
           {% endif %}
-        </div>
-        <div class="col-12 col-lg-6">
           {% if org_perms.edit_membership_types %}
-            <a class="btn btn-success w-100" href="{% url 'membership_type_add' organization.pk %}">
-              <i class="fas fa-shield-cat me-2"></i>{% trans "Add Membership Type" %}
+            <a class="btn btn-success" href="{% url 'membership_type_add' organization.pk %}"
+               title="{% trans "Add Membership Type" %}">
+              <i class="fas fa-circle-plus"></i>
             </a>
           {% endif %}
         </div>
       </div>
-      <div class="p-2">
-        <div class="row">
-          {% for membership_type in membership_types %}
-            <div class="col-sm-6 col-lg-4">
+      <div class="row g-3">
+        {% for membership_type in membership_types %}
+          <div class="col-12 col-sm-6 col-lg-12 col-xxl-6">
+            <div class="border border-secondary h-100 ">
               <div class="center-items justify-content-between p-1">
-                <span>
+                <h5 class="fw-bold">
                   {{ membership_type.object.name }}
                   {% if membership_type.object.admin %}
                     <i class="fas fa-crown" title="{% trans "Admin" %}"></i>
@@ -65,7 +70,7 @@
                   {% if membership_type.object.default %}
                     <i class="fas fa-reply"></i>
                   {% endif %}
-                </span>
+                </h5>
                 <div>
                   {% if org_perms.edit_membership_types %}
                     <button type="button" class="btn btn-info py-1 px-2 my-1" data-bs-toggle="modal"
@@ -73,7 +78,7 @@
                             title="{% trans "Show user permissions" %}">
                       <i class="fa-solid fa-user-shield"></i>
                     </button>
-                    <a class="btn btn-success py-1 px-2 my-1" title="{% trans "Edit Membership Type" %}"
+                    <a class="btn btn-primary py-1 px-2 my-1" title="{% trans "Edit Membership Type" %}"
                        href="{% url "membership_type_edit" organization.pk membership_type.object.pk %}">
                       <i class="fa-solid fa-pen-to-square"></i>
                     </a>
@@ -89,23 +94,49 @@
                   {% endif %}
                 </div>
               </div>
-              <table class="table table-dark table-striped text-center m-0">
-                <tbody>
-                {% for member in membership_type.members %}
-                  {% if member.group is None %}
-                    {% include 'organizations/template/member.html' with membership_type=membership_type.object %}
-                  {% endif %}
-                {% endfor %}
-                </tbody>
-              </table>
-              {% for member in membership_type.members %}
-                {% if member.user is None %}
-                  {% include 'organizations/template/member_group.html' with member_group=member.group membership_type=membership_type.object %}
+              <div class="ms-4 pb-2">
+                {% if membership_type.members|length == 0 and membership_type.groups|length == 0 %}
+                  <div class="text-danger">
+                    {% trans "No Members of this type!" %}
+                  </div>
                 {% endif %}
-              {% endfor %}
+                {% if membership_type.members|length > 0 %}
+                  <div class="mb-2">
+                    <span class="text-start fw-bold">
+                      {% trans "Direct Members" %}:
+                    </span>
+                  </div>
+                  <div class="mx-4">
+                    <table class="table table-dark table-striped text-center m-0">
+                      <tbody>
+                      {% for member in membership_type.members %}
+                        {% if member.group is None %}
+                          {% include 'organizations/template/member.html' with membership_type=membership_type.object %}
+                        {% endif %}
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                {% endif %}
+                {% if membership_type.groups|length > 0 %}
+                  <div class="my-2">
+                    <span class="text-start fw-bold">
+                      {% trans "Groups" %}:
+                    </span>
+                  </div>
+
+                  <div class="mx-4">
+                    {% for member in membership_type.groups %}
+                      {% if member.user is None %}
+                        {% include 'organizations/template/member_group.html' with member_group=member.group membership_type=membership_type.object %}
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              </div>
             </div>
-          {% endfor %}
-        </div>
+          </div>
+        {% endfor %}
       </div>
     </div>
   </div>
@@ -322,7 +353,7 @@
         <div>
           {% if shifts_claimable %}
             <a class="btn btn-primary" href="{% url "claim_user_list" organization.pk %}">
-            {% trans "Claim Legacy Shifts" %}
+              {% trans "Claim Legacy Shifts" %}
             </a>
           {% endif %}
           <a class="btn btn-success" href="{% url 'organization_calendar' organization.pk %}"

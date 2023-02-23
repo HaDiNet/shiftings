@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-  <div class="row g-3">
-    {% block above %}{% endblock %}
-    <div class="col-lg-6 px-3">{% block left %}{% endblock %}</div>
-    <div class="col-lg-6 px-3">{% block right %}{% endblock %}</div>
-    {% block below %}{% endblock %}
+  <div class="container-fluid">
+    <div class="row g-3">
+      {% block above %}{% endblock %}
+      <div class="col-lg-6 px-3">{% block left %}{% endblock %}</div>
+      <div class="col-lg-6 px-3">{% block right %}{% endblock %}</div>
+      {% block below %}{% endblock %}
+    </div>
   </div>
 {% endblock %}

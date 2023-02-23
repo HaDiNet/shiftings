@@ -29,7 +29,7 @@
         <span class="btn border border-2 link pe-none w-100 mx-2">{{ display.display }}</span>
       {% endif %}
     {% else %}
-      {% if shift.end.date > current_date %}
+      {% if shift.end.date >= current_date %}
         {% if not user_is_participant %}
           <button type="button" class="btn border border-2 card-link link w-100 mx-2" data-bs-toggle="modal"
                   data-bs-target="#addSelfForm{{ shift.pk }}Modal">

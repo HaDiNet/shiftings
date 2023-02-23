@@ -39,7 +39,7 @@
   --bs-dark-rgb: 21, 22, 24;
   --bs-white-rgb: 255, 255, 255;
   --bs-black-rgb: 0, 0, 0;
-  --bs-body-color-rgb: 33, 37, 41;
+  --bs-body-color-rgb: 255, 255, 255;
   --bs-body-bg-rgb: 255, 255, 255;
   --bs-body-font-size: 1rem;
   --bs-body-font-weight: 400;
@@ -137,6 +137,7 @@ input:disabled {
 
 .search-menu input {
   height: 100%;
+  background-color: transparent !important;
 }
 
 
@@ -322,9 +323,6 @@ dl.detail-horizontal dd {
 
 /*organizations*/
 .organization-detail-logo {
-  position: absolute;
-  top: 60px;
-  right: 0;
   height: 175px;
   display: flex;
   justify-content: center;
@@ -416,14 +414,6 @@ dl.detail-horizontal dd {
 @media (max-width: 900px) {
   .organization-container {
     height: 25rem;
-  }
-
-  .organization-detail-logo {
-    top: 0;
-    margin-bottom: 0.5rem;
-    position: relative;
-    justify-content: initial;
-    align-content: initial;
   }
 
 }
