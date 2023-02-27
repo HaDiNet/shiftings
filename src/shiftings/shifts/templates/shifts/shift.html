@@ -15,9 +15,9 @@
                 <i class="fa-solid fa-pen-to-square"></i>
               </a>
               {% now "Y-m-d" as today %}
-              {% if shift.start|date:"Y-m-d" >= today %}
+              {% if org_perms.admin or shift.start|date:"Y-m-d" >= today and org_perms.delete_shifts  %}
                 <a class="btn btn-danger px-2 py-1" href="{% url 'shift_delete' shift.pk %}"
-                   title="{% trans "Edit Shift" %}">
+                   title="{% trans "Delete Shift" %}">
                   <i class="fa-solid fa-trash"></i>
                 </a>
               {% endif %}

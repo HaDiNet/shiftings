@@ -139,7 +139,7 @@ class CreateShiftFromTemplateGroup(OrganizationPermissionMixin, FormView):
         return self.get_organization().get_absolute_url()
 
 
-class PastShiftDeleteView(OrganizationPermissionMixin, DeleteView):
+class ShiftDeleteView(OrganizationPermissionMixin, DeleteView):
     model = Shift
     object: Shift
     permission_required = 'organizations.delete_shifts'
