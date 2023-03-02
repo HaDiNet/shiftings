@@ -21,8 +21,8 @@
             </div>
             <div class="col-4 col-md-12 mb-2">
               <h4>{% trans "Filters" %}:</h4>
-              <a class="btn btn-secondary mb-2 {% active_param 'filter' 'all' %}" href="?filter=all">All Shifts</a>
-              <a class="btn btn-secondary mb-2 {% active_param 'filter' 'own' %}" href="?filter=own">My Shifts</a>
+              <a class="btn btn-secondary mb-2 {% active_param 'filter' 'all' %}" href="?filter=all">{% trans "All Shifts" %}</a>
+              <a class="btn btn-secondary mb-2 {% active_param 'filter' 'own' %}" href="?filter=own">{% trans "My Shifts" %}</a>
               {% if feature.event %}
                 <div class="dropdown">
                   <button class="btn btn-secondary dropdown-toggle{% if not public_events %} disabled {% endif %}"

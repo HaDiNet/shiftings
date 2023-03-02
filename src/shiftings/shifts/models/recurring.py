@@ -10,7 +10,7 @@ from django.contrib.humanize.templatetags.humanize import ordinal
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.urls import reverse
-from django.utils.translation import gettext as __, gettext_lazy as _
+from django.utils.translation import gettext as _
 
 from shiftings.shifts.utils.time_frame import TimeFrameType
 from shiftings.utils.fields.date_time import DateField
@@ -81,9 +81,9 @@ class RecurringShift(models.Model):
     @property
     def repetition_display(self) -> str:
         return self.get_time_frame_field_display() \
-            .replace(__('Nth'), str(ordinal(self.ordinal))) \
-            .replace(__('[weekday]'), str(self.get_week_day_field_display())) \
-            .replace(__('[month]'), str(self.get_month_field_display()))
+            .replace(_('Nth'), str(ordinal(self.ordinal))) \
+            .replace(_('[weekday]'), str(self.get_week_day_field_display())) \
+            .replace(_('[month]'), str(self.get_month_field_display()))
 
     @property
     def week_day(self) -> Optional[WeekDay]:

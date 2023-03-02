@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-23 22:41+0000\n"
+"POT-Creation-Date: 2023-03-02 21:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -236,6 +236,7 @@ msgid "Filter Shifts"
 msgstr ""
 
 #: shiftings/accounts/templates/accounts/user_detail.html:108
+#: shiftings/cal/templates/cal/calendar_base.html:25
 #: shiftings/templates/top_nav.html:15
 msgid "My Shifts"
 msgstr ""
@@ -319,6 +320,10 @@ msgstr ""
 
 #: shiftings/cal/templates/cal/calendar_base.html:23
 msgid "Filters"
+msgstr ""
+
+#: shiftings/cal/templates/cal/calendar_base.html:24
+msgid "All Shifts"
 msgstr ""
 
 #: shiftings/cal/templates/cal/calendar_base.html:42
@@ -1274,6 +1279,18 @@ msgstr ""
 msgid "Manually Disabled"
 msgstr ""
 
+#: shiftings/shifts/models/recurring.py:84
+msgid "Nth"
+msgstr ""
+
+#: shiftings/shifts/models/recurring.py:85
+msgid "[weekday]"
+msgstr ""
+
+#: shiftings/shifts/models/recurring.py:86
+msgid "[month]"
+msgstr ""
+
 #: shiftings/shifts/models/shift.py:22
 msgid "Start Date and Time"
 msgstr ""
@@ -1502,8 +1519,11 @@ msgid "Cancel"
 msgstr ""
 
 #: shiftings/shifts/templates/shifts/shift.html:14
-#: shiftings/shifts/templates/shifts/shift.html:20
 msgid "Edit Shift"
+msgstr ""
+
+#: shiftings/shifts/templates/shifts/shift.html:20
+msgid "Delete Shift"
 msgstr ""
 
 #: shiftings/shifts/templates/shifts/shift.html:49

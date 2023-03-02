@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-23 22:41+0000\n"
+"POT-Creation-Date: 2023-03-02 21:09+0000\n"
 "PO-Revision-Date: 2023-02-23 23:46+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -250,6 +250,7 @@ msgid "Filter Shifts"
 msgstr "Schichten Filtern"
 
 #: shiftings/accounts/templates/accounts/user_detail.html:108
+#: shiftings/cal/templates/cal/calendar_base.html:25
 #: shiftings/templates/top_nav.html:15
 msgid "My Shifts"
 msgstr "Meine Schichten"
@@ -337,6 +338,12 @@ msgstr "Monat"
 #: shiftings/cal/templates/cal/calendar_base.html:23
 msgid "Filters"
 msgstr "Filter"
+
+#: shiftings/cal/templates/cal/calendar_base.html:24
+#, fuzzy
+#| msgid "Shifts"
+msgid "All Shifts"
+msgstr "Alle Schichten"
 
 #: shiftings/cal/templates/cal/calendar_base.html:42
 #: shiftings/organizations/templates/organizations/list.html:7
@@ -1311,6 +1318,18 @@ msgstr "Warnung für Feiertage"
 msgid "Manually Disabled"
 msgstr "Manuell deaktiviert"
 
+#: shiftings/shifts/models/recurring.py:84
+msgid "Nth"
+msgstr "Nte"
+
+#: shiftings/shifts/models/recurring.py:85
+msgid "[weekday]"
+msgstr "[Wochentag]"
+
+#: shiftings/shifts/models/recurring.py:86
+msgid "[month]"
+msgstr "[Monat]"
+
 #: shiftings/shifts/models/shift.py:22
 msgid "Start Date and Time"
 msgstr "Startdatum und Zeit"
@@ -1553,9 +1572,14 @@ msgid "Cancel"
 msgstr "Abbrechen"
 
 #: shiftings/shifts/templates/shifts/shift.html:14
-#: shiftings/shifts/templates/shifts/shift.html:20
 msgid "Edit Shift"
 msgstr "Schicht bearbeiten"
+
+#: shiftings/shifts/templates/shifts/shift.html:20
+#, fuzzy
+#| msgid "Create Shift"
+msgid "Delete Shift"
+msgstr "Schicht löschen"
 
 #: shiftings/shifts/templates/shifts/shift.html:49
 #, python-format
@@ -1676,27 +1700,27 @@ msgstr "Tage + {delta_days}"
 
 #: shiftings/shifts/utils/time_frame.py:17
 msgid "Nth [weekday] of each month"
-msgstr "Nter [Wochentag] jeden Monat"
+msgstr "Nte [Wochentag] jeden Monat"
 
 #: shiftings/shifts/utils/time_frame.py:18
 msgid "Nth day of each month"
-msgstr "Nter Tag jeden Monat"
+msgstr "Nte Tag jeden Monat"
 
 #: shiftings/shifts/utils/time_frame.py:19
 msgid "every Nth [weekday]"
-msgstr "Jeden Nten [Wochentag]"
+msgstr "Jeden Nte [Wochentag]"
 
 #: shiftings/shifts/utils/time_frame.py:20
 msgid "Nth workday of each month"
-msgstr "Jeden Nten Werktag jedes Monats"
+msgstr "Jeden Nte Werktag jedes Monats"
 
 #: shiftings/shifts/utils/time_frame.py:21
 msgid "Nth day of [month]"
-msgstr "Nter Tag des [Monats]"
+msgstr "Nte Tag des [Monats]"
 
 #: shiftings/shifts/utils/time_frame.py:22
 msgid "Nth workday of [month]"
-msgstr "Nter Werktag des [Monats]"
+msgstr "Nte Werktag des [Monats]"
 
 #: shiftings/shifts/views/recurring.py:71
 msgid "Forbidden Method GET"
@@ -1704,7 +1728,7 @@ msgstr "Verbotene Methode GET"
 
 #: shiftings/shifts/views/recurring.py:84
 msgid "Created Shifts on {}"
-msgstr "Schichte am {} erstellt"
+msgstr "Schicht am {} erstellt"
 
 #: shiftings/shifts/views/recurring.py:88
 msgid "Error while creating shifts. Invalid Date"
