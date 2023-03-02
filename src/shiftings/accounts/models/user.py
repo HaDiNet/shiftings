@@ -22,8 +22,8 @@ class BaseUser(AbstractUser):
 
     @property
     def display(self) -> str:
-        if hasattr(self, 'user') and self.user.display_name is not None:
-            return self.user.display_name
+        if hasattr(self, 'user'):
+            return self.user.display
         return self.get_full_name()
 
 
