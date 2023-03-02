@@ -27,7 +27,7 @@ def shift_card(context, shift) -> dict[str, Any]:
 
 
 @register.inclusion_tag('shifts/template/member_shift_summary.html', takes_context=True)
-def member_shift_summary(context, org, show_all_users: bool = False) -> dict[str, Any]:
+def member_shift_summary(context, org, show_all_users: bool = False, show_future_shifts: bool = True) -> dict[str, Any]:
     def get_int(name: str, default: int) -> int:
         try:
             return int(context['request'].GET.get(name, default))
@@ -42,6 +42,8 @@ def member_shift_summary(context, org, show_all_users: bool = False) -> dict[str
     month = get_int('month', date.today().month)
     time_range = time_range_type.get_time_range(year, month)
     time_filter = Q(start__range=time_range) | Q(end__range=time_range)
+    if not show_future_shifts:
+        time_filter &= Q(start__lte=date.today())
     other_filter = Q(shift_type__isnull=True) | Q(shift_type__group__isnull=True)
     groups = list(org.shift_type_groups.all())
     context['groups'] = groups
