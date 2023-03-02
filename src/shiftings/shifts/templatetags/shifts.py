@@ -67,6 +67,7 @@ def member_shift_summary(context, org, show_all_users: bool = False, show_future
         ]
         others_amount = org.shifts.filter(time_filter, other_filter, participants__user__pk__in=pks).count()
         members.append({
+            'pk': user.pk,
             'name': user.display,
             'groups': group_amounts,
             'other': others_amount,

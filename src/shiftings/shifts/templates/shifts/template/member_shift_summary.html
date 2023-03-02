@@ -11,7 +11,7 @@
   </thead>
   <tbody>
   {% for member in members %}
-    <tr>
+    <tr {% if member.pk == request.user.pk %} class="table-active" {% endif %}>
       <td>{{ member.name }}</td>
       {% for group in member.groups %}
         <td>{{ group }}</td>
