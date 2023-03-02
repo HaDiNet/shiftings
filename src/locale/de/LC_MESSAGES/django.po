@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-02 21:09+0000\n"
+"POT-Creation-Date: 2023-03-02 23:39+0000\n"
 "PO-Revision-Date: 2023-02-23 23:46+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -26,13 +26,13 @@ msgstr "Passwort bestätigen"
 msgid "Please enter matching passwords"
 msgstr "Bitte gebe identische Passwörter ein"
 
-#: shiftings/accounts/models/user.py:29
+#: shiftings/accounts/models/user.py:31
 #: shiftings/accounts/templates/accounts/user_detail.html:24
 #: shiftings/shifts/models/participant.py:15
 msgid "Display Name"
 msgstr "Anzeigename"
 
-#: shiftings/accounts/models/user.py:30 shiftings/events/models/event.py:28
+#: shiftings/accounts/models/user.py:32 shiftings/events/models/event.py:28
 #: shiftings/organizations/models/organization.py:27
 msgid "Telephone Number"
 msgstr "Telefonnummer"
@@ -1208,19 +1208,24 @@ msgstr "Du musst eine Warnung für die Wochenendproblembehandlung hinzufügen."
 msgid "You need to add a warning for holiday handling."
 msgstr "Du musst eine Warnung für die Feiertagsproblembehandlung hinzufügen."
 
-#: shiftings/shifts/forms/template.py:16
+#: shiftings/shifts/forms/shift.py:38 shiftings/shifts/forms/template.py:63
+#, python-brace-format
+msgid "Shift is too long, can at most be {max} long"
+msgstr ""
+
+#: shiftings/shifts/forms/template.py:18
 msgid "Date"
 msgstr "Datum"
 
-#: shiftings/shifts/forms/template.py:16
+#: shiftings/shifts/forms/template.py:18
 msgid "Date to create the template on"
 msgstr "Datum an dem die Vorlage erstellt wird"
 
-#: shiftings/shifts/forms/template.py:36 shiftings/shifts/models/template.py:22
+#: shiftings/shifts/forms/template.py:38 shiftings/shifts/models/template.py:22
 msgid "Start Delay"
 msgstr "Startverzögerung"
 
-#: shiftings/shifts/forms/template.py:38 shiftings/shifts/models/template.py:23
+#: shiftings/shifts/forms/template.py:40 shiftings/shifts/models/template.py:23
 #: shiftings/shifts/templates/shifts/recurring/list.html:11
 msgid "Duration"
 msgstr "Dauer"
@@ -1475,7 +1480,6 @@ msgstr "Endzeit"
 
 #: shiftings/shifts/templates/shifts/create_shift.html:56
 #: shiftings/shifts/templates/shifts/template/template_form.html:24
-#: shiftings/shifts/templates/shifts/template/template_form.html:36
 msgid "Required number of users to fill this shift"
 msgstr "Benötigte Anzahl an Benutzern um die Schicht zu füllen"
 
@@ -1487,7 +1491,6 @@ msgstr "Benötigt"
 
 #: shiftings/shifts/templates/shifts/create_shift.html:61
 #: shiftings/shifts/templates/shifts/template/template_form.html:29
-#: shiftings/shifts/templates/shifts/template/template_form.html:41
 msgid "Maximum number of users allowed in this shift"
 msgstr "Maximale Anzahl an Benutzern in dieser Schicht"
 
@@ -1574,8 +1577,6 @@ msgid "Edit Shift"
 msgstr "Schicht bearbeiten"
 
 #: shiftings/shifts/templates/shifts/shift.html:20
-#, fuzzy
-#| msgid "Create Shift"
 msgid "Delete Shift"
 msgstr "Schicht löschen"
 
@@ -1633,6 +1634,10 @@ msgstr "Schichtvorlage bearbeiten"
 msgid "Member"
 msgstr "Mitglied"
 
+#: shiftings/shifts/templates/shifts/template/member_shift_summary.html:10
+msgid "Total"
+msgstr ""
+
 #: shiftings/shifts/templates/shifts/template/select_org.html:3
 msgid "Select Organization to create Shift for"
 msgstr "Organisation auswählen für die eine Schicht erstellt werden soll"
@@ -1677,10 +1682,18 @@ msgstr "Schicht löschen"
 msgid "Restore Shift"
 msgstr "Schicht wiederherstellen"
 
+#: shiftings/shifts/templates/shifts/template/template_form.html:36
+msgid "Delay to starting time"
+msgstr "Verzögerung zur Startzeit"
+
 #: shiftings/shifts/templates/shifts/template/template_form.html:37
 msgctxt "Shift time"
 msgid "Start Delay"
 msgstr "Startverzögerung"
+
+#: shiftings/shifts/templates/shifts/template/template_form.html:41
+msgid "Shift Duration"
+msgstr "Dauer der Schicht"
 
 #: shiftings/shifts/templates/shifts/template/template_form.html:42
 msgctxt "Shift time"
@@ -1691,7 +1704,7 @@ msgstr "Dauer"
 msgid "Actions"
 msgstr "Aktionen"
 
-#: shiftings/shifts/templatetags/shifts.py:81
+#: shiftings/shifts/templatetags/shifts.py:88
 #, python-brace-format
 msgid "Days + {delta_days}"
 msgstr "Tage + {delta_days}"

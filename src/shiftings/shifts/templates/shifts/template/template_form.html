@@ -33,12 +33,12 @@
       <div class="col-12">{% trans "Time" %}:</div>
       <div class="center-items">
         <div class="col-5 center-items flex-column flex-wrap pe-help"
-             title="{% trans "Required number of users to fill this shift" %}">
+             title="{% trans "Delay to starting time" %}">
           {% trans "Start Delay" context "Shift time" %}{% bootstrap_field form.start_delay show_label=False %}
         </div>
         <div class="col-2">+</div>
         <div class="col-5 center-items flex-column flex-wrap pe-help"
-             title="{% trans "Maximum number of users allowed in this shift" %}">
+             title="{% trans "Shift Duration" %}">
           {% trans "Duration" context "Shift time" %}{% bootstrap_field form.duration show_label=False %}
         </div>
       </div>

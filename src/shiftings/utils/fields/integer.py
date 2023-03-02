@@ -58,4 +58,4 @@ class TimeSliderField(EnhancedIntegerField):
             return value
         if isinstance(value, timedelta):
             return value.total_seconds() // 60
-        return int(value)
+        return int(float(value))
