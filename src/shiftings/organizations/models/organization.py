@@ -69,7 +69,7 @@ class Organization(models.Model):
                 User.objects.filter(pk__in=self.members.filter(user__isnull=False).distinct().values_list('user__pk'))
                 | User.objects.filter(groups__pk__in=self.members.filter(group__isnull=False).distinct()
                                       .values_list('group__pk'))
-        )
+        ).distinct()
 
     def get_users_with_membership(self, membership_types: Optional[QuerySet[MembershipType]] = None) -> QuerySet[User]:
         query = Q()
