@@ -1,4 +1,4 @@
-<div class="time-slider-container"
+<div class="time-slider-container {{ widget.attrs.class }}"
      style="display: flex; flex-flow: row wrap; align-items: center; justify-content: space-between; width: 100%">
   <input type="range" id="{{ widget.attrs.id }}_slider" name="{{ widget.name }}" class="time-slider"
          min="{{ widget.attrs.min }}" max="{{ widget.attrs.max }}" step="{{ widget.attrs.step }}"

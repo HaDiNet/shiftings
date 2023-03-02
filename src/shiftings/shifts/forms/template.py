@@ -2,6 +2,7 @@ from datetime import timedelta
 
 from django import forms
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.forms import ModelChoiceField
 from django.utils.translation import gettext_lazy as _
 
@@ -9,6 +10,7 @@ from shiftings.organizations.models import Organization
 from shiftings.shifts.models import ShiftTemplate, ShiftTemplateGroup, ShiftType
 from shiftings.utils.fields.date_time import DateFormField
 from shiftings.utils.fields.integer import TimeSliderField
+from shiftings.utils.time.localize import localize_timedelta
 
 
 class SelectOrgShiftTemplateGroupForm(forms.Form):
@@ -57,6 +59,9 @@ class ShiftTemplateForm(forms.ModelForm):
 
     def clean_duration(self) -> timedelta:
         minutes = self.cleaned_data['duration']
+        if minutes > settings.MAX_SHIFT_LENGTH_MINUTES:
+            raise ValidationError(_('Shift is too long, can at most be {max} long').format(
+                max=localize_timedelta(timedelta(minutes=settings.MAX_SHIFT_LENGTH_MINUTES))))
         return timedelta(minutes=minutes)
 
 

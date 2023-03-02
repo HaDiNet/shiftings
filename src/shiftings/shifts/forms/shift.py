@@ -1,11 +1,16 @@
-from typing import Any, Optional
+from datetime import timedelta
+from typing import Any, Dict, Optional
 
+from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.forms import Form, HiddenInput, ModelChoiceField, ModelForm
+from django.utils.translation import gettext_lazy as _
 
 from shiftings.accounts.models import User
 from shiftings.organizations.models import Organization
 from shiftings.shifts.models import Shift, ShiftType
 from shiftings.utils.fields.date_time import DateFormField
+from shiftings.utils.time.localize import localize_timedelta
 
 
 class ShiftForm(ModelForm):
@@ -24,6 +29,14 @@ class ShiftForm(ModelForm):
             include_system = True
         organization = instance.organization if instance else self.initial['organization']
         self.fields['shift_type'].queryset = ShiftType.objects.organization(organization, include_system=include_system)
+
+    def clean(self) -> Dict[str, Any]:
+        cleaned_data = self.cleaned_data
+        max_length = timedelta(minutes=settings.MAX_SHIFT_LENGTH_MINUTES)
+        if cleaned_data['end'] - cleaned_data['start'] > max_length:
+            self.add_error('end', ValidationError(
+                _('Shift is too long, can at most be {max} long').format(max=localize_timedelta(max_length))))
+        return cleaned_data
 
 
 class SelectOrgForm(Form):
