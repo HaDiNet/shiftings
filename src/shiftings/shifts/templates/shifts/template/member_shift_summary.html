@@ -7,6 +7,7 @@
   {% if has_others %}
     <th>{{ organization.summary_settings.other_shifts_group_name }}</th>
   {% endif %}
+  <th>{% trans 'Total' %}</th>
   </thead>
   <tbody>
   {% for member in members %}
@@ -18,6 +19,7 @@
       {% if has_others %}
         <td>{{ member.other }}</td>
       {% endif %}
+      <td>{{ member.total }}</td>
     </tr>
   {% endfor %}
   </tbody>

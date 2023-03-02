@@ -59,14 +59,18 @@ def member_shift_summary(context, org, show_all_users: bool = False) -> dict[str
     members = []
     for user in users.order_by('username'):
         pks = [user.pk] + list(OrganizationDummyUser.objects.filter(claimed_by=user).values_list('pk', flat=True))
+        group_amounts = [
+            org.shifts.filter(time_filter, participants__user__pk__in=pks, shift_type__group=shift_type_group).count()
+            for shift_type_group in groups
+        ]
+        others_amount = org.shifts.filter(time_filter, other_filter, participants__user__pk__in=pks).count()
         members.append({
             'name': user.display,
-            'groups': [
-                org.shifts.filter(time_filter, participants__user__pk__in=pks,
-                                  shift_type__group=shift_type_group).count()
-                for shift_type_group in groups],
-            'other': org.shifts.filter(time_filter, other_filter, participants__user__pk__in=pks).count()
+            'groups': group_amounts,
+            'other': others_amount,
+            'total': sum(group_amounts) + others_amount
         })
+    members.sort(key=lambda member: -member['total'])
     context['members'] = members
     return context
 
