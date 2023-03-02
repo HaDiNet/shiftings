@@ -55,7 +55,7 @@ def member_shift_summary(context, org, show_all_users: bool = False) -> dict[str
         filtered_user_ids.update(filtered_dummy_users.filter(claimed_by__isnull=True).values_list('pk', flat=True))
         claimed_ids = filtered_dummy_users.filter(claimed_by__isnull=False).values_list('claimed_by__pk', flat=True)
         filtered_user_ids.update(BaseUser.objects.filter(pk__in=claimed_ids).values_list('pk', flat=True))
-        users = BaseUser.objects.filter(pk__in=filtered_user_ids).distinct()
+        users = BaseUser.objects.filter(pk__in=filtered_user_ids)
     members = []
     for user in users.order_by('username'):
         pks = [user.pk] + list(OrganizationDummyUser.objects.filter(claimed_by=user).values_list('pk', flat=True))

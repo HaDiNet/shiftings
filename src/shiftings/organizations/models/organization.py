@@ -66,8 +66,8 @@ class Organization(models.Model):
     def users(self) -> QuerySet[User]:
         from shiftings.accounts.models import User
         return (
-                User.objects.filter(pk__in=self.members.filter(user__isnull=False).distinct().values_list('user__pk'))
-                | User.objects.filter(groups__pk__in=self.members.filter(group__isnull=False).distinct()
+                User.objects.filter(pk__in=self.members.filter(user__isnull=False).values_list('user__pk'))
+                | User.objects.filter(groups__pk__in=self.members.filter(group__isnull=False)
                                       .values_list('group__pk'))
         ).distinct()
 
