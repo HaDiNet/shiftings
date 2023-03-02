@@ -2,7 +2,7 @@
   const initialized = [];
 
   function getElement(child, className) {
-    const elements = child.parentNode.getElementsByClassName(className);
+    const elements = child.parentNode.parentNode.getElementsByClassName(className);
     if (elements.length !== 1) {
       throw new Error(`Didn\'t find exactly one element with the ${className} class.`);
     }
