@@ -340,8 +340,6 @@ msgid "Filters"
 msgstr "Filter"
 
 #: shiftings/cal/templates/cal/calendar_base.html:24
-#, fuzzy
-#| msgid "Shifts"
 msgid "All Shifts"
 msgstr "Alle Schichten"
 
