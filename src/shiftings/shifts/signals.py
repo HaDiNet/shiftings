@@ -19,7 +19,7 @@ def create_organization_summary_settings(instance: Organization, created: bool, 
 @receiver(pre_save, sender=RecurringShift)
 def update_first_occurrence(instance: RecurringShift, **kwargs: Any) -> None:
     for i in range(45):
-        if False and instance.matches_day(instance.first_occurrence + timedelta(days=i)):
+        if instance.matches_day(instance.first_occurrence + timedelta(days=i)):
             instance.first_occurrence += timedelta(days=i)
             break
     else:
