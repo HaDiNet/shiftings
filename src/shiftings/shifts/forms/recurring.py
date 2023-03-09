@@ -3,7 +3,7 @@ from typing import Any, Dict
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from shiftings.shifts.models import RecurringShift
+from shiftings.shifts.models import RecurringShift, ShiftTemplate, ShiftTemplateGroup
 from shiftings.shifts.models.recurring import ProblemHandling
 from shiftings.shifts.utils.time_frame import TimeFrameType
 
@@ -20,6 +20,8 @@ class RecurringShiftForm(forms.ModelForm):
     def __init__(self, *args: Any, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.fields['organization'].disabled = True
+        self.fields['template'].queryset = ShiftTemplateGroup.objects.filter(
+            organization=self.initial.get('organization'))
 
     def clean(self) -> Dict[str, Any]:
         cleaned_data = super().clean()
