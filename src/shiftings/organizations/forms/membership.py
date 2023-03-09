@@ -1,7 +1,7 @@
 from typing import Any, Optional
 
 from django import forms
-from django.contrib.auth.models import Permission
+from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
 from django.db.models import Q
@@ -28,6 +28,7 @@ class MembershipForm(forms.ModelForm):
             type_filter &= ~Q(admin=True)
         self.fields['type'].queryset = MembershipType.objects.filter(type_filter)
         self.fields['user'].widget.attrs.update({'autofocus': 'autofocus'})
+        self.fields['group'].queryset = Group.objects.order_by('name')
 
     def clean_user(self) -> Optional[User]:
         username = self.cleaned_data.get('user')

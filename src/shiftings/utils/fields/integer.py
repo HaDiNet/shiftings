@@ -54,6 +54,8 @@ class TimeSliderField(EnhancedIntegerField):
         return attrs
 
     def prepare_value(self, value: Union[int, timedelta]) -> int:
+        if value is None:
+            return 0
         if isinstance(value, int):
             return value
         if isinstance(value, timedelta):

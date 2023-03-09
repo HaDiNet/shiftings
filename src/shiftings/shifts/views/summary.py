@@ -24,7 +24,7 @@ class OrganizationEditShiftSummarySettingsView(OrganizationPermissionMixin, Crea
         return self.get_object().organization
 
     def get_success_url(self):
-        return self.object.get_absolute_url()
+        return reverse('organization_settings', args=[self.get_organization()])
 
 
 class OrganizationShiftSummaryView(OrganizationPermissionMixin, DetailView):

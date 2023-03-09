@@ -35,9 +35,9 @@ class ShiftTemplateGroupForm(forms.ModelForm):
 
 class ShiftTemplateForm(forms.ModelForm):
     start_delay = TimeSliderField(min_value=0, initial=0, max_value=settings.MAX_SHIFT_LENGTH_MINUTES,
-                                  step=settings.SHIFT_SLIDER_STEP, label=_('Start Delay'), required=False)
+                                  step=settings.SHIFT_SLIDER_STEP, label=_('Start Delay'), required=True)
     duration = TimeSliderField(min_value=0, initial=0, max_value=settings.MAX_SHIFT_LENGTH_MINUTES,
-                               step=settings.SHIFT_SLIDER_STEP, label=_('Duration'), required=False)
+                               step=settings.SHIFT_SLIDER_STEP, label=_('Duration'), required=True)
 
     template_group: ShiftTemplateGroup
 
@@ -47,7 +47,6 @@ class ShiftTemplateForm(forms.ModelForm):
 
     def __init__(self, template_group: ShiftTemplateGroup, **kwargs):
         self.template_group = template_group
-        print(self.base_fields)
         self.declared_fields['start_delay'].set_start(template_group.start_time.strftime('%H:%M'))
         self.declared_fields['duration'].set_start(template_group.start_time.strftime('%H:%M'))
         self.base_fields['shift_type'].queryset = ShiftType.objects.organization(template_group.organization)
@@ -55,10 +54,14 @@ class ShiftTemplateForm(forms.ModelForm):
 
     def clean_start_delay(self) -> timedelta:
         minutes = self.cleaned_data['start_delay']
+        if minutes is None:
+            raise ValidationError(_('Start Delay was None please reload and use the slider.'))
         return timedelta(minutes=minutes)
 
     def clean_duration(self) -> timedelta:
         minutes = self.cleaned_data['duration']
+        if minutes is None:
+            raise ValidationError(_('Duration was None please reload and use the slider.'))
         if minutes > settings.MAX_SHIFT_LENGTH_MINUTES:
             raise ValidationError(_('Shift is too long, can at most be {max} long').format(
                 max=localize_timedelta(timedelta(minutes=settings.MAX_SHIFT_LENGTH_MINUTES))))
