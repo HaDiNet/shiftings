@@ -60,7 +60,7 @@ class RecurringShiftEditView(OrganizationPermissionMixin, CreateOrUpdateView):
 
 
 class RecurringShiftCreateShiftsView(OrganizationPermissionMixin, SingleObjectMixin, BaseFormView):
-    permission_required = 'organizations.edit_recurring_shifts'
+    permission_required = 'organizations.edit_shifts'
     form_class = RecurringShiftCreateShiftsForm
     model = RecurringShift
 
