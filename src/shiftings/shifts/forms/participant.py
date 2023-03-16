@@ -28,7 +28,7 @@ class AddSelfParticipantForm(forms.ModelForm):
 
 
 class AddOtherParticipantForm(forms.ModelForm):
-    user = forms.CharField(max_length=150, label=_('Username'), required=False)
+    user = forms.CharField(max_length=150, label=_('Username'), required=True)
 
     class Meta:
         model = Participant
@@ -42,18 +42,15 @@ class AddOtherParticipantForm(forms.ModelForm):
         self.fields['user'].widget.attrs.update({'autofocus': 'autofocus'})
 
     def clean(self):
-        user = self.cleaned_data.get('user')
-        if user is None:
-            return ValidationError(_('Unknown User'))
-        if self.shift.participants.filter(user=user).exists():
+        cleaned_data = super().clean()
+        user = cleaned_data.get('user')
+        if user is not None and self.shift.participants.filter(user=user).exists():
             raise ValidationError(_('User {user} is already registered for this shift.').format(user=user))
+        return cleaned_data
 
-    def clean_user(self) -> Optional[User]:
+    def clean_user(self) -> User:
         username = self.cleaned_data.get('user')
-        if not username:
-            return None
         try:
-            user = User.objects.get(username=username)
+            return User.objects.get(username=username)
         except User.DoesNotExist as e:
             raise ValidationError(_('The user you entered could not be found.')) from e
-        return user
