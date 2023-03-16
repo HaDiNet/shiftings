@@ -55,7 +55,7 @@ INSTALLED_APPS = [
 
 FEATURES = {
     'event': False,
-    'registration': False
+    'registration': True
 }
 
 MIDDLEWARE = [
@@ -162,7 +162,7 @@ EMAIL_HOST = 'localhost'
 EMAIL_PORT = 1025
 # use console backend for debugging
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-DEFAULT_FROM_EMAIL = 'support@hadiko.de'
+DEFAULT_FROM_EMAIL = 'bjökgda@example.com'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/

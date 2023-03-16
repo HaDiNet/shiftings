@@ -30,9 +30,11 @@ class BaseMixin(AccessMixin, ContextMixin, ABC):
 
     def dispatch(self, request, *args, **kwargs):
         if self.save_path_in_session:
-            print(request.session.items())
-            request.session['saved_path'] = {'title': str(self.get_title()), 'path': request.path, 'params': request.GET}
-            print(request.session.items())
+            request.session['saved_path'] = {
+                'title': str(self.get_title()),
+                'path': request.path,
+                'params': request.GET
+            }
         return super().dispatch(request, *args, **kwargs)
 
     def get_breadcrumbs(self, **kwargs) -> list[tuple[str, Optional[str]]]:

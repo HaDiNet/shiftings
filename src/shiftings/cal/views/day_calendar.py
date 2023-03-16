@@ -14,9 +14,9 @@ class DayView(CalendarBaseView):
     save_path_in_session = True
 
     def get_title(self) -> str:
-        if not 'theday' in self.kwargs:
-            return _('Day Overview')
-        return _('Day {date}').format(date=self.kwargs.get('theday'))
+        if 'theday' in self.kwargs:
+            return _('Day {date}').format(date=self.kwargs.get('theday'))
+        return _('Day Overview')
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)

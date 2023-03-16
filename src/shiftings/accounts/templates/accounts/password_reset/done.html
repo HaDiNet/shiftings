@@ -1,5 +1,7 @@
-{% extends "card_base.html" %}
+{% extends "generic/form_base.html" %}
 {% block form %}
-  <span class="display-4">{% trans "Your password has been reset, check your email!" %}</span>
-  <a href="{% url "login" %}">{% trans "Back to login" %}</a>
+  <div class="card bg-dark card-body">
+    <span class="display-6">{% trans "Your password has been reset, check your email!" %}</span>
+    <a class="btn btn-primary" href="{% url "login" %}">{% trans "Back to login" %}</a>
+  </div>
 {% endblock %}

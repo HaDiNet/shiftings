@@ -1,8 +1,10 @@
-{% extends "card_base.html" %}
+{% extends "generic/form_base.html" %}
 {% block form %}
-  <form method="post" class="form-horizontal">
-    {% csrf_token %}
-    {% bootstrap_form form %}
-    {% bootstrap_button _("Change Password") button_type="submit" button_class="btn-accent" %}
-  </form>
+  <div class="card bg-dark card-body">
+    <form method="post" class="form-horizontal">
+      {% csrf_token %}
+      {% bootstrap_form form %}
+      {% bootstrap_button _("Change Password") button_type="submit" button_class="btn-success" %}
+    </form>
+  </div>
 {% endblock %}

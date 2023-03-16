@@ -20,10 +20,10 @@ class MonthCalenderView(CalendarBaseView):
     save_path_in_session = True
 
     def get_title(self) -> str:
-        if 'themonth' not in self.kwargs:
-            return _('Month Overview')
-        return _('Month {year}/{month:0>2}').format(year=self.kwargs.get('theyear', None),
-                                                       month=self.kwargs.get('themonth', None))
+        if 'themonth' in self.kwargs:
+            return _('Month {year}/{month:0>2}').format(year=self.kwargs.get('theyear', None),
+                                                        month=self.kwargs.get('themonth', None))
+        return _('Month Overview')
 
     def get_date(self) -> date:
         _date = date.today().replace(day=1)
