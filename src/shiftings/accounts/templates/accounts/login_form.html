@@ -13,12 +13,13 @@
       {% bootstrap_form form %}
       {% bootstrap_button _("Login") id="submit_button" button_type="submit" button_class="btn-primary" %}
       <input type="hidden" name="next" value="{{ next }}" />
+      <a class="btn btn-info" href="{% url 'password_reset' %}">{% trans "Reset Password" %}</a>
       {% if ldap_enabled or sso_enabled %}
         <a class="btn btn-info" href="?">{% trans "Return to selection" %}</a>
       {% endif %}
     </form>
   </div>
-  {% if is_local and feature.registrtation %}
+  {% if is_local and feature.registration %}
     <div class="card bg-secondary p-3 text-center mt-3">
       <h4>{% trans "You don't have an Account?" %}</h4>
       <a class="btn btn-success" href="{% url "register" %}">{% trans "Register here" %}</a>

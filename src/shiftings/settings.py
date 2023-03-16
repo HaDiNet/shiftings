@@ -197,6 +197,7 @@ SERVE_MEDIA_SERVER = ''
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 try:
+    from shiftings.accounts.settings import *
     from shiftings.events.settings import *
     from shiftings.organizations.settings import *
     from shiftings.shifts.settings import *

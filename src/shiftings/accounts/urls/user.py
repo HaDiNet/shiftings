@@ -1,13 +1,16 @@
 from typing import Any, List
 
 from django.conf import settings
-from django.urls import path
+from django.urls import path, register_converter
 from django.views.generic import TemplateView
 
 from shiftings.accounts.views.auth import UserLoginView, UserLogoutView, UserReLoginView
 from shiftings.accounts.views.password import PasswordResetConfirmView, PasswordResetView
-from shiftings.accounts.views.user import UserEditView, UserProfileView, UserRegisterView
+from shiftings.accounts.views.user import ConfirmEMailView, UserEditView, UserProfileView, UserRegisterView
 from shiftings.cal.feed.user import OwnShiftsFeed, UserFeed
+from shiftings.utils.converters import AlphaNumericConverter
+
+register_converter(AlphaNumericConverter, 'uidb64')
 
 urlpatterns: List[Any] = [
     # auth
@@ -27,7 +30,8 @@ urlpatterns: List[Any] = [
     path('participation_calendar/', OwnShiftsFeed(), name='user_participation_calendar'),
 ]
 if settings.FEATURES.get('registration', False):
-    urlpatterns.append(path('register/', UserRegisterView.as_view(), name='register'), )
+    urlpatterns.append(path('register/', UserRegisterView.as_view(), name='register'))
+    urlpatterns.append(path('confirm_email/<uidb64:uidb64>/<token>/', ConfirmEMailView.as_view(), name='confirm_email'))
 
 if settings.OAUTH_ENABLED:
     from shiftings.accounts.views.auth import AuthorizeSSOUser
