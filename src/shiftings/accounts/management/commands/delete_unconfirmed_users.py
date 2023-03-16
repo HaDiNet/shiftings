@@ -14,4 +14,4 @@ class Command(BaseCommand):
             if not user.last_login \
                     and user.date_joined + timedelta(seconds=settings.PASSWORD_RESET_TIMEOUT) < datetime.now():
                 self.stdout.write(f'Deleting user {user.get_full_name()} ({user.username}).')
-                # user.delete()
+                user.delete()
