@@ -161,4 +161,4 @@ class MonthCalendar(BaseCalendar):
         return any(membership.is_member(self.user) for membership in recurring_shift.organization.members.all())
 
     def can_see_shift(self, shift: Shift) -> bool:
-        return any(membership.is_member(self.user) for membership in shift.organization.members.all())
+        return shift.can_see(self.user)

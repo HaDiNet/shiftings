@@ -23,7 +23,7 @@ class DayView(CalendarBaseView):
             'nextday': theday + timedelta(days=1),
             'prevday': theday - timedelta(days=1),
             'day_hours': list(range(24)),
-            'shifts': shifts,
+            'shifts': [shift for shift in shifts if shift.can_see(self.request.user)],
             'add_self_form': AddSelfParticipantForm(self.object, initial={'user': self.request.user}),
         })
         return context
