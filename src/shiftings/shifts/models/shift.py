@@ -83,9 +83,9 @@ class Shift(ShiftBase):
     def get_slots_display(self) -> Optional[list[tuple[Union[bool, User], bool]]]:
         slots = []
         if self.required_users != 0:
-            slots = [(False, True) for i in range(self.required_users)]
+            slots = [(False, True)] * self.required_users
         if self.max_users != 0:
-            slots += [(False, False) for i in range(self.max_users - self.required_users)]
+            slots += [(False, False)] * (self.max_users - self.required_users)
         for i, user in enumerate(self.participants.all().order_by('pk')):
             try:
                 slots[i] = user, slots[i][1]

@@ -23,31 +23,7 @@ class DayView(CalendarBaseView):
             'nextday': theday + timedelta(days=1),
             'prevday': theday - timedelta(days=1),
             'day_hours': list(range(24)),
-            'shifts': [self.get_shift_day_metadata(theday, shift) for shift in
-                       shifts],
+            'shifts': shifts,
             'add_self_form': AddSelfParticipantForm(self.object, initial={'user': self.request.user}),
         })
         return context
-
-    def get_shift_day_metadata(self, day: date, shift: Shift):
-        duration = 24
-        if day == shift.end.date():
-            end_hour = 24 - shift.end.hour
-            duration = shift.end.hour
-            if duration == 0:
-                duration = 1
-                end_hour -= 1
-        else:
-            end_hour = 0
-
-        if day == shift.start.date():
-            start_hour = shift.start.hour
-            duration -= start_hour
-        else:
-            start_hour = 0
-        return {
-            'shift': shift,
-            'start_hour': list(range(start_hour)),
-            'duration': duration,
-            'end_hour': list(range(end_hour)),
-        }

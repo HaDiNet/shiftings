@@ -12,41 +12,41 @@
     </thead>
     <tbody>
     <tr>
-      {% for entry in shifts %}
+      {% for shift in shifts %}
         <td>
-          {{ entry.shift.organization }}
+          {{ shift.organization }}
         </td>
         <td colspan="3" class="shift-type"
-            {% if entry.shift.shift_type.color %}style="--shift-bg-color: {{ entry.shift.shift_type.color }}; --shift-color: {{ entry.shift.shift_type.text_color }}"{% endif %}>
-          <div class="center-items flex-wrap overflow-auto" title="{{ entry.shift.detailed_display }}">
-            <a class="link" href="{{ entry.shift.get_absolute_url }}">
-              {{ entry.shift.detailed_display }}
+            {% if shift.shift_type.color %}style="--shift-bg-color: {{ shift.shift_type.color }}; --shift-color: {{ shift.shift_type.text_color }}"{% endif %}>
+          <div class="center-items flex-wrap overflow-auto" title="{{ shift.detailed_display }}">
+            <a class="link" href="{{ shift.get_absolute_url }}">
+              {{ shift.detailed_display }}
             </a>
           </div>
         </td>
         <td colspan="4">
           <div class="center-items flex-wrap">
-            {% for display,required in entry.shift.get_slots_display %}
-              {% include 'shifts/template/slots_display.html' with shift=entry.shift organization=entry.shift.organization current_date=theday %}
+            {% for display,required in shift.get_slots_display %}
+              {% include 'shifts/template/slots_display.html' with shift=shift organization=shift.organization current_date=today %}
             {% endfor %}
           </div>
         </td>
         <td class="d-none d-md-table-cell text-center">
-          {% if entry.shift.start.date != theday %}
-            <a class="link" href="{% url "overview_day" entry.shift.start.date.isoformat %}">
-              {{ entry.shift.start }}
+          {% if shift.start.date != theday %}
+            <a class="link" href="{% url "overview_day" shift.start.date.isoformat %}">
+              {{ shift.start }}
             </a>
           {% else %}
-            {{ entry.shift.start.time }}
+            {{ shift.start.time }}
           {% endif %}
         </td>
         <td class="d-none d-md-table-cell text-center">
-          {% if entry.shift.end.date != theday %}
-            <a class="link" href="{% url "overview_day" entry.shift.end.date.isoformat %}">
-              {{ entry.shift.end }}
+          {% if shift.end.date != theday %}
+            <a class="link" href="{% url "overview_day" shift.end.date.isoformat %}">
+              {{ shift.end }}
             </a>
           {% else %}
-            {{ entry.shift.end.time }}
+            {{ shift.end.time }}
           {% endif %}
         </td>
         </tr>
