@@ -1,5 +1,7 @@
 {% extends 'generic/dual_column.html' %}
-
+{% block breadcrumbs %}
+  {% include "template/breadcrumbs.html" %}
+{% endblock %}
 {% block left %}
   <div class="card bg-dark mt-3">
     <div class="card-header center-items justify-content-between">

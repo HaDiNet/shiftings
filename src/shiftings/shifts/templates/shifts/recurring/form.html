@@ -3,6 +3,9 @@
   <script type="text/javascript" src="{% static "js/save_and_restore.js" %}"></script>
   <script type="text/javascript" src="{% static "js/time_frame_visibility.js" %}"></script>
 {% endblock %}
+{% block breadcrumbs %}
+  {% include "template/breadcrumbs.html" %}
+{% endblock %}
 {% block content %}
   <div class="container-lg">
     {% bootstrap_form_errors form layout='inline' %}

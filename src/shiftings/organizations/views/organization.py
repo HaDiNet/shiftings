@@ -5,6 +5,7 @@ from typing import Any
 
 from django.db.models import QuerySet
 from django.views.generic import DetailView, ListView
+from django.utils.translation import gettext_lazy as _
 
 from shiftings.organizations.forms.membership import MembershipForm
 from shiftings.organizations.forms.organization import OrganizationForm
@@ -55,6 +56,10 @@ class OrganizationShiftsView(OrganizationMemberMixin, DetailView):
     template_name = 'organizations/organization_shifts.html'
     object: Organization
     context_object_name = 'organization'
+    save_path_in_session = True
+
+    def get_title(self) -> str:
+        return _('{org} Overview').format(org=self.get_object())
 
     def get_organization(self) -> Organization:
         return self.get_object()
@@ -74,11 +79,14 @@ class OrganizationAdminView(OrganizationPermissionMixin, DetailView):
     object: Organization
     context_object_name = 'organization'
     require_only_one = True
+    save_path_in_session = True
     permission_required = (
         'organizations.see_members', 'organizations.see_statistics', 'organizations.edit_membership_types',
         'organizations.edit_members', 'organizations.edit_recurring_shifts', 'organizations.edit_shift_templates'
     )
 
+    def get_title(self) -> str:
+        return _('{org} Administration').format(org=self.get_object())
     def get_organization(self) -> Organization:
         return self.get_object()
 
@@ -121,6 +129,10 @@ class OrganizationSettingsView(OrganizationPermissionMixin, DetailView):
     object: Organization
     context_object_name = 'organization'
     permission_required = 'organizations.admin'
+    save_path_in_session = True
+
+    def get_title(self) -> str:
+        return _('{org} Settings').format(org=self.get_object())
 
     def get_organization(self) -> Organization:
         return self.get_object()

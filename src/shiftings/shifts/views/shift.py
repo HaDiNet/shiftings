@@ -28,6 +28,9 @@ class ShiftDetailView(UserPassesTestMixin, BaseLoginMixin, DetailView):
     model = Shift
     context_object_name = 'shift'
 
+    def get_title(self) -> str:
+        return self.get_object().detailed_display
+
     def test_func(self) -> bool:
         return self.request.user.has_perm('organizations.admin') or self.get_object().can_see(self.request.user)
 
@@ -68,6 +71,7 @@ class ShiftEditView(OrganizationPermissionMixin, CreateOrUpdateView):
     form_class = ShiftForm
     permission_required = 'organizations.edit_shifts'
     template_name = 'shifts/create_shift.html'
+    title = _('Edit Shift')
 
     def has_permission(self) -> bool:
         if self.is_create():

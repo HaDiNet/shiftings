@@ -4,6 +4,9 @@
   <script type="text/javascript" src="{% static 'js/time_slider.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/link_sliders.js' %}"></script>
 {% endblock %}
+{% block breadcrumbs %}
+  {% include "template/breadcrumbs.html" %}
+{% endblock %}
 {% block content %}
   <div class="container-fluid">
     {% if formset.errors.entries|length %}

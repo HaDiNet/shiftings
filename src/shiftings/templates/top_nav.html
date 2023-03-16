@@ -27,16 +27,6 @@
         <div></div>
       {% endif %}
       <div class="navbar-nav">
-        <div class="nav-item search-menu me-md-2 d-none d-xl-flex align-items-center">
-          <form class="search-bar" method="post" action="/search/" id="global_shift_search">
-            {% csrf_token %}
-            <input type="text" id="id_global_search" class="search-bar__input" placeholder="{% trans "Search" %}"
-                   aria-label="{% trans "Search" %}" />
-            <button class="search-bar__submit" aria-label="{% trans "submit search" %}">
-              <i class="fas fa-magnifying-glass"></i>
-            </button>
-          </form>
-        </div>
         {% if request.user.is_authenticated %}
           <div class="nav-item me-md-2 d-flex align-items-center">
             <a class="nav-link center-items justify-content-start" href="/static/docs" title="{% trans "Help" %}">

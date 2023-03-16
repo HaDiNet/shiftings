@@ -17,7 +17,13 @@ from shiftings.shifts.models import RecurringShift, Shift
 
 class MonthCalenderView(CalendarBaseView):
     template_name = 'cal/month_calendar.html'
-    title = _('Calendar')
+    save_path_in_session = True
+
+    def get_title(self) -> str:
+        if 'themonth' not in self.kwargs:
+            return _('Month Overview')
+        return _('Month {year}/{month:0>2}').format(year=self.kwargs.get('theyear', None),
+                                                       month=self.kwargs.get('themonth', None))
 
     def get_date(self) -> date:
         _date = date.today().replace(day=1)

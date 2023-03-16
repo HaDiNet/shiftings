@@ -2,6 +2,7 @@ from datetime import date, timedelta
 from typing import Any
 
 from django.db.models import Q
+from django.utils.translation import gettext_lazy as _
 
 from shiftings.cal.views.calendar_base import CalendarBaseView
 from shiftings.shifts.forms.participant import AddSelfParticipantForm
@@ -10,6 +11,12 @@ from shiftings.shifts.models import Shift
 
 class DayView(CalendarBaseView):
     template_name = 'cal/day_calendar.html'
+    save_path_in_session = True
+
+    def get_title(self) -> str:
+        if not 'theday' in self.kwargs:
+            return _('Day Overview')
+        return _('Day {date}').format(date=self.kwargs.get('theday'))
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)

@@ -58,6 +58,10 @@ input:disabled {
   opacity: .2 !important;
 }
 
+.dropdown {
+  z-index: 9999;
+}
+
 /*pagination*/
 
 .page-item.disabled .page-link {

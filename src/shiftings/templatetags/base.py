@@ -1,6 +1,10 @@
 from typing import Any, TypeVar
 
 from django import template
+from django.template import TemplateSyntaxError
+from django.template.base import TextNode
+from django.template.loader_tags import BlockNode
+from django.urls import reverse
 
 register = template.Library()
 T = TypeVar('T')
@@ -33,3 +37,23 @@ def active(context: dict[str, Any], url: str) -> str:
 @register.simple_tag()
 def form_border(is_create: bool) -> str:
     return 'border-success' if is_create else 'border-primary'
+
+# define breadcrumb block
+@register.tag('breadcrumbs')
+def do_breadcrumbs(parser, token):
+    nodelist = parser.parse(('endbreadcrumbs',))
+    parser.delete_first_token()
+    tokens = token.split_contents()
+    if len(tokens) != 1:
+        raise TemplateSyntaxError(f'"{tokens[0]!r}" tag requires no argument.')
+    nodelist.insert(0, TextNode('<ul class="breadcrumb">'))
+    nodelist.append(TextNode('</ul>'))
+    return BlockNode('breadcrumbs', nodelist)
+
+
+@register.inclusion_tag('template/breadcrumb.html')
+def breadcrumb(title, url_name=None, *args, **kwargs):
+    return {
+        'title': title,
+        'url': reverse(url_name, args=args, kwargs=kwargs) if url_name else None
+    }

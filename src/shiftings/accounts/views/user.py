@@ -31,6 +31,8 @@ from shiftings.utils.views.base import BaseLoginMixin
 class UserProfileView(BaseLoginMixin, DetailView):
     model = User
     object: User
+    save_path_in_session = True
+    title = _('My Shifts')
 
     def get_object(self, queryset=None):
         return self.request.user

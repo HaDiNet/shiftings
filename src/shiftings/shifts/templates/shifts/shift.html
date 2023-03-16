@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
-
+{% block breadcrumbs %}
+  {% include "template/breadcrumbs.html" %}
+{% endblock %}
 {% block content %}
   <div class="container-fluid container-lg d-flex justify-content-center">
     <div class="col-12 col-md-8">
@@ -15,7 +17,7 @@
                 <i class="fa-solid fa-pen-to-square"></i>
               </a>
               {% now "Y-m-d" as today %}
-              {% if org_perms.admin or shift.start|date:"Y-m-d" >= today and org_perms.delete_shifts  %}
+              {% if org_perms.admin or shift.start|date:"Y-m-d" >= today and org_perms.delete_shifts %}
                 <a class="btn btn-danger px-2 py-1" href="{% url 'shift_delete' shift.pk %}"
                    title="{% trans "Delete Shift" %}">
                   <i class="fa-solid fa-trash"></i>

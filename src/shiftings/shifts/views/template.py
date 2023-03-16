@@ -57,7 +57,7 @@ class ShiftTemplateGroupDeleteView(ShiftTemplateGroupMixin, OrganizationPermissi
 class TemplateGroupAddShiftsView(OrganizationPermissionMixin, ModelFormsetBaseView[ShiftTemplate], TemplateView):
     model = ShiftTemplate
     form_class = ShiftTemplateFormSet
-    template_name = 'shifts/recurring/templates.html'
+    template_name = 'shifts/edit_templates.html'
     permission_required = 'organizations.edit_shift_templates'
 
     def get_organization(self) -> Organization:

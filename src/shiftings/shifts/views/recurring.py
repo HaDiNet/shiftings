@@ -24,6 +24,9 @@ class RecurringShiftDetailView(OrganizationMemberMixin, DetailView):
     model = RecurringShift
     context_object_name = 'shift'
 
+    def get_title(self) -> str:
+        return self.get_object().display
+
     def get_organization(self) -> Organization:
         return self.get_object().organization
 

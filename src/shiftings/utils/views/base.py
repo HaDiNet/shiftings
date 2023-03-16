@@ -6,6 +6,7 @@ from django.contrib.auth.views import redirect_to_login
 from django.core.exceptions import ImproperlyConfigured, PermissionDenied
 from django.db.models import Model
 from django.http import Http404, HttpRequest, HttpResponse, HttpResponseNotFound, HttpResponseRedirect
+from django.utils.http import urlencode
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import ContextMixin
 
@@ -22,10 +23,25 @@ class BaseMixin(AccessMixin, ContextMixin, ABC):
     success_url: Union[str, Callable[..., Any], None] = None
     fail_url: Optional[str] = None
     redirect_url: Optional[str] = None
-
+    save_path_in_session: bool = False
     title: Optional[str] = None
 
     kwargs: Dict[str, Any]
+
+    def dispatch(self, request, *args, **kwargs):
+        if self.save_path_in_session:
+            print(request.session.items())
+            request.session['saved_path'] = {'title': str(self.get_title()), 'path': request.path, 'params': request.GET}
+            print(request.session.items())
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_breadcrumbs(self, **kwargs) -> list[tuple[str, Optional[str]]]:
+        if 'saved_path' not in self.request.session:
+            return []
+        return [(self.request.session['saved_path']['title'],
+                 self.request.session['saved_path']['path'] + '?' +
+                 urlencode(self.request.session['saved_path']['params'])),
+                (self.get_title(), None)]
 
     def _get_object(self, cls: Type[T], pk_url_kwarg: str) -> T:
         return self._get_object_from_pk(cls, self.kwargs.get(pk_url_kwarg))
@@ -60,6 +76,7 @@ class BaseMixin(AccessMixin, ContextMixin, ABC):
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context_data = super().get_context_data(**kwargs)
         context_data['title'] = self.get_title()
+        context_data['breadcrumbs'] = self.get_breadcrumbs()
         return context_data
 
     def handle_no_permission(self) -> HttpResponse:

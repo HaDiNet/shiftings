@@ -1,0 +1,19 @@
+{% if breadcrumbs %}
+  <div class="col-12">
+    <nav id="breadcrumbs" aria-label="breadcrumb">
+      <ol class="breadcrumb p-2">
+        {% for title, url in breadcrumbs %}
+          {% if url %}
+            <li class="breadcrumb-item{% if forloop.last %} active{% endif %}">
+              <a class="link" href="{{ url }}"><span class="fs-6">{{ title }}</span></a>
+            </li>
+          {% else %}
+            <li class="breadcrumb-item{% if forloop.last %} active{% endif %}">
+              <span class="fs-6">{{ title }}</span>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ol>
+    </nav>
+  </div>
+{% endif %}

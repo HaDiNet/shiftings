@@ -40,6 +40,7 @@
   {% include "menu.html" %}
 </div>
 <main id="main">
+  {% block breadcrumbs %}{% endblock %}
   {% block top_level %}{% endblock %}
   {% if messages %}
     {% for message in messages %}
