@@ -41,16 +41,12 @@ class AddOtherParticipantForm(forms.ModelForm):
         self.shift = shift
         self.fields['user'].widget.attrs.update({'autofocus': 'autofocus'})
 
-    def clean(self):
-        cleaned_data = super().clean()
-        user = cleaned_data.get('user')
-        if user is not None and self.shift.participants.filter(user=user).exists():
-            raise ValidationError(_('User {user} is already registered for this shift.').format(user=user))
-        return cleaned_data
-
     def clean_user(self) -> User:
         username = self.cleaned_data.get('user')
         try:
-            return User.objects.get(username=username)
+            user = User.objects.get(username=username)
         except User.DoesNotExist as e:
             raise ValidationError(_('The user you entered could not be found.')) from e
+        if self.shift.participants.filter(user=user).exists():
+            raise ValidationError(_('User {user} is already registered for this shift.').format(user=user))
+        return user
