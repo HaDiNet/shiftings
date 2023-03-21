@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models import Q, QuerySet
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -64,3 +65,6 @@ class User(BaseUser):
         for claimed_user in self.claimed_org_dummy_users.all():
             total += Shift.objects.filter(participants__user=claimed_user).count()
         return total
+
+    def get_absolute_url(self):
+        return reverse('user_profile')

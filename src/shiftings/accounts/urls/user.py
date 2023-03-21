@@ -6,7 +6,8 @@ from django.views.generic import TemplateView
 
 from shiftings.accounts.views.auth import UserLoginView, UserLogoutView, UserReLoginView
 from shiftings.accounts.views.password import PasswordResetConfirmView, PasswordResetView
-from shiftings.accounts.views.user import ConfirmEMailView, UserEditView, UserProfileView, UserRegisterView
+from shiftings.accounts.views.user import (ConfirmEMailView, UserDeleteSelfView, UserEditView, UserProfileView,
+                                           UserRegisterView)
 from shiftings.cal.feed.user import OwnShiftsFeed, UserFeed
 from shiftings.utils.converters import AlphaNumericConverter
 
@@ -20,6 +21,7 @@ urlpatterns: List[Any] = [
     path('profile/', UserProfileView.as_view(), name='user_profile'),
     path('profile/past/', UserProfileView.as_view(), name='user_profile_past'),
     path('edit/', UserEditView.as_view(), name='user_edit_self'),
+    path('delete/', UserDeleteSelfView.as_view(), name='user_delete_self'),
     path('password_reset/', PasswordResetView.as_view(), name='password_reset'),
     path('password_reset_done/', TemplateView.as_view(template_name='accounts/password_reset/done.html'),
          name='password_reset_done'),

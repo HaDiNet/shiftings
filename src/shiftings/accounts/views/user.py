@@ -4,17 +4,19 @@ from typing import Any, Dict, Union
 from django import template
 from django.conf import settings
 from django.contrib import messages
+from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.hashers import make_password
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.db.models import Q
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.translation import gettext_lazy as _
+from django.views import View
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic import CreateView, DetailView, TemplateView, UpdateView
 
@@ -133,3 +135,17 @@ class UserEditView(BaseLoginMixin, UpdateView):
 
     def get_object(self):
         return self.request.user
+
+
+class UserDeleteSelfView(BaseLoginMixin, View):
+
+    def delete(self, request, *args, **kwargs):
+        if request.POST.get('confirm') != 'true':
+            messages.error(self.request, _('Error while deleting your data: Please confirm deletion!'))
+            return HttpResponseRedirect(self.request.user.get_absolute_url())
+        self.request.user.delete()
+        auth_logout(self.request)
+        return HttpResponseRedirect(settings.LOGIN_URL)
+
+    def post(self, request, *args, **kwargs):
+        return self.delete(request, *args, **kwargs)
