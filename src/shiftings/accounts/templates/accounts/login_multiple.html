@@ -35,5 +35,10 @@
         </div>
       {% endif %}
     </div>
+    {% if feature.gpdr_template %}
+      <div class="card bg-secondary p-3 text-center mt-3">
+        {% include feature.gpdr_template %}
+      </div>
+    {% endif %}
   </div>
 {% endblock %}
