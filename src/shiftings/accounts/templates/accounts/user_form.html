@@ -13,8 +13,8 @@
     <form method="post" id="user_form">
       {% csrf_token %}
       {% bootstrap_form form %}
-      {% if feature.gpdr_template %}
-        {% include feature.gpdr_template %}
+      {% if feature.gdpr_template %}
+        {% include feature.gdpr_template %}
       {% endif %}
       {% bootstrap_button _("Submit") id="submit_button" button_type="submit" button_class="btn-primary" %}
     </form>
