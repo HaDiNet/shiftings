@@ -54,8 +54,9 @@ INSTALLED_APPS = [
 ]
 
 FEATURES = {
-    'event': False,
-    'registration': True
+    'event': False,  # enable events for organizations
+    'registration': True,  # enable local registration
+    'gpdr_template': None # add a template for gpdr compliancy information
 }
 
 MIDDLEWARE = [

@@ -19,6 +19,11 @@
       {% endif %}
     </form>
   </div>
+  {% if feature.gpdr_template %}
+    <div class="card bg-secondary p-3 text-center mt-3">
+      {% include feature.gpdr_template %}
+    </div>
+  {% endif %}
   {% if is_local and feature.registration %}
     <div class="card bg-secondary p-3 text-center mt-3">
       <h4>{% trans "You don't have an Account?" %}</h4>
