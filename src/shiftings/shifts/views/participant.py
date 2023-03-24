@@ -66,7 +66,7 @@ class RemoveParticipantView(OrganizationPermissionMixin, DeleteView):
         return self._get_object(Shift, 'pk')
 
     def has_permission(self) -> bool:
-        if self.get_object().user == self.request.user:
+        if self.get_object().user.pk == self.request.user.pk:
             return True
         return super().has_permission()
 
