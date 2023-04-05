@@ -6,16 +6,22 @@
   <div class="card bg-dark mt-3">
     <div class="card-header center-items justify-content-between">
       <h3 class="m-0 w-75">Shift Template {{ group.name }}</h3>
-      <div>
-        <a class="btn btn-success" href="{% url "shift_template_group_update" group.pk %}"
-           title="{% trans "Edit Template" %}">
-          <i class="fa-solid fa-pen-to-square"></i>
-        </a>
-        <a class="btn btn-success" href="{% url "template_group_update_shifts" group.pk %}"
-           title="{% trans "Edit Shifts" %}">
-          <i class="fa-solid fa-file-pen"></i>
-        </a>
-      </div>
+      {% if org_perms.edit_shift_templates %}
+        <div>
+          <a class="btn btn-danger" href="{% url "shift_template_group_delete" group.pk %}"
+             title="{% trans "Delete Template" %}">
+            <i class="fa-solid fa-trash"></i>
+          </a>
+          <a class="btn btn-success" href="{% url "shift_template_group_update" group.pk %}"
+             title="{% trans "Edit Template" %}">
+            <i class="fa-solid fa-pen-to-square"></i>
+          </a>
+          <a class="btn btn-success" href="{% url "template_group_update_shifts" group.pk %}"
+             title="{% trans "Edit Shifts" %}">
+            <i class="fa-solid fa-file-pen"></i>
+          </a>
+        </div>
+      {% endif %}
     </div>
     <div class="card-body">
       <dl class="detail-horizontal">
