@@ -26,7 +26,11 @@
             {% if shift_type.color %}
             style="--shift-bg-color: {{ shift_type.color }}; --shift-color: {{ shift_type.text_color }}"
             {% endif %}>
-          {{ shift_type.name }}
+          {% if shift_type %}
+            {{ shift_type.name }}
+          {% else %}
+            {% trans "Default" %}
+          {% endif %}
         </td>
       {% empty %}
         <td class="display-6 text-warning" colspan="6">{% trans "No Shifts on this day" %}</td>
@@ -39,9 +43,15 @@
         <td class="border-end border-3">{{ shift_hour|stringformat:'02d:00' }}</td>
         {% for shift_type in shifts.types %}
           <td class="border-end overflow-auto" colspan="2">
-            {% for shift in time_container|get_by_key:shift_type.name %}
-              {% small_shift_display shift %}
-            {% endfor %}
+            {% if shift_type %}
+              {% for shift in time_container|get_by_key:shift_type.name %}
+                {% small_shift_display shift %}
+              {% endfor %}
+            {% else %}
+              {% for shift in time_container.Default %}
+                {% small_shift_display shift %}
+              {% endfor %}
+            {% endif %}
           </td>
         {% endfor %}
       </tr>
