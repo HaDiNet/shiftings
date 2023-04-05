@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-  <div class="alert alert-danger">
-      {% trans "You dont have the permission to do that!" %}
+  <div class="alert alert-warning m-3 d-flex align-items-center justify-content-between">
+    <div>
+      <i class="fas fa-warning"></i>
+      <span class="ms-3">{% trans "You dont have the permission to do that!" %}</span>
+    </div>
+    <i class="fas fa-warning"></i>
   </div>
 {% endblock %}

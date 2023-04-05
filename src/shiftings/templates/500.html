@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-  <div class="alert alert-danger">
-      {% trans "A server error occured the admins have been notified" %}
+  <div class="alert alert-warning m-3 d-flex align-items-center justify-content-between">
+    <div>
+      <i class="fas fa-warning"></i>
+      <span class="ms-3">{% trans "A server error occured the admins have been notified" %}</span>
+    </div>
+    <i class="fas fa-warning"></i>
   </div>
 {% endblock %}

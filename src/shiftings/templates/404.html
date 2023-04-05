@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-  <div class="alert alert-warning">
-      {% trans "The site you requested was not found." %}
+  <div class="alert alert-warning m-3 d-flex align-items-center justify-content-between">
+    <div>
+      <i class="fas fa-warning"></i>
+      <span class="ms-3">{% trans "The site you requested was not found." %}</span>
+    </div>
+    <i class="fas fa-warning"></i>
   </div>
 {% endblock %}
