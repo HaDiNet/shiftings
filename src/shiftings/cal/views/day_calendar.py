@@ -4,7 +4,7 @@ from typing import Any
 
 from django.db.models import Q
 from django.urls import reverse
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext as __, gettext_lazy as _
 
 from shiftings.cal.views.calendar_base import CalendarBaseView
 from shiftings.shifts.forms.participant import AddSelfParticipantForm
@@ -63,14 +63,20 @@ class ShiftTypesDayView(DayView):
         shift_filter = Q(start__date=theday) & self.get_filters()
         shifts = Shift.objects.filter(shift_filter).order_by('start', 'shift_type')
         shifts = [shift for shift in shifts if shift.can_see(self.request.user)]
-        types = ShiftType.objects.filter(shift__in=shifts).distinct()
+        add_default = False
         shift_idx_type = {
-            'types': types,
-            'time_containers': {}
+            'time_containers': {},
+            'types': list(ShiftType.objects.filter(shift__in=shifts).distinct())
         }
         for shift in shifts:
             if shift.can_see(self.request.user):
-                shift_idx_type['time_containers'].setdefault(shift.start.hour, {}).setdefault(shift.shift_type.name, []).append(
+                type_name = shift.shift_type.name
+                if type_name is None:
+                    add_default = True
+                    type_name = __('Default')
+                shift_idx_type['time_containers'].setdefault(shift.start.hour, {}).setdefault(type_name, []).append(
                     shift
                 )
+        if add_default:
+            shift_idx_type['types'].append(__('Default'))
         return shift_idx_type
