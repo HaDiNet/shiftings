@@ -1,0 +1,31 @@
+<div class="my-1 bg-secondary p-2 d-flex flex-column">
+  <a class="fw-bold link" href="{{ shift.get_absolute_url }}">{{ shift.name }}</a><br>
+  <div class="d-flex flex-row flex-wrap justify-content-center">
+    <div class="text-center m-1">
+      <span>{% trans "Start Time" %}: {{ shift.start|time:'H:i' }}</span><br>
+      <span>{% trans "Place" %}: {{ shift.place }}</span><br>
+      <hr class="m-1">
+      <span>{% trans "Required" %}: {{ shift.required_participants_missing }}/{{ shift.required_users }}</span><br>
+      <span>{% trans "Participants" %}: {{ shift.participants.count }}/{{ shift.max_users }}</span><br>
+      {% if shift.confirmed_participants_missing %}
+        <span>{% trans "Confirmed" %}: {{ shift.confirmed_participants }}</span><br>
+      {% endif %}
+    </div>
+    <div class="d-flex align-items-center justify-content-center mx-auto">
+      {% if user_is_participant %}
+        <span class="btn btn-success pe-none">{% trans "Participating" %}</span>
+      {% else %}
+        {% if shift.is_full %}
+          <span class="btn btn-danger pe-none">{% trans "Full" %}</span>
+        {% else %}
+          <button type="button"
+                  class="btn border border-2 card-link link w-100 mx-2 {% if not shift.has_required %} shift-required{% endif %}"
+                  data-bs-toggle="modal"
+                  data-bs-target="#addSelfForm{{ shift.pk }}Modal">
+            <i class="fa-solid fa-person-circle-plus me-2"></i>{% trans 'Add me' %}
+          </button>
+        {% endif %}
+      {% endif %}
+    </div>
+  </div>
+</div>

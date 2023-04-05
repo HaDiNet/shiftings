@@ -93,3 +93,14 @@ def calculate_shift_time(shift_time: time, start_delay: timedelta, shift_duratio
 def select_org_form_modal(context: dict[str, Any]):
     context['form'] = SelectOrgForm(context['request'].user)
     return context
+
+
+@register.inclusion_tag('shifts/template/small_shift_display.html', takes_context=True)
+def small_shift_display(context, shift) -> dict[str, Any]:
+    context.update({
+        'shift': shift,
+        'organization': shift.organization,
+        'current_date': date.today(),
+        'user_is_participant': shift.is_participant(context['request'].user),
+    })
+    return context

@@ -9,9 +9,28 @@
         <div class="card base-card bg-dark p-3">
           <div class="row">
             <div class="col-md-12 d-flex flex-column">
-              <a class="btn btn-success mb-1" title="{% trans "Day View" %}" href="{% url "overview_today" %}">
-                <i class="fa-solid fa-calendar-day me-1"></i>{% trans "Day" %}
-              </a>
+              <div class="row g-1">
+                <div class="col">
+                  <a class="btn btn-success mb-1 w-100" title="{% trans "Day View" %}"
+                      {% if theday %}
+                     href="{% url "overview_day" theday %}"
+                      {% else %}
+                     href="{% url "overview_today" %}"
+                      {% endif %}>
+                    <i class="fa-solid fa-calendar-day me-1"></i>{% trans "Day (Detailed)" %}
+                  </a>
+                </div>
+                <div class="col">
+                  <a class="btn btn-success mb-1 w-100" title="{% trans "Day View" %}"
+                      {% if theday %}
+                     href="{% url "overview_day_shift_types" theday %}"
+                      {% else %}
+                     href="{% url "overview_today_shift_types" %}"
+                      {% endif %}>
+                    <i class="fa-solid fa-calendar-day me-1"></i>{% trans "Day (By&nbsp;Types)" %}
+                  </a>
+                </div>
+              </div>
               {#                <a class="btn btn-secondary mb-1 disabled" title="{% trans "Week View" %}" href="{% url "overview_thisweek" %}">#}
               {#                  <i class="fa-solid fa-calendar-week me-2"></i>{% trans "Week" %}#}
               {#                </a>#}
@@ -21,8 +40,10 @@
             </div>
             <div class="col-4 col-md-12 mb-2">
               <h4>{% trans "Filters" %}:</h4>
-              <a class="btn btn-secondary mb-2 {% active_param 'filter' 'all' %}" href="?filter=all">{% trans "All Shifts" %}</a>
-              <a class="btn btn-secondary mb-2 {% active_param 'filter' 'own' %}" href="?filter=own">{% trans "My Shifts" %}</a>
+              <a class="btn btn-secondary mb-2 {% active_param 'filter' 'all' %}"
+                 href="?filter=all">{% trans "All Shifts" %}</a>
+              <a class="btn btn-secondary mb-2 {% active_param 'filter' 'own' %}"
+                 href="?filter=own">{% trans "My Shifts" %}</a>
               {% if feature.event %}
                 <div class="dropdown">
                   <button class="btn btn-secondary dropdown-toggle{% if not public_events %} disabled {% endif %}"

@@ -1,4 +1,4 @@
-from typing import Any, TypeVar
+from typing import Any, Optional, TypeVar
 
 from django import template
 from django.template import TemplateSyntaxError
@@ -38,6 +38,7 @@ def active(context: dict[str, Any], url: str) -> str:
 def form_border(is_create: bool) -> str:
     return 'border-success' if is_create else 'border-primary'
 
+
 # define breadcrumb block
 @register.tag('breadcrumbs')
 def do_breadcrumbs(parser, token):
@@ -57,3 +58,8 @@ def breadcrumb(title, url_name=None, *args, **kwargs):
         'title': title,
         'url': reverse(url_name, args=args, kwargs=kwargs) if url_name else None
     }
+
+
+@register.filter
+def get_by_key(_dict: dict[str, Any], key: str) -> Optional[Any]:
+    return _dict.get(key)

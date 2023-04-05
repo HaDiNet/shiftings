@@ -86,5 +86,9 @@ class Event(models.Model):
     def can_see(self, user: User) -> bool:
         return self.public or user.events.filter(pk=self.pk).exists()
 
+    def can_participate(self, user: User) -> bool:
+        return self.public or any(user.has_perm('organizations.participate_in_shift', org)
+                                  for org in self.allowed_organizations.all())
+
     def get_absolute_url(self) -> str:
         return reverse('event', args=[self.pk])

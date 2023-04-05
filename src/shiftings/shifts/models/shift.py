@@ -71,8 +71,30 @@ class Shift(ShiftBase):
                                                  end_time=self.end.strftime("%H:%M"), )
 
     @property
-    def is_full(self):
-        return self.max_users != 0 and len(self.participants.all()) >= self.max_users
+    def is_full(self) -> bool:
+        return self.max_users != 0 and self.participants.all().count() >= self.max_users
+
+    @property
+    def participants_missing(self) -> int:
+        if self.max_users == 0:
+            return 0
+        return max(self.max_users - self.participants.all().count(), 0)
+
+    @property
+    def has_required(self) -> bool:
+        return self.participants.all().count() >= self.required_users
+
+    @property
+    def required_participants_missing(self) -> int:
+        if self.required_users == 0:
+            return 0
+        return max(self.required_users - self.participants.all().count(), 0)
+
+    @property
+    def confirmed_participants(self) -> Optional[int]:
+        if not self.organization.confirm_participation_active:
+            return None
+        return self.participants.all().count() - self.participants.filter(confirmed=True).count()
 
     @property
     def email(self) -> str:
@@ -99,6 +121,13 @@ class Shift(ShiftBase):
         if self.event:
             return self.event.can_see(user)
         return self.organization.is_member(user)
+
+    def can_participate(self, user: User) -> bool:
+        if self.participants.filter(user=user).exists():
+            return False
+        if self.event:
+            return self.event.can_participate(user)
+        return user.has_perm('organizations.participate_in_shift', self.organization)
 
     def is_participant(self, user: User) -> bool:
         return user.pk in self.participants.values_list('user__pk', flat=True)

@@ -33,7 +33,7 @@
         </td>
         <td class="d-none d-md-table-cell text-center">
           {% if shift.start.date != theday %}
-            <a class="link" href="{% url "overview_day" shift.start.date.isoformat %}">
+            <a class="link" href="{% url "overview_day" theday=shift.start.date.isoformat %}">
               {{ shift.start }}
             </a>
           {% else %}

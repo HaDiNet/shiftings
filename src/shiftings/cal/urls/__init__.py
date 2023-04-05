@@ -1,11 +1,13 @@
 from django.urls import path
 
-from shiftings.cal.views.day_calendar import DayView
+from shiftings.cal.views.day_calendar import DetailDayView, ShiftTypesDayView
 from shiftings.cal.views.month_calendar import MonthCalenderView
 
 urlpatterns = [
-    path('overview/day/', DayView.as_view(), name='overview_today'),
-    path('overview/day/<theday>/', DayView.as_view(), name='overview_day'),
+    path('overview/day/detail/', DetailDayView.as_view(), name='overview_today'),
+    path('overview/day/detail/<theday>/', DetailDayView.as_view(), name='overview_day'),
+    path('overview/day/shift_types/', ShiftTypesDayView.as_view(), name='overview_today_shift_types'),
+    path('overview/day/shift_types/<theday>/', ShiftTypesDayView.as_view(), name='overview_day_shift_types'),
     # path('overview/week/', DayView.as_view(), name='overview_thisweek'),
     # path('overview/week/<theweek>/', DayView.as_view(), name='overview_week'),
     path('overview/month/', MonthCalenderView.as_view(), name='overview_thismonth'),

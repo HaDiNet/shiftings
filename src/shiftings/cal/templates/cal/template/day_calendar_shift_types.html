@@ -1,0 +1,51 @@
+{% load shifts %}
+<div>
+  {# TODO get data from button #}
+  {% for vals in shifts.time_containers.values %}
+    {% for val in vals.values %}
+      {% for shift in val %}
+        {% url 'add_participant_self' shift.pk as add_self_url %}
+        {% simpleformmodal 'addSelfForm'|concat:shift.pk _('Add with Name to Shift') add_self_url request.path %}
+          {% csrf_token %}
+          {% for field in add_self_form %}
+            {% bootstrap_field field %}
+          {% endfor %}
+        {% endsimpleformmodal %}
+      {% endfor %}
+    {% endfor %}
+  {% endfor %}
+</div>
+<div class="table-responsive" style="transform: rotateX(180deg);">
+  <table class="table table-hover table-striped-columns text-center wy-table-bordered-rows"
+         style="transform: rotateX(180deg);">
+    <thead>
+    <tr class="border-bottom border-3 sticky-top">
+      <td class="display-6 border-end border-3d-flex align-items-center">{% trans "Time" %}</td>
+      {% for shift_type in shifts.types %}
+        <td class="display-6 shift-type border-end border-3" colspan="2"
+            {% if shift_type.color %}
+            style="--shift-bg-color: {{ shift_type.color }}; --shift-color: {{ shift_type.text_color }}"
+            {% endif %}>
+          {{ shift_type.name }}
+        </td>
+      {% empty %}
+        <td class="display-6 text-warning" colspan="6">{% trans "No Shifts on this day" %}</td>
+      {% endfor %}
+    </tr>
+    </thead>
+    <tbody>
+    {% for shift_hour, time_container in shifts.time_containers.items %}
+      <tr>
+        <td class="border-end border-3">{{ shift_hour|stringformat:'02d:00' }}</td>
+        {% for shift_type in shifts.types %}
+          <td class="border-end overflow-auto" colspan="2">
+            {% for shift in time_container|get_by_key:shift_type.name %}
+              {% small_shift_display shift %}
+            {% endfor %}
+          </td>
+        {% endfor %}
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
