@@ -70,13 +70,13 @@ class ShiftTypesDayView(DayView):
         }
         for shift in shifts:
             if shift.can_see(self.request.user):
-                type_name = shift.shift_type.name
-                if type_name is None:
+                if shift.shift_type is None:
                     add_default = True
                     type_name = __('Default')
-                shift_idx_type['time_containers'].setdefault(shift.start.hour, {}).setdefault(type_name, []).append(
-                    shift
-                )
+                else:
+                    type_name = shift.shift_type.name
+                shift_idx_type['time_containers'].setdefault(shift.start.hour, {}
+                                                             ).setdefault(type_name, []).append(shift)
         if add_default:
             shift_idx_type['types'].append(__('Default'))
         return shift_idx_type
