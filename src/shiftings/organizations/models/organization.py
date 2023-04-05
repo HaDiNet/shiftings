@@ -30,6 +30,9 @@ class Organization(models.Model):
 
     description = models.TextField(max_length=1000, verbose_name=_('Description'), blank=True, null=True,
                                    help_text=_('A maximum of {amount} characters is allowed').format(amount=1000))
+    confirm_participation_active = models.BooleanField(verbose_name=_('Confirm Participants'), default=False,
+                                                       help_text=_('Whether the participants can be confirmed or '
+                                                                   'not. Default: False'))
 
     # members: RelatedManager[Membership]
     # summary_settings: RelatedManager[OrganizationSummarySettings]

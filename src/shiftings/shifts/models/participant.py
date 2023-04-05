@@ -14,6 +14,9 @@ class Participant(models.Model):
                              related_name='shifts')
     display_name = models.CharField(max_length=100, verbose_name=_('Display Name'), blank=True, null=True,
                                     help_text=_('Display Name is optional, and will be shown instead of the username'))
+    confirmed = models.BooleanField(verbose_name=_('Participation confirmed'), default=False,
+                                    help_text=_('Whether the participant has taken part in the shift or not. '
+                                                'Default: False'))
 
     class Meta:
         default_permissions = ()
