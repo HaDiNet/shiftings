@@ -34,9 +34,9 @@ class ShiftTemplateGroupForm(forms.ModelForm):
 
 
 class ShiftTemplateForm(forms.ModelForm):
-    start_delay = TimeSliderField(min_value=0, initial=0, max_value=settings.MAX_SHIFT_LENGTH_MINUTES,
+    start_delay = TimeSliderField(min_value=0, initial=0, max_value=1440,
                                   step=settings.SHIFT_SLIDER_STEP, label=_('Start Delay'), required=True)
-    duration = TimeSliderField(min_value=0, initial=0, max_value=settings.MAX_SHIFT_LENGTH_MINUTES,
+    duration = TimeSliderField(min_value=0, initial=0, max_value=1440,
                                step=settings.SHIFT_SLIDER_STEP, label=_('Duration'), required=True)
 
     template_group: ShiftTemplateGroup
