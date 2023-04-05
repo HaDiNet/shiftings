@@ -32,6 +32,8 @@ class ShiftDetailView(UserPassesTestMixin, BaseLoginMixin, DetailView):
         return self.get_object().detailed_display
 
     def test_func(self) -> bool:
+        if not self.request.user.is_authenticated:
+            return False
         return self.request.user.has_perm('organizations.admin') or self.get_object().can_see(self.request.user)
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
