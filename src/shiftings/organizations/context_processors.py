@@ -16,7 +16,7 @@ class OrganizationPermissionHolder:
     admin: bool = False
 
     def __post_init__(self) -> None:
-        self.admin = self.organization.is_admin(self.user)
+        self.admin = self.organization is not None and self.organization.is_admin(self.user)
 
     def __getitem__(self, item: Any) -> bool:
         if self.admin:
