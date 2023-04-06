@@ -70,7 +70,10 @@ class BaseCalendar(HTMLCalendar):
         return Shift.objects.filter(self.shift_filter & time_filter).order_by('start', 'end')
 
     def can_see_shift(self, shift: Shift) -> bool:
-        return True  # shift.can_view(self.user)
+        return True
+
+    def can_see_shift_details(self, shift: Shift) -> bool:
+        return True
 
     def get_shift_link(self, shift: Shift) -> str:
         return shift.get_absolute_url()
@@ -113,7 +116,8 @@ class BaseCalendar(HTMLCalendar):
         context = {
             'shift': shift,
             'shift_link': self.get_shift_link(shift),
-            'is_form': self.render_entries_as_form
+            'is_form': self.render_entries_as_form,
+            'see_details': self.can_see_shift_details(shift)
         }
         return render_to_string('cal/calendar_templates/shift_entry.html', context, request=self.request)
 
@@ -168,3 +172,6 @@ class MonthCalendar(BaseCalendar):
 
     def can_see_shift(self, shift: Shift) -> bool:
         return shift.can_see(self.user)
+
+    def can_see_shift_details(self, shift: Shift) -> bool:
+        return shift.can_see_details(self.user)

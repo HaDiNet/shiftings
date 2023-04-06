@@ -1,9 +1,10 @@
-{% if is_form %}
+{% if is_form and see_details %}
   <div class="calendar-entry">
     <form action="{{ shift_link }}" method="post">
       {% csrf_token %}
       <input type="hidden" name="shift" value="{{ shift.pk }}">
-      <button class="card calendar-shift" style="background-color: {{ shift.shift_type.color }}; color: {{ shift.shift_type.text_color }};"
+      <button class="card calendar-shift"
+              style="background-color: {{ shift.shift_type.color }}; color: {{ shift.shift_type.text_color }};"
               type="submit">
         {{ shift.organization.name }}: {{ shift.name }}
       </button>
@@ -11,9 +12,14 @@
   </div>
 {% else %}
   <div class="calendar-entry">
-    <a class="card calendar-shift" style="background-color: {{ shift.shift_type.color }}; color: {{ shift.shift_type.text_color }};"
-       href="{{ shift_link }}">
-      {{ shift.organization.name }}: {{ shift.name }}
-    </a>
+    {% if see_details %}
+      <a class="card calendar-shift"
+         style="background-color: {{ shift.shift_type.color }}; color: {{ shift.shift_type.text_color }};"
+         href="{{ shift_link }}">
+        {{ shift.organization.name }}: {{ shift.name }}
+      </a>
+    {% else %}
+      {{ shift.organization.name }}
+    {% endif %}
   </div>
 {% endif %}

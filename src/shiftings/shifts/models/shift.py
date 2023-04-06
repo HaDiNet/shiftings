@@ -10,6 +10,7 @@ from django.utils.translation import gettext_lazy as _
 
 from shiftings.utils.fields.date_time import DateTimeField
 from .base import ShiftBase
+from .permission import ParticipationPermission, ParticipationPermissionType
 
 if TYPE_CHECKING:
     from shiftings.accounts.models import User
@@ -115,22 +116,34 @@ class Shift(ShiftBase):
                 slots.append((user, False))
         return slots
 
+    def is_participant(self, user: User) -> bool:
+        return self.participants.filter(user=user).exists()
+
     def can_see(self, user: User) -> bool:
-        if self.participants.filter(user=user).exists():
+        if self.is_participant(user) or self.organization.is_member(user):
             return True
-        if self.event:
-            return self.event.can_see(user)
-        return self.organization.is_member(user)
+        permission = ParticipationPermission.objects.get_best_for_user(user, self, self.event, self.organization)
+        return permission >= ParticipationPermissionType.Existence
+
+    def can_see_details(self, user: User) -> bool:
+        if self.is_participant(user) or self.organization.is_member(user):
+            return True
+        permission = ParticipationPermission.objects.get_best_for_user(user, self, self.event, self.organization)
+        return permission >= ParticipationPermissionType.ShiftDetails
+
+    def can_see_participants(self, user: User) -> bool:
+        if self.is_participant(user) or self.organization.is_member(user):
+            return True
+        permission = ParticipationPermission.objects.get_best_for_user(user, self, self.event, self.organization)
+        return permission >= ParticipationPermissionType.ShiftParticipants
 
     def can_participate(self, user: User) -> bool:
-        if self.participants.filter(user=user).exists():
+        if self.is_participant(user):
             return False
-        if self.event:
-            return self.event.can_participate(user)
-        return user.has_perm('organizations.participate_in_shift', self.organization)
-
-    def is_participant(self, user: User) -> bool:
-        return user.pk in self.participants.values_list('user__pk', flat=True)
+        if user.has_perm('organizations.participate_in_shift', self.organization):
+            return True
+        permission = ParticipationPermission.objects.get_best_for_user(user, self, self.event, self.organization)
+        return permission >= ParticipationPermissionType.Participate
 
     def get_absolute_url(self) -> str:
         return reverse('shift', args=[self.pk])
