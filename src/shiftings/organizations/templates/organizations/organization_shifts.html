@@ -78,10 +78,6 @@
                         <td class="ps-3">{{ start_date }} to {{ end_date }}</td>
                       {% endblocktrans %}
                     </tr>
-                    <tr>
-                      <th>{% trans "Scope" %}:</th>
-                      <td class="ps-3">{{ organization.next_event.public|yesno:_('Public,Private,Unknown') }}</td>
-                    </tr>
                     {% if organization.next_event.website %}
                       <tr>
                         <th>{% trans "Website" %}:</th>

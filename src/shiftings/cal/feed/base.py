@@ -47,8 +47,6 @@ class ShiftFeed(ABC, ICalFeed, Generic[T]):
         return item.place
 
     def item_class(self, item: Shift) -> str:
-        if item.event and item.event.public:
-            return 'PUBLIC'
         return 'PRIVATE'
 
     def item_created(self, item: Shift) -> datetime:

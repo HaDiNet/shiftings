@@ -28,8 +28,6 @@ class UserFeed(ShiftFeed[User]):
         organizations = obj.organizations
         query = Q(organization__in=organizations)
         query |= Q(event__organization__in=organizations)
-        query |= Q(event__allowed_organizations__in=organizations)
-        query |= Q(event__public=True)
         query |= Q(participants__user=obj)
         return Shift.objects.filter(query).distinct()
 

@@ -11,7 +11,7 @@ class EventForm(ModelForm):
     class Meta:
         model = Event
         fields = ['organization', 'name', 'logo', 'email', 'telephone_number', 'website', 'start_date', 'end_date',
-                  'description', 'allowed_organizations', 'public']
+                  'description']
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)

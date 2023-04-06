@@ -74,8 +74,6 @@ class EventMixin(UserPassesTestMixin, BaseMixin, ABC):
         return self._get_object(Event, 'pk')
 
     def test_func(self) -> bool:
-        if not self.request.user.is_authenticated:
-            return self.get_event().public
         return self.get_event().can_see(self.request.user)
 
 

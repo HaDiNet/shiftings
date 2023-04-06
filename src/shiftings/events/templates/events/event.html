@@ -32,17 +32,7 @@
         <dd>{{ event.end_date }}</dd>
         <dt>Description</dt>
         <dd>{{ event.description }}</dd>
-        <dt>Public</dt>
-        <dd>{{ event.public }}</dd>
       </dl>
-    </div>
-  </div>
-  <div class="base-card card bg-dark my-3">
-    <div class="card-body">
-      Allowed Organizations:
-      {% for organization in event.allowed_organizations.all %}
-        {{ organization.name }}
-      {% endfor %}
     </div>
   </div>
 {% endblock %}

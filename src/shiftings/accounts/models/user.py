@@ -55,8 +55,7 @@ class User(BaseUser):
     def events(self) -> QuerySet[Event]:
         from shiftings.events.models import Event
         organizations = self.organizations
-        return Event.objects.filter(
-            Q(organization__in=organizations) | Q(allowed_organizations__in=organizations) | Q(public=True))
+        return Event.objects.filter(organization__in=organizations)
 
     @property
     def shift_count(self) -> int:

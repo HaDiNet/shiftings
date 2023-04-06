@@ -47,4 +47,4 @@ class PublicEventsFeed(ShiftFeed[Event]):
         return obj.description
 
     def items(self, obj: Event) -> QuerySet[Shift]:
-        return Shift.objects.filter(event__public=True)
+        return Shift.objects.none()

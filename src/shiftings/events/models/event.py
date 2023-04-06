@@ -33,12 +33,6 @@ class Event(models.Model):
 
     description = models.TextField(verbose_name=_('Description'), blank=True, null=True)
 
-    allowed_organizations = models.ManyToManyField('organizations.Organization',
-                                                   verbose_name=_('Allowed Organizations'),
-                                                   help_text=_('Organizations which are allowed to participate'))
-    public = models.BooleanField(verbose_name=_('Public'), default=False,
-                                 help_text=_('Allow everyone to participate at this event'))
-
     class Meta:
         default_permissions = ()
         ordering = ['name', 'start_date', 'end_date', 'organization']
@@ -84,11 +78,10 @@ class Event(models.Model):
         return self.shifts.aggregate(Sum('required_users')).get('required_users__sum')
 
     def can_see(self, user: User) -> bool:
-        return self.public or user.events.filter(pk=self.pk).exists()
+        return False
 
     def can_participate(self, user: User) -> bool:
-        return self.public or any(user.has_perm('organizations.participate_in_shift', org)
-                                  for org in self.allowed_organizations.all())
+        return False
 
     def get_absolute_url(self) -> str:
         return reverse('event', args=[self.pk])
