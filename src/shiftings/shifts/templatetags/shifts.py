@@ -97,10 +97,17 @@ def select_org_form_modal(context: dict[str, Any]):
 
 @register.inclusion_tag('shifts/template/small_shift_display.html', takes_context=True)
 def small_shift_display(context, shift) -> dict[str, Any]:
+    if shift.is_full:
+        status_class = 'border-success'
+    elif shift.has_required:
+        status_class = 'border-warning'
+    else:
+        status_class = 'border-danger'
     context.update({
         'shift': shift,
         'organization': shift.organization,
         'current_date': date.today(),
         'user_is_participant': shift.is_participant(context['request'].user),
+        'shift_status_border': status_class
     })
     return context

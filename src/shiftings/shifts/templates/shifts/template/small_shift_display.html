@@ -1,5 +1,17 @@
-<div class="my-1 bg-secondary p-2 d-flex flex-column">
-  <a class="fw-bold link" href="{{ shift.get_absolute_url }}">{{ shift.name }}</a><br>
+<div class="shift-card-small m-1 bg-secondary p-2 d-flex flex-column border border-4 {{ shift_status_border }}">
+  <div class="d-flex center-items justify-content-center">
+    <a class="fw-bold link mx-auto" href="{{ shift.get_absolute_url }}">{{ shift.name }}</a><br>
+    {% if shift.additional_infos %}
+      <button class="btn btn-outline-secondary ms-auto" data-bs-toggle="popover"
+              data-bs-title="{% trans "Shift Details" %}"
+              data-bs-custom-class="shift-info-popover"
+              data-bs-trigger="focus"
+              data-bs-placement="left" data-bs-html="true"
+              data-bs-content="{{ shift.additional_infos|linebreaks }}">
+        <i class="fas fa-circle-info"></i>
+      </button>
+    {% endif %}
+  </div>
   <div class="d-flex flex-row flex-wrap justify-content-center">
     <div class="text-center m-1">
       <span>{% trans "Start Time" %}: {{ shift.start|time:'H:i' }}</span><br>

@@ -64,7 +64,7 @@
         {% if request.user.organizations|length > 1 %}
           <div class="calendar-entry">
             <button class="btn btn-success w-100 rounded-0" data-bs-toggle="modal" data-bs-target="#selectShiftOrgModal"
-                    data-bs-date="{{ date|date:"%Y-%m-%d" }}">
+                    data-bs-date="{{ theday }}">
               {% trans 'Create Shift' %} <i class="fa-solid fa-plus"></i>
             </button>
           </div>

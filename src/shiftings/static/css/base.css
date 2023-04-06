@@ -424,6 +424,10 @@ dl.detail-horizontal dd {
 
 /*shifts*/
 
+.shift-card-small {
+  max-width: 450px;
+}
+
 .shift-slots {
   display: grid;
   grid-template-columns: repeat(auto-fill, 200px);
@@ -439,6 +443,21 @@ dl.detail-horizontal dd {
 .shift-required, .shift-required button, .shift-required span {
   color: var(--bs-orange) !important;
   border-color: var(--bs-orange) !important;
+}
+
+.popover-body {
+  background-color: var(--bs-dark);
+  --bs-popover-body-color: var(--bs-body-color);
+
+}
+
+.shift-info-popover {
+  --bs-popover-max-width: 300px;
+  --bs-popover-border-color: var(--bs-dark);
+  --bs-popover-header-bg: var(--bs-secondary);
+  --bs-popover-body-padding-x: 1rem;
+  --bs-popover-body-padding-y: .5rem;
+
 }
 
 .table-fixed {

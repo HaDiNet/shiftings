@@ -5,6 +5,7 @@
   <meta name="robots" content="noindex">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
   {#  <meta name="viewport" content="">#}
+  <script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
   {% bootstrap_css %}
   <script type="text/javascript" src="{% static 'js/modal_autofocus.js' %}"></script>
   {#  enable tooltips and popovers #}
@@ -12,14 +13,17 @@
     document.addEventListener('DOMContentLoaded', initialize);
 
     function initialize() {
-      Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]')).map((tooltipTriggerEl) => {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
-      });
+        Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]')).map((tooltipTriggerEl) => {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+        const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+        const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+
     }
   </script>
   {{ form.media }}
-  <link rel="shortcut icon" href="{% static "images/favicon.ico" %}" />
-  <link rel="stylesheet" type="text/css" href="{% static "css/base.css" %}" />
+  <link rel="shortcut icon" href="{% static "images/favicon.ico" %}"/>
+  <link rel="stylesheet" type="text/css" href="{% static "css/base.css" %}"/>
   {% block head %} {% endblock %}
   <script type="text/javascript" src="{% static 'js/font-awesome-all.min.js' %}"></script>
   {% block scripts %}
@@ -30,7 +34,7 @@
     {% endfor %}
   {% endblock %}
   <script type="text/javascript" src="{% static 'js/chickens.js' %}"></script>
-<title>{{ title }}</title>
+  <title>{{ title }}</title>
 </head>
 <body>
 <header>
@@ -44,9 +48,8 @@
   {% block top_level %}{% endblock %}
   {% if messages %}
     {% for message in messages %}
-      <div
-          class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} m-3 d-flex align-items-center justify-content-between"
-          role="alert">
+      <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} m-3 d-flex align-items-center justify-content-between"
+           role="alert">
         <div>
           <i class="fas fa-warning"></i>
           <span class="ms-3">{{ message }}</span>

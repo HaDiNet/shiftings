@@ -42,7 +42,7 @@
       <tr>
         <td class="border-end border-3">{{ shift_hour|stringformat:'02d:00' }}</td>
         {% for shift_type in shifts.types %}
-          <td class="border-end overflow-auto" colspan="2">
+          <td class="border-end overflow-auto center-items justify-content-evenly flex-wrap" colspan="2">
             {% if shift_type %}
               {% for shift in time_container|get_by_key:shift_type.name %}
                 {% small_shift_display shift %}
