@@ -1,4 +1,5 @@
 from .participant import Participant
+from .permission import ParticipationPermission, ParticipationPermissionManager, ParticipationPermissionType
 from .recurring import RecurringShift
 from .shift import Shift
 from .summary import OrganizationSummarySettings
