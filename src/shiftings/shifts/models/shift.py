@@ -119,31 +119,30 @@ class Shift(ShiftBase):
     def is_participant(self, user: User) -> bool:
         return self.participants.filter(user=user).exists()
 
+    def get_user_permission(self, user):
+        if user.has_perm('organizations.participate_in_shift', self.organization):
+            return ParticipationPermissionType.Participate
+        return ParticipationPermission.objects.get_best_for_user(user, self, self.event, self.organization)
+
     def can_see(self, user: User) -> bool:
         if self.is_participant(user) or self.organization.is_member(user):
             return True
-        permission = ParticipationPermission.objects.get_best_for_user(user, self, self.event, self.organization)
-        return permission >= ParticipationPermissionType.Existence
+        return self.get_user_permission(user) >= ParticipationPermissionType.Existence
 
     def can_see_details(self, user: User) -> bool:
         if self.is_participant(user) or self.organization.is_member(user):
             return True
-        permission = ParticipationPermission.objects.get_best_for_user(user, self, self.event, self.organization)
-        return permission >= ParticipationPermissionType.ShiftDetails
+        return self.get_user_permission(user) >= ParticipationPermissionType.ShiftDetails
 
     def can_see_participants(self, user: User) -> bool:
         if self.is_participant(user) or self.organization.is_member(user):
             return True
-        permission = ParticipationPermission.objects.get_best_for_user(user, self, self.event, self.organization)
-        return permission >= ParticipationPermissionType.ShiftParticipants
+        return self.get_user_permission(user) >= ParticipationPermissionType.ShiftParticipants
 
     def can_participate(self, user: User) -> bool:
         if self.is_participant(user):
             return False
-        if user.has_perm('organizations.participate_in_shift', self.organization):
-            return True
-        permission = ParticipationPermission.objects.get_best_for_user(user, self, self.event, self.organization)
-        return permission >= ParticipationPermissionType.Participate
+        return self.get_user_permission(user) >= ParticipationPermissionType.Participate
 
     def get_absolute_url(self) -> str:
         return reverse('shift', args=[self.pk])

@@ -117,7 +117,6 @@ class BaseCalendar(HTMLCalendar):
             'shift': shift,
             'shift_link': self.get_shift_link(shift),
             'is_form': self.render_entries_as_form,
-            'see_details': self.can_see_shift_details(shift)
         }
         return render_to_string('cal/calendar_templates/shift_entry.html', context, request=self.request)
 

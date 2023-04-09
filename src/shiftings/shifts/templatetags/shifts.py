@@ -9,6 +9,7 @@ from shiftings.accounts.models import BaseUser, User
 from shiftings.organizations.models import OrganizationDummyUser
 from shiftings.shifts.forms.participant import AddSelfParticipantForm
 from shiftings.shifts.forms.shift import SelectOrgForm
+from shiftings.shifts.models import Shift
 from shiftings.utils.time.timerange import TimeRangeType
 
 register = template.Library()
@@ -111,3 +112,28 @@ def small_shift_display(context, shift) -> dict[str, Any]:
         'shift_status_border': status_class
     })
     return context
+
+
+@register.filter
+def user_can_see(shift: Shift, user: User):
+    return shift.get_user_permission(user)
+
+
+@register.filter
+def user_can_see(shift: Shift, user: User):
+    return shift.can_see(user)
+
+
+@register.filter
+def user_can_see_details(shift: Shift, user: User):
+    return shift.can_see_details(user)
+
+
+@register.filter
+def user_can_see_participants(shift: Shift, user: User):
+    return shift.can_see_participants(user)
+
+
+@register.filter
+def user_can_participate(shift: Shift, user: User):
+    return shift.can_participate(user)

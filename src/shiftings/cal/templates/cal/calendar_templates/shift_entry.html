@@ -1,4 +1,5 @@
-{% if is_form and see_details %}
+{% load shifts %}
+{% if is_form and shift|user_can_see_details:request.user %}
   <div class="calendar-entry">
     <form action="{{ shift_link }}" method="post">
       {% csrf_token %}
@@ -12,14 +13,16 @@
   </div>
 {% else %}
   <div class="calendar-entry">
-    {% if see_details %}
+    {% if shift|user_can_see_details:request.user %}
       <a class="card calendar-shift"
          style="background-color: {{ shift.shift_type.color }}; color: {{ shift.shift_type.text_color }};"
          href="{{ shift_link }}">
         {{ shift.organization.name }}: {{ shift.name }}
       </a>
     {% else %}
-      {{ shift.organization.name }}
+      <span class="card calendar-shift" style="background-color: transparent">
+        {{ shift.organization.name }}: {{ shift.time_display }}
+      </span>
     {% endif %}
   </div>
 {% endif %}

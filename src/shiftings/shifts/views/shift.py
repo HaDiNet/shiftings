@@ -27,6 +27,7 @@ class ShiftDetailView(UserPassesTestMixin, BaseLoginMixin, DetailView):
     template_name = 'shifts/shift.html'
     model = Shift
     context_object_name = 'shift'
+    object: Shift
 
     def get_title(self) -> str:
         return self.get_object().detailed_display
@@ -34,7 +35,7 @@ class ShiftDetailView(UserPassesTestMixin, BaseLoginMixin, DetailView):
     def test_func(self) -> bool:
         if not self.request.user.is_authenticated:
             return False
-        return self.request.user.has_perm('organizations.admin') or self.get_object().can_see(self.request.user)
+        return self.request.user.has_perm('organizations.admin') or self.get_object().can_see_details(self.request.user)
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
@@ -43,7 +44,8 @@ class ShiftDetailView(UserPassesTestMixin, BaseLoginMixin, DetailView):
                 'user': self.request.user,
             }),
             'current_date': date.today(),
-            'user_is_participant': self.object.is_participant(self.request.user)
+            'user_is_participant': self.object.is_participant(self.request.user),
+            'can_see_participants': self.object.can_see_participants(self.request.user)
         })
         return context
 

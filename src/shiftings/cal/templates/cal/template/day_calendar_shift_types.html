@@ -17,7 +17,7 @@
 </div>
 <div class="table-responsive" style="transform: rotateX(180deg);">
   <table class="table table-hover table-striped-columns text-center wy-table-bordered-rows"
-         style="transform: rotateX(180deg);">
+         style="transform: rotateX(180deg);"> {# move scroll bar to the top #}
     <thead>
     <tr class="border-bottom border-3 sticky-top">
       <td class="display-6 border-end border-3d-flex align-items-center">{% trans "Time" %}</td>
@@ -45,11 +45,15 @@
           <td class="border-end overflow-auto center-items justify-content-evenly flex-wrap" colspan="2">
             {% if shift_type %}
               {% for shift in time_container|get_by_key:shift_type.name %}
-                {% small_shift_display shift %}
+                {% if shift|user_can_see_details:request.user %}
+                  {% small_shift_display shift %}
+                {% endif %}
               {% endfor %}
             {% else %}
               {% for shift in time_container.Default %}
-                {% small_shift_display shift %}
+                {% if shift|user_can_see_details:request.user %}
+                  {% small_shift_display shift %}
+                {% endif %}
               {% endfor %}
             {% endif %}
           </td>

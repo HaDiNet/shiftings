@@ -1,3 +1,4 @@
+{% load shifts %}
 <div class="shift-card-small m-1 bg-secondary p-2 d-flex flex-column border border-4 {{ shift_status_border }}">
   <div class="d-flex center-items justify-content-center">
     <a class="fw-bold link mx-auto" href="{{ shift.get_absolute_url }}">{{ shift.name }}</a><br>
@@ -5,8 +6,7 @@
       <button class="btn btn-outline-secondary ms-auto" data-bs-toggle="popover"
               data-bs-title="{% trans "Shift Details" %}"
               data-bs-custom-class="shift-info-popover"
-              data-bs-trigger="focus"
-              data-bs-placement="left" data-bs-html="true"
+              data-bs-trigger="focus" data-bs-placement="left" data-bs-html="true"
               data-bs-content="{{ shift.additional_infos|linebreaks }}">
         <i class="fas fa-circle-info"></i>
       </button>
@@ -23,21 +23,23 @@
         <span>{% trans "Confirmed" %}: {{ shift.confirmed_participants }}</span><br>
       {% endif %}
     </div>
-    <div class="d-flex align-items-center justify-content-center mx-auto">
-      {% if user_is_participant %}
-        <span class="btn btn-success pe-none">{% trans "Participating" %}</span>
-      {% else %}
-        {% if shift.is_full %}
-          <span class="btn btn-danger pe-none">{% trans "Full" %}</span>
+    {% if shift|user_can_participate:request.user %}
+      <div class="d-flex align-items-center justify-content-center mx-auto">
+        {% if user_is_participant %}
+          <span class="btn btn-success pe-none">{% trans "Participating" %}</span>
         {% else %}
-          <button type="button"
-                  class="btn border border-2 card-link link w-100 mx-2 {% if not shift.has_required %} shift-required{% endif %}"
-                  data-bs-toggle="modal"
-                  data-bs-target="#addSelfForm{{ shift.pk }}Modal">
-            <i class="fa-solid fa-person-circle-plus me-2"></i>{% trans 'Add me' %}
-          </button>
+          {% if shift.is_full %}
+            <span class="btn btn-danger pe-none">{% trans "Full" %}</span>
+          {% else %}
+            <button type="button"
+                    class="btn border border-2 card-link link w-100 mx-2 {% if not shift.has_required %} shift-required{% endif %}"
+                    data-bs-toggle="modal"
+                    data-bs-target="#addSelfForm{{ shift.pk }}Modal">
+              <i class="fa-solid fa-person-circle-plus me-2"></i>{% trans 'Add me' %}
+            </button>
+          {% endif %}
         {% endif %}
-      {% endif %}
-    </div>
+      </div>
+    {% endif %}
   </div>
 </div>
