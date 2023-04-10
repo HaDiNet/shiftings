@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import Optional, TYPE_CHECKING, Union
 
+from django.contrib.contenttypes.fields import GenericRelation
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import F, Q
@@ -35,6 +36,11 @@ class Shift(ShiftBase):
 
     created = DateTimeField(verbose_name=_('Created'), auto_now_add=True)
     modified = DateTimeField(verbose_name=_('Last Modified'), auto_now=True)
+
+    participation_permissions = GenericRelation(ParticipationPermission,
+                                                content_type_field='referred_content_type',
+                                                object_id_field='referred_object_id',
+                                                related_query_name='ref_shift')
 
     class Meta:
         default_permissions = ()

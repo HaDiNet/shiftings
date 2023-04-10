@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, TYPE_CHECKING
 
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
@@ -9,11 +9,13 @@ from django.db.models import Q, QuerySet, UniqueConstraint
 from django.utils.translation import gettext_lazy as _
 
 from shiftings.accounts.models import User
-from shiftings.organizations.models import Organization
+
+if TYPE_CHECKING:
+    from shiftings.organizations.models import Organization
 
 
 class ParticipationPermissionType(models.IntegerChoices):
-    NoPermission = 0, _('Nothing')
+    NoPermission = 0, _('No Permission')
     Existence = 1, _('See Shift exists')
     ShiftDetails = 2, _('See Shift Details')
     ShiftParticipants = 3, _('See Shift Participants')
@@ -72,7 +74,7 @@ class ParticipationPermission(models.Model):
     permission_type_field = models.PositiveSmallIntegerField(choices=ParticipationPermissionType.choices,
                                                              verbose_name=_('Permission Type'))
     organization = models.ForeignKey('organizations.Organization', on_delete=models.CASCADE,
-                                     verbose_name=_('Affected Organization'), related_name='participation_permissions',
+                                     verbose_name=_('Affected Organization'), related_name='ref_participation_permissions',
                                      blank=True, null=True)
 
     objects = ParticipationPermissionManager()

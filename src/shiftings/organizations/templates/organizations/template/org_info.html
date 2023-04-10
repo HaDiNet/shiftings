@@ -36,6 +36,12 @@
           <i class="fas fa-edit"></i>
         </a>
       {% endif %}
+      {% if org_perms.admin %}
+        <a class="btn btn-info" href="{% url 'org_part_permissions_edit' organization.pk %}"
+           title="{% trans "Update Shift Permissions" %}">
+          <i class="fas fa-shield-halved"></i>
+        </a>
+      {% endif %}
     </div>
   </div>
   <div class="card-body">

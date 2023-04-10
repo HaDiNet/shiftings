@@ -23,6 +23,12 @@
                   <i class="fa-solid fa-trash"></i>
                 </a>
               {% endif %}
+              {% if org_perms.admin %}
+                <a class="btn btn-info px-2 py-1" href="{% url 'shift_part_permissions_edit' shift.pk %}"
+                   title="{% trans "Edit Permissions" %}">
+                  <i class="fa-solid fa-shield-halved"></i>
+                </a>
+              {% endif %}
             {% endif %}
           </div>
         </div>

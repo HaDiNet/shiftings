@@ -31,11 +31,12 @@ class AddOtherParticipantView(OrganizationPermissionMixin, CreateView):
         return kwargs
 
     def form_valid(self, form: AddSelfParticipantForm) -> HttpResponse:
-        if not self.request.user.has_perm('organizations.add_non_members_to_shifts', self.get_organization()):
+        shift = self.get_shift()
+        if not shift.can_participate(self.request.user) and \
+                not self.request.user.has_perm('organizations.add_non_members_to_shifts', self.get_organization()):
             if not self.get_organization().is_member(form.cleaned_data['user']):
                 raise Http403()
         self.object = form.save()
-        shift = self.get_shift()
         shift.participants.add(self.object)
         shift.save()
         return self.success
@@ -47,6 +48,11 @@ class AddOtherParticipantView(OrganizationPermissionMixin, CreateView):
 class AddSelfParticipantView(AddOtherParticipantView):
     form_class = AddSelfParticipantForm
     permission_required = 'organizations.participate_in_shift'
+
+    def has_permission(self) -> bool:
+        if self.get_shift().can_participate(self.request.user):
+            return True
+        return super().has_permission()
 
     def get_initial(self) -> dict[str, Any]:
         initial = super().get_initial()

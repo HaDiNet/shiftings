@@ -1,6 +1,6 @@
 {% load shifts %}
-<div class="d-flex table-responsive">
-  <table class="table table-dark table-striped table-bordered table-hover border-secondary table-fixed text-wrap">
+<div class="d-flex flex-column table-responsive">
+  <table class="table table-dark table-striped table-bordered table-hover border-secondary table-fixed text-wrap m-0">
     <thead>
     <tr class="text-center">
       <th class="d-none d-lg-table-cell">{% trans "Organization" %}</th>
@@ -12,8 +12,8 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-      {% for shift in shifts %}
+    {% for shift in shifts %}
+      <tr>
         <td>
           {{ shift.organization }}
         </td>
@@ -61,33 +61,34 @@
             {% endif %}
           </td>
         {% else %}
-          <td colspan="9"> {{ shift.organization.name }}: {{ shift.time_display }}</td>
+          <td colspan="9" class="d-none d-md-table-cell text-center">
+            {{ shift.organization.name }}: {{ shift.time_display }}
+          </td>
+          <td colspan="7" class="d-table-cell d-md-none text-center">
+            {{ shift.organization.name }}: {{ shift.time_display }}
+          </td>
         {% endif %}
-      {% empty %}
+        {% empty %}
         <td colspan="10" class="text-center text-warning fw-bolder">
           <h3>{% trans "No Shifts on this day" %}</h3>
         </td>
-      {% endfor %}
-    </tr>
+      </tr>
+    {% endfor %}
     </tbody>
-    <tfoot>
-    <tr>
-      <td colspan="10" class="p-0 pt-3 text-center">
-        {% if request.user.organizations|length > 1 %}
-          <div class="calendar-entry">
-            <button class="btn btn-success w-100 rounded-0" data-bs-toggle="modal" data-bs-target="#selectShiftOrgModal"
-                    data-bs-date="{{ theday }}">
-              {% trans 'Create Shift' %} <i class="fa-solid fa-plus"></i>
-            </button>
-          </div>
-        {% elif request.user.organizations|length == 1 %}
-          <a class="btn btn-success w-100 rounded-0"
-             href="{% url "shift_create" user.organizations.0.pk %}?date={{ theday|date:"Y-m-d" }}">
-            {% trans 'Add Shift' %} <i class="fa-solid fa-plus"></i>
-          </a>
-        {% endif %}
-      </td>
-    </tr>
-    </tfoot>
   </table>
+  {% if request.user.organizations|length > 1 %}
+    <div class="w-100">
+      <div class="calendar-entry">
+        <button class="btn btn-success w-100 rounded-0" data-bs-toggle="modal" data-bs-target="#selectShiftOrgModal"
+                data-bs-date="{{ theday }}">
+          {% trans 'Create Shift' %} <i class="fa-solid fa-plus"></i>
+        </button>
+      </div>
+      {% elif request.user.organizations|length == 1 %}
+      <a class="btn btn-success w-100 rounded-0"
+         href="{% url "shift_create" user.organizations.0.pk %}?date={{ theday|date:"Y-m-d" }}">
+        {% trans 'Add Shift' %} <i class="fa-solid fa-plus"></i>
+      </a>
+    </div>
+  {% endif %}
 </div>

@@ -1,0 +1,17 @@
+<div id="id_{{ form.prefix }}_container" class="col-8">
+  <div class="card base-card bg-dark border border-2 {% if new %}border-success{% else %}border-primary{% endif %} p-3">
+    {{ form.id }}
+    <div class="p-2 row">
+      <div class="col-5 align-items-center">{% bootstrap_field form.organization show_label=False %}</div>
+      <div class="col-5">{% bootstrap_field form.permission_type_field show_label=False %}</div>
+      <div class="col-2">
+        <a class="btn btn-danger px-2 py-1 ms-auto formset-form-remove" id="id_{{ form.prefix }}_remove">
+          <i class="fas fa-x" title="{% trans 'Remove Shift' %}"></i>
+        </a>
+        <a class="btn btn-danger px-2 py-1 ms-auto d-none formset-form-restore" id="id_{{ form.prefix }}_restore">
+          <i class="fas fa-reply" title="{% trans 'Restore Shift' %}"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

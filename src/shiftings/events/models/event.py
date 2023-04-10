@@ -4,6 +4,7 @@ from datetime import datetime
 from typing import TYPE_CHECKING
 
 from django.conf import settings
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.db.models import Count, F, Q, QuerySet, Sum
 from django.urls import reverse
@@ -11,11 +12,11 @@ from django.utils.translation import gettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
 from PIL import Image
 
+from shiftings.shifts.models import ParticipationPermission, Shift
 from shiftings.utils.fields.date_time import DateField
 
 if TYPE_CHECKING:
     from shiftings.accounts.models import User
-    from shiftings.shifts.models import Shift
 
 
 class Event(models.Model):
@@ -32,6 +33,11 @@ class Event(models.Model):
     end_date = DateField(verbose_name=_('End Date'), help_text=_('Latest date where there are shifts available'))
 
     description = models.TextField(verbose_name=_('Description'), blank=True, null=True)
+
+    participation_permissions = GenericRelation(ParticipationPermission,
+                                                content_type_field='referred_content_type',
+                                                object_id_field='referred_object_id',
+                                                related_query_name='ref_event')
 
     class Meta:
         default_permissions = ()

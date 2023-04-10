@@ -5,6 +5,7 @@ from shiftings.organizations.views.organization import (
     OrganizationAdminView, OrganizationEditView, OrganizationListView, OrganizationSettingsView, OrganizationShiftsView,
     OwnOrganizationListView
 )
+from shiftings.organizations.views.permission import OrganizationParticipationPermissionEditView
 
 urlpatterns = [
     # admin only
@@ -18,6 +19,8 @@ urlpatterns = [
     path('<int:pk>/update/', OrganizationEditView.as_view(), name='organization_update'),
     # feed
     path('<int:pk>/calendar/', OrganizationFeed(), name='organization_calendar'),
+    path('<int:pk>/permission/', OrganizationParticipationPermissionEditView.as_view(),
+         name='org_part_permissions_edit'),
 
     # includes
     path('<int:org_pk>/claim_users/', include('shiftings.organizations.urls.user')),

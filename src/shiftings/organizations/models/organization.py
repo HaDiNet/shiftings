@@ -4,6 +4,7 @@ from datetime import date
 from typing import Optional, TYPE_CHECKING
 
 from django.conf import settings
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.db.models import Q, QuerySet
 from django.urls import reverse
@@ -12,11 +13,11 @@ from phonenumber_field.modelfields import PhoneNumberField
 from PIL import Image
 
 from shiftings.organizations.models.membership import MembershipType
+from shiftings.shifts.models import ParticipationPermission, Shift
 
 if TYPE_CHECKING:
     from shiftings.accounts.models import User
     from shiftings.events.models import Event
-    from shiftings.shifts.models import Shift
 
 
 class Organization(models.Model):
@@ -33,6 +34,11 @@ class Organization(models.Model):
     confirm_participation_active = models.BooleanField(verbose_name=_('Confirm Participants'), default=False,
                                                        help_text=_('Whether the participants can be confirmed or '
                                                                    'not. Default: False'))
+
+    participation_permissions = GenericRelation(ParticipationPermission,
+                                                content_type_field='referred_content_type',
+                                                object_id_field='referred_object_id',
+                                                related_query_name='ref_org')
 
     # members: RelatedManager[Membership]
     # summary_settings: RelatedManager[OrganizationSummarySettings]

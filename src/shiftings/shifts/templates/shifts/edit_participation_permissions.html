@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block scripts %}
+  <script type="text/javascript" src="{% static "js/formset.js" %}"></script>
+{% endblock %}
+{% block breadcrumbs %}
+  {% include "template/breadcrumbs.html" %}
+{% endblock %}
+{% block content %}
+  <div class="container">
+    {% if formset.non_form_errors|length %}
+      <div class="alert alert-error m-3 center-items justify-content-start">
+        {% bootstrap_formset_errors formset %}
+      </div>
+    {% endif %}
+    <form method="post" {% include 'generic/include_params.html' with params=form_params only %}>
+      <div class="center-items flex-wrap my-2">
+        <h3 class="m-0">
+          <a class="link" href="{{ object.get_absolute_url }}">
+            {% trans "Edit Permissions for" %} {{ object }}
+          </a>
+        </h3>
+        <div class="my-2 my-lg-0">
+          <a id="formset_add" class="btn btn-primary ms-3">
+            <i class="fas fa-plus" title="{% trans 'Add Shift' %}"></i>
+          </a>
+          <a class="btn btn-secondary ms-1" href="{{ object.get_absolute_url }}">
+            {% trans "Cancel" %}
+          </a>
+          {% bootstrap_button _('Save') button_type="submit" button_class="btn-primary ms-1" %}
+        </div>
+      </div>
+      {% csrf_token %}
+      {{ formset.management_form }}
+      <div id="formset_insert" class="row g-2 justify-content-center">
+        {% for form in formset %}
+          {% include "shifts/template/participation_permission_form.html" %}
+        {% empty %}
+          <div class="col-8 alert alert-info" id="empty_alert">
+            {% blocktrans with object=object.display %}
+              No specific permissions for "{{ object }}" yet add them with "+"
+            {% endblocktrans %}
+          </div>
+        {% endfor %}
+        <template id="formset_template">
+          {% include "shifts/template/participation_permission_form.html" with form=formset.empty_form new=True %}
+        </template>
+      </div>
+    </form>
+  </div>
+{% endblock %}
