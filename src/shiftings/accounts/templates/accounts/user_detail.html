@@ -120,33 +120,6 @@
         <h4>{% trans "Upcoming Shifts" %}</h4>
       {% endif %}
       <div class="center-items">
-        <div class="dropdown">
-          {% if filter_object %}
-            <a class="btn btn-danger" href="?" title="{% trans "Current Filter" %}">
-              {{ filter_object }} <i class="fas fa-filter-circle-xmark"></i>
-            </a>
-          {% endif %}
-          <button class="btn btn-success me-2 dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                  aria-expanded="false" title="{% trans "Filter Shifts" %}">
-            <i class="fa-solid fa-filter"></i>
-          </button>
-          <ul class="dropdown-menu dropdown-menu-dark">
-            <li>
-              <a class="dropdown-item {% active_param 'filter' 'own' %}"
-                 href="?filter=own">
-                {% trans "My Shifts" %}
-              </a>
-            </li>
-            {% for org in user.organizations.all %}
-              <li>
-                <a class="dropdown-item {% active_param 'filter' org.pk %}"
-                   href="?filter=organization&organization={{ org.pk }}">
-                  {{ org.name }}
-                </a>
-              </li>
-            {% endfor %}
-          </ul>
-        </div>
         {% if request.path == past_url %}
           <a class="btn btn-secondary" href="{% url "user_profile" %}?{{ request.GET.urlencode }}">
             <i class="fa-solid fa-hourglass-end" title="{% trans "Upcoming Shifts" %}"></i>
@@ -158,6 +131,7 @@
         {% endif %}
       </div>
     </div>
+    {% include "shifts/shift_url_filters.html" with expanded=False %}
     <div>
       {% if shifts.object_list|length > 0 %}
         <div>

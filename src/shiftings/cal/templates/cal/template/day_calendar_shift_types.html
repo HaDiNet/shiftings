@@ -33,7 +33,9 @@
           {% endif %}
         </td>
       {% empty %}
-        <td class="display-6 text-warning" colspan="6">{% trans "No Shifts on this day" %}</td>
+        <td class="display-6 text-warning" colspan="6">
+          {% trans "No Shifts found with these parameters or planned on this day" %}
+        </td>
       {% endfor %}
     </tr>
     </thead>

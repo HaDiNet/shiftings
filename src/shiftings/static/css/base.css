@@ -445,6 +445,20 @@ dl.detail-horizontal dd {
   border-color: var(--bs-orange) !important;
 }
 
+.filter-accordion {
+  --bs-accordion-color: var(--bs-body-color);
+  --bs-accordion-bg: transparent;
+  --bs-accordion-border-color: transparent;
+  --bs-accordion-btn-color: var(--bs-body-color);
+  --bs-accordion-btn-bg: transparent;
+  --bs-accordion-btn-focus-border-color: transparent;
+  --bs-accordion-btn-focus-box-shadow: unset;
+  --bs-accordion-btn-active-icon: var(--bs-accordion-btn-icon);
+  --bs-accordion-active-color: var(--bs-body-color);
+  --bs-accordion-active-bg: transparent;
+
+}
+
 .popover-body {
   background-color: var(--bs-dark);
   --bs-popover-body-color: var(--bs-body-color);

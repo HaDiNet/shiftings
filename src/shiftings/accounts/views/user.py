@@ -1,5 +1,5 @@
 from datetime import date
-from typing import Any, Dict, Union
+from typing import Any, Dict
 
 from django import template
 from django.conf import settings
@@ -10,7 +10,6 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.db.models import Q
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
-from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.encoding import force_bytes, force_str
@@ -23,14 +22,13 @@ from django.views.generic import CreateView, DetailView, TemplateView, UpdateVie
 from shiftings.accounts.forms.user_form import UserCreateForm, UserUpdateForm
 from shiftings.accounts.models import User
 from shiftings.accounts.token import email_confirm_token_generator
-from shiftings.events.models import Event
-from shiftings.organizations.models import Organization
 from shiftings.shifts.models import Shift
+from shiftings.shifts.utils.filter_mixin import ShiftFilterMixin
 from shiftings.utils.pagination import get_pagination_context
 from shiftings.utils.views.base import BaseLoginMixin
 
 
-class UserProfileView(BaseLoginMixin, DetailView):
+class UserProfileView(BaseLoginMixin, ShiftFilterMixin, DetailView):
     model = User
     object: User
     save_path_in_session = True
@@ -48,24 +46,8 @@ class UserProfileView(BaseLoginMixin, DetailView):
             shifts = Shift.objects.filter(Q(start__date__gte=today) &
                                           (Q(event__in=self.object.events) |
                                            Q(organization__in=self.object.organizations)))
-        _filter, context['filter_object'] = self.get_filters()
-        context['shifts'] = get_pagination_context(self.request, shifts.filter(_filter), 5, 'shifts')
+        context['shifts'] = get_pagination_context(self.request, shifts.filter(self.get_filters()), 5, 'shifts')
         return context
-
-    def get_filters(self) -> tuple[Q, Union[Event, Organization, None]]:
-        shift_filter = Q()
-        filter_obj = None
-        if 'filter' in self.request.GET:
-            if self.request.GET['filter'] == 'own':
-                filter_obj = self.request.user
-                shift_filter &= Q(participants__user=self.request.user)
-            if self.request.GET['filter'] == 'organization' and 'organization' in self.request.GET:
-                filter_obj = get_object_or_404(Organization, pk=self.request.GET.get('organization'))
-                shift_filter &= Q(organization=filter_obj)
-            if self.request.GET['filter'] == 'event' and 'event' in self.request.GET:
-                filter_obj = get_object_or_404(Event, pk=self.request.GET.get('event'))
-                shift_filter &= Q(event__pk=filter_obj)
-        return shift_filter, filter_obj
 
 
 @method_decorator(sensitive_post_parameters('password', 'confirm_password'), name='dispatch')

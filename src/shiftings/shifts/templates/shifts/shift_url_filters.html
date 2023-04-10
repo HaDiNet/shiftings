@@ -1,0 +1,21 @@
+<div class="w-100">
+  <div class="filter-accordion accordion w-100" id="userShiftFilter">
+    <div class="accordion-item">
+      <h5 class="accordion-header bg-secondary" id="userShiftFilterLabel">
+        <button class="accordion-button px-1 py-2" type="button" data-bs-toggle="collapse"
+                data-bs-target="#userShiftFilterBody"
+                aria-expanded="true" aria-controls="userShiftFilterBody">
+          {% trans "Toggle Shift Filters" %}
+        </button>
+      </h5>
+      <div id="userShiftFilterBody"
+           class="accordion-collapse collapse border border-2 border-secondary rounded-0 {% if expanded %} show{% endif %}"
+           aria-labelledby="userShiftFilterLabel"
+           data-bs-parent="#userShiftFilter">
+        <div class="accordion-body p-2">
+          {% include "shifts/template/shift_url_filter_form.html" %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
