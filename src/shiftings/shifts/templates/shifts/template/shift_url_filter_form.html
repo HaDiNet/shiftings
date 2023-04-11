@@ -19,8 +19,17 @@
           {% bootstrap_field shift_filter_form.own_shifts_checkbox layout='inline' %}
         </div>
         <hr class="my-1">
-        {% bootstrap_field shift_filter_form.start_after_field addon_after='<i class="fas fa-calendar"></i>' %}
-        {% bootstrap_field shift_filter_form.end_before_field addon_after='<i class="fas fa-calendar"></i>' %}
+        <div>
+          <span>{% trans "Shift starts after" %}</span>
+          {% bootstrap_field shift_filter_form.start_after_field wrapper_class="mb-1" show_label=False addon_after='<i class="fas fa-calendar"></i>' %}
+          {% bootstrap_field shift_filter_form.start_after_time_field show_label=False addon_after='<i class="fas fa-clock"></i>' %}
+        </div>
+        <hr class="my-1">
+        <div>
+          <span>{% trans "Shift ends before" %}</span>
+          {% bootstrap_field shift_filter_form.end_before_field wrapper_class="mb-1" show_label=False addon_after='<i class="fas fa-calendar"></i>' %}
+          {% bootstrap_field shift_filter_form.end_before_time_field show_label=False addon_after='<i class="fas fa-clock"></i>' %}
+        </div>
         <hr class="mt-1 mb-3">
       </div>
       <div class="w-100 mb-3">

@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import BooleanField, CheckboxSelectMultiple, ModelMultipleChoiceField
+from django.forms import BooleanField, CheckboxSelectMultiple, ModelMultipleChoiceField, TimeField
 from django.utils.translation import gettext_lazy as _
 
 from shiftings.accounts.models import User
@@ -14,8 +14,10 @@ class ShiftFilterForm(forms.Form):
                                                 required=False)
     select_event_field = ModelMultipleChoiceField(queryset=Event.objects.none(), widget=CheckboxSelectMultiple,
                                                   required=False)
-    start_after_field = DateFormField(label=_('Shift starts after'), required=False)
-    end_before_field = DateFormField(label=_('Shift ends before'), required=False)
+    start_after_field = DateFormField(label=_('Date YYYY-MM-DD'), required=False)
+    start_after_time_field = TimeField(label=_('Time HH:MM'), required=False)
+    end_before_field = DateFormField(label=_('Date YYYY-MM-DD'), required=False)
+    end_before_time_field = TimeField(label=_('Time HH:MM'), required=False)
 
     def __init__(self, user: User, *args, **kwargs):
         super().__init__(*args, **kwargs)
