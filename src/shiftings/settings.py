@@ -92,6 +92,7 @@ TEMPLATES = [
                 'shiftings.templatetags.debug',
                 'shiftings.templatetags.modal',
                 'shiftings.cal.templatetags.calendar',
+                'shiftings.shifts.templatetags.shifts'
             ],
             'context_processors': [
                 'shiftings.utils.context_processors.debug',

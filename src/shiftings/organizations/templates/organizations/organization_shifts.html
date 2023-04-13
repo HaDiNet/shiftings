@@ -1,6 +1,4 @@
 {% extends 'generic/dual_column.html' %}
-{% load shifts %}
-
 {% block left %}
   {% url 'organization_admin' organization.pk as admin_url %}
   {% include "organizations/template/org_info.html" with settings_url=admin_url %}

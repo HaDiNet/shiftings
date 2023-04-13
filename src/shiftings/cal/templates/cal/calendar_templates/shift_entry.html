@@ -1,5 +1,5 @@
-{% load shifts %}
-{% if is_form and shift|user_can_see_details:request.user %}
+{% shift_permissions shift as shift_perms %}
+{% if is_form and shift_perms.can_see_details %}
   <div class="calendar-entry">
     <form action="{{ shift_link }}" method="post">
       {% csrf_token %}
@@ -13,7 +13,7 @@
   </div>
 {% else %}
   <div class="calendar-entry">
-    {% if shift|user_can_see_details:request.user %}
+    {% if shift_perms.can_see_details %}
       <a class="card calendar-shift"
          style="background-color: {{ shift.shift_type.color }}; color: {{ shift.shift_type.text_color }};"
          href="{{ shift_link }}">

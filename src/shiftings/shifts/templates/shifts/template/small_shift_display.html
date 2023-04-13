@@ -1,4 +1,4 @@
-{% load shifts %}
+{% shift_permissions shift as shift_perms %}
 <div class="shift-card-small m-1 bg-secondary p-2 d-flex flex-column border border-4 {{ shift_status_border }}">
   <div class="d-flex center-items justify-content-center">
     <a class="fw-bold link mx-auto" href="{{ shift.get_absolute_url }}">{{ shift.name }}</a><br>
@@ -23,7 +23,7 @@
         <span>{% trans "Confirmed" %}: {{ shift.confirmed_participants }}</span><br>
       {% endif %}
     </div>
-    {% if shift|user_can_participate:request.user %}
+    {% if shift_perms.can_participate %}
       <div class="d-flex align-items-center justify-content-center mx-auto">
         {% if user_is_participant %}
           <span class="btn btn-success pe-none">{% trans "Participating" %}</span>

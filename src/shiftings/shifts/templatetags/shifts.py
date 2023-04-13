@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from datetime import date, datetime, time, timedelta
 from typing import Any, Optional
 
@@ -114,21 +115,24 @@ def small_shift_display(context, shift) -> dict[str, Any]:
     return context
 
 
-@register.filter
-def user_can_see(shift: Shift, user: User):
-    return shift.can_see(user)
+@dataclass
+class ShiftPermissionHolder:
+    shift: Shift
+    user: User
+
+    def can_see(self) -> bool:
+        return self.shift.can_see(self.user)
+
+    def can_see_details(self) -> bool:
+        return self.shift.can_see_details(self.user)
+
+    def can_see_participants(self) -> bool:
+        return self.shift.can_see_participants(self.user)
+
+    def can_participate(self) -> bool:
+        return self.shift.can_participate(self.user)
 
 
-@register.filter
-def user_can_see_details(shift: Shift, user: User):
-    return shift.can_see_details(user)
-
-
-@register.filter
-def user_can_see_participants(shift: Shift, user: User):
-    return shift.can_see_participants(user)
-
-
-@register.filter
-def user_can_participate(shift: Shift, user: User):
-    return shift.can_participate(user)
+@register.simple_tag(takes_context=True)
+def shift_permissions(context, shift: Shift) -> ShiftPermissionHolder:
+    return ShiftPermissionHolder(shift, context.request.user)
