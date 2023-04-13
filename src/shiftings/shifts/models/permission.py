@@ -74,8 +74,8 @@ class ParticipationPermission(models.Model):
     permission_type_field = models.PositiveSmallIntegerField(choices=ParticipationPermissionType.choices,
                                                              verbose_name=_('Permission Type'))
     organization = models.ForeignKey('organizations.Organization', on_delete=models.CASCADE,
-                                     verbose_name=_('Affected Organization'), related_name='ref_participation_permissions',
-                                     blank=True, null=True)
+                                     verbose_name=_('Affected Organization'),
+                                     related_name='ref_participation_permissions', blank=True, null=True)
 
     objects = ParticipationPermissionManager()
 

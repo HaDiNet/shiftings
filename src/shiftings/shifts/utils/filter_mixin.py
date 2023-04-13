@@ -37,7 +37,6 @@ class ShiftFilterMixin:
         form = self.get_form()
         if not form.is_valid():
             return shift_filter
-        print(form.cleaned_data)
         if form.cleaned_data['own_shifts_checkbox']:
             shift_filter &= Q(participants__user=self.request.user)
         if form.cleaned_data['select_org_field'].exists():
@@ -48,18 +47,15 @@ class ShiftFilterMixin:
                 form.cleaned_data['start_after_time_field'] is not None:
             shift_filter &= Q(start__gte=datetime.combine(form.cleaned_data['start_after_field'],
                                                           form.cleaned_data['start_after_time_field']))
-        else:
-            if form.cleaned_data['start_after_field'] is not None:
-                shift_filter &= Q(start__date__gte=form.cleaned_data['start_after_field'])
-            if form.cleaned_data['start_after_time_field'] is not None:
-                shift_filter &= Q(start__time__gte=form.cleaned_data['start_after_time_field'])
+        elif form.cleaned_data['start_after_field'] is not None:
+            shift_filter &= Q(start__date__gte=form.cleaned_data['start_after_field'])
+        elif form.cleaned_data['start_after_time_field'] is not None:
+            shift_filter &= Q(start__time__gte=form.cleaned_data['start_after_time_field'])
         if form.cleaned_data['end_before_field'] is not None and form.cleaned_data['end_before_time_field'] is not None:
             shift_filter &= Q(end__lte=datetime.combine(form.cleaned_data['end_before_field'],
                                                         form.cleaned_data['end_before_time_field']))
-        else:
-            if form.cleaned_data['end_before_field'] is not None:
-                shift_filter &= Q(start__date__gte=form.cleaned_data['end_before_field'])
-            if form.cleaned_data['end_before_time_field'] is not None:
-                shift_filter &= Q(end__time__lte=form.cleaned_data['end_before_time_field'])
-        print(shift_filter)
+        elif form.cleaned_data['end_before_field'] is not None:
+            shift_filter &= Q(start__date__gte=form.cleaned_data['end_before_field'])
+        elif form.cleaned_data['end_before_time_field'] is not None:
+            shift_filter &= Q(end__time__lte=form.cleaned_data['end_before_time_field'])
         return shift_filter

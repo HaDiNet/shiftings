@@ -48,7 +48,7 @@ class AddOtherParticipantForm(forms.ModelForm):
         self.fields['org_user'].queryset = shift.organization.users
 
     def clean_other_user(self) -> Optional[User]:
-        username = self.cleaned_data.get('user')
+        username = self.cleaned_data.get('other_user')
         if username is None:
             return None
         try:
@@ -61,15 +61,17 @@ class AddOtherParticipantForm(forms.ModelForm):
 
     def clean(self) -> Optional[dict[str, Any]]:
         cleaned_data = self.cleaned_data
-        cleaned_data['user'] = None
-        if cleaned_data.get('other_user') is None and cleaned_data.get('org_user') is None:
-            raise ValidationError(_('One of the user fields is required!'))
-        elif cleaned_data.get('org_user') is not None:
-            cleaned_data['user'] = cleaned_data.get('org_user')
-        elif cleaned_data.get('other_user') is not None:
-            cleaned_data['user'] = cleaned_data.get('other_user')
-        else:
+        org_user = cleaned_data['org_user']
+        other_user = cleaned_data['other_user']
+        if org_user and other_user:
             raise ValidationError(_('Only select one type of user!'))
-        if self.shift.is_participant(cleaned_data['user']):
-            raise ValidationError(_('Cannot add {user} multiple times to this shift').format(user=cleaned_data['user']))
+        if org_user:
+            user = org_user
+        elif other_user:
+            user = other_user
+        else:
+            raise ValidationError(_('One of the user fields is required!'))
+        if self.shift.is_participant(user):
+            raise ValidationError(_('Cannot add {user} multiple times to this shift').format(user=user))
+        cleaned_data['user'] = user
         return cleaned_data

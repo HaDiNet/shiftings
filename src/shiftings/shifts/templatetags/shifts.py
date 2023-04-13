@@ -116,11 +116,6 @@ def small_shift_display(context, shift) -> dict[str, Any]:
 
 @register.filter
 def user_can_see(shift: Shift, user: User):
-    return shift.get_user_permission(user)
-
-
-@register.filter
-def user_can_see(shift: Shift, user: User):
     return shift.can_see(user)
 
 

@@ -32,10 +32,9 @@ class AddOtherParticipantView(OrganizationPermissionMixin, CreateView):
 
     def form_valid(self, form: AddSelfParticipantForm) -> HttpResponse:
         shift = self.get_shift()
-        if not shift.can_participate(self.request.user) and \
-                not self.request.user.has_perm('organizations.add_non_members_to_shifts', self.get_organization()):
-            if not self.get_organization().is_member(form.cleaned_data['user']):
-                raise Http403()
+        if not self.request.user.has_perm('organizations.add_non_members_to_shifts', self.get_organization()) \
+                and not self.get_organization().is_member(form.cleaned_data['user']):
+            raise Http403()
         self.object = form.save()
         shift.participants.add(self.object)
         shift.save()
