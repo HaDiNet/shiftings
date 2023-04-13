@@ -7,9 +7,9 @@
 {% endblock %}
 {% block left %}
   <div class="card bg-dark mt-3">
-    <div class="card-header center-items justify-content-between">
-      <h3 class="m-0 w-75">Shift Template {{ group.name }}</h3>
-      <div>
+    <div class="card-header center-items justify-content-between flex-wrap">
+      <h3 class="m-0">Shift Template {{ group.name }}</h3>
+      <div class="my-1">
         {% if org_perms.edit_shift_templates %}
           <a class="btn btn-danger ms-1" data-bs-toggle="modal" href="#confirmRemoveModal"
              role="button" data-bs-remove-name="{{ group.name }}"

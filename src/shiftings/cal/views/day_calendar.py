@@ -3,9 +3,11 @@ from datetime import date, timedelta
 from typing import Any
 
 from django.db.models import Q
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
+from shiftings.cal.forms.day_form import SelectDayForm
 from shiftings.cal.views.calendar_base import CalendarBaseView
 from shiftings.shifts.forms.participant import AddSelfParticipantForm
 from shiftings.shifts.models import Shift, ShiftType
@@ -25,19 +27,29 @@ class DayView(CalendarBaseView, ABC):
     def get_shifts(self, theday: date) -> Any:
         raise NotImplementedError('get_shifts needs to be implemented')
 
+    def get_url(self, theday: date):
+        return reverse('overview_day' + self.url_name_suffix, args=[theday])
+
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         theday = date.fromisoformat(self.kwargs.get('theday')) if 'theday' in self.kwargs else date.today()
         context.update({
             'theday': theday,
-            'next_url': reverse('overview_day' + self.url_name_suffix, args=[theday + timedelta(days=1)]),
-            'prev_url': reverse('overview_day' + self.url_name_suffix, args=[theday - timedelta(days=1)]),
+            'next_url': self.get_url(theday + timedelta(days=1)),
+            'prev_url': self.get_url(theday - timedelta(days=1)),
             'today_url': reverse('overview_today' + self.url_name_suffix),
             'day_hours': list(range(24)),
             'shifts': self.get_shifts(theday),
             'add_self_form': AddSelfParticipantForm(self.object, initial={'user': self.request.user}),
+            'select_day_form': SelectDayForm(),
         })
         return context
+
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        form = SelectDayForm(data=self.request.POST)
+        if not form.is_valid():
+            return self.render_to_response(self.get_context_data())
+        return HttpResponseRedirect(self.get_url(form.cleaned_data['theday']))
 
 
 class DetailDayView(DayView):

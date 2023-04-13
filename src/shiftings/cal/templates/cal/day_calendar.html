@@ -15,9 +15,20 @@
         </a></div>
       <div class="center-items">
         <h3 class="m-0 me-4">{{ theday|date:'l j. F Y' }}</h3>
-        <a class="btn btn-success" href="{{today_url}}" title="{% trans "Jump to Today" %}">
-          <i class="fa-solid fa-calendar-day"></i>
-        </a>
+        <div>
+          <a class="btn btn-success dropdown-toggle" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside"
+             aria-expanded="false" title="{% trans "Jump to Date" %}">
+            <i class="fa-solid fa-calendar-day"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-dark dropdown-menu-end p-2">
+            <form method="post">
+              {% csrf_token %}
+              <span>{% trans "Jump to Day" %}</span>
+              {% bootstrap_field select_day_form.theday wrapper_class="" show_label=False%}
+              <button class="btn btn-success my-1">{% trans "Select" %}</button>
+            </form>
+          </div>
+        </div>
       </div>
       <div>
         <a class="btn btn-success ms-1" href="{{ next_url }}">
