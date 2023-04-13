@@ -62,6 +62,19 @@ class ParticipationPermissionEditView(OrganizationPermissionMixin, ModelFormsetB
 class ShiftParticipationPermissionEditView(ParticipationPermissionEditView[Shift]):
     model = Shift
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        shift = self.get_object()
+        context['inherited_permissions'] = ParticipationPermission.objects. \
+            filter_instances(shift.event, shift.organization).order_by('referred_content_type', 'referred_object_id')
+        return context
+
 
 class EventParticipationPermissionEditView(ParticipationPermissionEditView[Event]):
     model = Event
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        shift = self.get_object()
+        context['inherited_permissions'] = ParticipationPermission.objects.filter_instances(shift.organization)
+        return context

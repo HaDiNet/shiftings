@@ -32,14 +32,41 @@
       {% csrf_token %}
       {{ formset.management_form }}
       <div id="formset_insert" class="row g-2 justify-content-center">
-        {% for form in formset %}
-          {% include "shifts/template/participation_permission_form.html" %}
-        {% empty %}
+        {% if formset|length == 0 %}
           <div class="col-8 alert alert-info" id="empty_alert">
             {% blocktrans with object=object.display %}
               No specific permissions for "{{ object }}" yet add them with "+"
             {% endblocktrans %}
           </div>
+        {% endif %}
+        {% if inherited_permissions %}
+          <div class="col-8">
+            <div class="card bg-dark base-card border border-2 border-info">
+              <div class="card-header">
+                <h5>{% trans "Inherited Permissions" %}:</h5>
+              </div>
+              <div class="card-body">
+                {% for permission in inherited_permissions %}
+                  <div>
+                    {% ifchanged permission.referred_content_type.name %}
+                      <div>{{ permission.referred_content_type.name.title }} {{ permission.referred_object.name.title }}:</div>
+                    {% endifchanged %}
+                    <div class="ms-3">
+                      {% if permission.organization %}
+                        {{ permission.organization.display.title }}:
+                      {% else %}
+                        {% trans "All Users" %}:
+                      {% endif %}
+                      {{ permission.permission_type.label }}
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+        {% for form in formset %}
+          {% include "shifts/template/participation_permission_form.html" %}
         {% endfor %}
         <template id="formset_template">
           {% include "shifts/template/participation_permission_form.html" with form=formset.empty_form new=True %}
