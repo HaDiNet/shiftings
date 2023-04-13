@@ -21,5 +21,10 @@ class ShiftFilterForm(forms.Form):
 
     def __init__(self, user: User, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['select_org_field'].queryset = user.organizations
-        self.fields['select_event_field'].queryset = user.events
+        orgs = user.organizations
+        self.fields['select_org_field'].queryset = orgs
+        self.has_orgs = orgs.count() > 0
+        events = user.events
+        self.fields['select_event_field'].queryset = events
+        self.has_events = events.count() > 0
+
