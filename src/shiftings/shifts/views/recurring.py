@@ -10,7 +10,7 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import DetailView
 from django.views.generic.detail import SingleObjectMixin
-from django.views.generic.edit import BaseFormView
+from django.views.generic.edit import BaseFormView, DeleteView
 
 from shiftings.organizations.models import Organization
 from shiftings.organizations.views.organization_base import OrganizationMemberMixin, OrganizationPermissionMixin
@@ -60,6 +60,17 @@ class RecurringShiftEditView(OrganizationPermissionMixin, CreateOrUpdateView):
 
     def get_success_url(self) -> str:
         return reverse('recurring_shift', args=[self.object.pk])
+
+
+class RecurringShiftDeleteView(OrganizationPermissionMixin, DeleteView):
+    permission_required = 'organizations.edit_shift_templates'
+    model = RecurringShift
+
+    def get_organization(self) -> Organization:
+        return self.get_object().organization
+
+    def get_success_url(self) -> str:
+        return self.get_organization().get_absolute_url()
 
 
 class RecurringShiftCreateShiftsView(OrganizationPermissionMixin, SingleObjectMixin, BaseFormView):

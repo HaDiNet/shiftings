@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+{% block top_level %}
+  {% include "template/remove_modal.html" with remove_target_from=shift.organization.name %}
+{% endblock %}
 {% block breadcrumbs %}
   {% include "template/breadcrumbs.html" %}
 {% endblock %}
@@ -25,6 +28,11 @@
             <h3 class="m-0 w-75">{{ shift.name }}</h3>
             <div>
               {% if org_perms.edit_recurring_shifts %}
+                <a class="btn btn-danger ms-1" data-bs-toggle="modal" href="#confirmRemoveModal"
+                   role="button" data-bs-remove-name="{{ shift.name }}"
+                   data-bs-remove-url="{% url 'recurring_shift_delete' shift.pk %}">
+                  <i class="fas fa-trash"></i>
+                </a>
                 <a class="btn btn-success" href="{% url "recurring_shift_update" shift.pk %}"
                    title="{% trans "Edit Recurring Shift" %}">
                   <i class="fa-solid fa-pen-to-square"></i>
