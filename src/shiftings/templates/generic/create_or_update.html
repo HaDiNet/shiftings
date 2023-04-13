@@ -18,6 +18,9 @@
           {% bootstrap_button _('Create') button_type="submit" button_class="btn-primary me-2" %}
         {% else %}
           {% bootstrap_button _('Save') button_type="submit" button_class="btn-primary" %}
+          {% if object %}
+            <a class="btn btn-secondary" href="{{ object.get_absolute_url }}">{% trans "Back" %}</a>
+          {% endif %}
         {% endif %}
       </div>
     </form>

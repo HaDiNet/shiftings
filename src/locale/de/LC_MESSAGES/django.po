@@ -1779,7 +1779,7 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-"        <p>Bist du dir siche, dass du \"%(display)s\" löschen möchtest?</p>\n"
+"        <p>Bist du dir sicher, dass du \"%(display)s\" löschen möchtest?</p>\n"
 "      "
 
 #: shiftings/templates/generic/delete.html:9

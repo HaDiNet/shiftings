@@ -22,6 +22,9 @@
                 {% bootstrap_button _('Create') button_type="submit" button_class="btn-success ms-2" %}
               {% else %}
                 {% bootstrap_button _('Update') button_type="submit" button_class="btn-success ms-2" %}
+                {% if object.get_absolute_url %}
+                  <a class="btn btn-secondary" href="{{ object.get_absolute_url }}">{% trans "Back" %}</a>
+                {% endif %}
               {% endif %}
             </div>
           </div>
