@@ -9,7 +9,7 @@ from shiftings.shifts.models import ParticipationPermission, ParticipationPermis
 
 
 class ParticipationPermissionForm(forms.ModelForm):
-    organization = ModelChoiceField(queryset=Organization.objects.all(), empty_label="All Users", required=False)
+    organization = ModelChoiceField(queryset=Organization.objects.all(), empty_label='All Users', required=False)
 
     class Meta:
         model = ParticipationPermission
@@ -30,7 +30,7 @@ class BaseParticipationPermissionFormSet(BaseModelFormSet):
         for form in self.forms:
             if self.can_delete and self._should_delete_form(form):
                 continue
-            org = form.cleaned_data.get("organization")
+            org = form.cleaned_data.get('organization')
             if org in orgs:
                 if org is not None:
                     raise ValidationError(_('Can only set one permission for organization "{org}"').format(org=org))

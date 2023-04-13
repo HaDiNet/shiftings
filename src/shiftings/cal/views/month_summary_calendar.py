@@ -15,7 +15,7 @@ class OrganizationMonthView:
 
 
 class MonthOverviewCalendar(HTMLCalendar):
-    cssclass_month = "table table-dark m-0 text-center month-summary"
+    cssclass_month = 'table table-dark m-0 text-center month-summary'
     active_days: Optional[set[int]] = None
     current_day: Optional[date]
 

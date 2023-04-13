@@ -29,7 +29,7 @@ class AddSelfParticipantForm(forms.ModelForm):
 
 
 class AddOtherParticipantForm(forms.ModelForm):
-    org_user = ModelChoiceField(queryset=User.objects.none(), label=_("Organization Users"), required=False)
+    org_user = ModelChoiceField(queryset=User.objects.none(), label=_('Organization Users'), required=False)
     other_user = forms.CharField(max_length=150, label=_('Other Users'), required=False,
                                  help_text=_('To add users that do not belong to your organization '
                                              'please enter their username.'))

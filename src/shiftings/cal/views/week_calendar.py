@@ -62,7 +62,7 @@ class WeekView(CalendarBaseView):
 
 
 class WeekOverviewCalendar(HTMLCalendar):
-    cssclass_week = "table table-dark m-0 text-center month-summary"
+    cssclass_week = 'table table-dark m-0 text-center month-summary'
     active_days: Optional[set[int]] = None
     current_day: Optional[date]
 

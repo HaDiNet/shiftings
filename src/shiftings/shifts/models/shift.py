@@ -54,7 +54,7 @@ class Shift(ShiftBase):
             raise ValidationError(_('Organization and Event Organization must be identical.'))
 
     def __str__(self) -> str:
-        return _('Shift {name} on {time}').format(name=self.name, time=self.start.strftime("%Y-%m-%d %H:%M:%S"), )
+        return _('Shift {name} on {time}').format(name=self.name, time=self.start.strftime('%Y-%m-%d %H:%M:%S'), )
 
     @property
     def display(self) -> str:
@@ -63,19 +63,19 @@ class Shift(ShiftBase):
     @property
     def detailed_display(self) -> str:
         return _('{name} from {start} to {end} ').format(name=self.name,
-                                                         start=self.start.strftime("%Y-%m-%d %H:%M"),
-                                                         end=self.end.strftime("%Y-%m-%d %H:%M"))
+                                                         start=self.start.strftime('%Y-%m-%d %H:%M'),
+                                                         end=self.end.strftime('%Y-%m-%d %H:%M'))
 
     @property
     def time_display(self) -> str:
         if self.start.date() != self.end.date():
             return _('{start} to {end_time} on {end_date} ').format(name=self.name,
-                                                                    start=self.start.strftime("%H:%M"),
-                                                                    end_time=self.end.strftime("%H:%M"),
+                                                                    start=self.start.strftime('%H:%M'),
+                                                                    end_time=self.end.strftime('%H:%M'),
                                                                     end_date=self.end.date())
         return _('{start} to {end_time}').format(name=self.name,
-                                                 start=self.start.strftime("%H:%M"),
-                                                 end_time=self.end.strftime("%H:%M"), )
+                                                 start=self.start.strftime('%H:%M'),
+                                                 end_time=self.end.strftime('%H:%M'), )
 
     @property
     def is_full(self) -> bool:

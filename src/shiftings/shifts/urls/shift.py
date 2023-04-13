@@ -12,6 +12,6 @@ urlpatterns = [
     path('select_org/', ShiftOrgSelectView.as_view(), name='shift_org_select'),
     path('<int:pk>/update/', ShiftEditView.as_view(), name='shift_update'),
     path('<int:pk>/delete/', ShiftDeleteView.as_view(), name='shift_delete'),
-    path('<int:pk>/permissions/', ShiftParticipationPermissionEditView.as_view(), name="shift_part_permissions_edit"),
+    path('<int:pk>/permissions/', ShiftParticipationPermissionEditView.as_view(), name='shift_part_permissions_edit'),
     path('<int:pk>/participant/', include('shiftings.shifts.urls.participant'))
 ]
