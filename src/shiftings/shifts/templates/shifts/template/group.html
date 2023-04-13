@@ -9,8 +9,8 @@
   <div class="card bg-dark mt-3">
     <div class="card-header center-items justify-content-between">
       <h3 class="m-0 w-75">Shift Template {{ group.name }}</h3>
-      {% if org_perms.edit_shift_templates %}
-        <div>
+      <div>
+        {% if org_perms.edit_shift_templates %}
           <a class="btn btn-danger ms-1" data-bs-toggle="modal" href="#confirmRemoveModal"
              role="button" data-bs-remove-name="{{ group.name }}"
              data-bs-remove-url="{% url "shift_template_group_delete" group.pk %}"
@@ -25,8 +25,14 @@
              title="{% trans "Edit Shifts" %}">
             <i class="fa-solid fa-file-pen"></i>
           </a>
-        </div>
-      {% endif %}
+        {% endif %}
+        {% if org_perms.admin %}
+          <a class="btn btn-info" href="{% url "template_group_update_permissions" group.pk %}"
+             title="{% trans "Edit Template Permissions" %}">
+            <i class="fa-solid fa-shield-halved"></i>
+          </a>
+        {% endif %}
+      </div>
     </div>
     <div class="card-body">
       <dl class="detail-horizontal">
