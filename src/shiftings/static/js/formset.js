@@ -51,7 +51,10 @@
     }
 
     addLink.addEventListener('click', () => {
-      document.getElementById('empty_alert').classList.add('d-none')
+      const empty_alert = document.getElementById('empty_alert');
+      if (empty_alert) {
+        empty_alert.classList.add('d-none');
+      }
       const newForm = template.content.cloneNode(true);
       newForm.id = `id_form-${totalValue}-container`;
       Array.from(newForm.children).forEach(e => {

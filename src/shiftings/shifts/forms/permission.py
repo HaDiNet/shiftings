@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 
 from shiftings.accounts.models import User
 from shiftings.organizations.models import Organization
-from shiftings.shifts.models import ParticipationPermission
+from shiftings.shifts.models import ParticipationPermission, ParticipationPermissionType
 
 
 class ParticipationPermissionForm(forms.ModelForm):
@@ -19,6 +19,7 @@ class ParticipationPermissionForm(forms.ModelForm):
     def __init__(self, user: User, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['organization'].queryset = user.organizations
+        self.fields['permission_type_field'].choices = ParticipationPermissionType.choices[1:]
 
 
 class BaseParticipationPermissionFormSet(BaseModelFormSet):
