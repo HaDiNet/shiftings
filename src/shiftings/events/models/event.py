@@ -12,7 +12,7 @@ from django.utils.translation import gettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
 from PIL import Image
 
-from shiftings.shifts.models import ParticipationPermission, Shift
+from shiftings.shifts.models import Shift
 from shiftings.utils.fields.date_time import DateField
 
 if TYPE_CHECKING:
@@ -34,7 +34,7 @@ class Event(models.Model):
 
     description = models.TextField(verbose_name=_('Description'), blank=True, null=True)
 
-    participation_permissions = GenericRelation(ParticipationPermission,
+    participation_permissions = GenericRelation('shifts.ParticipationPermission',
                                                 content_type_field='referred_content_type',
                                                 object_id_field='referred_object_id',
                                                 related_query_name='ref_event')

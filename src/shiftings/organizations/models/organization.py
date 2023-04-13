@@ -13,7 +13,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 from PIL import Image
 
 from shiftings.organizations.models.membership import MembershipType
-from shiftings.shifts.models import ParticipationPermission, Shift
+from shiftings.shifts.models import Shift
 
 if TYPE_CHECKING:
     from shiftings.accounts.models import User
@@ -35,7 +35,7 @@ class Organization(models.Model):
                                                        help_text=_('Whether the participants can be confirmed or '
                                                                    'not. Default: False'))
 
-    participation_permissions = GenericRelation(ParticipationPermission,
+    participation_permissions = GenericRelation('shifts.ParticipationPermission',
                                                 content_type_field='referred_content_type',
                                                 object_id_field='referred_object_id',
                                                 related_query_name='ref_org')

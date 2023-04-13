@@ -37,7 +37,7 @@ class Shift(ShiftBase):
     created = DateTimeField(verbose_name=_('Created'), auto_now_add=True)
     modified = DateTimeField(verbose_name=_('Last Modified'), auto_now=True)
 
-    participation_permissions = GenericRelation(ParticipationPermission,
+    participation_permissions = GenericRelation('ParticipationPermission',
                                                 content_type_field='referred_content_type',
                                                 object_id_field='referred_object_id',
                                                 related_query_name='ref_shift')

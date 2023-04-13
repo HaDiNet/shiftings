@@ -3,6 +3,7 @@ from __future__ import annotations
 from datetime import date, datetime
 from typing import Optional, TYPE_CHECKING
 
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -21,6 +22,11 @@ class ShiftTemplateGroup(models.Model):
                                      related_name='shift_template_groups', verbose_name=_('Organization'))
 
     start_time = TimeField(verbose_name=_('Start Time'), db_index=True)
+
+    participation_permissions = GenericRelation('ParticipationPermission',
+                                                content_type_field='referred_content_type',
+                                                object_id_field='referred_object_id',
+                                                related_query_name='ref_shift')
 
     # shifts: RelatedManager[ShiftTemplate]
 
