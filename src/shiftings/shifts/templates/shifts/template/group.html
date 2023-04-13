@@ -1,4 +1,7 @@
 {% extends 'generic/dual_column.html' %}
+{% block top_level %}
+  {% include "template/remove_modal.html" with remove_target_from=group.organization.name %}
+{% endblock %}
 {% block breadcrumbs %}
   {% include "template/breadcrumbs.html" %}
 {% endblock %}
@@ -8,9 +11,11 @@
       <h3 class="m-0 w-75">Shift Template {{ group.name }}</h3>
       {% if org_perms.edit_shift_templates %}
         <div>
-          <a class="btn btn-danger" href="{% url "shift_template_group_delete" group.pk %}"
+          <a class="btn btn-danger ms-1" data-bs-toggle="modal" href="#confirmRemoveModal"
+             role="button" data-bs-remove-name="{{ group.name }}"
+             data-bs-remove-url="{% url "shift_template_group_delete" group.pk %}"
              title="{% trans "Delete Template" %}">
-            <i class="fa-solid fa-trash"></i>
+            <i class="fas fa-trash"></i>
           </a>
           <a class="btn btn-success" href="{% url "shift_template_group_update" group.pk %}"
              title="{% trans "Edit Template" %}">
