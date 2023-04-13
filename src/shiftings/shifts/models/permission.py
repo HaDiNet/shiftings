@@ -27,6 +27,11 @@ class ParticipationPermissionManager(models.Manager):
         return self.create(referred_content_type=ContentType.objects.get_for_model(instance),
                            referred_object_id=instance.pk, **kwargs)
 
+    def create_copy(self, instance: models.Model, original: ParticipationPermission) -> ParticipationPermission:
+        return self.create(referred_content_type=ContentType.objects.get_for_model(instance),
+                           referred_object_id=instance.pk, permission_type_field=original.permission_type_field,
+                           organization=original.organization)
+
     def filter_instance(self, instance: models.Model) -> QuerySet[ParticipationPermission]:
         if instance is None:
             return self.none()
@@ -92,3 +97,6 @@ class ParticipationPermission(models.Model):
     @property
     def permission_type(self) -> ParticipationPermissionType:
         return ParticipationPermissionType(self.permission_type_field)
+
+    def create_copy_for(self, instance: models.Model) -> ParticipationPermission:
+        return ParticipationPermission.objects.create_copy(instance, self)

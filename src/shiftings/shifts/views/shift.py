@@ -141,6 +141,8 @@ class CreateShiftFromTemplateGroup(OrganizationPermissionMixin, FormView):
         with transaction.atomic():
             for shift in shifts:
                 shift.save()
+                for participation_permission in template_group.participation_permissions.all():
+                    participation_permission.create_copy_for(shift)
         return super().form_valid(form)
 
     def get_success_url(self) -> str:

@@ -152,6 +152,8 @@ class RecurringShift(models.Model):
             if not self.shift_exists(shift):
                 shift.based_on = self
                 shift.save()
+                for participation_permission in self.template.participation_permissions.all():
+                    participation_permission.create_copy_for(shift)
 
     def get_absolute_url(self) -> str:
         return reverse('recurring_shift', args=[self.pk])

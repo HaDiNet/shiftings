@@ -9,8 +9,7 @@ from shiftings.shifts.models import ParticipationPermission, ParticipationPermis
 
 
 class ParticipationPermissionForm(forms.ModelForm):
-    organization = ModelChoiceField(queryset=Organization.objects.none(), empty_label="All Users",
-                                    required=False)
+    organization = ModelChoiceField(queryset=Organization.objects.all(), empty_label="All Users", required=False)
 
     class Meta:
         model = ParticipationPermission
@@ -18,7 +17,6 @@ class ParticipationPermissionForm(forms.ModelForm):
 
     def __init__(self, user: User, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['organization'].queryset = user.organizations
         self.fields['permission_type_field'].choices = ParticipationPermissionType.choices[1:]
 
 
