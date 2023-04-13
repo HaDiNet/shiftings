@@ -32,7 +32,7 @@ class ParticipationPermissionEditView(OrganizationPermissionMixin, ModelFormsetB
 
     def get_form_kwargs(self) -> dict[str, Any]:
         kwargs = super().get_form_kwargs()
-        kwargs['user'] = self.request.user
+        kwargs['related_object'] = self.get_object()
         return kwargs
 
     def get_form_queryset(self) -> QuerySet[ParticipationPermission]:
@@ -65,8 +65,8 @@ class ShiftParticipationPermissionEditView(ParticipationPermissionEditView[Shift
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         shift = self.get_object()
-        context['inherited_permissions'] = ParticipationPermission.objects. \
-            filter_instances(shift.event, shift.organization).order_by('referred_content_type', 'referred_object_id')
+        context['inherited_permissions'] = shift.inherited_participation_permissions \
+            .order_by('referred_content_type', 'referred_object_id')
         return context
 
 
@@ -75,6 +75,6 @@ class EventParticipationPermissionEditView(ParticipationPermissionEditView[Event
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        shift = self.get_object()
-        context['inherited_permissions'] = ParticipationPermission.objects.filter_instances(shift.organization)
+        event = self.get_object()
+        context['inherited_permissions'] = event.inherited_participation_permissions
         return context

@@ -9,7 +9,7 @@ from shiftings.organizations.models import Organization
 from shiftings.organizations.views.organization import OrganizationMemberMixin, OrganizationPermissionMixin
 from shiftings.organizations.views.organization_base import OrganizationMixin
 from shiftings.shifts.forms.template import ShiftTemplateFormSet, ShiftTemplateGroupForm
-from shiftings.shifts.models import ParticipationPermission, ShiftTemplate, ShiftTemplateGroup
+from shiftings.shifts.models import ShiftTemplate, ShiftTemplateGroup
 from shiftings.shifts.views.permission import ParticipationPermissionEditView
 from shiftings.utils.views.create_update_view import CreateOrUpdateView
 from shiftings.utils.views.delete_view import DeleteView
@@ -101,7 +101,6 @@ class TemplateGroupParticipationPermissionEditView(ParticipationPermissionEditVi
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         shift_template = self.get_object()
-        context['inherited_permissions'] = ParticipationPermission.objects. \
-            filter_instances(shift_template.organization).order_by(
-            'referred_content_type', 'referred_object_id')
+        context['inherited_permissions'] = shift_template.inherited_participation_permissions \
+            .order_by('referred_content_type', 'referred_object_id')
         return context

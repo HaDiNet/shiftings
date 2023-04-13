@@ -12,7 +12,7 @@ from django.utils.translation import gettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
 from PIL import Image
 
-from shiftings.shifts.models import Shift
+from shiftings.shifts.models import ParticipationPermission, Shift
 from shiftings.utils.fields.date_time import DateField
 
 if TYPE_CHECKING:
@@ -82,6 +82,10 @@ class Event(models.Model):
     @property
     def needed_slots(self) -> int:
         return self.shifts.aggregate(Sum('required_users')).get('required_users__sum')
+
+    @property
+    def inherited_participation_permissions(self) -> QuerySet[ParticipationPermission]:
+        return ParticipationPermission.objects.filter_instances(self.organization)
 
     def can_see(self, user: User) -> bool:
         return False

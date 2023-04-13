@@ -5,7 +5,7 @@ from typing import Optional, TYPE_CHECKING, Union
 from django.contrib.contenttypes.fields import GenericRelation
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.db.models import F, Q
+from django.db.models import F, Q, QuerySet
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
@@ -108,6 +108,10 @@ class Shift(ShiftBase):
         if self.event and self.event.email:
             return self.event.email
         return self.organization.email
+
+    @property
+    def inherited_participation_permissions(self) -> QuerySet[ParticipationPermission]:
+        return ParticipationPermission.objects.filter_instances(self.event, self.organization)
 
     def get_slots_display(self) -> Optional[list[tuple[Union[bool, User], bool]]]:
         slots = []

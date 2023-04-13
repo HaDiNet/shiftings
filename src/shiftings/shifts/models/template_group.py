@@ -5,13 +5,14 @@ from typing import Optional, TYPE_CHECKING
 
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
+from django.db.models import QuerySet
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from shiftings.utils.fields.date_time import TimeField
 
 if TYPE_CHECKING:
-    from shiftings.shifts.models import Shift, ShiftTemplate
+    from shiftings.shifts.models import ParticipationPermission, Shift, ShiftTemplate
 
 
 class ShiftTemplateGroup(models.Model):
@@ -39,6 +40,10 @@ class ShiftTemplateGroup(models.Model):
 
     def __str__(self):
         return self.display
+
+    @property
+    def inherited_participation_permissions(self) -> QuerySet[ParticipationPermission]:
+        return ParticipationPermission.objects.filter_instances(self.organization)
 
     def get_shift_objs(self, _date: date, weekend_warning: Optional[str], holiday_warning: Optional[str]) \
             -> list[Shift]:
