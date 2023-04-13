@@ -12,6 +12,13 @@
         {% bootstrap_formset_errors formset %}
       </div>
     {% endif %}
+    {% if formset|length == 0 %}
+      <div class="alert alert-info" id="empty_alert">
+        {% blocktrans with object=object.display %}
+          No specific permissions for "{{ object }}" yet add them with "+"
+        {% endblocktrans %}
+      </div>
+    {% endif %}
     <form method="post" {% include 'generic/include_params.html' with params=form_params only %}>
       <div class="center-items flex-wrap my-2">
         <h3 class="m-0">
@@ -32,13 +39,6 @@
       {% csrf_token %}
       {{ formset.management_form }}
       <div id="formset_insert" class="row g-2 justify-content-center">
-        {% if formset|length == 0 %}
-          <div class="col-8 alert alert-info" id="empty_alert">
-            {% blocktrans with object=object.display %}
-              No specific permissions for "{{ object }}" yet add them with "+"
-            {% endblocktrans %}
-          </div>
-        {% endif %}
         {% if inherited_permissions %}
           <div class="col-8">
             <div class="card bg-dark base-card border border-2 border-info">

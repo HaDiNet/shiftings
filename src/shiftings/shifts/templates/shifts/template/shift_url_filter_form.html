@@ -17,30 +17,30 @@
       <div class="mb-2">
         {% bootstrap_field shift_filter_form.own_shifts_checkbox layout='inline' %}
       </div>
-    {% if shift_filter_form.has_orgs %}
-      <hr class="my-1">
-      <div class="w-100 mb-3">
-        <div class="filter-accordion accordion w-100" id="orgFilter">
-          <div class="accordion-item">
-            <h5 class="accordion-header rounded-top bg-secondary" id="orgFilterLabel">
-              <button class="accordion-button px-1 py-2" type="button" data-bs-toggle="collapse"
-                      data-bs-target="#orgFilters"
-                      aria-expanded="true" aria-controls="collapseOne">
-                {% trans "Select Organizations" %}:
-              </button>
-            </h5>
-            <div id="orgFilters"
-                 class="accordion-collapse collapse show border border-2 border-secondary rounded-0"
-                 aria-labelledby="orgFilterLabel"
-                 data-bs-parent="#orgFilter">
-              <div class="accordion-body p-2">
-                {% bootstrap_field shift_filter_form.select_org_field show_label=False wrapper_class='' %}
+      {% if shift_filter_form.has_orgs %}
+        <hr class="my-1">
+        <div class="w-100 mb-3">
+          <div class="filter-accordion accordion w-100" id="orgFilter">
+            <div class="accordion-item">
+              <h5 class="accordion-header rounded-top bg-secondary" id="orgFilterLabel">
+                <button class="accordion-button px-1 py-2" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#orgFilters"
+                        aria-expanded="true" aria-controls="collapseOne">
+                  {% trans "Select Organizations" %}:
+                </button>
+              </h5>
+              <div id="orgFilters"
+                   class="accordion-collapse collapse show border border-2 border-secondary rounded-0"
+                   aria-labelledby="orgFilterLabel"
+                   data-bs-parent="#orgFilter">
+                <div class="accordion-body p-2">
+                  {% bootstrap_field shift_filter_form.select_org_field show_label=False wrapper_class='' %}
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    {% endif %}
+      {% endif %}
       <hr class="my-1">
       <div>
         <div>
@@ -53,8 +53,8 @@
         {% bootstrap_field shift_filter_form.end_before_field wrapper_class="mb-1" show_label=False addon_after='<i class="fas fa-calendar"></i>' %}
         {% bootstrap_field shift_filter_form.end_before_time_field show_label=False addon_after='<i class="fas fa-clock"></i>' %}
       </div>
-      <hr class="mt-1 mb-3">
       {% if feature.events and shift_filter_form.has_events %}
+        <hr class="mt-1 mb-3">
         <div class="w-100 mb-3">
           <div class="filter-accordion accordion w-100" id="eventFilter">
             <div class="accordion-item">

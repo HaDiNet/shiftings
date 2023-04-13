@@ -17,9 +17,11 @@
 <div class="table-responsive" style="transform: rotateX(180deg);">
   <table class="table table-hover table-striped-columns text-center wy-table-bordered-rows"
          style="transform: rotateX(180deg);"> {# move scroll bar to the top #}
-    <thead>
+    <thead class="thead-sticky">
     <tr class="border-bottom border-3 sticky-top">
-      <td class="display-6 border-end border-3d-flex align-items-center">{% trans "Time" %}</td>
+      <td class="display-6 border-end border-3d-flex align-items-center">
+        {% trans "Time" %}
+      </td>
       {% for shift_type in shifts.types %}
         <td class="display-6 shift-type border-end border-3" colspan="2"
             {% if shift_type.color %}
@@ -43,22 +45,24 @@
       <tr>
         <td class="border-end border-3">{{ shift_hour|stringformat:'02d:00' }}</td>
         {% for shift_type in shifts.types %}
-          <td class="border-end overflow-auto center-items justify-content-evenly flex-wrap" colspan="2">
-            {% if shift_type %}
-              {% for shift in time_container|get_by_key:shift_type.name %}
-                {% shift_permissions shift as shift_perms %}
-                {% if shift_perms.can_see_details %}
-                  {% small_shift_display shift %}
-                {% endif %}
-              {% endfor %}
-            {% else %}
-              {% for shift in time_container.Default %}
-                {% shift_permissions shift as shift_perms %}
-                {% if shift_perms.can_see_details %}
-                  {% small_shift_display shift %}
-                {% endif %}
-              {% endfor %}
-            {% endif %}
+          <td class="border-end" colspan="2">
+            <div class="center-items justify-content-evenly flex-wrap w-100">
+              {% if shift_type %}
+                {% for shift in time_container|get_by_key:shift_type.name %}
+                  {% shift_permissions shift as shift_perms %}
+                  {% if shift_perms.can_see_details %}
+                    {% small_shift_display shift %}
+                  {% endif %}
+                {% endfor %}
+              {% else %}
+                {% for shift in time_container.Default %}
+                  {% shift_permissions shift as shift_perms %}
+                  {% if shift_perms.can_see_details %}
+                    {% small_shift_display shift %}
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+            </div>
           </td>
         {% endfor %}
       </tr>
