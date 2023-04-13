@@ -70,7 +70,7 @@ class RecurringShiftDeleteView(OrganizationPermissionMixin, DeleteView):
         return self.get_object().organization
 
     def get_success_url(self) -> str:
-        return self.get_organization().get_absolute_url()
+        return reverse('organization_admin', args=[self.get_organization().pk])
 
 
 class RecurringShiftCreateShiftsView(OrganizationPermissionMixin, SingleObjectMixin, BaseFormView):

@@ -2,6 +2,7 @@ from typing import Any
 
 from django.db.models import QuerySet
 from django.http import HttpResponse
+from django.urls import reverse
 from django.views.generic import DetailView, TemplateView
 
 from shiftings.organizations.models import Organization
@@ -51,7 +52,7 @@ class ShiftTemplateGroupDeleteView(ShiftTemplateGroupMixin, OrganizationPermissi
         return self.get_object().organization
 
     def get_success_url(self) -> str:
-        return self.get_organization().get_absolute_url()
+        return reverse('organization_admin', args=[self.get_organization().pk])
 
 
 class TemplateGroupAddShiftsView(OrganizationPermissionMixin, ModelFormsetBaseView[ShiftTemplate], TemplateView):
