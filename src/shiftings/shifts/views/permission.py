@@ -3,6 +3,7 @@ from typing import Any, Generic, TypeVar
 
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Model, QuerySet
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
 from shiftings.events.models import Event
@@ -43,8 +44,14 @@ class ParticipationPermissionEditView(OrganizationPermissionMixin, ModelFormsetB
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        context['object'] = self.get_object()
+        obj = self.get_object()
+        context['object'] = obj
         context['organization'] = self.get_organization()
+        context['instructions'] = _('<p>Any Permission present will be applied to all Shifts belonging to "{object}". '
+                                    'If the object is a shift only this shift will be affected. <br> <br>'
+                                    'Permissions can only be more specific than their inherited permissions. '
+                                    'You can apply Permissions to "All Users" or specific other organizations.'
+                                    '</p>').format(object=obj.display)
         return context
 
     def form_valid(self, formset: ParticipationPermissionFormSet):

@@ -23,7 +23,7 @@
       <div class="center-items flex-wrap my-2">
         <h3 class="m-0">
           <a class="link" href="{{ object.get_absolute_url }}">
-            {% trans "Edit Permissions for" %} {{ object }}
+            {% trans "Edit Shift Permissions for" %} {{ object.display }}
           </a>
         </h3>
         <div class="my-2 my-lg-0">
@@ -31,9 +31,16 @@
             <i class="fas fa-plus" title="{% trans 'Add Shift' %}"></i>
           </a>
           <a class="btn btn-secondary ms-1" href="{{ object.get_absolute_url }}">
-            {% trans "Cancel" %}
+            {% trans "Back" %}
           </a>
           {% bootstrap_button _('Save') button_type="submit" button_class="btn-primary ms-1" %}
+          <button class="btn btn-outline-secondary ms-auto" data-bs-toggle="popover" type="button"
+                  data-bs-title="{% trans "How does it work?" %}"
+                  data-bs-custom-class="permission-info-popover"
+                  data-bs-trigger="focus" data-bs-placement="bottom" data-bs-html="true"
+                  data-bs-content="{{ instructions }}">
+            <i class="fas fa-circle-info"></i>
+          </button>
         </div>
       </div>
       {% csrf_token %}

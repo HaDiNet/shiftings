@@ -474,6 +474,14 @@ dl.detail-horizontal dd {
 
 }
 
+.permission-info-popover {
+  --bs-popover-border-color: var(--bs-secondary);
+  --bs-popover-header-bg: var(--bs-secondary);
+  --bs-popover-body-padding-x: 1rem;
+  --bs-popover-body-padding-y: .5rem;
+}
+
+
 .table-fixed {
   table-layout: fixed;
   white-space: nowrap;
