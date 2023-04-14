@@ -50,7 +50,15 @@
           <dt>{% trans "Name" %}</dt>
           <dd>{{ user.first_name }} {{ user.last_name }}</dd>
           <dt>{% trans "Display Name" %}</dt>
-          <dd>{{ user.display_name|default:_('Unknown') }}</dd>
+          <dd>
+            {% if user.display_name %}
+              {{ user.display_name|default:_('Unknown') }}
+            {% else %}
+              <a class="btn btn-sm btn-outline-info" href="{% url "user_edit_self" %}" title="{% trans "Edit user data" %}">
+                {% trans "Set Display Name" %}<i class="fa-solid fa-user-pen"></i>
+              </a>
+            {% endif %}
+          </dd>
           <dt>{% trans "Email" %}</dt>
           <dd>{{ user.email }}</dd>
           <dt>{% trans "Phone Number" %}</dt>

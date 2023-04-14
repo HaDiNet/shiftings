@@ -55,7 +55,7 @@ class ShiftFilterMixin:
             shift_filter &= Q(end__lte=datetime.combine(form.cleaned_data['end_before_field'],
                                                         form.cleaned_data['end_before_time_field']))
         elif form.cleaned_data['end_before_field'] is not None:
-            shift_filter &= Q(end__date__gte=form.cleaned_data['end_before_field'])
+            shift_filter &= Q(end__date__lte=form.cleaned_data['end_before_field'])
         elif form.cleaned_data['end_before_time_field'] is not None:
             shift_filter &= Q(end__time__lte=form.cleaned_data['end_before_time_field'])
         return shift_filter
