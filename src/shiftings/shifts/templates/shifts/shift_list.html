@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block head %}
+  <script type="text/javascript" src="{% static "js/multi_select_form_button.js" %}"></script>
+{% endblock %}
+{% block top_level %}
+  {% for shift in object_list %}
+    {% url 'add_participant_self' shift.pk as add_self_url %}
+    {% simpleformmodal 'addSelfForm'|concat:shift.pk _('Add with Name to Shift') add_self_url request.path %}
+      {% csrf_token %}
+      {% for field in add_self_form %}
+        {% bootstrap_field field %}
+      {% endfor %}
+    {% endsimpleformmodal %}
+  {% endfor %}
+{% endblock %}
+{% block content %}
+  <div class="container-fluid">
+    <div class="row g-2">
+      <div class="col-lg-3 mt-3">
+        {% include "shifts/shift_url_filters.html" with expanded=True %}
+      </div>
+      <div class="col-lg-9 col-xl-5 mt-3 mx-auto">
+        <form method="get" action="{% url "shift_update_multiple" %}">
+          <button type="button" class="btn btn-info disabled" id="multi_select_info_button">
+            <i class="fa-regular fa-square"></i> {% trans "Select Shifts to update" %}
+          </button>
+          <button class="btn btn-success d-none" id="multi_select_button">
+            <i class="fa-solid fa-pen-to-square"></i> {% trans "Update Selected Shifts" %}
+          </button>
+          <button class="btn btn-secondary" id="select_all_button" type="button">
+            <i class="fa-solid fa-check-double"></i> {% trans "Select All Shifts" %}
+          </button>
+          <button class="btn btn-secondary d-none" id="deselect_all_button" type="button">
+            <i class="fa-solid fa-square-xmark"></i> {% trans "Clear Selection" %}
+          </button>
+          {% for shift in object_list %}
+            {% shift_list_card shift %}
+          {% endfor %}
+        </form>
+        {% if is_paginated %}
+          <div class="d-flex justify-content-center">
+            {% bootstrap_pagination page_obj url='?'|concat:request.GET.urlencode pages_to_show=8 %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
+{% endblock %}

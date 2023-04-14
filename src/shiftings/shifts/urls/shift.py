@@ -4,8 +4,11 @@ from shiftings.shifts.views.permission import ShiftParticipationPermissionEditVi
 from shiftings.shifts.views.shift import (
     CreateShiftFromTemplateGroup, ShiftDeleteView, ShiftDetailView, ShiftEditView, ShiftOrgSelectView
 )
+from shiftings.shifts.views.shift_list import ShiftListView, ShiftUpdateMultipleView
 
 urlpatterns = [
+    path('', ShiftListView.as_view(), name='shift_list'),
+    path('update_multiple/', ShiftUpdateMultipleView.as_view(), name='shift_update_multiple'),
     path('<int:pk>/', ShiftDetailView.as_view(), name='shift'),
     path('create/<int:org_pk>', ShiftEditView.as_view(), name='shift_create'),
     path('create/<int:org_pk>/template', CreateShiftFromTemplateGroup.as_view(), name='shift_create_from_template'),

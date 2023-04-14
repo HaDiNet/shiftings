@@ -31,11 +31,11 @@
                   </a>
                 </div>
               </div>
-              {#                <a class="btn btn-secondary mb-1 disabled" title="{% trans "Week View" %}" href="{% url "overview_thisweek" %}">#}
-              {#                  <i class="fa-solid fa-calendar-week me-2"></i>{% trans "Week" %}#}
-              {#                </a>#}
               <a class="btn btn-success mb-1" title="{% trans "Month View" %}" href="{% url "overview_thismonth" %}">
                 <i class="fa-solid fa-calendar-days me-1"></i>{% trans "Month" %}
+              </a>
+              <a class="btn btn-success mb-1" href="{% url "shift_list" %}">
+                <i class="fas fa-list ms-2"></i> {% trans "List Shifts" %}
               </a>
             </div>
             {% include "shifts/shift_url_filters.html" with expanded=True %}

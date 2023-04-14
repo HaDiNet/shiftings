@@ -97,8 +97,7 @@ def select_org_form_modal(context: dict[str, Any]):
     return context
 
 
-@register.inclusion_tag('shifts/template/small_shift_display.html', takes_context=True)
-def small_shift_display(context, shift) -> dict[str, Any]:
+def shift_display(context: dict[str, Any], shift: Shift) -> dict[str, Any]:
     if shift.is_full:
         status_class = 'border-success'
     elif shift.has_required:
@@ -113,6 +112,16 @@ def small_shift_display(context, shift) -> dict[str, Any]:
         'shift_status_border': status_class
     })
     return context
+
+
+@register.inclusion_tag('shifts/template/small_shift_display.html', takes_context=True)
+def small_shift_display(context: dict[str, Any], shift: Shift) -> dict[str, Any]:
+    return shift_display(context, shift)
+
+
+@register.inclusion_tag('shifts/template/list_card.html', takes_context=True)
+def shift_list_card(context: dict[str, Any], shift: Shift) -> dict[str, Any]:
+    return shift_display(context, shift)
 
 
 @dataclass
@@ -131,6 +140,9 @@ class ShiftPermissionHolder:
 
     def can_participate(self) -> bool:
         return self.shift.can_participate(self.user)
+
+    def can_edit(self) -> bool:
+        return self.shift.can_edit(self.user)
 
 
 @register.simple_tag(takes_context=True)

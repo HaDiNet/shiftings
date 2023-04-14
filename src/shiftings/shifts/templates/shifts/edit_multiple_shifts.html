@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block breadcrumbs %}
+  {% include "template/breadcrumbs.html" %}
+{% endblock %}
+{% block content %}
+  <div class="container-fluid">
+    {% if formset.errors.entries|length %}
+      <div class="alert alert-error m-3 center-items justify-content-start">
+        {{ formset.errors.entries }}
+      </div>
+    {% endif %}
+    <form method="post" {% include 'generic/include_params.html' with params=form_params only %}>
+      <div class="center-items flex-wrap my-2">
+        <h3 class="m-0">
+          <a class="link" href="{% url "shift_list" %}">
+            {% trans "Edit Shifts" %} {{ group }}
+          </a>
+        </h3>
+        <div class="my-2 my-lg-0">
+          <a class="btn btn-secondary ms-1" href="{% url "shift_list" %}">
+            {% trans "Cancel" %}
+          </a>
+          {% bootstrap_button _('Save') button_type="submit" button_class="btn-primary ms-1" %}
+        </div>
+      </div>
+      {% csrf_token %}
+      {{ formset.management_form }}
+      <div id="formset_insert" class="row g-2 justify-content-center">
+        {% for form in formset %}
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card bg-dark p-3 border border-primary">
+              {{ form.id }}
+              {% include "shifts/template/shift_form_fields.html" %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </form>
+  </div>
+{% endblock %}

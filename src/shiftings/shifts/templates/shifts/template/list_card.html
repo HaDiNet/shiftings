@@ -1,0 +1,70 @@
+{% shift_permissions shift as shift_perms %}
+<div class="card bg-dark rounded-0 my-3 border {{ shift_status_border }}">
+  <div class="row h-100">
+    <div class="col-1 pe-0 center-items border-end {{ shift_status_border }} border-2">
+      {% if shift_perms.can_edit %}
+        <input type="checkbox" style="height: 20px; width: 20px" class="form-check-input" name="object_id"
+               value="{{ shift.pk }}">
+      {% endif %}
+    </div>
+  <div class="col-11">
+    <div class="col-sm-8">
+      <div class="p-2 ce">
+        <a class="link" href="{{ shift.get_absolute_url }}">{{ shift.detailed_display }}</a>
+      </div>
+      <div class="row">
+        {% if shift_perms.can_edit %}
+        {% endif %}
+        <div class="col-lg-5">
+          <div class="p-2">
+            <a class="link" href="{{ shift.organization.get_absolute_url }}">
+              {% trans "Organization" %}: {{ shift.organization.name }}
+            </a><br>
+            <span>{% trans "Place" %}: {{ shift.place }}</span><br>
+            <span>{% trans "Type" %}: {{ shift.shift_type.name }}</span><br>
+            <hr class="m-1">
+            <span>{% trans "Required" %}: {{ shift.required_participants_missing }}/{{ shift.required_users }}</span><br>
+            <span>{% trans "Participants" %}: {{ shift.participants.count }}/{{ shift.max_users }}</span><br>
+            {% if shift.confirmed_participants_missing %}
+              <span>{% trans "Confirmed" %}: {{ shift.confirmed_participants }}</span><br>
+            {% endif %}
+          </div>
+        </div>
+        <hr class="d-lg-none">
+        <div class="col-lg-7 overflow-auto" style="height: 140px;">
+          {% if shift.additional_infos %}
+            {{ shift.additional_infos|linebreaks }}
+          {% else %}
+            {% trans "No Additional Infos" %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3 center-items">
+      <div class="d-flex align-items-center justify-content-center mx-auto">
+        {% if user_is_participant %}
+          <span class="btn btn-success pe-none">{% trans "Participating" %}</span>
+        {% else %}
+          {% if shift_perms.can_participate and shift.start.date >= current_date %}
+            {% if shift.is_full %}
+              <span class="btn btn-danger pe-none">{% trans "Full" %}</span>
+            {% else %}
+              <button type="button"
+                      class="btn border border-2 card-link link w-100 mx-2 {% if not shift.has_required %} shift-required{% endif %}"
+                      data-bs-toggle="modal"
+                      data-bs-target="#addSelfForm{{ shift.pk }}Modal"
+                  {% if not shift.has_required %}
+                      title="{% trans "Additional Users required" %}"
+                  {% else %}
+                      title="{% trans "Additional Slots available" %}"
+                  {% endif %}>
+                <i class="fa-solid fa-person-circle-plus me-2"></i>{% trans 'Add me' %}
+              </button>
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  </div>
+</div>

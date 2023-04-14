@@ -154,5 +154,8 @@ class Shift(ShiftBase):
             return False
         return self.get_user_permission(user) >= ParticipationPermissionType.Participate
 
+    def can_edit(self, user: User) -> bool:
+        return user.has_perm('organizations.edit_shifts', self.organization)
+
     def get_absolute_url(self) -> str:
         return reverse('shift', args=[self.pk])
