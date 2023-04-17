@@ -1,13 +1,14 @@
 {% extends "cal/calendar_base.html" %}
 {% block top_level %}
   {% select_org_form_modal %}
+  {% include "template/remove_modal.html" with remove_target_from=shift.organization.name %}
 {% endblock %}
 
 {% block calendar %}
   <div class="base-card bg-dark">
     <div class="bg-dark center-items justify-content-between p-2 sticky-top">
       <div>
-        <a class="btn btn-success me-1" href="{{ prev_url }}?{{ request.GET|urlencode }}">
+        <a class="btn btn-success me-1" href="{{ prev_url }}?{{ request.GET.urlencode }}">
           <div class="center-items flex-wrap">
             <i class="fa-solid fa-angles-left"></i>
             <span class="d-none d-md-block ms-1">{% trans 'Previous Day' context calendar %}</span>
@@ -32,7 +33,7 @@
         </div>
       </div>
       <div>
-        <a class="btn btn-success ms-1" href="{{ next_url }}?{{ request.GET|urlencode }}">
+        <a class="btn btn-success ms-1" href="{{ next_url }}?{{ request.GET.urlencode }}">
           <div class="center-items  flex-wrap">
             <span class="d-none d-md-block me-1">{% trans 'Next Day' context calendar %}</span>
             <i class="fa-solid fa-angles-right"></i>
