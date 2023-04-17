@@ -1,5 +1,12 @@
 <div class="mx-3 mt-2 shift-slots shift-info overflow-auto">
   {% include "template/remove_modal.html" %}
+  {% url 'add_participant_self' shift.pk as add_self_url %}
+  {% simpleformmodal 'addSelfForm'|concat:shift.pk _('Add with Name to Shift') add_self_url request.path %}
+    {% csrf_token %}
+    {% for field in add_self_form %}
+      {% bootstrap_field field %}
+    {% endfor %}
+  {% endsimpleformmodal %}
   {% for display,required in shift.get_slots_display %}
     {% include 'shifts/template/slots_display.html' %}
   {% endfor %}

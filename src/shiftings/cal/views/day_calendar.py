@@ -5,6 +5,7 @@ from typing import Any
 from django.db.models import Q
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.urls import reverse
+from django.utils.http import urlencode
 from django.utils.translation import gettext_lazy as _
 
 from shiftings.cal.forms.day_form import SelectDayForm
@@ -34,6 +35,7 @@ class DayView(CalendarBaseView, ABC):
         context = super().get_context_data(**kwargs)
         theday = date.fromisoformat(self.kwargs.get('theday')) if 'theday' in self.kwargs else date.today()
         context.update({
+            'current_date': date.today(),
             'theday': theday,
             'next_url': self.get_url(theday + timedelta(days=1)),
             'prev_url': self.get_url(theday - timedelta(days=1)),
@@ -49,7 +51,7 @@ class DayView(CalendarBaseView, ABC):
         form = SelectDayForm(data=self.request.POST)
         if not form.is_valid():
             return self.render_to_response(self.get_context_data())
-        return HttpResponseRedirect(self.get_url(form.cleaned_data['theday']))
+        return HttpResponseRedirect(self.get_url(form.cleaned_data['theday']) + '?' + urlencode(request.GET))
 
 
 class DetailDayView(DayView):

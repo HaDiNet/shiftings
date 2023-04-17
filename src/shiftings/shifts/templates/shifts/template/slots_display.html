@@ -1,13 +1,4 @@
 <div>
-  <div>
-    {% url 'add_participant_self' shift.pk as add_self_url %}
-    {% simpleformmodal 'addSelfForm'|concat:shift.pk _('Add with Name to Shift') add_self_url request.path %}
-      {% csrf_token %}
-      {% for field in add_self_form %}
-        {% bootstrap_field field %}
-      {% endfor %}
-    {% endsimpleformmodal %}
-  </div>
   <div class="d-flex my-1{% if required %} shift-required{% endif %}"
       {% if required %}
        title="{% trans "Required to carry out this Shift" %}"

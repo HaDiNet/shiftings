@@ -37,9 +37,24 @@
           </td>
           <td colspan="4">
             <div class="center-items flex-wrap">
+              {% url 'add_participant_self' shift.pk as add_self_url %}
+              {% simpleformmodal 'addSelfForm'|concat:shift.pk _('Add with Name to Shift') add_self_url request.path %}
+                {% csrf_token %}
+                {% for field in add_self_form %}
+                  {% bootstrap_field field %}
+                {% endfor %}
+              {% endsimpleformmodal %}
               {% for display,required in shift.get_slots_display %}
-                {% include 'shifts/template/slots_display.html' with shift=shift organization=shift.organization current_date=today %}
+                {% include 'shifts/template/slots_display.html' %}
               {% endfor %}
+              {% if not user_is_participant and shift.start.date >= current_date and shift.max_users == 0 %}
+                <div class="d-flex">
+                  <button type="button" class="btn border border-2 card-link link w-100 mx-2" data-bs-toggle="modal"
+                          data-bs-target="#addSelfForm{{ shift.pk }}Modal">
+                    <i class="fa-solid fa-person-circle-plus me-2"></i>{% trans 'Add me' %}
+                  </button>
+                </div>
+              {% endif %}
             </div>
           </td>
           <td class="d-none d-md-table-cell text-center">

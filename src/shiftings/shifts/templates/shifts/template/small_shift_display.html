@@ -23,26 +23,26 @@
         <span>{% trans "Confirmed" %}: {{ shift.confirmed_participants }}</span><br>
       {% endif %}
     </div>
-    {% if shift_perms.can_participate and shift.start.date >= current_date %}
+
+    {% if user_is_participant %}
       <div class="d-flex align-items-center justify-content-center mx-auto">
-        {% if user_is_participant %}
-          <span class="btn btn-success pe-none">{% trans "Participating" %}</span>
+        <span class="btn btn-success pe-none">{% trans "Participating" %}</span>
+      </div>
+    {% elif shift_perms.can_participate and shift.start.date >= current_date %}
+      <div class="d-flex align-items-center justify-content-center mx-auto">
+        {% if shift.is_full %}
+          <span class="btn btn-danger pe-none">{% trans "Full" %}</span>
         {% else %}
-          {% if shift.is_full %}
-            <span class="btn btn-danger pe-none">{% trans "Full" %}</span>
-          {% else %}
-            <button type="button"
-                    class="btn border border-2 card-link link w-100 mx-2 {% if not shift.has_required %} shift-required{% endif %}"
-                    data-bs-toggle="modal"
-                    data-bs-target="#addSelfForm{{ shift.pk }}Modal"
-                {% if not shift.has_required %}
-                    title="{% trans "Additional Users required" %}"
-                {% else %}
-                    title="{% trans "Additional Slots available" %}"
-                {% endif %}>
-              <i class="fa-solid fa-person-circle-plus me-2"></i>{% trans 'Add me' %}
-            </button>
-          {% endif %}
+          <button type="button"
+                  class="btn border border-2 card-link link w-100 mx-2 {% if not shift.has_required %} shift-required{% endif %}"
+                  data-bs-toggle="modal" data-bs-target="#addSelfForm{{ shift.pk }}Modal"
+              {% if not shift.has_required %}
+                  title="{% trans "Additional Users required" %}"
+              {% else %}
+                  title="{% trans "Additional Slots available" %}"
+              {% endif %}>
+            <i class="fa-solid fa-person-circle-plus me-2"></i>{% trans 'Add me' %}
+          </button>
         {% endif %}
       </div>
     {% endif %}

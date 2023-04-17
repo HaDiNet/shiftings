@@ -7,7 +7,7 @@
   <div class="base-card bg-dark">
     <div class="bg-dark center-items justify-content-between p-2 sticky-top">
       <div>
-        <a class="btn btn-success me-1" href="{{ prev_url }}">
+        <a class="btn btn-success me-1" href="{{ prev_url }}?{{ request.GET|urlencode }}">
           <div class="center-items flex-wrap">
             <i class="fa-solid fa-angles-left"></i>
             <span class="d-none d-md-block ms-1">{% trans 'Previous Day' context calendar %}</span>
@@ -16,7 +16,8 @@
       <div class="center-items">
         <h3 class="m-0 me-4">{{ theday|date:'l j. F Y' }}</h3>
         <div>
-          <a class="btn btn-success dropdown-toggle" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside"
+          <a class="btn btn-success dropdown-toggle" role="button" data-bs-toggle="dropdown"
+             data-bs-auto-close="outside"
              aria-expanded="false" title="{% trans "Jump to Date" %}">
             <i class="fa-solid fa-calendar-day"></i>
           </a>
@@ -24,14 +25,14 @@
             <form method="post">
               {% csrf_token %}
               <span>{% trans "Jump to Day" %}</span>
-              {% bootstrap_field select_day_form.theday wrapper_class="" show_label=False%}
+              {% bootstrap_field select_day_form.theday wrapper_class="" show_label=False %}
               <button class="btn btn-success my-1">{% trans "Select" %}</button>
             </form>
           </div>
         </div>
       </div>
       <div>
-        <a class="btn btn-success ms-1" href="{{ next_url }}">
+        <a class="btn btn-success ms-1" href="{{ next_url }}?{{ request.GET|urlencode }}">
           <div class="center-items  flex-wrap">
             <span class="d-none d-md-block me-1">{% trans 'Next Day' context calendar %}</span>
             <i class="fa-solid fa-angles-right"></i>
