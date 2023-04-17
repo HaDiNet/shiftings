@@ -16,3 +16,4 @@
 gunicorn.py
 /build/
 /src/shiftings/templates/local/
+ruff.toml
