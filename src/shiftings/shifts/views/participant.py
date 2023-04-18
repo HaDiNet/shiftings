@@ -58,6 +58,13 @@ class AddSelfParticipantView(AddOtherParticipantView):
         initial['user'] = self.request.user
         return initial
 
+    def form_valid(self, form: AddSelfParticipantForm) -> HttpResponse:
+        shift = self.get_shift()
+        self.object = form.save()
+        shift.participants.add(self.object)
+        shift.save()
+        return self.success
+
 
 class RemoveParticipantView(OrganizationPermissionMixin, DeleteView):
     model = Participant
