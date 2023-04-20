@@ -55,23 +55,28 @@ class AddOtherParticipantForm(forms.ModelForm):
             user = User.objects.get(username=username)
         except User.DoesNotExist as e:
             raise ValidationError(_('The user you entered could not be found.')) from e
-        if self.shift.participants.filter(user=user).exists():
-            raise ValidationError(_('User {user} is already registered for this shift.').format(user=user))
         return user
 
     def clean(self) -> Optional[dict[str, Any]]:
         cleaned_data = self.cleaned_data
-        org_user = cleaned_data['org_user']
-        other_user = cleaned_data['other_user']
+        org_user = cleaned_data.get('org_user')
+        other_user = cleaned_data.get('other_user')
         if org_user and other_user:
-            raise ValidationError(_('Only select one type of user!'))
+            msg = _('Only select one type of user!')
+            self.add_error('org_user', msg)
+            self.add_error('other_user', msg)
         if org_user:
             user = org_user
+            error_field = 'org_user'
         elif other_user:
             user = other_user
+            error_field = 'other_user'
         else:
-            raise ValidationError(_('One of the user fields is required!'))
+            msg = _('One of the user fields is required!')
+            self.add_error('org_user', msg)
+            self.add_error('other_user', msg)
+            return cleaned_data
         if self.shift.is_participant(user):
-            raise ValidationError(_('Cannot add {user} multiple times to this shift').format(user=user))
+            self.add_error(error_field, _('Cannot add {user} multiple times to this shift').format(user=user))
         cleaned_data['user'] = user
         return cleaned_data
