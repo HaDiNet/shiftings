@@ -49,7 +49,7 @@ class AddOtherParticipantForm(forms.ModelForm):
 
     def clean_other_user(self) -> Optional[User]:
         username = self.cleaned_data.get('other_user')
-        if username is None:
+        if not username:
             return None
         try:
             user = User.objects.get(username=username)
