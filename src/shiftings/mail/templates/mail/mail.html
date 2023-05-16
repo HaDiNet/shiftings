@@ -9,13 +9,7 @@
       </div>
     </form>
   </div>
-  <div class="card bg-dark border border-2 border-success p-3">
-    <h3>Users</h3>
-    {% for user in users.all %}
-      {{ user.display }}
-    {% endfor %}
-  </div>
-  <div class="card bg-dark border border-2 border-success p-3">
+    <div class="card bg-dark border border-2 border-success p-3 mt-3">
     <h3>Replacements</h3>
     {% for key, value in replacements.items %}
       {{ '{' }}{{ key }}{{ '}' }}: {{ value }}

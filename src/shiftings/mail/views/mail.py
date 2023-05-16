@@ -37,7 +37,7 @@ class BaseMailView(BaseLoginMixin, FormView, ABC):
         subject = form.cleaned_data['subject'].format(**replacements)
         text = form.cleaned_data['text'].format(**replacements)
         users = self.get_users(form)
-        email = EmailMessage(subject, text, settings.DEFAULT_FROM_EMAIL, [user.email for user in users],
+        email = EmailMessage(subject, text, settings.DEFAULT_FROM_EMAIL, bcc=[user.email for user in users],
                              headers={'Reply-To': settings.DEFAULT_FROM_EMAIL})
         for file in dict(form.files).get('attachments', list()):
             email.attach(file.name, file.file.read(), mimetype=file.content_type)

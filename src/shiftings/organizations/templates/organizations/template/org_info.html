@@ -30,6 +30,12 @@
       {{ organization.name }}
     </h3>
     <div>
+      {% if org_perms.send_mail %}
+        <a class="btn btn-info" href="{% url 'shift_participants_mail' organization.pk %}"
+           title="{% trans "Send Mail to shift participants" %}">
+          <i class="fas fa-envelope"></i>
+        </a>
+      {% endif %}
       {% if org_perms.edit_organization %}
         <a class="btn btn-primary" href="{% url 'organization_update' organization.pk %}"
            title="{% trans "Edit Organization" %}">

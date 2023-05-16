@@ -2,6 +2,8 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 
 from shiftings.organizations.models import MembershipType, Organization
+from shiftings.shifts.models import ShiftType
+from shiftings.utils.fields.date_time import DateTimeFormField
 
 
 class MailForm(forms.Form):
@@ -27,3 +29,20 @@ class OrganizationMailForm(MailForm):
         self.organization = organization
 
         self.fields['membership_types'].queryset = organization.membership_types
+
+
+class ShiftParticipantMailForm(MailForm):
+    shift_types = forms.ModelMultipleChoiceField(
+        queryset=ShiftType.objects.none(), required=False,
+        help_text=_('Send the mail only to specific shift types. Or leave blank to send to all.')
+    )
+    start = DateTimeFormField(label=_('Start Time'), required=True)
+    end = DateTimeFormField(label=_('End Time'), required=True)
+
+    organization: Organization
+
+    def __init__(self, organization: Organization, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.organization = organization
+
+        self.fields['shift_types'].queryset = organization.shift_types
