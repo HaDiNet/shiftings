@@ -10,9 +10,10 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from shiftings.utils.fields.date_time import TimeField
+from shiftings.shifts.models.permission import ParticipationPermission
 
 if TYPE_CHECKING:
-    from shiftings.shifts.models import ParticipationPermission, Shift, ShiftTemplate
+    from shiftings.shifts.models import Shift, ShiftTemplate
 
 
 class ShiftTemplateGroup(models.Model):
