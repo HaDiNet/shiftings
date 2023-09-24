@@ -43,6 +43,7 @@ class UserLoginView(LoginView):
             'local_enabled': settings.LOCAL_LOGIN_ENABLED,
             'ldap_enabled': settings.LDAP_ENABLED,
             'sso_enabled': settings.OAUTH_ENABLED,
+            'sso_name': settings.OAUTH_NAME,
             'is_local': self.request.GET.get('login_method', 'local') == 'local'
         })
         return context

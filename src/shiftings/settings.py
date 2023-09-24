@@ -130,6 +130,7 @@ AUTHENTICATION_BACKENDS = [
 
 LOCAL_LOGIN_ENABLED = True
 OAUTH_ENABLED = False
+OAUTH_NAME = "Single Sign-On"
 if OAUTH_ENABLED:
     try:
         from oauth_settings import *
