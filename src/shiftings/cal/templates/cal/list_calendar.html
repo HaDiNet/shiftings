@@ -1,0 +1,20 @@
+{% extends "cal/calendar_base.html" %}
+{% block top_level %}
+  {% select_org_form_modal %}
+  {% include "template/remove_modal.html" with remove_target_from=shift.organization.name %}
+{% endblock %}
+
+{% block calendar %}
+  <div class="base-card bg-dark">
+    <div class="bg-dark center-items justify-content-between p-2 sticky-top">
+      <div class="center-items">
+        <h3 class="m-0 me-4">
+          {% trans "Shift list" %}
+        </h3>
+      </div>
+    </div>
+    <div class="p-2">
+      {% include day_calendar_template %}
+    </div>
+  </div>
+{% endblock %}
