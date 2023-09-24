@@ -28,7 +28,9 @@
             {% csrf_token %}
             <button class="btn w-100" value="sso_login" type="submit" name="submit">
               <div class="bg-secondary border border-success border-5 login-option text-light center-items p-3">
-                {% trans "Login via Single Sign On" %}
+                {% blocktrans %}
+                  Login via {{ sso_name }}
+                {% endblocktrans %}
               </div>
             </button>
           </form>

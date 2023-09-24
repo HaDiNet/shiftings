@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-17 21:05+0000\n"
+"POT-Creation-Date: 2023-09-24 20:16+0000\n"
 "PO-Revision-Date: 2023-04-17 23:37+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -88,9 +88,9 @@ msgstr ""
 "Um deine Schichten zu verwalten melde dich bitte mit einer dieser Methoden "
 "an:"
 
-#: shiftings/accounts/templates/accounts/login_multiple.html:31
-msgid "Login via Single Sign On"
-msgstr "Login mit Single Sign On"
+#: shiftings/accounts/templates/accounts/login_multiple.html:32
+msgid "Login via {{ sso_name }}"
+msgstr "Mit {{ sso_name }} anmelden"
 
 #: shiftings/accounts/templates/accounts/logout.html:6
 msgid "Successfully logged out"
@@ -187,7 +187,7 @@ msgstr "Benutzername"
 #: shiftings/organizations/templates/organizations/user/claim_users.html:13
 #: shiftings/shifts/models/base.py:8 shiftings/shifts/models/recurring.py:32
 #: shiftings/shifts/models/template.py:17
-#: shiftings/shifts/models/template_group.py:19
+#: shiftings/shifts/models/template_group.py:20
 #: shiftings/shifts/models/type.py:40 shiftings/shifts/models/type_group.py:16
 #: shiftings/shifts/templates/shifts/group/list.html:6
 #: shiftings/shifts/templates/shifts/list.html:6
@@ -289,20 +289,20 @@ msgstr ""
 msgid "Submit"
 msgstr "Bestätigen"
 
-#: shiftings/accounts/views/auth.py:82
+#: shiftings/accounts/views/auth.py:83
 msgid "Error while creating the user instance!"
 msgstr "Fehler beim erstellen der Benutzerinstanz!"
 
-#: shiftings/accounts/views/auth.py:86
+#: shiftings/accounts/views/auth.py:87
 msgid "Successfully logged in!"
 msgstr "Erfolgreich eingeloggt!"
 
-#: shiftings/accounts/views/auth.py:89
+#: shiftings/accounts/views/auth.py:90
 #, python-format
 msgid "Error while trying to authenticate with sso! %(message)s"
 msgstr "Fehler beim Versuch gegen SSO zu authentifizieren! %(message)s"
 
-#: shiftings/accounts/views/auth.py:130 shiftings/templates/top_nav.html:52
+#: shiftings/accounts/views/auth.py:131 shiftings/templates/top_nav.html:52
 msgid "Logout"
 msgstr "Ausloggen"
 
@@ -376,23 +376,23 @@ msgstr "Schicht erstellen"
 msgid "Recurring"
 msgstr "Wiederholend"
 
-#: shiftings/cal/templates/cal/day_calendar.html:13
+#: shiftings/cal/templates/cal/day_calendar.html:14
 msgid "Previous Day"
 msgstr "Letzter Tag"
 
-#: shiftings/cal/templates/cal/day_calendar.html:21
+#: shiftings/cal/templates/cal/day_calendar.html:22
 msgid "Jump to Date"
 msgstr "Zum Datum springen"
 
-#: shiftings/cal/templates/cal/day_calendar.html:27
+#: shiftings/cal/templates/cal/day_calendar.html:28
 msgid "Jump to Day"
 msgstr "Zum Tag springen"
 
-#: shiftings/cal/templates/cal/day_calendar.html:29
+#: shiftings/cal/templates/cal/day_calendar.html:30
 msgid "Select"
 msgstr "Auswählen"
 
-#: shiftings/cal/templates/cal/day_calendar.html:37
+#: shiftings/cal/templates/cal/day_calendar.html:38
 msgid "Next Day"
 msgstr "Nächster Tag"
 
@@ -426,7 +426,7 @@ msgstr ""
 #: shiftings/cal/templates/cal/template/day_calendar_xs.html:5
 #: shiftings/events/models/event.py:24 shiftings/shifts/models/base.py:12
 #: shiftings/shifts/models/recurring.py:34
-#: shiftings/shifts/models/template_group.py:23
+#: shiftings/shifts/models/template_group.py:24
 #: shiftings/shifts/models/type.py:37 shiftings/shifts/models/type_group.py:14
 #: shiftings/shifts/templates/shifts/create_shift.html:79
 #: shiftings/shifts/templates/shifts/list.html:9
@@ -531,7 +531,7 @@ msgstr "Startdatum %(start)s ist nach dem Enddatum %(end)s"
 #: shiftings/events/models/event.py:26
 #: shiftings/events/templates/events/event.html:19
 #: shiftings/organizations/models/organization.py:25
-#: shiftings/organizations/templates/organizations/template/org_info.html:52
+#: shiftings/organizations/templates/organizations/template/org_info.html:58
 msgid "Logo"
 msgstr "Logo"
 
@@ -606,9 +606,10 @@ msgid "Type"
 msgstr "Typ"
 
 #: shiftings/events/templates/events/event.html:87
+#: shiftings/mail/forms/mail.py:39
 #: shiftings/organizations/templates/organizations/organization_admin.html:241
 #: shiftings/organizations/templates/organizations/organization_admin.html:390
-#: shiftings/shifts/models/template_group.py:25
+#: shiftings/shifts/models/template_group.py:26
 #: shiftings/shifts/templates/shifts/shift.html:43
 #: shiftings/shifts/templates/shifts/template/group_list.html:9
 #: shiftings/shifts/templates/shifts/template/small_shift_display.html:17
@@ -617,6 +618,7 @@ msgid "Start Time"
 msgstr "Startzeit"
 
 #: shiftings/events/templates/events/event.html:88
+#: shiftings/mail/forms/mail.py:40
 #: shiftings/organizations/templates/organizations/organization_admin.html:391
 #: shiftings/shifts/templates/shifts/shift.html:45
 #: shiftings/shifts/templates/shifts/template/template.html:15
@@ -628,7 +630,7 @@ msgstr "Endzeit"
 #: shiftings/organizations/templates/organizations/organization_admin.html:240
 #: shiftings/organizations/templates/organizations/organization_admin.html:392
 #: shiftings/shifts/models/base.py:9
-#: shiftings/shifts/models/template_group.py:20
+#: shiftings/shifts/models/template_group.py:21
 #: shiftings/shifts/templates/shifts/list.html:8
 #: shiftings/shifts/templates/shifts/recurring/list.html:8
 #: shiftings/shifts/templates/shifts/shift.html:41
@@ -742,19 +744,19 @@ msgstr "Anzahl offene Postiionen"
 msgid "Open Slots"
 msgstr "Offene Postionen"
 
-#: shiftings/mail/forms/mail.py:8
+#: shiftings/mail/forms/mail.py:10
 msgid "Subject"
 msgstr "Betreff"
 
-#: shiftings/mail/forms/mail.py:9
+#: shiftings/mail/forms/mail.py:11
 msgid "Text"
 msgstr "Text"
 
-#: shiftings/mail/forms/mail.py:10
+#: shiftings/mail/forms/mail.py:12
 msgid "Attachments"
 msgstr "Anhänge"
 
-#: shiftings/mail/forms/mail.py:20
+#: shiftings/mail/forms/mail.py:22
 msgid ""
 "Send the mail only to specific membership types. Or leave blank to send to "
 "all."
@@ -1188,11 +1190,11 @@ msgstr "Organisationseinstellungen"
 msgid "Organization Settings View"
 msgstr "Organisations Einstellungen"
 
-#: shiftings/organizations/templates/organizations/template/org_info.html:35
+#: shiftings/organizations/templates/organizations/template/org_info.html:41
 msgid "Edit Organization"
 msgstr "Organisation bearbeiten"
 
-#: shiftings/organizations/templates/organizations/template/org_info.html:41
+#: shiftings/organizations/templates/organizations/template/org_info.html:47
 msgid "Update Shift Permissions"
 msgstr "Schichtberechtigungen aktualisieren"
 
@@ -1253,7 +1255,6 @@ msgid "Time HH:MM"
 msgstr "Uhrzeit HH:MM"
 
 #: shiftings/shifts/forms/participant.py:28
-#: shiftings/shifts/forms/participant.py:59
 #, python-brace-format
 msgid "User {user} is already registered for this shift."
 msgstr "Benutzer {user} wurde bereits für diese Schicht eingetragen."
@@ -1274,15 +1275,15 @@ msgstr ""
 "Um Benutzer, die nicht Teil der Organisation sind, hinzuzufügen gib deren "
 "Benutzernamen an."
 
-#: shiftings/shifts/forms/participant.py:67
+#: shiftings/shifts/forms/participant.py:65
 msgid "Only select one type of user!"
 msgstr "Wähle nur einen Benutzertyp aus!"
 
-#: shiftings/shifts/forms/participant.py:73
+#: shiftings/shifts/forms/participant.py:75
 msgid "One of the user fields is required!"
 msgstr "Eines der Benutzerfelder ist benötigt!"
 
-#: shiftings/shifts/forms/participant.py:75
+#: shiftings/shifts/forms/participant.py:80
 #, python-brace-format
 msgid "Cannot add {user} multiple times to this shift"
 msgstr "Benutzer {user} kann nicht mehrmals zur Schicht hinzugefügt werden"
@@ -2123,13 +2124,6 @@ msgstr "Deutsch"
 msgid "English"
 msgstr "Englisch"
 
-#: shiftings/templates/local/gdpr_template.html:72
-#: shiftings/templates/template/remove_modal.html:39
-#: shiftings/templates/template/simple_display_modal.html:15
-#: shiftings/templates/template/simple_form_modal.html:22
-msgid "Close"
-msgstr "Schließen"
-
 #: shiftings/templates/month_view.html:2
 msgid "M"
 msgstr "M"
@@ -2211,6 +2205,12 @@ msgstr ""
 #: shiftings/templates/template/remove_modal.html:38
 msgid "Remove"
 msgstr "Entfernen"
+
+#: shiftings/templates/template/remove_modal.html:39
+#: shiftings/templates/template/simple_display_modal.html:15
+#: shiftings/templates/template/simple_form_modal.html:22
+msgid "Close"
+msgstr "Schließen"
 
 #: shiftings/templates/top_nav.html:12
 msgid "Overview"
