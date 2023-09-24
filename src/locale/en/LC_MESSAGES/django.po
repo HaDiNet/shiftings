@@ -349,6 +349,19 @@ msgstr ""
 msgid "Month"
 msgstr ""
 
+#: shiftings/cal/templates/cal/calendar_base.html:42
+#: shiftings/cal/templates/cal/calendar_base.html:48
+msgid "List View"
+msgstr ""
+
+#: shiftings/cal/templates/cal/calendar_base.html:44
+msgid "List (Detailed)"
+msgstr ""
+
+#: shiftings/cal/templates/cal/calendar_base.html:50
+msgid "List (By&nbsp;Types)"
+msgstr ""
+
 #: shiftings/cal/templates/cal/calendar_templates/cal_shift_create_entry.html:4
 #: shiftings/cal/templates/cal/template/day_calendar_xs.html:99
 #: shiftings/events/templates/events/event.html:74
@@ -380,6 +393,10 @@ msgstr ""
 #: shiftings/cal/templates/cal/day_calendar.html:38
 msgid "Next Day"
 msgstr ""
+
+#: shiftings/cal/templates/cal/list_calendar.html:12
+msgid "Shift list"
+msgstr "Schichtenliste"
 
 #: shiftings/cal/templates/cal/template/day_calendar_shift_types.html:7
 #: shiftings/cal/templates/cal/template/day_calendar_xs.html:41
@@ -492,6 +509,10 @@ msgstr ""
 
 #: shiftings/cal/views/day_calendar.py:25
 msgid "Day Overview"
+msgstr ""
+
+#: shiftings/cal/views/list.py:25
+msgid "List Overview"
 msgstr ""
 
 #: shiftings/cal/views/month_calendar.py:24
