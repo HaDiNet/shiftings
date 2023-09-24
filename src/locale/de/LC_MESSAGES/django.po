@@ -364,6 +364,18 @@ msgstr "Monatsansicht"
 msgid "Month"
 msgstr "Monat"
 
+#: shiftings/cal/templates/cal/calendar_base.html:48
+msgid "List View"
+msgstr "Listenansicht"
+
+#: shiftings/cal/templates/cal/calendar_base.html:44
+msgid "List (Detailed)"
+msgstr "Liste (Detailliert)"
+
+#: shiftings/cal/templates/cal/calendar_base.html:50
+msgid "List (By&nbsp;Types)"
+msgstr "Liste (Nach&nbsp;Typ)"
+
 #: shiftings/cal/templates/cal/calendar_templates/cal_shift_create_entry.html:4
 #: shiftings/cal/templates/cal/template/day_calendar_xs.html:99
 #: shiftings/events/templates/events/event.html:74
