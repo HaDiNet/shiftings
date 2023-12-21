@@ -40,6 +40,10 @@ class RecurringShift(models.Model):
     month_field = MonthField(blank=True, null=True)
     first_occurrence = DateField(_('First Occurrence'), help_text=_(
         'Choose a minimum day for first occurrence and the system will automatically choose the next applicable day.'))
+    auto_create_days = models.PositiveSmallIntegerField(
+        default=settings.AUTO_CREATE_DAYS_DEFAULT,
+        validators=[MinValueValidator(settings.AUTO_CREATE_DAYS_MIN), MaxValueValidator(settings.AUTO_CREATE_DAYS_MAX)],
+        verbose_name=_('Auto create days'), help_text=_('How many days in advance should the shifts be created?'))
 
     template = models.ForeignKey('ShiftTemplateGroup', on_delete=models.SET_NULL, verbose_name=_('Shift Template'),
                                  related_name='recurring_shifts', blank=False, null=True)
