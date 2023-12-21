@@ -66,7 +66,7 @@
                   {% trans "Shift Participants" %}:
                   {% if not shift.is_full %}
                     {% if org_perms.add_non_members_to_shifts or org_perms.add_members_to_shifts %}
-                      {% if org_perms.admin or shift.start.date >= current_date %}
+                      {% if shift.start.date >= current_date or org_perms.add_to_past_shift %}
                         <a class="btn btn-outline-success ms-3" href="{% url 'add_participant_other' shift.pk %}">
                           <i class="fa-solid fa-person-circle-plus me-2"></i>{% trans "Add participant" %}
                         </a>

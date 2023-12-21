@@ -1,6 +1,8 @@
+from datetime import date
 from typing import Any
 
 from django.http import HttpResponse
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import DeleteView
 
 from shiftings.organizations.models import Organization
@@ -30,10 +32,23 @@ class AddOtherParticipantView(OrganizationPermissionMixin, CreateView):
         kwargs['shift'] = self.get_shift()
         return kwargs
 
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        shift = self.get_shift()
+        if shift.start.date() < date.today():
+            form = context['form']
+            if not hasattr(form, 'cleaned_data'):
+                form.cleaned_data = {}
+            context['form'].add_error(None, _('This shift is over, do you really want/need to add a participant?'))
+        return context
+
     def form_valid(self, form: AddSelfParticipantForm) -> HttpResponse:
         shift = self.get_shift()
-        if not self.request.user.has_perm('organizations.add_non_members_to_shifts', self.get_organization()) \
-                and not self.get_organization().is_member(form.cleaned_data['user']):
+        if (shift.start.date() < date.today()
+                and not self.request.user.has_perm('organizations.add_to_past_shift', self.get_organization())):
+            raise Http403()
+        if (not self.request.user.has_perm('organizations.add_non_members_to_shifts', self.get_organization())
+                and not self.get_organization().is_member(form.cleaned_data['user'])):
             raise Http403()
         self.object = form.save()
         shift.participants.add(self.object)
@@ -49,6 +64,9 @@ class AddSelfParticipantView(AddOtherParticipantView):
     permission_required = 'organizations.participate_in_shift'
 
     def has_permission(self) -> bool:
+        if (self.get_shift().start.date() < date.today()
+                and not self.request.user.has_perm('organizations.add_to_past_shift', self.get_organization())):
+            return False
         if self.get_shift().can_participate(self.request.user):
             return True
         return super().has_permission()
@@ -78,6 +96,8 @@ class RemoveParticipantView(OrganizationPermissionMixin, DeleteView):
         return self._get_object(Shift, 'pk')
 
     def has_permission(self) -> bool:
+        if self.get_shift().start.date() < date.today():
+            return self.get_organization().is_admin(self.request.user)
         if self.get_object().user.pk == self.request.user.pk:
             return True
         return super().has_permission()

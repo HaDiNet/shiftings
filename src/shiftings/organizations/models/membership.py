@@ -35,6 +35,7 @@ class MembershipType(models.Model):
             ('add_non_members_to_shifts', _('add other users that are not members of the organization to shifts')),
             ('add_members_to_shifts', _('add other organization members to shifts')),
             ('participate_in_shift', _('participate in shifts')),
+            ('add_to_past_shift', _('add self/others (depending on other permissions) to past shifts')),
         ]
         ordering = ['organization', '-admin', '-default', 'name']
         constraints = [

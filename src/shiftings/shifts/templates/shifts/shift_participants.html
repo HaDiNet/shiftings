@@ -6,16 +6,23 @@
     {% for field in add_self_form %}
       {% bootstrap_field field %}
     {% endfor %}
+    {% if shift.start.date < current_date %}
+      <div class="text-warning small">
+        {% trans 'This shift is over, do you really want/need to add yourself as participant?' %}
+      </div>
+    {% endif %}
   {% endsimpleformmodal %}
   {% for display,required in shift.get_slots_display %}
     {% include 'shifts/template/slots_display.html' %}
   {% endfor %}
-  {% if shift.start.date >= current_date and shift.max_users == 0 %}
-    <div class="d-flex">
-      <button type="button" class="btn border border-2 card-link link w-100 mx-2" data-bs-toggle="modal"
-              data-bs-target="#addSelfForm{{ shift.pk }}Modal">
-        <i class="fa-solid fa-person-circle-plus me-2"></i>{% trans 'Add me' %}
-      </button>
-    </div>
+  {% if shift.max_users == 0 %}
+    {% if shift.start.date >= current_date or org_perms.add_to_past_shift %}
+      <div class="d-flex">
+        <button type="button" class="btn border border-2 card-link link w-100 mx-2" data-bs-toggle="modal"
+                data-bs-target="#addSelfForm{{ shift.pk }}Modal">
+          <i class="fa-solid fa-person-circle-plus me-2"></i>{% trans 'Add me' %}
+        </button>
+      </div>
+    {% endif %}
   {% endif %}
 </div>
