@@ -44,6 +44,11 @@
             {% blocktrans with repetition=shift.repetition_display time=shift.time %}
               <h5 class="text-warning">Repeats every: {{ repetition }} on {{ time }}</h5>
             {% endblocktrans %}
+            <h5 class="text-warning">
+              {% blocktrans with days=shift.auto_create_days %}
+                Create shifts {{ days }} days in advance
+              {% endblocktrans %}
+            </h5>
             <dl class="detail-horizontal">
               <dt>{% trans "First Occurrence" %}</dt>
               <dd>{{ shift.first_occurrence }}</dd>
