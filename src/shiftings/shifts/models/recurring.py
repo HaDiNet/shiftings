@@ -130,6 +130,9 @@ class RecurringShift(models.Model):
         return self.time_frame_type.matches_day(self, _date)
 
     def create_shifts(self, _date: date) -> None:
+        if self.first_occurrence > _date :
+            return
+
         if self.template is None:
             return
 
