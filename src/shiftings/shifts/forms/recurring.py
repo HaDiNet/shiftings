@@ -13,15 +13,14 @@ class RecurringShiftForm(forms.ModelForm):
     ordinal = forms.IntegerField(label=_('Ordinal'), min_value=1, max_value=31)
     auto_create_days = forms.IntegerField(label=RecurringShift.auto_create_days.field.verbose_name,
                                           help_text=RecurringShift.auto_create_days.field.help_text,
-                                          initial=RecurringShift.auto_create_days.field.default,
                                           min_value=settings.AUTO_CREATE_DAYS_MIN,
                                           max_value=settings.AUTO_CREATE_DAYS_MAX)
 
     class Meta:
         model = RecurringShift
-        fields = ['name', 'organization', 'time_frame_field', 'week_day_field', 'month_field',
-                  'first_occurrence', 'color', 'template', 'weekend_handling_field', 'weekend_warning',
-                  'holiday_handling_field', 'holiday_warning']
+        fields = ['name', 'organization', 'time_frame_field', 'ordinal', 'week_day_field', 'month_field',
+                  'first_occurrence', 'auto_create_days', 'color', 'template', 'weekend_handling_field',
+                  'weekend_warning', 'holiday_handling_field', 'holiday_warning']
 
     def __init__(self, *args: Any, **kwargs) -> None:
         super().__init__(*args, **kwargs)
