@@ -1,4 +1,5 @@
 from datetime import date
+from secrets import token_urlsafe
 from typing import Any, Dict
 
 from django import template
@@ -10,6 +11,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.db.models import Q
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
+from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.encoding import force_bytes, force_str
@@ -131,3 +133,14 @@ class UserDeleteSelfView(BaseLoginMixin, View):
 
     def post(self, request, *args, **kwargs):
         return self.delete(request, *args, **kwargs)
+
+
+class UserRegenerateCalendarTokenView(BaseLoginMixin, View):
+    def get(self, request, *args, **kwargs):
+        return redirect(reverse('user_profile'))
+
+    def post(self, request, *args, **kwargs):
+        user = self.request.user
+        user.ical_token = token_urlsafe(64)
+        user.save()
+        return redirect(reverse('user_profile'))
