@@ -84,8 +84,8 @@
           </button>
         </div>
       </div>
-      <div id="collapseOrgBody" class="collapse show card-body pt-0">
-        <div class="d-flex gap-2 overflow-scroll">
+      <div id="collapseOrgBody" class="collapse show" style="flex-wrap: wrap">
+        <div class="d-flex gap-2">
           {% for organization in user.organizations.all %}
             <a class="link" href="{% url "organization" organization.pk %}">
               <div class="bg-dark border border-2 my-2 center-items justify-content-start flex-row card-link">
