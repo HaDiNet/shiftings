@@ -1,0 +1,7 @@
+<button onclick="
+        var x = document.querySelector('{{ input_selector }}');
+        x.select();
+        x.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(x.value);" class="btn btn-secondary">
+    {% trans "Copy" %} <i class="fa-solid fa-clipboard"></i></button>
+</span>

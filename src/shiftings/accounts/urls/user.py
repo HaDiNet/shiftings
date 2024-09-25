@@ -7,7 +7,7 @@ from django.views.generic import TemplateView
 from shiftings.accounts.views.auth import UserLoginView, UserLogoutView, UserReLoginView
 from shiftings.accounts.views.password import PasswordResetConfirmView, PasswordResetView
 from shiftings.accounts.views.user import (ConfirmEMailView, UserDeleteSelfView, UserEditView, UserProfileView,
-                                           UserRegisterView)
+                                           UserRegisterView, UserRegenerateCalendarTokenView)
 from shiftings.cal.feed.user import OwnShiftsFeed, UserFeed
 from shiftings.utils.converters import AlphaNumericConverter
 
@@ -30,6 +30,7 @@ urlpatterns: List[Any] = [
          name='password_reset_success'),
     path('calendar/', UserFeed(), name='user_calendar'),
     path('participation_calendar/', OwnShiftsFeed(), name='user_participation_calendar'),
+    path('ical_token_reset/', UserRegenerateCalendarTokenView.as_view(), name='user_ical_token_reset')
 ]
 if settings.FEATURES.get('registration', False):
     urlpatterns.append(path('register/', UserRegisterView.as_view(), name='register'))

@@ -21,6 +21,19 @@
       </form>
     </div>
   {% endsimpledisplaymodal %}
+  {% simpledisplaymodal 'resetCalendarToken' _('Reset Calendar URL') %}
+    <div>
+        {% trans "Do you want to reset your personal calendar access token? All previous tokens will stop working." %}
+    </div>
+    <div class="mt-3">
+      <form action="{% url "user_ical_token_reset" %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-info float-end" title="{% trans "Reset iCalendar Link Token" %}">
+          {% trans "Reset Token" %} <i class="fa-solid fa-repeat"></i>
+        </button>
+      </form>
+    </div>
+  {% endsimpledisplaymodal %}
 {% endblock %}
 {% block left %}
   <div class="sticky-top">
@@ -113,6 +126,31 @@
           {% endfor %}
         </div>
       </div>
+    </div>
+  </div>
+  <div class="card bg-dark mt-2">
+    <div class="card-header center-items justify-content-between">
+      <h4>{% trans "Calendar URL" %}</h4>
+        <button class="btn btn-info" title="{% trans "Reset iCalendar Link Token" %}" data-bs-toggle="modal"
+                    data-bs-target="#resetCalendarToken">
+          {% trans "Reset Token" %} <i class="fa-solid fa-repeat"></i>
+        </button>
+    </div>
+    <div class="card-body pt-0">
+      {% if user.ical_token is None %}
+        <div class="text-bg-dark text-center text-secondary p-2">{% trans "(Re-)Generate your personal Token in order to use persistent iCalendar links." %}</div>
+      {% else %}
+        <span class="input-group mb-2">
+          <label for="user_all_shifts_url" class="input-group-text">{% trans "Overview" %}</label>
+          <input id="user_all_shifts_url" class="form-control" value="{{ user.all_shifts_url }}" />
+          {% include 'widgets/copy_input.html' with input_selector='#user_all_shifts_url' %}
+        </span>
+        <span class="input-group mb-2">
+          <label for="user_my_shifts_url" class="input-group-text">{% trans "My Shifts" %}</label>
+          <input id="user_my_shifts_url" class="form-control" value="{{ user.my_shifts_url }}" />
+          {% include 'widgets/copy_input.html' with input_selector='#user_all_shifts_url' %}
+        </span>
+      {% endif %}
     </div>
   </div>
 {% endblock %}

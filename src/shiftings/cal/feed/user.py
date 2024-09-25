@@ -11,9 +11,12 @@ from shiftings.utils.exceptions import Http403
 
 class UserFeed(ShiftFeed[User]):
     def get_object(self, request: HttpRequest, *args: Any, **kwargs: Any) -> Optional[User]:
-        if not request.user.is_authenticated:
-            raise Http403()
-        return request.user
+        if request.user.is_authenticated:
+            return request.user
+
+        # noinspection all
+        user = User.objects.get(ical_token=request.GET.get('token', ''))
+        return user
 
     def file_name(self, obj: User) -> str:
         return f'{obj.display.lower().replace(" ", "_")}_shifts.ics'
