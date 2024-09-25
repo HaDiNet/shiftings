@@ -74,7 +74,7 @@
     </div>
     <div class="card bg-dark">
       <div class="card-header center-items justify-content-between">
-        <h5>{% trans "Organizations" %}</h5>
+        <h4>{% trans "Organizations" %}</h4>
         <div>
           <button class="d-block d-lg-none btn btn-secondary" data-bs-toggle="collapse"
                   data-bs-target="#collapseOrgBody"
@@ -85,7 +85,7 @@
         </div>
       </div>
       <div id="collapseOrgBody" class="collapse show">
-        <div class="d-flex gap-2 py-1 px-2">
+        <div class="d-flex gap-2 py-1 px-2 flex-wrap">
           {% for organization in user.organizations.all %}
             <a class="link" href="{% url "organization" organization.pk %}">
               <div class="bg-dark border border-2 my-2 center-items justify-content-start flex-row card-link">
