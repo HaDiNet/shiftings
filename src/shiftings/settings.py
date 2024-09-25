@@ -201,6 +201,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 try:
     from shiftings.accounts.settings import *
+    from shiftings.cal.settings import *
     from shiftings.events.settings import *
     from shiftings.organizations.settings import *
     from shiftings.shifts.settings import *

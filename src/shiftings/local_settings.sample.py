@@ -60,6 +60,9 @@ SERVER_EMAIL = 'shiftings@example.com'
 
 SITE = 'shiftings.example.com'
 
+# Maximum number of entries for detailed list views
+MAX_LIST_ENTRIES = 256
+
 MEDIA_URL = '/media/'
 # Secure media with login. set the current values are 'apache2' and 'nginx'
 SERVE_MEDIA_SERVER = 'apache2'

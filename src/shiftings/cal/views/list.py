@@ -3,6 +3,7 @@ from datetime import date, timedelta
 from typing import Any
 
 from django.db.models import Q
+from django.conf import settings
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.utils.http import urlencode
@@ -26,6 +27,9 @@ class ListView(CalendarBaseView, ABC):
     def get_shifts(self) -> Any:
         raise NotImplementedError('get_shifts needs to be implemented')
 
+    def get_max_entries(self) -> Any:
+        return settings.MAX_LIST_ENTRIES
+
     def get_url(self):
         return reverse('overview_list' + self.url_name_suffix)
 
@@ -38,6 +42,7 @@ class ListView(CalendarBaseView, ABC):
             'today_url': reverse('overview_today' + self.url_name_suffix),
             'day_hours': list(range(24)),
             'shifts': self.get_shifts(),
+            'max_entries': self.get_max_entries(),
             'add_self_form': AddSelfParticipantForm(self.object, initial={'user': self.request.user}),
             'select_day_form': SelectDayForm(),
         })
@@ -51,7 +56,7 @@ class DetailListView(ListView):
 
     def get_shifts(self) -> Any:
         shift_filter = self.get_filters()
-        shifts = Shift.objects.filter(shift_filter).order_by('start', 'end', 'shift_type')
+        shifts = Shift.objects.filter(shift_filter).order_by('start', 'end', 'shift_type')[:settings.MAX_LIST_ENTRIES]
         return [shift for shift in shifts if shift.can_see(self.request.user)]
 
 
@@ -63,7 +68,7 @@ class ShiftTypesListView(ListView):
 
     def get_shifts(self):
         shift_filter = self.get_filters()
-        shifts = Shift.objects.filter(shift_filter).order_by('start', 'shift_type')
+        shifts = Shift.objects.filter(shift_filter).order_by('start', 'shift_type')[:settings.MAX_LIST_ENTRIES]
         shifts = [shift for shift in shifts if shift.can_see_details(self.request.user)]
         add_default = False
         shift_idx_type = {

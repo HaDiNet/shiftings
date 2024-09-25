@@ -1,3 +1,10 @@
+{% if max_entries == shifts|length %}
+  <div class="alert alert-warning" role="alert">
+    {% blocktrans with max_entries as max_entries %}
+      Your query was capped to the server limit of {{ max_entries }}. Please filter more specifically.
+    {% endblocktrans %}
+  </div>
+{% endif %}
 <div class="d-flex flex-column table-responsive">
   <table class="table table-dark table-striped table-bordered table-hover border-secondary table-fixed text-wrap m-0">
     <thead>

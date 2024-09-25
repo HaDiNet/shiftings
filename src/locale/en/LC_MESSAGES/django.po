@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-24 20:16+0000\n"
+"POT-Creation-Date: 2024-09-25 15:12+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,100 +18,1632 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: shiftings/accounts/forms/user_form.py:11
+#: venv/lib/python3.11/site-packages/click/_termui_impl.py:518
+#, python-brace-format
+msgid "{editor}: Editing failed"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/_termui_impl.py:522
+#, python-brace-format
+msgid "{editor}: Editing failed: {e}"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/core.py:1120
+msgid "Aborted!"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/core.py:1309
+#: venv/lib/python3.11/site-packages/click/decorators.py:559
+msgid "Show this message and exit."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/core.py:1340
+#: venv/lib/python3.11/site-packages/click/core.py:1370
+#, python-brace-format
+msgid "(Deprecated) {text}"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/core.py:1387
+msgid "Options"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/core.py:1413
+#, python-brace-format
+msgid "Got unexpected extra argument ({args})"
+msgid_plural "Got unexpected extra arguments ({args})"
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.11/site-packages/click/core.py:1429
+msgid "DeprecationWarning: The command {name!r} is deprecated."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/core.py:1636
+msgid "Commands"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/core.py:1668
+msgid "Missing command."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/core.py:1746
+msgid "No such command {name!r}."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/core.py:2310
+msgid "Value must be an iterable."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/core.py:2331
+#, python-brace-format
+msgid "Takes {nargs} values but 1 was given."
+msgid_plural "Takes {nargs} values but {len} were given."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.11/site-packages/click/core.py:2778
+#, python-brace-format
+msgid "env var: {var}"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/core.py:2808
+msgid "(dynamic)"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/core.py:2821
+#, python-brace-format
+msgid "default: {default}"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/core.py:2834
+msgid "required"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/decorators.py:465
+#, python-format
+msgid "%(prog)s, version %(version)s"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/decorators.py:528
+msgid "Show the version and exit."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/exceptions.py:44
+#: venv/lib/python3.11/site-packages/click/exceptions.py:80
+#, python-brace-format
+msgid "Error: {message}"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/exceptions.py:72
+#, python-brace-format
+msgid "Try '{command} {option}' for help."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/exceptions.py:121
+#, python-brace-format
+msgid "Invalid value: {message}"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/exceptions.py:123
+#, python-brace-format
+msgid "Invalid value for {param_hint}: {message}"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/exceptions.py:179
+msgid "Missing argument"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/exceptions.py:181
+msgid "Missing option"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/exceptions.py:183
+msgid "Missing parameter"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/exceptions.py:185
+#, python-brace-format
+msgid "Missing {param_type}"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/exceptions.py:192
+#, python-brace-format
+msgid "Missing parameter: {param_name}"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/exceptions.py:212
+#, python-brace-format
+msgid "No such option: {name}"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/exceptions.py:224
+#, python-brace-format
+msgid "Did you mean {possibility}?"
+msgid_plural "(Possible options: {possibilities})"
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.11/site-packages/click/exceptions.py:262
+msgid "unknown error"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/exceptions.py:269
+msgid "Could not open file {filename!r}: {message}"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/parser.py:231
+msgid "Argument {name!r} takes {nargs} values."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/parser.py:413
+msgid "Option {name!r} does not take a value."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/parser.py:474
+msgid "Option {name!r} requires an argument."
+msgid_plural "Option {name!r} requires {nargs} arguments."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.11/site-packages/click/shell_completion.py:319
+msgid "Shell completion is not supported for Bash versions older than 4.4."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/shell_completion.py:326
+msgid "Couldn't detect Bash version, shell completion is not supported."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/termui.py:158
+msgid "Repeat for confirmation"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/termui.py:174
+msgid "Error: The value you entered was invalid."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/termui.py:176
+#, python-brace-format
+msgid "Error: {e.message}"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/termui.py:187
+msgid "Error: The two entered values do not match."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/termui.py:243
+msgid "Error: invalid input"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/termui.py:773
+msgid "Press any key to continue..."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/types.py:266
+#, python-brace-format
+msgid ""
+"Choose from:\n"
+"\t{choices}"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/types.py:298
+msgid "{value!r} is not {choice}."
+msgid_plural "{value!r} is not one of {choices}."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.11/site-packages/click/types.py:392
+msgid "{value!r} does not match the format {format}."
+msgid_plural "{value!r} does not match the formats {formats}."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.11/site-packages/click/types.py:414
+msgid "{value!r} is not a valid {number_type}."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/types.py:470
+#, python-brace-format
+msgid "{value} is not in the range {range}."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/types.py:611
+msgid "{value!r} is not a valid boolean."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/types.py:635
+msgid "{value!r} is not a valid UUID."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/types.py:822
+msgid "file"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/types.py:824
+msgid "directory"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/types.py:826
+msgid "path"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/types.py:877
+msgid "{name} {filename!r} does not exist."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/types.py:886
+msgid "{name} {filename!r} is a file."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/types.py:894
+#, python-brace-format
+msgid "{name} '{filename}' is a directory."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/types.py:903
+msgid "{name} {filename!r} is not readable."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/types.py:912
+msgid "{name} {filename!r} is not writable."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/types.py:921
+msgid "{name} {filename!r} is not executable."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/click/types.py:988
+#, python-brace-format
+msgid "{len_type} values are required, but {len_value} was given."
+msgid_plural "{len_type} values are required, but {len_value} were given."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.11/site-packages/colorfield/validators.py:9
+msgid "Enter a valid hex color, eg. #000000"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/colorfield/validators.py:17
+msgid "Enter a valid hexa color, eg. #00000000"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/contrib/messages/apps.py:7
+msgid "Messages"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/contrib/sitemaps/apps.py:8
+msgid "Site Maps"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/contrib/staticfiles/apps.py:9
+msgid "Static Files"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/contrib/syndication/apps.py:7
+msgid "Syndication"
+msgstr ""
+
+#. Translators: String used to replace omitted page numbers in elided page
+#. range generated by paginators, e.g. [1, 2, '…', 5, 6, 7, '…', 9, 10].
+#: venv/lib/python3.11/site-packages/django/core/paginator.py:30
+msgid "…"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/core/paginator.py:50
+msgid "That page number is not an integer"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/core/paginator.py:52
+msgid "That page number is less than 1"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/core/paginator.py:57
+msgid "That page contains no results"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/core/validators.py:23
+msgid "Enter a valid value."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/core/validators.py:105
+#: venv/lib/python3.11/site-packages/django/forms/fields.py:743
+msgid "Enter a valid URL."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/core/validators.py:166
+msgid "Enter a valid integer."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/core/validators.py:177
+msgid "Enter a valid email address."
+msgstr ""
+
+#. Translators: "letters" means latin letters: a-z and A-Z.
+#: venv/lib/python3.11/site-packages/django/core/validators.py:285
+msgid ""
+"Enter a valid “slug” consisting of letters, numbers, underscores or hyphens."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/core/validators.py:293
+msgid ""
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
+"hyphens."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/core/validators.py:305
+#: venv/lib/python3.11/site-packages/django/core/validators.py:313
+#: venv/lib/python3.11/site-packages/django/core/validators.py:342
+msgid "Enter a valid IPv4 address."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/core/validators.py:322
+#: venv/lib/python3.11/site-packages/django/core/validators.py:343
+msgid "Enter a valid IPv6 address."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/core/validators.py:334
+#: venv/lib/python3.11/site-packages/django/core/validators.py:341
+msgid "Enter a valid IPv4 or IPv6 address."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/core/validators.py:377
+msgid "Enter only digits separated by commas."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/core/validators.py:383
+#, python-format
+msgid "Ensure this value is %(limit_value)s (it is %(show_value)s)."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/core/validators.py:418
+#, python-format
+msgid "Ensure this value is less than or equal to %(limit_value)s."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/core/validators.py:427
+#, python-format
+msgid "Ensure this value is greater than or equal to %(limit_value)s."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/core/validators.py:437
+#, python-format
+msgid ""
+"Ensure this value has at least %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at least %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.11/site-packages/django/core/validators.py:455
+#, python-format
+msgid ""
+"Ensure this value has at most %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at most %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.11/site-packages/django/core/validators.py:478
+#: venv/lib/python3.11/site-packages/django/forms/fields.py:343
+#: venv/lib/python3.11/site-packages/django/forms/fields.py:378
+msgid "Enter a number."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/core/validators.py:480
+#, python-format
+msgid "Ensure that there are no more than %(max)s digit in total."
+msgid_plural "Ensure that there are no more than %(max)s digits in total."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.11/site-packages/django/core/validators.py:485
+#, python-format
+msgid "Ensure that there are no more than %(max)s decimal place."
+msgid_plural "Ensure that there are no more than %(max)s decimal places."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.11/site-packages/django/core/validators.py:490
+#, python-format
+msgid ""
+"Ensure that there are no more than %(max)s digit before the decimal point."
+msgid_plural ""
+"Ensure that there are no more than %(max)s digits before the decimal point."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.11/site-packages/django/core/validators.py:559
+#, python-format
+msgid ""
+"File extension “%(extension)s” is not allowed. Allowed extensions are: "
+"%(allowed_extensions)s."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/core/validators.py:620
+msgid "Null characters are not allowed."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/base.py:1364
+#: venv/lib/python3.11/site-packages/django/forms/models.py:894
+msgid "and"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/base.py:1366
+#, python-format
+msgid "%(model_name)s with this %(field_labels)s already exists."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:129
+#, python-format
+msgid "Value %(value)r is not a valid choice."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:130
+msgid "This field cannot be null."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:131
+msgid "This field cannot be blank."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:132
+#, python-format
+msgid "%(model_name)s with this %(field_label)s already exists."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:136
+#, python-format
+msgid ""
+"%(field_label)s must be unique for %(date_field_label)s %(lookup_type)s."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:156
+#, python-format
+msgid "Field of type: %(field_type)s"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:1050
+#, python-format
+msgid "“%(value)s” value must be either True or False."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:1051
+#, python-format
+msgid "“%(value)s” value must be either True, False, or None."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:1053
+msgid "Boolean (Either True or False)"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:1094
+#, python-format
+msgid "String (up to %(max_length)s)"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:1192
+msgid "Comma-separated integers"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:1293
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid date format. It must be in YYYY-MM-DD "
+"format."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:1297
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:1432
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD) but it is an invalid "
+"date."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:1301
+msgid "Date (without time)"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:1428
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
+"uuuuuu]][TZ] format."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:1436
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:1441
+msgid "Date (with time)"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:1565
+#, python-format
+msgid "“%(value)s” value must be a decimal number."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:1567
+msgid "Decimal number"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:1724
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[."
+"uuuuuu] format."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:1728
+#: src/shiftings/shifts/forms/template.py:40
+#: src/shiftings/shifts/models/template.py:23
+#: src/shiftings/shifts/templates/shifts/recurring/list.html:11
+msgid "Duration"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:1780
+msgid "Email address"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:1805
+msgid "File path"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:1883
+#, python-format
+msgid "“%(value)s” value must be a float."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:1885
+msgid "Floating point number"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:1925
+#, python-format
+msgid "“%(value)s” value must be an integer."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:1927
+msgid "Integer"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:2019
+msgid "Big (8 byte) integer"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:2036
+msgid "Small integer"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:2044
+msgid "IPv4 address"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:2075
+msgid "IP address"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:2168
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:2169
+#, python-format
+msgid "“%(value)s” value must be either None, True or False."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:2171
+msgid "Boolean (Either True, False or None)"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:2222
+msgid "Positive big integer"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:2237
+msgid "Positive integer"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:2252
+msgid "Positive small integer"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:2268
+#, python-format
+msgid "Slug (up to %(max_length)s)"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:2304
+#: src/shiftings/mail/forms/mail.py:11
+msgid "Text"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:2374
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in HH:MM[:ss[.uuuuuu]] "
+"format."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:2378
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (HH:MM[:ss[.uuuuuu]]) but it is an "
+"invalid time."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:2382
+#: src/shiftings/cal/templates/cal/template/day_calendar_shift_types.html:23
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:197
+#: src/shiftings/shifts/templates/shifts/template/group.html:43
+#: src/shiftings/shifts/templates/shifts/template/group_template.html:23
+#: src/shiftings/shifts/templates/shifts/template/shift.html:10
+#: src/shiftings/shifts/templates/shifts/template/template_form.html:33
+msgid "Time"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:2490
+msgid "URL"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:2514
+msgid "Raw binary data"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:2579
+#, python-format
+msgid "“%(value)s” is not a valid UUID."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:2581
+msgid "Universally unique identifier"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/files.py:232
+msgid "File"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/files.py:392
+msgid "Image"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/json.py:18
+msgid "A JSON object"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/json.py:20
+msgid "Value must be valid JSON."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/related.py:903
+#, python-format
+msgid "%(model)s instance with %(field)s %(value)r does not exist."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/related.py:905
+msgid "Foreign Key (type determined by related field)"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/related.py:1204
+msgid "One-to-one relationship"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/related.py:1261
+#, python-format
+msgid "%(from)s-%(to)s relationship"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/related.py:1263
+#, python-format
+msgid "%(from)s-%(to)s relationships"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/db/models/fields/related.py:1311
+msgid "Many-to-many relationship"
+msgstr ""
+
+#. Translators: If found as last label character, these punctuation
+#. characters will prevent the default label_suffix to be appended to the label
+#: venv/lib/python3.11/site-packages/django/forms/boundfield.py:176
+msgid ":?.!"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/forms/fields.py:91
+msgid "This field is required."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/forms/fields.py:298
+msgid "Enter a whole number."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/forms/fields.py:459
+#: venv/lib/python3.11/site-packages/django/forms/fields.py:1232
+msgid "Enter a valid date."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/forms/fields.py:482
+#: venv/lib/python3.11/site-packages/django/forms/fields.py:1233
+msgid "Enter a valid time."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/forms/fields.py:509
+msgid "Enter a valid date/time."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/forms/fields.py:543
+msgid "Enter a valid duration."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/forms/fields.py:544
+#, python-brace-format
+msgid "The number of days must be between {min_days} and {max_days}."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/forms/fields.py:610
+msgid "No file was submitted. Check the encoding type on the form."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/forms/fields.py:611
+msgid "No file was submitted."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/forms/fields.py:612
+msgid "The submitted file is empty."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/forms/fields.py:614
+#, python-format
+msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid_plural ""
+"Ensure this filename has at most %(max)d characters (it has %(length)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.11/site-packages/django/forms/fields.py:619
+msgid "Please either submit a file or check the clear checkbox, not both."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/forms/fields.py:685
+msgid ""
+"Upload a valid image. The file you uploaded was either not an image or a "
+"corrupted image."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/forms/fields.py:848
+#: venv/lib/python3.11/site-packages/django/forms/fields.py:940
+#: venv/lib/python3.11/site-packages/django/forms/models.py:1563
+#, python-format
+msgid "Select a valid choice. %(value)s is not one of the available choices."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/forms/fields.py:942
+#: venv/lib/python3.11/site-packages/django/forms/fields.py:1061
+#: venv/lib/python3.11/site-packages/django/forms/models.py:1561
+msgid "Enter a list of values."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/forms/fields.py:1062
+msgid "Enter a complete value."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/forms/fields.py:1301
+msgid "Enter a valid UUID."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/forms/fields.py:1331
+msgid "Enter a valid JSON."
+msgstr ""
+
+#. Translators: This is the default suffix added to form field labels
+#: venv/lib/python3.11/site-packages/django/forms/forms.py:98
+msgid ":"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/forms/forms.py:248
+#: venv/lib/python3.11/site-packages/django/forms/forms.py:328
+#, python-format
+msgid "(Hidden field %(name)s) %(error)s"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/forms/formsets.py:67
+#, python-format
+msgid ""
+"ManagementForm data is missing or has been tampered with. Missing fields: "
+"%(field_names)s. You may need to file a bug report if the issue persists."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/forms/formsets.py:418
+#, python-format
+msgid "Please submit at most %d form."
+msgid_plural "Please submit at most %d forms."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.11/site-packages/django/forms/formsets.py:434
+#, python-format
+msgid "Please submit at least %d form."
+msgid_plural "Please submit at least %d forms."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.11/site-packages/django/forms/formsets.py:470
+#: venv/lib/python3.11/site-packages/django/forms/formsets.py:477
+#: src/shiftings/organizations/templates/organizations/organization_settings.html:38
+msgid "Order"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/forms/formsets.py:483
+msgid "Delete"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/forms/models.py:887
+#, python-format
+msgid "Please correct the duplicate data for %(field)s."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/forms/models.py:892
+#, python-format
+msgid "Please correct the duplicate data for %(field)s, which must be unique."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/forms/models.py:899
+#, python-format
+msgid ""
+"Please correct the duplicate data for %(field_name)s which must be unique "
+"for the %(lookup)s in %(date_field)s."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/forms/models.py:908
+msgid "Please correct the duplicate values below."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/forms/models.py:1335
+msgid "The inline value did not match the parent instance."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/forms/models.py:1426
+msgid "Select a valid choice. That choice is not one of the available choices."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/forms/models.py:1565
+#, python-format
+msgid "“%(pk)s” is not a valid value."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/forms/utils.py:204
+#, python-format
+msgid ""
+"%(datetime)s couldn’t be interpreted in time zone %(current_timezone)s; it "
+"may be ambiguous or it may not exist."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/forms/widgets.py:434
+msgid "Clear"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/forms/widgets.py:435
+msgid "Currently"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/forms/widgets.py:436
+msgid "Change"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/forms/widgets.py:765
+#: src/shiftings/accounts/templates/accounts/user_detail.html:55
+#: src/shiftings/accounts/templates/accounts/user_detail.html:65
+msgid "Unknown"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/forms/widgets.py:766
+#: src/shiftings/templates/generic/delete.html:9
+msgid "Yes"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/forms/widgets.py:767
+#: src/shiftings/templates/generic/delete.html:11
+msgid "No"
+msgstr ""
+
+#. Translators: Please do not add spaces around commas.
+#: venv/lib/python3.11/site-packages/django/template/defaultfilters.py:858
+msgid "yes,no,maybe"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/template/defaultfilters.py:888
+#: venv/lib/python3.11/site-packages/django/template/defaultfilters.py:905
+#, python-format
+msgid "%(size)d byte"
+msgid_plural "%(size)d bytes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.11/site-packages/django/template/defaultfilters.py:907
+#, python-format
+msgid "%s KB"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/template/defaultfilters.py:909
+#, python-format
+msgid "%s MB"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/template/defaultfilters.py:911
+#, python-format
+msgid "%s GB"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/template/defaultfilters.py:913
+#, python-format
+msgid "%s TB"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/template/defaultfilters.py:915
+#, python-format
+msgid "%s PB"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dateformat.py:77
+msgid "p.m."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dateformat.py:78
+msgid "a.m."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dateformat.py:83
+msgid "PM"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dateformat.py:84
+msgid "AM"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dateformat.py:155
+msgid "midnight"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dateformat.py:157
+msgid "noon"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:7
+#: src/shiftings/utils/time/week.py:13
+msgid "Monday"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:8
+#: src/shiftings/utils/time/week.py:14
+msgid "Tuesday"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:9
+#: src/shiftings/utils/time/week.py:15
+msgid "Wednesday"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:10
+#: src/shiftings/utils/time/week.py:16
+msgid "Thursday"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:11
+#: src/shiftings/utils/time/week.py:17
+msgid "Friday"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:12
+#: src/shiftings/utils/time/week.py:18
+msgid "Saturday"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:13
+#: src/shiftings/utils/time/week.py:19
+msgid "Sunday"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:16
+msgid "Mon"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:17
+msgid "Tue"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:18
+msgid "Wed"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:19
+msgid "Thu"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:20
+msgid "Fri"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:21
+msgid "Sat"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:22
+msgid "Sun"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:25
+#: src/shiftings/utils/time/month.py:10
+msgid "January"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:26
+#: src/shiftings/utils/time/month.py:11
+msgid "February"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:27
+#: src/shiftings/utils/time/month.py:12
+msgid "March"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:28
+#: src/shiftings/utils/time/month.py:13
+msgid "April"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:29
+#: src/shiftings/utils/time/month.py:14
+msgid "May"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:30
+#: src/shiftings/utils/time/month.py:15
+msgid "June"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:31
+#: src/shiftings/utils/time/month.py:16
+msgid "July"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:32
+#: src/shiftings/utils/time/month.py:17
+msgid "August"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:33
+#: src/shiftings/utils/time/month.py:18
+msgid "September"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:34
+#: src/shiftings/utils/time/month.py:19
+msgid "October"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:35
+#: src/shiftings/utils/time/month.py:20
+msgid "November"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:36
+#: src/shiftings/utils/time/month.py:21
+msgid "December"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:39
+msgid "jan"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:40
+msgid "feb"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:41
+msgid "mar"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:42
+msgid "apr"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:43
+msgid "may"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:44
+msgid "jun"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:45
+msgid "jul"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:46
+msgid "aug"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:47
+msgid "sep"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:48
+msgid "oct"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:49
+msgid "nov"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:50
+msgid "dec"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:53
+msgctxt "abbrev. month"
+msgid "Jan."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:54
+msgctxt "abbrev. month"
+msgid "Feb."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:55
+msgctxt "abbrev. month"
+msgid "March"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:56
+msgctxt "abbrev. month"
+msgid "April"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:57
+msgctxt "abbrev. month"
+msgid "May"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:58
+msgctxt "abbrev. month"
+msgid "June"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:59
+msgctxt "abbrev. month"
+msgid "July"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:60
+msgctxt "abbrev. month"
+msgid "Aug."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:61
+msgctxt "abbrev. month"
+msgid "Sept."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:62
+msgctxt "abbrev. month"
+msgid "Oct."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:63
+msgctxt "abbrev. month"
+msgid "Nov."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:64
+msgctxt "abbrev. month"
+msgid "Dec."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:67
+msgctxt "alt. month"
+msgid "January"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:68
+msgctxt "alt. month"
+msgid "February"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:69
+msgctxt "alt. month"
+msgid "March"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:70
+msgctxt "alt. month"
+msgid "April"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:71
+msgctxt "alt. month"
+msgid "May"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:72
+msgctxt "alt. month"
+msgid "June"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:73
+msgctxt "alt. month"
+msgid "July"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:74
+msgctxt "alt. month"
+msgid "August"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:75
+msgctxt "alt. month"
+msgid "September"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:76
+msgctxt "alt. month"
+msgid "October"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:77
+msgctxt "alt. month"
+msgid "November"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/dates.py:78
+msgctxt "alt. month"
+msgid "December"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/ipv6.py:8
+msgid "This is not a valid IPv6 address."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/text.py:77
+#, python-format
+msgctxt "String to return when truncating text"
+msgid "%(truncated_text)s…"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/text.py:253
+msgid "or"
+msgstr ""
+
+#. Translators: This string is used as a separator between list elements
+#: venv/lib/python3.11/site-packages/django/utils/text.py:272
+#: venv/lib/python3.11/site-packages/django/utils/timesince.py:94
+msgid ", "
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/utils/timesince.py:9
+#, python-format
+msgid "%(num)d year"
+msgid_plural "%(num)d years"
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.11/site-packages/django/utils/timesince.py:10
+#, python-format
+msgid "%(num)d month"
+msgid_plural "%(num)d months"
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.11/site-packages/django/utils/timesince.py:11
+#, python-format
+msgid "%(num)d week"
+msgid_plural "%(num)d weeks"
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.11/site-packages/django/utils/timesince.py:12
+#, python-format
+msgid "%(num)d day"
+msgid_plural "%(num)d days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.11/site-packages/django/utils/timesince.py:13
+#, python-format
+msgid "%(num)d hour"
+msgid_plural "%(num)d hours"
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.11/site-packages/django/utils/timesince.py:14
+#, python-format
+msgid "%(num)d minute"
+msgid_plural "%(num)d minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.11/site-packages/django/views/csrf.py:111
+msgid "Forbidden"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/views/csrf.py:112
+msgid "CSRF verification failed. Request aborted."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/views/csrf.py:116
+msgid ""
+"You are seeing this message because this HTTPS site requires a “Referer "
+"header” to be sent by your web browser, but none was sent. This header is "
+"required for security reasons, to ensure that your browser is not being "
+"hijacked by third parties."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/views/csrf.py:122
+msgid ""
+"If you have configured your browser to disable “Referer” headers, please re-"
+"enable them, at least for this site, or for HTTPS connections, or for “same-"
+"origin” requests."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/views/csrf.py:127
+msgid ""
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
+"including the “Referrer-Policy: no-referrer” header, please remove them. The "
+"CSRF protection requires the “Referer” header to do strict referer checking. "
+"If you’re concerned about privacy, use alternatives like <a "
+"rel=\"noreferrer\" …> for links to third-party sites."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/views/csrf.py:136
+msgid ""
+"You are seeing this message because this site requires a CSRF cookie when "
+"submitting forms. This cookie is required for security reasons, to ensure "
+"that your browser is not being hijacked by third parties."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/views/csrf.py:142
+msgid ""
+"If you have configured your browser to disable cookies, please re-enable "
+"them, at least for this site, or for “same-origin” requests."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/views/csrf.py:148
+msgid "More information is available with DEBUG=True."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/views/generic/dates.py:44
+msgid "No year specified"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/views/generic/dates.py:64
+#: venv/lib/python3.11/site-packages/django/views/generic/dates.py:115
+#: venv/lib/python3.11/site-packages/django/views/generic/dates.py:214
+msgid "Date out of range"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/views/generic/dates.py:94
+msgid "No month specified"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/views/generic/dates.py:147
+msgid "No day specified"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/views/generic/dates.py:194
+msgid "No week specified"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/views/generic/dates.py:349
+#: venv/lib/python3.11/site-packages/django/views/generic/dates.py:380
+#, python-format
+msgid "No %(verbose_name_plural)s available"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/views/generic/dates.py:652
+#, python-format
+msgid ""
+"Future %(verbose_name_plural)s not available because %(class_name)s."
+"allow_future is False."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/views/generic/dates.py:692
+#, python-format
+msgid "Invalid date string “%(datestr)s” given format “%(format)s”"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/views/generic/detail.py:56
+#, python-format
+msgid "No %(verbose_name)s found matching the query"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/views/generic/list.py:70
+msgid "Page is not “last”, nor can it be converted to an int."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/views/generic/list.py:77
+#, python-format
+msgid "Invalid page (%(page_number)s): %(message)s"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/views/generic/list.py:169
+#, python-format
+msgid "Empty list and “%(class_name)s.allow_empty” is False."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/views/static.py:39
+msgid "Directory indexes are not allowed here."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/views/static.py:41
+#, python-format
+msgid "“%(path)s” does not exist"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/views/static.py:80
+#, python-format
+msgid "Index of %(directory)s"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/views/templates/default_urlconf.html:7
+#: venv/lib/python3.11/site-packages/django/views/templates/default_urlconf.html:221
+msgid "The install worked successfully! Congratulations!"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/views/templates/default_urlconf.html:207
+#, python-format
+msgid ""
+"View <a href=\"https://docs.djangoproject.com/en/%(version)s/releases/\" "
+"target=\"_blank\" rel=\"noopener\">release notes</a> for Django %(version)s"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/views/templates/default_urlconf.html:222
+#, python-format
+msgid ""
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" "
+"rel=\"noopener\">DEBUG=True</a> is in your settings file and you have not "
+"configured any URLs."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/views/templates/default_urlconf.html:230
+msgid "Django Documentation"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/views/templates/default_urlconf.html:231
+msgid "Topics, references, &amp; how-to’s"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/views/templates/default_urlconf.html:239
+msgid "Tutorial: A Polling App"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/views/templates/default_urlconf.html:240
+msgid "Get started with Django"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/views/templates/default_urlconf.html:248
+msgid "Django Community"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django/views/templates/default_urlconf.html:249
+msgid "Connect, get help, or contribute"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/django_bootstrap5/components.py:26
+msgid "close"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/isort/main.py:158
+msgid "show this help message and exit"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/mypy/main.py:376
+#, python-format
+msgid "%(prog)s: error: %(message)s\n"
+msgstr ""
+
+#: src/shiftings/accounts/forms/user_form.py:11
 msgid "Confirm password"
 msgstr ""
 
-#: shiftings/accounts/forms/user_form.py:30
+#: src/shiftings/accounts/forms/user_form.py:30
 msgid "Please enter matching passwords"
 msgstr ""
 
-#: shiftings/accounts/models/user.py:32
-#: shiftings/accounts/templates/accounts/user_detail.html:52
-#: shiftings/shifts/models/participant.py:15
+#: src/shiftings/accounts/models/user.py:32
+#: src/shiftings/accounts/templates/accounts/user_detail.html:52
+#: src/shiftings/shifts/models/participant.py:15
 msgid "Display Name"
 msgstr ""
 
-#: shiftings/accounts/models/user.py:33 shiftings/events/models/event.py:29
-#: shiftings/organizations/models/organization.py:28
+#: src/shiftings/accounts/models/user.py:33
+#: src/shiftings/events/models/event.py:29
+#: src/shiftings/organizations/models/organization.py:28
 msgid "Telephone Number"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/confirm_email.html:7
+#: src/shiftings/accounts/templates/accounts/confirm_email.html:7
 msgid "Go to Login"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/login_form.html:6
-#: shiftings/accounts/templates/accounts/login_multiple.html:12
+#: src/shiftings/accounts/templates/accounts/login_form.html:6
+#: src/shiftings/accounts/templates/accounts/login_multiple.html:12
 msgid "Login with local Account"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/login_form.html:8
-#: shiftings/accounts/templates/accounts/login_multiple.html:20
+#: src/shiftings/accounts/templates/accounts/login_form.html:8
+#: src/shiftings/accounts/templates/accounts/login_multiple.html:20
 msgid "Login with LDAP Account"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/login_form.html:14
-#: shiftings/accounts/views/auth.py:27 shiftings/templates/top_nav.html:57
+#: src/shiftings/accounts/templates/accounts/login_form.html:14
+#: src/shiftings/accounts/views/auth.py:27
+#: src/shiftings/templates/top_nav.html:57
 msgid "Login"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/login_form.html:16
-#: shiftings/accounts/templates/accounts/password_reset/prompt.html:10
+#: src/shiftings/accounts/templates/accounts/login_form.html:16
+#: src/shiftings/accounts/templates/accounts/password_reset/prompt.html:10
 msgid "Reset Password"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/login_form.html:18
+#: src/shiftings/accounts/templates/accounts/login_form.html:18
 msgid "Return to selection"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/login_form.html:29
+#: src/shiftings/accounts/templates/accounts/login_form.html:29
 msgid "You don't have an Account?"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/login_form.html:30
+#: src/shiftings/accounts/templates/accounts/login_form.html:30
 msgid "Register here"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/login_form.html:32
+#: src/shiftings/accounts/templates/accounts/login_form.html:32
 msgid "Or login using another Method"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/login_multiple.html:5
+#: src/shiftings/accounts/templates/accounts/login_multiple.html:5
 msgid "Welcome to Shiftings"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/login_multiple.html:6
+#: src/shiftings/accounts/templates/accounts/login_multiple.html:6
 msgid ""
 "To manage your shifts please authenticate with one of the given methods:"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/login_multiple.html:31
-msgid "Login via"
+#: src/shiftings/accounts/templates/accounts/login_multiple.html:31
+#, python-format
+msgid ""
+"\n"
+"                  Login via %(sso_name)s\n"
+"                "
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/logout.html:6
+#: src/shiftings/accounts/templates/accounts/logout.html:6
 msgid "Successfully logged out"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/logout.html:7
+#: src/shiftings/accounts/templates/accounts/logout.html:7
 msgid "Login again"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/password_reset/confirm.html:7
+#: src/shiftings/accounts/templates/accounts/password_reset/confirm.html:7
 msgid "Change Password"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/password_reset/done.html:4
+#: src/shiftings/accounts/templates/accounts/password_reset/done.html:4
 msgid "Your password has been reset, check your email!"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/password_reset/done.html:5
-#: shiftings/accounts/templates/accounts/password_reset/success.html:5
+#: src/shiftings/accounts/templates/accounts/password_reset/done.html:5
+#: src/shiftings/accounts/templates/accounts/password_reset/success.html:5
 msgid "Back to login"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/password_reset/prompt.html:4
+#: src/shiftings/accounts/templates/accounts/password_reset/prompt.html:4
 msgid ""
 "\n"
 "      If you are an local user enter your email-adress below to reset your "
@@ -119,15 +1651,15 @@ msgid ""
 "    "
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/password_reset/success.html:4
+#: src/shiftings/accounts/templates/accounts/password_reset/success.html:4
 msgid "Your password has been successfully reset!"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/user_detail.html:3
+#: src/shiftings/accounts/templates/accounts/user_detail.html:3
 msgid "Confirm User Deletion"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/user_detail.html:5
+#: src/shiftings/accounts/templates/accounts/user_detail.html:5
 #, python-format
 msgid ""
 "\n"
@@ -137,131 +1669,128 @@ msgid ""
 "      "
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/user_detail.html:17
+#: src/shiftings/accounts/templates/accounts/user_detail.html:17
 msgid "Yes, I want to permanently delete my Data"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/user_detail.html:19
+#: src/shiftings/accounts/templates/accounts/user_detail.html:19
 msgid "Abort"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/user_detail.html:29
-#: shiftings/organizations/models/membership.py:67
-#: shiftings/shifts/models/participant.py:13
-#: shiftings/templates/top_nav.html:47
+#: src/shiftings/accounts/templates/accounts/user_detail.html:29
+#: src/shiftings/organizations/models/membership.py:68
+#: src/shiftings/shifts/models/participant.py:13
+#: src/shiftings/templates/top_nav.html:47
 msgid "User"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/user_detail.html:37
-#: shiftings/accounts/templates/accounts/user_detail.html:57
+#: src/shiftings/accounts/templates/accounts/user_detail.html:37
+#: src/shiftings/accounts/templates/accounts/user_detail.html:57
 msgid "Edit user data"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/user_detail.html:48
-#: shiftings/organizations/forms/membership.py:16
+#: src/shiftings/accounts/templates/accounts/user_detail.html:48
+#: src/shiftings/organizations/forms/membership.py:16
 msgid "Username"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/user_detail.html:50
-#: shiftings/events/models/event.py:25
-#: shiftings/events/templates/events/event.html:85
-#: shiftings/organizations/models/membership.py:10
-#: shiftings/organizations/models/organization.py:24
-#: shiftings/organizations/templates/organizations/organization_admin.html:195
-#: shiftings/organizations/templates/organizations/organization_admin.html:239
-#: shiftings/organizations/templates/organizations/organization_admin.html:278
-#: shiftings/organizations/templates/organizations/organization_admin.html:388
-#: shiftings/organizations/templates/organizations/organization_settings.html:39
-#: shiftings/organizations/templates/organizations/user/claim_users.html:13
-#: shiftings/shifts/models/base.py:8 shiftings/shifts/models/recurring.py:32
-#: shiftings/shifts/models/template.py:17
-#: shiftings/shifts/models/template_group.py:20
-#: shiftings/shifts/models/type.py:40 shiftings/shifts/models/type_group.py:16
-#: shiftings/shifts/templates/shifts/group/list.html:6
-#: shiftings/shifts/templates/shifts/list.html:6
-#: shiftings/shifts/templates/shifts/recurring/list.html:6
-#: shiftings/shifts/templates/shifts/template/group_list.html:6
-#: shiftings/shifts/templates/shifts/template/template_form.html:5
-#: shiftings/shifts/templates/shifts/type_group/list.html:7
+#: src/shiftings/accounts/templates/accounts/user_detail.html:50
+#: src/shiftings/events/models/event.py:25
+#: src/shiftings/events/templates/events/event.html:85
+#: src/shiftings/organizations/models/membership.py:10
+#: src/shiftings/organizations/models/organization.py:24
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:195
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:239
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:278
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:388
+#: src/shiftings/organizations/templates/organizations/organization_settings.html:39
+#: src/shiftings/organizations/templates/organizations/user/claim_users.html:13
+#: src/shiftings/shifts/models/base.py:8
+#: src/shiftings/shifts/models/recurring.py:32
+#: src/shiftings/shifts/models/template.py:17
+#: src/shiftings/shifts/models/template_group.py:20
+#: src/shiftings/shifts/models/type.py:40
+#: src/shiftings/shifts/models/type_group.py:16
+#: src/shiftings/shifts/templates/shifts/group/list.html:6
+#: src/shiftings/shifts/templates/shifts/list.html:6
+#: src/shiftings/shifts/templates/shifts/recurring/list.html:6
+#: src/shiftings/shifts/templates/shifts/template/group_list.html:6
+#: src/shiftings/shifts/templates/shifts/template/template_form.html:5
+#: src/shiftings/shifts/templates/shifts/type_group/list.html:7
 msgid "Name"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/user_detail.html:55
-#: shiftings/accounts/templates/accounts/user_detail.html:65
-msgid "Unknown"
-msgstr ""
-
-#: shiftings/accounts/templates/accounts/user_detail.html:58
+#: src/shiftings/accounts/templates/accounts/user_detail.html:58
 msgid "Set Display Name"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/user_detail.html:62
+#: src/shiftings/accounts/templates/accounts/user_detail.html:62
 msgid "Email"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/user_detail.html:64
+#: src/shiftings/accounts/templates/accounts/user_detail.html:64
 msgid "Phone Number"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/user_detail.html:66
+#: src/shiftings/accounts/templates/accounts/user_detail.html:66
 msgid "Member since"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/user_detail.html:68
+#: src/shiftings/accounts/templates/accounts/user_detail.html:68
 msgid "Total Shifts"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/user_detail.html:70
-#: shiftings/organizations/templates/organizations/organization_admin.html:124
+#: src/shiftings/accounts/templates/accounts/user_detail.html:70
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:124
 msgid "Groups"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/user_detail.html:71
-#: shiftings/events/templates/events/template/event.html:32
-#: shiftings/shifts/templates/shifts/template/template.html:19
+#: src/shiftings/accounts/templates/accounts/user_detail.html:71
+#: src/shiftings/events/templates/events/template/event.html:32
+#: src/shiftings/shifts/templates/shifts/template/template.html:19
 msgid "None"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/user_detail.html:77
+#: src/shiftings/accounts/templates/accounts/user_detail.html:77
 msgid "Organizations"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/user_detail.html:83
+#: src/shiftings/accounts/templates/accounts/user_detail.html:83
 msgid "Hide organizations"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/user_detail.html:102
-#: shiftings/events/templates/events/template/event.html:12
+#: src/shiftings/accounts/templates/accounts/user_detail.html:102
+#: src/shiftings/events/templates/events/template/event.html:12
 msgid "No Logo available"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/user_detail.html:125
+#: src/shiftings/accounts/templates/accounts/user_detail.html:125
 msgid "Recent Shifts"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/user_detail.html:127
-#: shiftings/accounts/templates/accounts/user_detail.html:132
+#: src/shiftings/accounts/templates/accounts/user_detail.html:127
+#: src/shiftings/accounts/templates/accounts/user_detail.html:132
 msgid "Upcoming Shifts"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/user_detail.html:136
+#: src/shiftings/accounts/templates/accounts/user_detail.html:136
 msgid "Past Shifts"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/user_detail.html:157
+#: src/shiftings/accounts/templates/accounts/user_detail.html:157
 msgid "No recent Shifts"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/user_detail.html:159
-#: shiftings/organizations/templates/organizations/organization_shifts.html:135
+#: src/shiftings/accounts/templates/accounts/user_detail.html:159
+#: src/shiftings/organizations/templates/organizations/organization_shifts.html:135
 msgid "No upcoming shifts"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/user_form.html:6
+#: src/shiftings/accounts/templates/accounts/user_form.html:6
 msgid "Register"
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/user_form.html:8
+#: src/shiftings/accounts/templates/accounts/user_form.html:8
 #, python-format
 msgid ""
 "\n"
@@ -269,421 +1798,427 @@ msgid ""
 "        "
 msgstr ""
 
-#: shiftings/accounts/templates/accounts/user_form.html:19
-#: shiftings/templates/template/simple_form_modal.html:21
+#: src/shiftings/accounts/templates/accounts/user_form.html:19
+#: src/shiftings/templates/template/simple_form_modal.html:21
 msgid "Submit"
 msgstr ""
 
-#: shiftings/accounts/views/auth.py:83
+#: src/shiftings/accounts/views/auth.py:83
 msgid "Error while creating the user instance!"
 msgstr ""
 
-#: shiftings/accounts/views/auth.py:87
+#: src/shiftings/accounts/views/auth.py:87
 msgid "Successfully logged in!"
 msgstr ""
 
-#: shiftings/accounts/views/auth.py:90
+#: src/shiftings/accounts/views/auth.py:90
 #, python-format
 msgid "Error while trying to authenticate with sso! %(message)s"
 msgstr ""
 
-#: shiftings/accounts/views/auth.py:131 shiftings/templates/top_nav.html:52
+#: src/shiftings/accounts/views/auth.py:131
+#: src/shiftings/templates/top_nav.html:52
 msgid "Logout"
 msgstr ""
 
-#: shiftings/accounts/views/password.py:13
+#: src/shiftings/accounts/views/password.py:13
 msgid "Password Reset"
 msgstr ""
 
-#: shiftings/accounts/views/password.py:19
+#: src/shiftings/accounts/views/password.py:19
 msgid "Confirm Password Reset"
 msgstr ""
 
-#: shiftings/accounts/views/user.py:35 shiftings/templates/top_nav.html:15
+#: src/shiftings/accounts/views/user.py:35
+#: src/shiftings/templates/top_nav.html:15
 msgid "My Shifts"
 msgstr ""
 
-#: shiftings/accounts/views/user.py:100
+#: src/shiftings/accounts/views/user.py:100
 msgid "Could not find your user."
 msgstr ""
 
-#: shiftings/accounts/views/user.py:106
+#: src/shiftings/accounts/views/user.py:106
 msgid "Your EMail was confirmed. You can now login."
 msgstr ""
 
-#: shiftings/accounts/views/user.py:109
+#: src/shiftings/accounts/views/user.py:109
 msgid "Your activation link was invalid."
 msgstr ""
 
-#: shiftings/accounts/views/user.py:126
+#: src/shiftings/accounts/views/user.py:126
 msgid "Error while deleting your data: Please confirm deletion!"
 msgstr ""
 
-#: shiftings/cal/feed/event.py:44
+#: src/shiftings/cal/feed/event.py:44
 msgid "Public Events"
 msgstr ""
 
-#: shiftings/cal/forms/day_form.py:8
+#: src/shiftings/cal/forms/day_form.py:8
 msgid "Select Day"
 msgstr ""
 
-#: shiftings/cal/templates/cal/calendar_base.html:14
-#: shiftings/cal/templates/cal/calendar_base.html:24
+#: src/shiftings/cal/templates/cal/calendar_base.html:14
+#: src/shiftings/cal/templates/cal/calendar_base.html:24
 msgid "Day View"
 msgstr ""
 
-#: shiftings/cal/templates/cal/calendar_base.html:20
+#: src/shiftings/cal/templates/cal/calendar_base.html:20
 msgid "Day (Detailed)"
 msgstr ""
 
-#: shiftings/cal/templates/cal/calendar_base.html:30
+#: src/shiftings/cal/templates/cal/calendar_base.html:30
 msgid "Day (By&nbsp;Types)"
 msgstr ""
 
-#: shiftings/cal/templates/cal/calendar_base.html:37
+#: src/shiftings/cal/templates/cal/calendar_base.html:37
 msgid "Month View"
 msgstr ""
 
-#: shiftings/cal/templates/cal/calendar_base.html:38
-#: shiftings/utils/time/month.py:25 shiftings/utils/time/timerange.py:12
+#: src/shiftings/cal/templates/cal/calendar_base.html:38
+#: src/shiftings/utils/time/month.py:25
+#: src/shiftings/utils/time/timerange.py:12
 msgid "Month"
 msgstr ""
 
-#: shiftings/cal/templates/cal/calendar_base.html:42
-#: shiftings/cal/templates/cal/calendar_base.html:48
+#: src/shiftings/cal/templates/cal/calendar_base.html:42
+#: src/shiftings/cal/templates/cal/calendar_base.html:48
 msgid "List View"
 msgstr ""
 
-#: shiftings/cal/templates/cal/calendar_base.html:44
+#: src/shiftings/cal/templates/cal/calendar_base.html:44
 msgid "List (Detailed)"
 msgstr ""
 
-#: shiftings/cal/templates/cal/calendar_base.html:50
+#: src/shiftings/cal/templates/cal/calendar_base.html:50
 msgid "List (By&nbsp;Types)"
 msgstr ""
 
-#: shiftings/cal/templates/cal/calendar_templates/cal_shift_create_entry.html:4
-#: shiftings/cal/templates/cal/template/day_calendar_xs.html:99
-#: shiftings/events/templates/events/event.html:74
-#: shiftings/organizations/templates/organizations/organization_admin.html:376
-#: shiftings/organizations/templates/organizations/organization_shifts.html:120
+#: src/shiftings/cal/templates/cal/calendar_templates/cal_shift_create_entry.html:4
+#: src/shiftings/cal/templates/cal/template/day_calendar_xs.html:106
+#: src/shiftings/events/templates/events/event.html:74
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:376
+#: src/shiftings/organizations/templates/organizations/organization_shifts.html:120
 msgid "Create Shift"
 msgstr ""
 
-#: shiftings/cal/templates/cal/calendar_templates/recurring_shift_entry.html:5
+#: src/shiftings/cal/templates/cal/calendar_templates/recurring_shift_entry.html:5
 msgid "Recurring"
 msgstr ""
 
-#: shiftings/cal/templates/cal/day_calendar.html:14
+#: src/shiftings/cal/templates/cal/day_calendar.html:14
 msgid "Previous Day"
 msgstr ""
 
-#: shiftings/cal/templates/cal/day_calendar.html:22
+#: src/shiftings/cal/templates/cal/day_calendar.html:22
 msgid "Jump to Date"
 msgstr ""
 
-#: shiftings/cal/templates/cal/day_calendar.html:28
+#: src/shiftings/cal/templates/cal/day_calendar.html:28
 msgid "Jump to Day"
 msgstr ""
 
-#: shiftings/cal/templates/cal/day_calendar.html:30
+#: src/shiftings/cal/templates/cal/day_calendar.html:30
 msgid "Select"
 msgstr ""
 
-#: shiftings/cal/templates/cal/day_calendar.html:38
+#: src/shiftings/cal/templates/cal/day_calendar.html:38
 msgid "Next Day"
 msgstr ""
 
-#: shiftings/cal/templates/cal/list_calendar.html:12
+#: src/shiftings/cal/templates/cal/list_calendar.html:12
 msgid "Shift list"
 msgstr "Schichtenliste"
 
-#: shiftings/cal/templates/cal/template/day_calendar_shift_types.html:7
-#: shiftings/cal/templates/cal/template/day_calendar_xs.html:41
-#: shiftings/shifts/templates/shifts/shift_participants.html:4
+#: src/shiftings/cal/templates/cal/template/day_calendar_shift_types.html:7
+#: src/shiftings/cal/templates/cal/template/day_calendar_xs.html:48
+#: src/shiftings/shifts/templates/shifts/shift_participants.html:4
 msgid "Add with Name to Shift"
 msgstr ""
 
-#: shiftings/cal/templates/cal/template/day_calendar_shift_types.html:23
-#: shiftings/organizations/templates/organizations/organization_admin.html:197
-#: shiftings/shifts/templates/shifts/template/group.html:43
-#: shiftings/shifts/templates/shifts/template/group_template.html:23
-#: shiftings/shifts/templates/shifts/template/shift.html:10
-#: shiftings/shifts/templates/shifts/template/template_form.html:33
-msgid "Time"
-msgstr ""
-
-#: shiftings/cal/templates/cal/template/day_calendar_shift_types.html:33
-#: shiftings/organizations/models/membership.py:12
+#: src/shiftings/cal/templates/cal/template/day_calendar_shift_types.html:33
+#: src/shiftings/organizations/models/membership.py:12
 msgid "Default"
 msgstr ""
 
-#: shiftings/cal/templates/cal/template/day_calendar_shift_types.html:38
-#: shiftings/cal/templates/cal/template/day_calendar_xs.html:88
+#: src/shiftings/cal/templates/cal/template/day_calendar_shift_types.html:38
+#: src/shiftings/cal/templates/cal/template/day_calendar_xs.html:95
 msgid "No Shifts found with these parameters or planned on this day"
 msgstr ""
 
-#: shiftings/cal/templates/cal/template/day_calendar_xs.html:5
-#: shiftings/events/models/event.py:24 shiftings/shifts/models/base.py:12
-#: shiftings/shifts/models/recurring.py:34
-#: shiftings/shifts/models/template_group.py:24
-#: shiftings/shifts/models/type.py:37 shiftings/shifts/models/type_group.py:14
-#: shiftings/shifts/templates/shifts/create_shift.html:79
-#: shiftings/shifts/templates/shifts/list.html:9
-#: shiftings/shifts/templates/shifts/recurring/list.html:9
-#: shiftings/shifts/templates/shifts/shift.html:47
-#: shiftings/shifts/templates/shifts/template/group.html:39
-#: shiftings/shifts/templates/shifts/template/group.html:45
-#: shiftings/shifts/templates/shifts/template/group_list.html:8
-#: shiftings/shifts/templates/shifts/template/group_template.html:25
+#: src/shiftings/cal/templates/cal/template/day_calendar_xs.html:3
+#, python-format
+msgid ""
+"\n"
+"      Your query was capped to the server limit of %(max_entries)s. Please "
+"filter more specifically.\n"
+"    "
+msgstr ""
+
+#: src/shiftings/cal/templates/cal/template/day_calendar_xs.html:12
+#: src/shiftings/events/models/event.py:24
+#: src/shiftings/shifts/models/base.py:12
+#: src/shiftings/shifts/models/recurring.py:34
+#: src/shiftings/shifts/models/template_group.py:24
+#: src/shiftings/shifts/models/type.py:37
+#: src/shiftings/shifts/models/type_group.py:14
+#: src/shiftings/shifts/templates/shifts/create_shift.html:79
+#: src/shiftings/shifts/templates/shifts/list.html:9
+#: src/shiftings/shifts/templates/shifts/recurring/list.html:9
+#: src/shiftings/shifts/templates/shifts/shift.html:47
+#: src/shiftings/shifts/templates/shifts/template/group.html:39
+#: src/shiftings/shifts/templates/shifts/template/group.html:45
+#: src/shiftings/shifts/templates/shifts/template/group_list.html:8
+#: src/shiftings/shifts/templates/shifts/template/group_template.html:25
 msgid "Organization"
 msgstr ""
 
-#: shiftings/cal/templates/cal/template/day_calendar_xs.html:6
+#: src/shiftings/cal/templates/cal/template/day_calendar_xs.html:13
 msgid "Org"
 msgstr ""
 
-#: shiftings/cal/templates/cal/template/day_calendar_xs.html:7
+#: src/shiftings/cal/templates/cal/template/day_calendar_xs.html:14
 msgid "Shift"
 msgstr ""
 
-#: shiftings/cal/templates/cal/template/day_calendar_xs.html:8
-#: shiftings/shifts/templates/shifts/create_shift.html:56
-#: shiftings/shifts/templates/shifts/template/shift.html:12
-#: shiftings/shifts/templates/shifts/template/small_shift_display.html:21
+#: src/shiftings/cal/templates/cal/template/day_calendar_xs.html:15
+#: src/shiftings/shifts/templates/shifts/create_shift.html:56
+#: src/shiftings/shifts/templates/shifts/template/shift.html:12
+#: src/shiftings/shifts/templates/shifts/template/small_shift_display.html:21
 msgid "Participants"
 msgstr ""
 
-#: shiftings/cal/templates/cal/template/day_calendar_xs.html:9
-#: shiftings/shifts/templates/shifts/list.html:10
+#: src/shiftings/cal/templates/cal/template/day_calendar_xs.html:16
+#: src/shiftings/shifts/templates/shifts/list.html:10
 msgid "Start"
 msgstr ""
 
-#: shiftings/cal/templates/cal/template/day_calendar_xs.html:10
-#: shiftings/shifts/templates/shifts/list.html:11
+#: src/shiftings/cal/templates/cal/template/day_calendar_xs.html:17
+#: src/shiftings/shifts/templates/shifts/list.html:11
 msgid "End"
 msgstr ""
 
-#: shiftings/cal/templates/cal/template/day_calendar_xs.html:29
-#: shiftings/shifts/templates/shifts/template/small_shift_display.html:7
+#: src/shiftings/cal/templates/cal/template/day_calendar_xs.html:36
+#: src/shiftings/shifts/templates/shifts/template/small_shift_display.html:7
 msgid "Shift Details"
 msgstr ""
 
-#: shiftings/cal/templates/cal/template/day_calendar_xs.html:54
-#: shiftings/shifts/templates/shifts/shift_participants.html:17
-#: shiftings/shifts/templates/shifts/template/slots_display.html:29
-#: shiftings/shifts/templates/shifts/template/small_shift_display.html:44
+#: src/shiftings/cal/templates/cal/template/day_calendar_xs.html:61
+#: src/shiftings/shifts/templates/shifts/shift_participants.html:23
+#: src/shiftings/shifts/templates/shifts/template/slots_display.html:29
+#: src/shiftings/shifts/templates/shifts/template/small_shift_display.html:44
 msgid "Add me"
 msgstr ""
 
-#: shiftings/cal/templates/cal/template/day_calendar_xs.html:105
-#: shiftings/shifts/templates/shifts/edit_participation_permissions.html:31
-#: shiftings/shifts/templates/shifts/edit_templates.html:26
+#: src/shiftings/cal/templates/cal/template/day_calendar_xs.html:112
+#: src/shiftings/shifts/templates/shifts/edit_participation_permissions.html:31
+#: src/shiftings/shifts/templates/shifts/edit_templates.html:26
 msgid "Add Shift"
 msgstr ""
 
-#: shiftings/cal/templates/cal/template/month_calendar.html:7
+#: src/shiftings/cal/templates/cal/template/month_calendar.html:7
 msgid "Previous Month"
 msgstr ""
 
-#: shiftings/cal/templates/cal/template/month_calendar.html:15
+#: src/shiftings/cal/templates/cal/template/month_calendar.html:15
 msgid "Next Month"
 msgstr ""
 
-#: shiftings/cal/templates/cal/week_calendar.html:9
+#: src/shiftings/cal/templates/cal/week_calendar.html:9
 msgid "Previous Week"
 msgstr ""
 
-#: shiftings/cal/templates/cal/week_calendar.html:13
+#: src/shiftings/cal/templates/cal/week_calendar.html:13
 msgid "Week"
 msgstr ""
 
-#: shiftings/cal/templates/cal/week_calendar.html:17
+#: src/shiftings/cal/templates/cal/week_calendar.html:17
 msgid "Next Week"
 msgstr ""
 
-#: shiftings/cal/views/day_calendar.py:24
+#: src/shiftings/cal/views/day_calendar.py:24
 #, python-brace-format
 msgid "Day {date}"
 msgstr ""
 
-#: shiftings/cal/views/day_calendar.py:25
+#: src/shiftings/cal/views/day_calendar.py:25
 msgid "Day Overview"
 msgstr ""
 
-#: shiftings/cal/views/list.py:25
-msgid "List Overview"
+#: src/shiftings/cal/views/list.py:24
+#: src/shiftings/organizations/templates/organizations/template/org_info.html:6
+msgid "Shift Overview"
 msgstr ""
 
-#: shiftings/cal/views/month_calendar.py:24
+#: src/shiftings/cal/views/month_calendar.py:24
 #, python-brace-format
 msgid "Month {year}/{month:0>2}"
 msgstr ""
 
-#: shiftings/cal/views/month_calendar.py:26
-#: shiftings/events/templates/events/event.html:52
-#: shiftings/organizations/templates/organizations/organization_admin.html:162
-#: shiftings/organizations/templates/organizations/organization_shifts.html:28
+#: src/shiftings/cal/views/month_calendar.py:26
+#: src/shiftings/events/templates/events/event.html:52
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:162
+#: src/shiftings/organizations/templates/organizations/organization_shifts.html:28
 msgid "Month Overview"
 msgstr ""
 
-#: shiftings/events/forms/event.py:24
+#: src/shiftings/events/forms/event.py:24
 #, python-format
 msgid "Start date %(start)s was after end_date %(end)s"
 msgstr ""
 
-#: shiftings/events/models/event.py:26
-#: shiftings/events/templates/events/event.html:19
-#: shiftings/organizations/models/organization.py:25
-#: shiftings/organizations/templates/organizations/template/org_info.html:58
+#: src/shiftings/events/models/event.py:26
+#: src/shiftings/events/templates/events/event.html:19
+#: src/shiftings/organizations/models/organization.py:25
+#: src/shiftings/organizations/templates/organizations/template/org_info.html:58
 msgid "Logo"
 msgstr ""
 
-#: shiftings/events/models/event.py:28
-#: shiftings/organizations/models/organization.py:27
+#: src/shiftings/events/models/event.py:28
+#: src/shiftings/organizations/models/organization.py:27
 msgid "E-Mail"
 msgstr ""
 
-#: shiftings/events/models/event.py:30
-#: shiftings/organizations/models/organization.py:29
-#: shiftings/organizations/templates/organizations/organization_shifts.html:81
-#: shiftings/organizations/templates/organizations/template/organization.html:27
+#: src/shiftings/events/models/event.py:30
+#: src/shiftings/organizations/models/organization.py:29
+#: src/shiftings/organizations/templates/organizations/organization_shifts.html:81
+#: src/shiftings/organizations/templates/organizations/template/organization.html:27
 msgid "Website"
 msgstr ""
 
-#: shiftings/events/models/event.py:32
+#: src/shiftings/events/models/event.py:32
 msgid "Start Date"
 msgstr ""
 
-#: shiftings/events/models/event.py:32
+#: src/shiftings/events/models/event.py:32
 msgid "Earliest date where there are shifts available"
 msgstr ""
 
-#: shiftings/events/models/event.py:33
+#: src/shiftings/events/models/event.py:33
 msgid "End Date"
 msgstr ""
 
-#: shiftings/events/models/event.py:33
+#: src/shiftings/events/models/event.py:33
 msgid "Latest date where there are shifts available"
 msgstr ""
 
-#: shiftings/events/models/event.py:35
-#: shiftings/organizations/models/organization.py:32
+#: src/shiftings/events/models/event.py:35
+#: src/shiftings/organizations/models/organization.py:32
 msgid "Description"
 msgstr ""
 
-#: shiftings/events/models/event.py:55
+#: src/shiftings/events/models/event.py:55
 #, python-brace-format
 msgid "{name} (by {organization})"
 msgstr ""
 
-#: shiftings/events/templates/events/event.html:10
+#: src/shiftings/events/templates/events/event.html:10
 msgid "Edit Event"
 msgstr ""
 
-#: shiftings/events/templates/events/event.html:55
-#: shiftings/organizations/templates/organizations/organization_admin.html:165
-#: shiftings/organizations/templates/organizations/organization_shifts.html:31
+#: src/shiftings/events/templates/events/event.html:55
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:165
+#: src/shiftings/organizations/templates/organizations/organization_shifts.html:31
 msgid "Complete Overview"
 msgstr ""
 
-#: shiftings/events/templates/events/event.html:69
-#: shiftings/organizations/templates/organizations/organization_admin.html:363
-#: shiftings/organizations/templates/organizations/organization_shifts.html:109
+#: src/shiftings/events/templates/events/event.html:69
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:363
+#: src/shiftings/organizations/templates/organizations/organization_shifts.html:109
 msgid "Shifts"
 msgstr ""
 
-#: shiftings/events/templates/events/event.html:71
-#: shiftings/events/templates/events/event.html:72
-#: shiftings/organizations/templates/organizations/organization_admin.html:371
-#: shiftings/organizations/templates/organizations/organization_shifts.html:112
+#: src/shiftings/events/templates/events/event.html:71
+#: src/shiftings/events/templates/events/event.html:72
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:371
+#: src/shiftings/organizations/templates/organizations/organization_shifts.html:112
 msgid "ical Export"
 msgstr ""
 
-#: shiftings/events/templates/events/event.html:86
-#: shiftings/organizations/templates/organizations/organization_admin.html:389
-#: shiftings/shifts/templates/shifts/list.html:7
-#: shiftings/shifts/templates/shifts/recurring/list.html:7
-#: shiftings/shifts/templates/shifts/template/shift.html:8
-#: shiftings/shifts/templates/shifts/template/template.html:7
+#: src/shiftings/events/templates/events/event.html:86
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:389
+#: src/shiftings/shifts/templates/shifts/list.html:7
+#: src/shiftings/shifts/templates/shifts/recurring/list.html:7
+#: src/shiftings/shifts/templates/shifts/template/shift.html:8
+#: src/shiftings/shifts/templates/shifts/template/template.html:7
 msgid "Type"
 msgstr ""
 
-#: shiftings/events/templates/events/event.html:87
-#: shiftings/mail/forms/mail.py:39
-#: shiftings/organizations/templates/organizations/organization_admin.html:241
-#: shiftings/organizations/templates/organizations/organization_admin.html:390
-#: shiftings/shifts/models/template_group.py:26
-#: shiftings/shifts/templates/shifts/shift.html:43
-#: shiftings/shifts/templates/shifts/template/group_list.html:9
-#: shiftings/shifts/templates/shifts/template/small_shift_display.html:17
-#: shiftings/shifts/templates/shifts/template/template.html:13
+#: src/shiftings/events/templates/events/event.html:87
+#: src/shiftings/mail/forms/mail.py:39
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:241
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:390
+#: src/shiftings/shifts/models/template_group.py:26
+#: src/shiftings/shifts/templates/shifts/shift.html:43
+#: src/shiftings/shifts/templates/shifts/template/group_list.html:9
+#: src/shiftings/shifts/templates/shifts/template/small_shift_display.html:17
+#: src/shiftings/shifts/templates/shifts/template/template.html:13
 msgid "Start Time"
 msgstr ""
 
-#: shiftings/events/templates/events/event.html:88
-#: shiftings/mail/forms/mail.py:40
-#: shiftings/organizations/templates/organizations/organization_admin.html:391
-#: shiftings/shifts/templates/shifts/shift.html:45
-#: shiftings/shifts/templates/shifts/template/template.html:15
+#: src/shiftings/events/templates/events/event.html:88
+#: src/shiftings/mail/forms/mail.py:40
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:391
+#: src/shiftings/shifts/templates/shifts/shift.html:45
+#: src/shiftings/shifts/templates/shifts/template/template.html:15
 msgid "End Time"
 msgstr ""
 
-#: shiftings/events/templates/events/event.html:89
-#: shiftings/organizations/templates/organizations/organization_admin.html:198
-#: shiftings/organizations/templates/organizations/organization_admin.html:240
-#: shiftings/organizations/templates/organizations/organization_admin.html:392
-#: shiftings/shifts/models/base.py:9
-#: shiftings/shifts/models/template_group.py:21
-#: shiftings/shifts/templates/shifts/list.html:8
-#: shiftings/shifts/templates/shifts/recurring/list.html:8
-#: shiftings/shifts/templates/shifts/shift.html:41
-#: shiftings/shifts/templates/shifts/template/group.html:41
-#: shiftings/shifts/templates/shifts/template/group_list.html:7
-#: shiftings/shifts/templates/shifts/template/group_template.html:21
-#: shiftings/shifts/templates/shifts/template/shift_card.html:12
-#: shiftings/shifts/templates/shifts/template/small_shift_display.html:18
+#: src/shiftings/events/templates/events/event.html:89
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:198
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:240
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:392
+#: src/shiftings/shifts/models/base.py:9
+#: src/shiftings/shifts/models/template_group.py:21
+#: src/shiftings/shifts/templates/shifts/list.html:8
+#: src/shiftings/shifts/templates/shifts/recurring/list.html:8
+#: src/shiftings/shifts/templates/shifts/shift.html:41
+#: src/shiftings/shifts/templates/shifts/template/group.html:41
+#: src/shiftings/shifts/templates/shifts/template/group_list.html:7
+#: src/shiftings/shifts/templates/shifts/template/group_template.html:21
+#: src/shiftings/shifts/templates/shifts/template/shift_card.html:12
+#: src/shiftings/shifts/templates/shifts/template/small_shift_display.html:18
 msgid "Place"
 msgstr ""
 
-#: shiftings/events/templates/events/event.html:90
-#: shiftings/organizations/templates/organizations/organization_admin.html:393
+#: src/shiftings/events/templates/events/event.html:90
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:393
 msgid "Users/Required/Max"
 msgstr ""
 
-#: shiftings/events/templates/events/event.html:108
-#: shiftings/organizations/templates/organizations/organization_admin.html:416
+#: src/shiftings/events/templates/events/event.html:108
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:416
 msgid "No current shifts"
 msgstr ""
 
-#: shiftings/events/templates/events/list.html:5
-#: shiftings/events/templates/events/list.html:13
-#: shiftings/events/templates/events/list.html:22
+#: src/shiftings/events/templates/events/list.html:5
+#: src/shiftings/events/templates/events/list.html:13
+#: src/shiftings/events/templates/events/list.html:22
 msgid "All Events"
 msgstr ""
 
-#: shiftings/events/templates/events/list.html:7
-#: shiftings/templates/top_nav.html:22
+#: src/shiftings/events/templates/events/list.html:7
+#: src/shiftings/templates/top_nav.html:22
 msgid "Current Events"
 msgstr ""
 
-#: shiftings/events/templates/events/list.html:16
+#: src/shiftings/events/templates/events/list.html:16
 msgid "All upcoming Events"
 msgstr ""
 
-#: shiftings/events/templates/events/list.html:20
+#: src/shiftings/events/templates/events/list.html:20
 msgid "Enter Name or Organization"
 msgstr ""
 
-#: shiftings/events/templates/events/list.html:26
+#: src/shiftings/events/templates/events/list.html:26
 msgid "Future Events"
 msgstr ""
 
-#: shiftings/events/templates/events/list.html:39
+#: src/shiftings/events/templates/events/list.html:39
 msgid "No Events found."
 msgstr ""
 
-#: shiftings/events/templates/events/template/event.html:23
+#: src/shiftings/events/templates/events/template/event.html:23
 #, python-format
 msgid ""
 "\n"
@@ -691,260 +2226,262 @@ msgid ""
 "            "
 msgstr ""
 
-#: shiftings/events/templates/events/template/event.html:31
+#: src/shiftings/events/templates/events/template/event.html:31
 msgid "Open Shifts"
 msgstr ""
 
-#: shiftings/events/templates/events/template/event.html:32
+#: src/shiftings/events/templates/events/template/event.html:32
 msgid "Required People"
 msgstr ""
 
-#: shiftings/events/templates/events/template/event.html:33
+#: src/shiftings/events/templates/events/template/event.html:33
 msgid "Visibility"
 msgstr ""
 
-#: shiftings/events/templates/events/template/event.html:33
-#: shiftings/organizations/templates/organizations/organization_admin.html:350
+#: src/shiftings/events/templates/events/template/event.html:33
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:350
 msgid "Public,Private,Unknown"
 msgstr ""
 
-#: shiftings/events/templates/events/template/event_stats.html:2
+#: src/shiftings/events/templates/events/template/event_stats.html:2
 msgid "Shifts that are below the required amount of users"
 msgstr ""
 
-#: shiftings/events/templates/events/template/event_stats.html:3
+#: src/shiftings/events/templates/events/template/event_stats.html:3
 msgid "Shifts missing users"
 msgstr ""
 
-#: shiftings/events/templates/events/template/event_stats.html:6
+#: src/shiftings/events/templates/events/template/event_stats.html:6
 msgid "Shifts that are below the required and maximum amount of users"
 msgstr ""
 
-#: shiftings/events/templates/events/template/event_stats.html:7
+#: src/shiftings/events/templates/events/template/event_stats.html:7
 msgid "Shifts with open slots"
 msgstr ""
 
-#: shiftings/events/templates/events/template/event_stats.html:10
+#: src/shiftings/events/templates/events/template/event_stats.html:10
 msgid "Number of Shift slots filled with users"
 msgstr ""
 
-#: shiftings/events/templates/events/template/event_stats.html:11
+#: src/shiftings/events/templates/events/template/event_stats.html:11
 msgid "Filled Slots"
 msgstr ""
 
-#: shiftings/events/templates/events/template/event_stats.html:12
-#: shiftings/events/templates/events/template/event_stats.html:16
+#: src/shiftings/events/templates/events/template/event_stats.html:12
+#: src/shiftings/events/templates/events/template/event_stats.html:16
 msgid "No Shifts available"
 msgstr ""
 
-#: shiftings/events/templates/events/template/event_stats.html:14
+#: src/shiftings/events/templates/events/template/event_stats.html:14
 msgid "Number of Shift slots that are still open"
 msgstr ""
 
-#: shiftings/events/templates/events/template/event_stats.html:15
+#: src/shiftings/events/templates/events/template/event_stats.html:15
 msgid "Open Slots"
 msgstr ""
 
-#: shiftings/mail/forms/mail.py:10
+#: src/shiftings/mail/forms/mail.py:10
 msgid "Subject"
 msgstr ""
 
-#: shiftings/mail/forms/mail.py:11
-msgid "Text"
-msgstr ""
-
-#: shiftings/mail/forms/mail.py:12
+#: src/shiftings/mail/forms/mail.py:12
 msgid "Attachments"
 msgstr ""
 
-#: shiftings/mail/forms/mail.py:22
+#: src/shiftings/mail/forms/mail.py:22
 msgid ""
 "Send the mail only to specific membership types. Or leave blank to send to "
 "all."
 msgstr ""
 
-#: shiftings/mail/forms/mail.py:37
+#: src/shiftings/mail/forms/mail.py:37
 msgid ""
 "Send the mail only to specific shift types. Or leave blank to send to all."
 msgstr ""
 
-#: shiftings/mail/templates/mail/mail.html:8
+#: src/shiftings/mail/templates/mail/mail.html:8
 msgid "Send Mail"
 msgstr ""
 
-#: shiftings/mail/views/mail.py:45
+#: src/shiftings/mail/views/mail.py:45
 #, python-brace-format
 msgid "E-Mail sent to {count} user(s)."
 msgstr ""
 
-#: shiftings/organizations/forms/membership.py:40
-#: shiftings/shifts/forms/participant.py:57
+#: src/shiftings/organizations/forms/membership.py:40
+#: src/shiftings/shifts/forms/participant.py:57
 msgid "The user you entered could not be found."
 msgstr ""
 
-#: shiftings/organizations/models/membership.py:11
-#: shiftings/organizations/templates/organizations/organization_admin.html:68
-#: shiftings/templates/top_nav.html:50
+#: src/shiftings/organizations/models/membership.py:11
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:68
+#: src/shiftings/templates/top_nav.html:50
 msgid "Admin"
 msgstr ""
 
-#: shiftings/organizations/models/membership.py:13
+#: src/shiftings/organizations/models/membership.py:13
 msgid "Permissions"
 msgstr ""
 
-#: shiftings/organizations/models/membership.py:19
+#: src/shiftings/organizations/models/membership.py:19
 msgid "edit organization details"
 msgstr ""
 
-#: shiftings/organizations/models/membership.py:20
+#: src/shiftings/organizations/models/membership.py:20
 msgid "see members of the organization"
 msgstr ""
 
-#: shiftings/organizations/models/membership.py:21
+#: src/shiftings/organizations/models/membership.py:21
 msgid "see shift participation statistics"
 msgstr ""
 
-#: shiftings/organizations/models/membership.py:22
+#: src/shiftings/organizations/models/membership.py:22
 msgid "send emails to everyone in the organization"
 msgstr ""
 
-#: shiftings/organizations/models/membership.py:24
+#: src/shiftings/organizations/models/membership.py:24
 msgid "create and update membership types for the organization"
 msgstr ""
 
-#: shiftings/organizations/models/membership.py:25
+#: src/shiftings/organizations/models/membership.py:25
 msgid "add and remove members for the organization"
 msgstr ""
 
-#: shiftings/organizations/models/membership.py:27
+#: src/shiftings/organizations/models/membership.py:27
 msgid "create and update events for the organization"
 msgstr ""
 
-#: shiftings/organizations/models/membership.py:29
+#: src/shiftings/organizations/models/membership.py:29
 msgid "create and update recurring shifts for the organization"
 msgstr ""
 
-#: shiftings/organizations/models/membership.py:30
+#: src/shiftings/organizations/models/membership.py:30
 msgid "create and update shifts templates for the organization"
 msgstr ""
 
-#: shiftings/organizations/models/membership.py:31
+#: src/shiftings/organizations/models/membership.py:31
 msgid "create and update shifts for the organization"
 msgstr ""
 
-#: shiftings/organizations/models/membership.py:32
+#: src/shiftings/organizations/models/membership.py:32
 msgid "delete uncompleted shifts for the organization"
 msgstr ""
 
-#: shiftings/organizations/models/membership.py:34
+#: src/shiftings/organizations/models/membership.py:34
 msgid "remove others from shifts"
 msgstr ""
 
-#: shiftings/organizations/models/membership.py:35
+#: src/shiftings/organizations/models/membership.py:35
 msgid "add other users that are not members of the organization to shifts"
 msgstr ""
 
-#: shiftings/organizations/models/membership.py:36
+#: src/shiftings/organizations/models/membership.py:36
 msgid "add other organization members to shifts"
 msgstr ""
 
-#: shiftings/organizations/models/membership.py:37
+#: src/shiftings/organizations/models/membership.py:37
 msgid "participate in shifts"
 msgstr ""
 
-#: shiftings/organizations/models/membership.py:56
+#: src/shiftings/organizations/models/membership.py:38
+msgid "add self/others (depending on other permissions) to past shifts"
+msgstr ""
+
+#: src/shiftings/organizations/models/membership.py:57
 #, python-brace-format
 msgid "{name} (Admin)"
 msgstr ""
 
-#: shiftings/organizations/models/membership.py:58
+#: src/shiftings/organizations/models/membership.py:59
 #, python-brace-format
 msgid "{name} (Default)"
 msgstr ""
 
-#: shiftings/organizations/models/membership.py:64
+#: src/shiftings/organizations/models/membership.py:65
 msgid "Membership Type"
 msgstr ""
 
-#: shiftings/organizations/models/membership.py:68
-#: shiftings/shifts/models/type.py:38
+#: src/shiftings/organizations/models/membership.py:69
+#: src/shiftings/shifts/models/type.py:38
 msgid "Group"
 msgstr ""
 
-#: shiftings/organizations/models/membership.py:99
+#: src/shiftings/organizations/models/membership.py:100
 msgid "Membership can only be either user or group, not both."
 msgstr ""
 
-#: shiftings/organizations/models/membership.py:101
+#: src/shiftings/organizations/models/membership.py:102
 msgid "Membership must consist of a user or a group."
 msgstr ""
 
-#: shiftings/organizations/models/organization.py:30
+#: src/shiftings/organizations/models/organization.py:30
 msgid "Include Protocol i.E. https://example.com"
 msgstr ""
 
-#: shiftings/organizations/models/organization.py:33
-#: shiftings/shifts/models/base.py:24 shiftings/shifts/models/recurring.py:52
-#: shiftings/shifts/models/recurring.py:59 shiftings/shifts/models/shift.py:32
-#: shiftings/shifts/models/template.py:33
+#: src/shiftings/organizations/models/organization.py:33
+#: src/shiftings/shifts/models/base.py:24
+#: src/shiftings/shifts/models/recurring.py:56
+#: src/shiftings/shifts/models/recurring.py:63
+#: src/shiftings/shifts/models/shift.py:32
+#: src/shiftings/shifts/models/template.py:33
 #, python-brace-format
 msgid "A maximum of {amount} characters is allowed"
 msgstr ""
 
-#: shiftings/organizations/models/organization.py:34
+#: src/shiftings/organizations/models/organization.py:34
 msgid "Confirm Participants"
 msgstr ""
 
-#: shiftings/organizations/models/organization.py:35
+#: src/shiftings/organizations/models/organization.py:35
 msgid "Whether the participants can be confirmed or not. Default: False"
 msgstr ""
 
-#: shiftings/organizations/models/organization.py:49
+#: src/shiftings/organizations/models/organization.py:49
 msgid "manage all organizations"
 msgstr ""
 
-#: shiftings/organizations/models/user.py:10
+#: src/shiftings/organizations/models/user.py:10
 msgid "Claimed by"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/list.html:5
+#: src/shiftings/organizations/templates/organizations/list.html:5
 msgid "All Organizations"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/list.html:7
-#: shiftings/templates/top_nav.html:18
+#: src/shiftings/organizations/templates/organizations/list.html:7
+#: src/shiftings/templates/top_nav.html:18
 msgid "My Organizations"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/list.html:12
+#: src/shiftings/organizations/templates/organizations/list.html:12
 msgid "Enter Name"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/list.html:14
+#: src/shiftings/organizations/templates/organizations/list.html:14
 msgid "Add new Organization"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/list.html:25
+#: src/shiftings/organizations/templates/organizations/list.html:25
 msgid "No Organizations found."
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_admin.html:6
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:6
 msgid "Show membership Permissions"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_admin.html:10
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:10
 msgid "All Permissions"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_admin.html:19
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:19
 msgid "No permissions"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_admin.html:26
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:26
 msgid "Add member"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_admin.html:41
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:41
 #, python-format
 msgid ""
 "\n"
@@ -952,187 +2489,183 @@ msgid ""
 "          "
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_admin.html:48
-#: shiftings/organizations/templates/organizations/organization_shifts.html:8
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:48
+#: src/shiftings/organizations/templates/organizations/organization_shifts.html:8
 msgid "Member Shift Summary"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_admin.html:54
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:54
 msgid "Add Membership Type"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_admin.html:78
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:78
 msgid "Show user permissions"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_admin.html:81
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:81
 msgid "Edit Membership Type"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_admin.html:90
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:90
 msgid "Add Member"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_admin.html:100
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:100
 msgid "No Members of this type!"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_admin.html:106
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:106
 msgid "Direct Members"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_admin.html:150
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:150
 msgid "Next Shift"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_admin.html:154
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:154
 msgid "No Shifts planned"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_admin.html:179
-#: shiftings/shifts/templates/shifts/template/group.html:52
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:179
+#: src/shiftings/shifts/templates/shifts/template/group.html:52
 msgid "Recurring Shifts"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_admin.html:184
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:184
 msgid "Add recurring shift"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_admin.html:196
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:196
 msgid "Shift count"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_admin.html:199
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:199
 msgid "Status"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_admin.html:210
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:210
 msgid "Inactive,Active,Undefined"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_admin.html:216
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:216
 msgid "No recurring shifts"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_admin.html:223
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:223
 msgid "Shifts Templates"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_admin.html:228
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:228
 msgid "Add shifts template"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_admin.html:255
-#: shiftings/organizations/templates/organizations/organization_admin.html:309
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:255
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:309
 msgid "No shifts templates"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_admin.html:262
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:262
 msgid "Shifts Types"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_admin.html:267
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:267
 msgid "Add Shift Type"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_admin.html:279
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:279
 msgid "Color"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_admin.html:280
-#: shiftings/organizations/templates/organizations/user/claim_users.html:15
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:280
+#: src/shiftings/organizations/templates/organizations/user/claim_users.html:15
 msgid "Shift Count"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_admin.html:281
-#: shiftings/organizations/templates/organizations/organization_settings.html:41
-#: shiftings/organizations/templates/organizations/user/claim_users.html:16
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:281
+#: src/shiftings/organizations/templates/organizations/organization_settings.html:41
+#: src/shiftings/organizations/templates/organizations/user/claim_users.html:16
 msgid "Action"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_admin.html:290
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:290
 msgid "Shift Type Background Color"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_admin.html:317
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:317
 msgid "Upcoming Events"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_admin.html:321
-#: shiftings/organizations/templates/organizations/organization_shifts.html:50
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:321
+#: src/shiftings/organizations/templates/organizations/organization_shifts.html:50
 msgid "Expired Events"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_admin.html:326
-#: shiftings/organizations/templates/organizations/organization_shifts.html:55
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:326
+#: src/shiftings/organizations/templates/organizations/organization_shifts.html:55
 msgid "Add Event"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_admin.html:356
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:356
 msgid "No upcoming Events planned"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_admin.html:367
+#: src/shiftings/organizations/templates/organizations/organization_admin.html:367
 msgid "Claim Legacy Shifts"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_settings.html:19
-#: shiftings/shifts/templates/shifts/edit_participation_permissions.html:36
-#: shiftings/shifts/templates/shifts/edit_templates.html:31
-#: shiftings/shifts/templates/shifts/recurring/form.html:25
-#: shiftings/templates/generic/create_or_update.html:20
-#: shiftings/templates/generic/formset.html:17
+#: src/shiftings/organizations/templates/organizations/organization_settings.html:19
+#: src/shiftings/shifts/templates/shifts/edit_participation_permissions.html:36
+#: src/shiftings/shifts/templates/shifts/edit_templates.html:31
+#: src/shiftings/shifts/templates/shifts/recurring/form.html:25
+#: src/shiftings/templates/generic/create_or_update.html:20
+#: src/shiftings/templates/generic/formset.html:17
 msgid "Save"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_settings.html:26
+#: src/shiftings/organizations/templates/organizations/organization_settings.html:26
 msgid "Shift Type Groups"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_settings.html:29
+#: src/shiftings/organizations/templates/organizations/organization_settings.html:29
 msgid "Create Type Group"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_settings.html:38
-msgid "Order"
-msgstr ""
-
-#: shiftings/organizations/templates/organizations/organization_settings.html:40
+#: src/shiftings/organizations/templates/organizations/organization_settings.html:40
 msgid "Types"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_settings.html:61
+#: src/shiftings/organizations/templates/organizations/organization_settings.html:61
 msgid "Edit Type Group"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_settings.html:72
-#: shiftings/organizations/templates/organizations/organization_settings.html:77
+#: src/shiftings/organizations/templates/organizations/organization_settings.html:72
+#: src/shiftings/organizations/templates/organizations/organization_settings.html:77
 msgid "Move Up"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_settings.html:84
-#: shiftings/organizations/templates/organizations/organization_settings.html:89
+#: src/shiftings/organizations/templates/organizations/organization_settings.html:84
+#: src/shiftings/organizations/templates/organizations/organization_settings.html:89
 msgid "Move Down"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_shifts.html:11
+#: src/shiftings/organizations/templates/organizations/organization_shifts.html:11
 msgid "Full Summary"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_shifts.html:46
+#: src/shiftings/organizations/templates/organizations/organization_shifts.html:46
 msgid "Upcoming Event"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_shifts.html:66
-#: shiftings/shifts/models/shift.py:21
+#: src/shiftings/organizations/templates/organizations/organization_shifts.html:66
+#: src/shiftings/shifts/models/shift.py:21
 msgid "Event"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_shifts.html:68
+#: src/shiftings/organizations/templates/organizations/organization_shifts.html:68
 msgid "Go to Event"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_shifts.html:74
+#: src/shiftings/organizations/templates/organizations/organization_shifts.html:74
 #, python-format
 msgid ""
 "\n"
@@ -1142,456 +2675,463 @@ msgid ""
 "                      "
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_shifts.html:94
+#: src/shiftings/organizations/templates/organizations/organization_shifts.html:94
 msgid "No Events planned"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_shifts.html:102
+#: src/shiftings/organizations/templates/organizations/organization_shifts.html:102
 msgid "Events disabled"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/organization_shifts.html:117
+#: src/shiftings/organizations/templates/organizations/organization_shifts.html:117
 msgid "Create Shift from Template"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/template/member_group.html:6
+#: src/shiftings/organizations/templates/organizations/template/member_group.html:6
 msgid "Click to expand members"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/template/org_info.html:6
-msgid "Shift Overview"
-msgstr ""
-
-#: shiftings/organizations/templates/organizations/template/org_info.html:8
+#: src/shiftings/organizations/templates/organizations/template/org_info.html:8
 msgid "Organization Overview"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/template/org_info.html:12
+#: src/shiftings/organizations/templates/organizations/template/org_info.html:12
 msgid "Administrate Organization"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/template/org_info.html:14
+#: src/shiftings/organizations/templates/organizations/template/org_info.html:14
 msgid "Organization Admin View"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/template/org_info.html:19
+#: src/shiftings/organizations/templates/organizations/template/org_info.html:19
 msgid "Organization Settings"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/template/org_info.html:21
+#: src/shiftings/organizations/templates/organizations/template/org_info.html:21
 msgid "Organization Settings View"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/template/org_info.html:35
+#: src/shiftings/organizations/templates/organizations/template/org_info.html:35
 msgid "Send Mail to shift participants"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/template/org_info.html:41
+#: src/shiftings/organizations/templates/organizations/template/org_info.html:41
 msgid "Edit Organization"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/template/org_info.html:47
+#: src/shiftings/organizations/templates/organizations/template/org_info.html:47
 msgid "Update Shift Permissions"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/template/organization.html:12
+#: src/shiftings/organizations/templates/organizations/template/organization.html:12
 msgid "No Image available"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/user/claim_users.html:6
+#: src/shiftings/organizations/templates/organizations/user/claim_users.html:6
 msgid "Imported Users"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/user/claim_users.html:14
+#: src/shiftings/organizations/templates/organizations/user/claim_users.html:14
 msgid "Claimed"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/user/claim_users.html:36
+#: src/shiftings/organizations/templates/organizations/user/claim_users.html:36
 msgid "Claim"
 msgstr ""
 
-#: shiftings/organizations/templates/organizations/user/claim_users.html:43
+#: src/shiftings/organizations/templates/organizations/user/claim_users.html:43
 msgid "Unclaim"
 msgstr ""
 
-#: shiftings/organizations/views/membership.py:55
-#: shiftings/organizations/views/membership_type.py:57
+#: src/shiftings/organizations/views/membership.py:55
+#: src/shiftings/organizations/views/membership_type.py:57
 msgid "Membership removed"
 msgstr ""
 
-#: shiftings/organizations/views/organization.py:62
+#: src/shiftings/organizations/views/organization.py:62
 #, python-brace-format
 msgid "{org} Overview"
 msgstr ""
 
-#: shiftings/organizations/views/organization.py:89
+#: src/shiftings/organizations/views/organization.py:89
 #, python-brace-format
 msgid "{org} Administration"
 msgstr ""
 
-#: shiftings/organizations/views/organization.py:135
+#: src/shiftings/organizations/views/organization.py:135
 #, python-brace-format
 msgid "{org} Settings"
 msgstr ""
 
-#: shiftings/organizations/views/user.py:36
+#: src/shiftings/organizations/views/user.py:36
 msgid "You can't claim users that are already claimed."
 msgstr ""
 
-#: shiftings/shifts/forms/filters.py:12
+#: src/shiftings/shifts/forms/filters.py:12
 msgid "Shifts I participate in"
 msgstr ""
 
-#: shiftings/shifts/forms/filters.py:17 shiftings/shifts/forms/filters.py:19
+#: src/shiftings/shifts/forms/filters.py:17
+#: src/shiftings/shifts/forms/filters.py:19
 msgid "Date YYYY-MM-DD"
 msgstr ""
 
-#: shiftings/shifts/forms/filters.py:18 shiftings/shifts/forms/filters.py:20
+#: src/shiftings/shifts/forms/filters.py:18
+#: src/shiftings/shifts/forms/filters.py:20
 msgid "Time HH:MM"
 msgstr ""
 
-#: shiftings/shifts/forms/participant.py:28
+#: src/shiftings/shifts/forms/participant.py:28
 #, python-brace-format
 msgid "User {user} is already registered for this shift."
 msgstr ""
 
-#: shiftings/shifts/forms/participant.py:32
+#: src/shiftings/shifts/forms/participant.py:32
 msgid "Organization Users"
 msgstr ""
 
-#: shiftings/shifts/forms/participant.py:33
+#: src/shiftings/shifts/forms/participant.py:33
 msgid "Other Users"
 msgstr ""
 
-#: shiftings/shifts/forms/participant.py:34
+#: src/shiftings/shifts/forms/participant.py:34
 msgid ""
 "To add users that do not belong to your organization please enter their "
 "username."
 msgstr ""
 
-#: shiftings/shifts/forms/participant.py:65
+#: src/shiftings/shifts/forms/participant.py:65
 msgid "Only select one type of user!"
 msgstr ""
 
-#: shiftings/shifts/forms/participant.py:75
+#: src/shiftings/shifts/forms/participant.py:75
 msgid "One of the user fields is required!"
 msgstr ""
 
-#: shiftings/shifts/forms/participant.py:80
+#: src/shiftings/shifts/forms/participant.py:80
 #, python-brace-format
 msgid "Cannot add {user} multiple times to this shift"
 msgstr ""
 
-#: shiftings/shifts/forms/permission.py:36
-#: shiftings/shifts/forms/permission.py:90
+#: src/shiftings/shifts/forms/permission.py:36
+#: src/shiftings/shifts/forms/permission.py:90
 #, python-brace-format
 msgid ""
 "Permission would have no effect. Permission for all Users is more extensive: "
 "{permission}"
 msgstr ""
 
-#: shiftings/shifts/forms/permission.py:47
+#: src/shiftings/shifts/forms/permission.py:47
 #, python-brace-format
 msgid ""
 "Permission would have no effect. There is an inherited more extensive "
 "permission: {referred_object} ({permission})"
 msgstr ""
 
-#: shiftings/shifts/forms/permission.py:56
+#: src/shiftings/shifts/forms/permission.py:56
 #, python-brace-format
 msgid ""
 "Permission would have no effect. There is an inherited more extensive "
 "permission for all Users: {referred_object} ({permission})"
 msgstr ""
 
-#: shiftings/shifts/forms/permission.py:78
+#: src/shiftings/shifts/forms/permission.py:78
 #, python-brace-format
 msgid "Can only set one permission for organization \"{organization}\""
 msgstr ""
 
-#: shiftings/shifts/forms/permission.py:80
+#: src/shiftings/shifts/forms/permission.py:80
 msgid "Can only set one permission for all Users"
 msgstr ""
 
-#: shiftings/shifts/forms/recurring.py:12
+#: src/shiftings/shifts/forms/recurring.py:13
 msgid "Ordinal"
 msgstr ""
 
-#: shiftings/shifts/forms/recurring.py:30
+#: src/shiftings/shifts/forms/recurring.py:35
 msgid "Weekday can't be empty with the chosen time frame type."
 msgstr ""
 
-#: shiftings/shifts/forms/recurring.py:32
+#: src/shiftings/shifts/forms/recurring.py:37
 msgid "Month can't be empty with the chosen time frame type."
 msgstr ""
 
-#: shiftings/shifts/forms/recurring.py:34
+#: src/shiftings/shifts/forms/recurring.py:39
 msgid "You need to add a warning for weekend handling."
 msgstr ""
 
-#: shiftings/shifts/forms/recurring.py:36
+#: src/shiftings/shifts/forms/recurring.py:41
 msgid "You need to add a warning for holiday handling."
 msgstr ""
 
-#: shiftings/shifts/forms/shift.py:38 shiftings/shifts/forms/template.py:66
+#: src/shiftings/shifts/forms/shift.py:38
+#: src/shiftings/shifts/forms/template.py:66
 #, python-brace-format
 msgid "Shift is too long, can at most be {max} long"
 msgstr ""
 
-#: shiftings/shifts/forms/template.py:18
+#: src/shiftings/shifts/forms/template.py:18
 msgid "Date"
 msgstr ""
 
-#: shiftings/shifts/forms/template.py:18
+#: src/shiftings/shifts/forms/template.py:18
 msgid "Date to create the template on"
 msgstr ""
 
-#: shiftings/shifts/forms/template.py:38 shiftings/shifts/models/template.py:22
+#: src/shiftings/shifts/forms/template.py:38
+#: src/shiftings/shifts/models/template.py:22
 msgid "Start Delay"
 msgstr ""
 
-#: shiftings/shifts/forms/template.py:40 shiftings/shifts/models/template.py:23
-#: shiftings/shifts/templates/shifts/recurring/list.html:11
-msgid "Duration"
-msgstr ""
-
-#: shiftings/shifts/forms/template.py:58
+#: src/shiftings/shifts/forms/template.py:58
 msgid "Start Delay was None please reload and use the slider."
 msgstr ""
 
-#: shiftings/shifts/forms/template.py:64
+#: src/shiftings/shifts/forms/template.py:64
 msgid "Duration was None please reload and use the slider."
 msgstr ""
 
-#: shiftings/shifts/forms/type.py:22
+#: src/shiftings/shifts/forms/type.py:22
 msgid "Can't name a shift type \"System\"."
 msgstr ""
 
-#: shiftings/shifts/models/base.py:13 shiftings/shifts/models/template.py:19
-#: shiftings/shifts/templates/shifts/shift.html:39
-#: shiftings/shifts/templates/shifts/template/template_form.html:18
+#: src/shiftings/shifts/models/base.py:13
+#: src/shiftings/shifts/models/template.py:19
+#: src/shiftings/shifts/templates/shifts/shift.html:39
+#: src/shiftings/shifts/templates/shifts/template/template_form.html:18
 msgid "Shift Type"
 msgstr ""
 
-#: shiftings/shifts/models/base.py:16
+#: src/shiftings/shifts/models/base.py:16
 msgid "Required Users"
 msgstr ""
 
-#: shiftings/shifts/models/base.py:18 shiftings/shifts/models/template.py:27
+#: src/shiftings/shifts/models/base.py:18
+#: src/shiftings/shifts/models/template.py:27
 msgid "A maximum of 32 users can be required"
 msgstr ""
 
-#: shiftings/shifts/models/base.py:19
+#: src/shiftings/shifts/models/base.py:19
 msgid "Maximum Users"
 msgstr ""
 
-#: shiftings/shifts/models/base.py:21 shiftings/shifts/models/template.py:30
+#: src/shiftings/shifts/models/base.py:21
+#: src/shiftings/shifts/models/template.py:30
 msgid "A maximum of 64 users can be present"
 msgstr ""
 
-#: shiftings/shifts/models/base.py:23 shiftings/shifts/models/template.py:32
-#: shiftings/shifts/templates/shifts/shift.html:79
-#: shiftings/shifts/templates/shifts/template/template.html:26
+#: src/shiftings/shifts/models/base.py:23
+#: src/shiftings/shifts/models/template.py:32
+#: src/shiftings/shifts/templates/shifts/shift.html:79
+#: src/shiftings/shifts/templates/shifts/template/template.html:26
 msgid "Additional Infos"
 msgstr ""
 
-#: shiftings/shifts/models/participant.py:16
+#: src/shiftings/shifts/models/participant.py:16
 msgid "Display Name is optional, and will be shown instead of the username"
 msgstr ""
 
-#: shiftings/shifts/models/participant.py:17
+#: src/shiftings/shifts/models/participant.py:17
 msgid "Participation confirmed"
 msgstr ""
 
-#: shiftings/shifts/models/participant.py:18
+#: src/shiftings/shifts/models/participant.py:18
 msgid ""
 "Whether the participant has taken part in the shift or not. Default: False"
 msgstr ""
 
-#: shiftings/shifts/models/permission.py:18
+#: src/shiftings/shifts/models/permission.py:18
 msgid "No Permission"
 msgstr ""
 
-#: shiftings/shifts/models/permission.py:19
+#: src/shiftings/shifts/models/permission.py:19
 msgid "See Shift exists"
 msgstr ""
 
-#: shiftings/shifts/models/permission.py:20
+#: src/shiftings/shifts/models/permission.py:20
 msgid "See Shift Details"
 msgstr ""
 
-#: shiftings/shifts/models/permission.py:21
+#: src/shiftings/shifts/models/permission.py:21
 msgid "See Shift Participants"
 msgstr ""
 
-#: shiftings/shifts/models/permission.py:22
+#: src/shiftings/shifts/models/permission.py:22
 msgid "Participate"
 msgstr ""
 
-#: shiftings/shifts/models/permission.py:80
+#: src/shiftings/shifts/models/permission.py:80
 msgid "Permission Type"
 msgstr ""
 
-#: shiftings/shifts/models/permission.py:82
+#: src/shiftings/shifts/models/permission.py:82
 msgid "Affected Organization"
 msgstr ""
 
-#: shiftings/shifts/models/recurring.py:26
+#: src/shiftings/shifts/models/recurring.py:26
 msgid "ignore"
 msgstr ""
 
-#: shiftings/shifts/models/recurring.py:27
+#: src/shiftings/shifts/models/recurring.py:27
 msgid "cancel"
 msgstr ""
 
-#: shiftings/shifts/models/recurring.py:28
+#: src/shiftings/shifts/models/recurring.py:28
 msgid "show warning"
 msgstr ""
 
-#: shiftings/shifts/models/recurring.py:36
+#: src/shiftings/shifts/models/recurring.py:36
 msgid "Timeframe Type"
 msgstr ""
 
-#: shiftings/shifts/models/recurring.py:41
-#: shiftings/shifts/templates/shifts/recurring/list.html:10
-#: shiftings/shifts/templates/shifts/recurring/shift.html:48
+#: src/shiftings/shifts/models/recurring.py:41
+#: src/shiftings/shifts/templates/shifts/recurring/list.html:10
+#: src/shiftings/shifts/templates/shifts/recurring/shift.html:53
 msgid "First Occurrence"
 msgstr ""
 
-#: shiftings/shifts/models/recurring.py:42
+#: src/shiftings/shifts/models/recurring.py:42
 msgid ""
 "Choose a minimum day for first occurrence and the system will automatically "
 "choose the next applicable day."
 msgstr ""
 
-#: shiftings/shifts/models/recurring.py:44
+#: src/shiftings/shifts/models/recurring.py:46
+msgid "Auto create days"
+msgstr ""
+
+#: src/shiftings/shifts/models/recurring.py:46
+msgid "How many days in advance should the shifts be created?"
+msgstr ""
+
+#: src/shiftings/shifts/models/recurring.py:48
 msgid "Shift Template"
 msgstr ""
 
-#: shiftings/shifts/models/recurring.py:48
+#: src/shiftings/shifts/models/recurring.py:52
 msgid "Weekend problem handling"
 msgstr ""
 
-#: shiftings/shifts/models/recurring.py:50
+#: src/shiftings/shifts/models/recurring.py:54
 msgid "Warning text for weekend"
 msgstr ""
 
-#: shiftings/shifts/models/recurring.py:55
+#: src/shiftings/shifts/models/recurring.py:59
 msgid "Holidays problem handling"
 msgstr ""
 
-#: shiftings/shifts/models/recurring.py:57
+#: src/shiftings/shifts/models/recurring.py:61
 msgid "Warning text for holidays"
 msgstr ""
 
-#: shiftings/shifts/models/recurring.py:63
+#: src/shiftings/shifts/models/recurring.py:67
 msgid "Manually Disabled"
 msgstr ""
 
-#: shiftings/shifts/models/recurring.py:84
+#: src/shiftings/shifts/models/recurring.py:88
 msgid "Nth"
 msgstr ""
 
-#: shiftings/shifts/models/recurring.py:85
+#: src/shiftings/shifts/models/recurring.py:89
 msgid "[weekday]"
 msgstr ""
 
-#: shiftings/shifts/models/recurring.py:86
+#: src/shiftings/shifts/models/recurring.py:90
 msgid "[month]"
 msgstr ""
 
-#: shiftings/shifts/models/shift.py:24
+#: src/shiftings/shifts/models/shift.py:24
 msgid "Start Date and Time"
 msgstr ""
 
-#: shiftings/shifts/models/shift.py:25
+#: src/shiftings/shifts/models/shift.py:25
 msgid "End Date and Time"
 msgstr ""
 
-#: shiftings/shifts/models/shift.py:27
-#: shiftings/shifts/templates/shifts/template/shift.html:13
-#: shiftings/shifts/templates/shifts/template/template_form.html:21
+#: src/shiftings/shifts/models/shift.py:27
+#: src/shiftings/shifts/templates/shifts/template/shift.html:13
+#: src/shiftings/shifts/templates/shifts/template/template_form.html:21
 msgid "Users"
 msgstr ""
 
-#: shiftings/shifts/models/shift.py:30
+#: src/shiftings/shifts/models/shift.py:30
 msgid "Locked for Participation"
 msgstr ""
 
-#: shiftings/shifts/models/shift.py:31
-#: shiftings/shifts/templates/shifts/recurring/shift.html:53
-#: shiftings/shifts/templates/shifts/recurring/shift.html:59
+#: src/shiftings/shifts/models/shift.py:31
+#: src/shiftings/shifts/templates/shifts/recurring/shift.html:58
+#: src/shiftings/shifts/templates/shifts/recurring/shift.html:64
 msgid "Warning"
 msgstr ""
 
-#: shiftings/shifts/models/shift.py:35
+#: src/shiftings/shifts/models/shift.py:35
 msgid "Created by Recurring Shift"
 msgstr ""
 
-#: shiftings/shifts/models/shift.py:37
-#: shiftings/shifts/templates/shifts/shift.html:53
+#: src/shiftings/shifts/models/shift.py:37
+#: src/shiftings/shifts/templates/shifts/shift.html:53
 msgid "Created"
 msgstr ""
 
-#: shiftings/shifts/models/shift.py:38
-#: shiftings/shifts/templates/shifts/shift.html:55
+#: src/shiftings/shifts/models/shift.py:38
+#: src/shiftings/shifts/templates/shifts/shift.html:55
 msgid "Last Modified"
 msgstr ""
 
-#: shiftings/shifts/models/shift.py:54
+#: src/shiftings/shifts/models/shift.py:54
 msgid "Organization and Event Organization must be identical."
 msgstr ""
 
-#: shiftings/shifts/models/shift.py:57
+#: src/shiftings/shifts/models/shift.py:57
 #, python-brace-format
 msgid "Shift {name} on {time}"
 msgstr ""
 
-#: shiftings/shifts/models/shift.py:65
+#: src/shiftings/shifts/models/shift.py:65
 #, python-brace-format
 msgid "{name} from {start} to {end} "
 msgstr ""
 
-#: shiftings/shifts/models/shift.py:72
+#: src/shiftings/shifts/models/shift.py:72
 #, python-brace-format
 msgid "{start} to {end_time} on {end_date} "
 msgstr ""
 
-#: shiftings/shifts/models/shift.py:76
+#: src/shiftings/shifts/models/shift.py:76
 #, python-brace-format
 msgid "{start} to {end_time}"
 msgstr ""
 
-#: shiftings/shifts/models/summary.py:11
+#: src/shiftings/shifts/models/summary.py:11
 msgid "\"Other\" Shift Type Group Name"
 msgstr ""
 
-#: shiftings/shifts/models/summary.py:14
+#: src/shiftings/shifts/models/summary.py:14
 msgid "Default time range for summary"
 msgstr ""
 
-#: shiftings/shifts/models/summary.py:25
+#: src/shiftings/shifts/models/summary.py:25
 #, python-brace-format
 msgid "Organization summary settings of {organization}"
 msgstr ""
 
-#: shiftings/shifts/models/template.py:16
+#: src/shiftings/shifts/models/template.py:16
 msgid "Template Group"
 msgstr ""
 
-#: shiftings/shifts/models/template.py:25
+#: src/shiftings/shifts/models/template.py:25
 msgid "Required User"
 msgstr ""
 
-#: shiftings/shifts/models/template.py:28
+#: src/shiftings/shifts/models/template.py:28
 msgid "Maximum User"
 msgstr ""
 
-#: shiftings/shifts/signals.py:26
+#: src/shiftings/shifts/signals.py:26
 msgid "Could not find a valid first occurrence."
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/create_shift.html:11
+#: src/shiftings/shifts/templates/shifts/create_shift.html:11
 #, python-format
 msgid ""
 "\n"
@@ -1599,7 +3139,7 @@ msgid ""
 "                "
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/create_shift.html:15
+#: src/shiftings/shifts/templates/shifts/create_shift.html:15
 #, python-format
 msgid ""
 "\n"
@@ -1607,70 +3147,70 @@ msgid ""
 "                "
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/create_shift.html:22
-#: shiftings/shifts/templates/shifts/create_shift.html:83
-#: shiftings/shifts/templates/shifts/recurring/form.html:23
-#: shiftings/shifts/templates/shifts/recurring/shift.html:19
-#: shiftings/templates/generic/create_or_update.html:18
-#: shiftings/templates/generic/form_card.html:8
+#: src/shiftings/shifts/templates/shifts/create_shift.html:22
+#: src/shiftings/shifts/templates/shifts/create_shift.html:83
+#: src/shiftings/shifts/templates/shifts/recurring/form.html:23
+#: src/shiftings/shifts/templates/shifts/recurring/shift.html:19
+#: src/shiftings/templates/generic/create_or_update.html:18
+#: src/shiftings/templates/generic/form_card.html:8
 msgid "Create"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/create_shift.html:24
+#: src/shiftings/shifts/templates/shifts/create_shift.html:24
 msgid "Update"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/create_shift.html:26
-#: shiftings/shifts/templates/shifts/edit_participation_permissions.html:34
-#: shiftings/templates/generic/create_or_update.html:22
+#: src/shiftings/shifts/templates/shifts/create_shift.html:26
+#: src/shiftings/shifts/templates/shifts/edit_participation_permissions.html:34
+#: src/shiftings/templates/generic/create_or_update.html:22
 msgid "Back"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/create_shift.html:47
+#: src/shiftings/shifts/templates/shifts/create_shift.html:47
 msgid "Shift starting time"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/create_shift.html:48
+#: src/shiftings/shifts/templates/shifts/create_shift.html:48
 msgctxt "Shift time"
 msgid "Start Time"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/create_shift.html:52
+#: src/shiftings/shifts/templates/shifts/create_shift.html:52
 msgid "Shift end time"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/create_shift.html:53
+#: src/shiftings/shifts/templates/shifts/create_shift.html:53
 msgctxt "Shift time"
 msgid "End Time"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/create_shift.html:59
-#: shiftings/shifts/templates/shifts/template/template_form.html:24
+#: src/shiftings/shifts/templates/shifts/create_shift.html:59
+#: src/shiftings/shifts/templates/shifts/template/template_form.html:24
 msgid "Required number of users to fill this shift"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/create_shift.html:60
-#: shiftings/shifts/templates/shifts/template/template_form.html:25
+#: src/shiftings/shifts/templates/shifts/create_shift.html:60
+#: src/shiftings/shifts/templates/shifts/template/template_form.html:25
 msgctxt "Shift users"
 msgid "Required"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/create_shift.html:64
-#: shiftings/shifts/templates/shifts/template/template_form.html:29
+#: src/shiftings/shifts/templates/shifts/create_shift.html:64
+#: src/shiftings/shifts/templates/shifts/template/template_form.html:29
 msgid "Maximum number of users allowed in this shift"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/create_shift.html:65
-#: shiftings/shifts/templates/shifts/template/template_form.html:30
+#: src/shiftings/shifts/templates/shifts/create_shift.html:65
+#: src/shiftings/shifts/templates/shifts/template/template_form.html:30
 msgctxt "Shift users"
 msgid "Maximum"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/create_shift.html:76
+#: src/shiftings/shifts/templates/shifts/create_shift.html:76
 msgid "Create from Template"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/edit_participation_permissions.html:17
+#: src/shiftings/shifts/templates/shifts/edit_participation_permissions.html:17
 #, python-format
 msgid ""
 "\n"
@@ -1679,39 +3219,39 @@ msgid ""
 "        "
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/edit_participation_permissions.html:26
+#: src/shiftings/shifts/templates/shifts/edit_participation_permissions.html:26
 msgid "Edit Shift Permissions for"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/edit_participation_permissions.html:38
+#: src/shiftings/shifts/templates/shifts/edit_participation_permissions.html:38
 msgid "How does it work?"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/edit_participation_permissions.html:53
+#: src/shiftings/shifts/templates/shifts/edit_participation_permissions.html:53
 msgid "Inherited Permissions"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/edit_participation_permissions.html:65
+#: src/shiftings/shifts/templates/shifts/edit_participation_permissions.html:65
 msgid "All Users"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/edit_templates.html:21
+#: src/shiftings/shifts/templates/shifts/edit_templates.html:21
 msgid "Edit Templates for"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/edit_templates.html:29
+#: src/shiftings/shifts/templates/shifts/edit_templates.html:29
 msgid "Cancel"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/recurring/form.html:33
+#: src/shiftings/shifts/templates/shifts/recurring/form.html:33
 msgid "Recurring Time Frame"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/recurring/form.html:41
+#: src/shiftings/shifts/templates/shifts/recurring/form.html:42
 msgid "Shift Information"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/recurring/shift.html:16
+#: src/shiftings/shifts/templates/shifts/recurring/shift.html:16
 #, python-format
 msgid ""
 "\n"
@@ -1719,11 +3259,11 @@ msgid ""
 "            "
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/recurring/shift.html:37
+#: src/shiftings/shifts/templates/shifts/recurring/shift.html:37
 msgid "Edit Recurring Shift"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/recurring/shift.html:44
+#: src/shiftings/shifts/templates/shifts/recurring/shift.html:44
 #, python-format
 msgid ""
 "\n"
@@ -1732,44 +3272,52 @@ msgid ""
 "            "
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/recurring/shift.html:50
+#: src/shiftings/shifts/templates/shifts/recurring/shift.html:48
+#, python-format
+msgid ""
+"\n"
+"                Create shifts %(days)s days in advance\n"
+"              "
+msgstr ""
+
+#: src/shiftings/shifts/templates/shifts/recurring/shift.html:55
 msgid "Weekend Handling"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/recurring/shift.html:56
+#: src/shiftings/shifts/templates/shifts/recurring/shift.html:61
 msgid "Holiday Handling"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/recurring/shift.html:70
+#: src/shiftings/shifts/templates/shifts/recurring/shift.html:75
 msgid "Upcoming recurring Shifts"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/recurring/shift.html:81
+#: src/shiftings/shifts/templates/shifts/recurring/shift.html:86
 msgid "No upcoming created Shifts"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/recurring/shift.html:88
+#: src/shiftings/shifts/templates/shifts/recurring/shift.html:93
 msgid "Passed recurring Shifts"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/recurring/shift.html:99
+#: src/shiftings/shifts/templates/shifts/recurring/shift.html:104
 msgid "No created Shifts have passed yet"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/shift.html:16
-#: shiftings/shifts/views/shift.py:78
+#: src/shiftings/shifts/templates/shifts/shift.html:16
+#: src/shiftings/shifts/views/shift.py:78
 msgid "Edit Shift"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/shift.html:22
+#: src/shiftings/shifts/templates/shifts/shift.html:22
 msgid "Delete Shift"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/shift.html:28
+#: src/shiftings/shifts/templates/shifts/shift.html:28
 msgid "Edit Permissions"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/shift.html:57
+#: src/shiftings/shifts/templates/shifts/shift.html:57
 #, python-format
 msgid ""
 "\n"
@@ -1777,210 +3325,219 @@ msgid ""
 "                  "
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/shift.html:66
-#: shiftings/shifts/templates/shifts/template/shift_card.html:13
+#: src/shiftings/shifts/templates/shifts/shift.html:66
+#: src/shiftings/shifts/templates/shifts/template/shift_card.html:13
 msgid "Shift Participants"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/shift.html:71
+#: src/shiftings/shifts/templates/shifts/shift.html:71
 msgid "Add participant"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/shift.html:84
+#: src/shiftings/shifts/templates/shifts/shift.html:84
 msgid "Nothing to consider."
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/shift_url_filters.html:8
+#: src/shiftings/shifts/templates/shifts/shift_participants.html:11
+msgid ""
+"This shift is over, do you really want/need to add yourself as participant?"
+msgstr ""
+
+#: src/shiftings/shifts/templates/shifts/shift_url_filters.html:8
 msgid "Toggle Shift Filters"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/summary/summary.html:6
+#: src/shiftings/shifts/templates/shifts/summary/summary.html:6
 msgid "Shift Summary"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/template/group.html:17
+#: src/shiftings/shifts/templates/shifts/template/group.html:17
 msgid "Delete Template"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/template/group.html:21
+#: src/shiftings/shifts/templates/shifts/template/group.html:21
 msgid "Edit Template"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/template/group.html:25
-#: shiftings/shifts/templates/shifts/template/group_template.html:13
+#: src/shiftings/shifts/templates/shifts/template/group.html:25
+#: src/shiftings/shifts/templates/shifts/template/group_template.html:13
 msgid "Edit Shifts"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/template/group.html:31
+#: src/shiftings/shifts/templates/shifts/template/group.html:31
 msgid "Edit Template Permissions"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/template/group.html:70
+#: src/shiftings/shifts/templates/shifts/template/group.html:70
 msgid "Create Shift Templates"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/template/group_template.html:9
+#: src/shiftings/shifts/templates/shifts/template/group_template.html:9
 msgid "Edit Shifts Template"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/template/member_shift_summary.html:3
+#: src/shiftings/shifts/templates/shifts/template/member_shift_summary.html:3
 msgid "Member"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/template/member_shift_summary.html:10
+#: src/shiftings/shifts/templates/shifts/template/member_shift_summary.html:10
 msgid "Total"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/template/participation_permission_form.html:9
-#: shiftings/shifts/templates/shifts/template/template_form.html:10
+#: src/shiftings/shifts/templates/shifts/template/participation_permission_form.html:9
+#: src/shiftings/shifts/templates/shifts/template/template_form.html:10
 msgid "Remove Shift"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/template/participation_permission_form.html:12
-#: shiftings/shifts/templates/shifts/template/template_form.html:13
+#: src/shiftings/shifts/templates/shifts/template/participation_permission_form.html:12
+#: src/shiftings/shifts/templates/shifts/template/template_form.html:13
 msgid "Restore Shift"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/template/select_org.html:3
+#: src/shiftings/shifts/templates/shifts/template/select_org.html:3
 msgid "Select Organization to create Shift for"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/template/shift.html:5
+#: src/shiftings/shifts/templates/shifts/template/shift.html:5
 msgid "Go to Shift"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/template/shift_url_filter_form.html:5
+#: src/shiftings/shifts/templates/shifts/template/shift_url_filter_form.html:5
 msgid "Filters"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/template/shift_url_filter_form.html:8
+#: src/shiftings/shifts/templates/shifts/template/shift_url_filter_form.html:8
 msgid "Reset Filter"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/template/shift_url_filter_form.html:12
+#: src/shiftings/shifts/templates/shifts/template/shift_url_filter_form.html:12
 msgid "Apply Filter"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/template/shift_url_filter_form.html:15
+#: src/shiftings/shifts/templates/shifts/template/shift_url_filter_form.html:15
 msgid "Parameters"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/template/shift_url_filter_form.html:29
+#: src/shiftings/shifts/templates/shifts/template/shift_url_filter_form.html:29
 msgid "Select Organizations"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/template/shift_url_filter_form.html:47
+#: src/shiftings/shifts/templates/shifts/template/shift_url_filter_form.html:47
 msgid "Shift starts after"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/template/shift_url_filter_form.html:52
+#: src/shiftings/shifts/templates/shifts/template/shift_url_filter_form.html:52
 msgid "Shift ends before"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/template/shift_url_filter_form.html:65
+#: src/shiftings/shifts/templates/shifts/template/shift_url_filter_form.html:65
 msgid "Select Events"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/template/slots_display.html:4
+#: src/shiftings/shifts/templates/shifts/template/slots_display.html:4
 msgid "Required to carry out this Shift"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/template/slots_display.html:6
+#: src/shiftings/shifts/templates/shifts/template/slots_display.html:6
 msgid "Open Shift Slot"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/template/slots_display.html:32
+#: src/shiftings/shifts/templates/shifts/template/slots_display.html:32
 msgid "Free"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/template/small_shift_display.html:20
+#: src/shiftings/shifts/templates/shifts/template/small_shift_display.html:20
 msgid "Required"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/template/small_shift_display.html:23
+#: src/shiftings/shifts/templates/shifts/template/small_shift_display.html:23
 msgid "Confirmed"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/template/small_shift_display.html:29
+#: src/shiftings/shifts/templates/shifts/template/small_shift_display.html:29
 msgid "Participating"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/template/small_shift_display.html:34
+#: src/shiftings/shifts/templates/shifts/template/small_shift_display.html:34
 msgid "Full"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/template/small_shift_display.html:40
+#: src/shiftings/shifts/templates/shifts/template/small_shift_display.html:40
 msgid "Additional Users required"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/template/small_shift_display.html:42
+#: src/shiftings/shifts/templates/shifts/template/small_shift_display.html:42
 msgid "Additional Slots available"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/template/template.html:11
+#: src/shiftings/shifts/templates/shifts/template/template.html:11
 msgid "Calendar Background Color"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/template/template.html:17
+#: src/shiftings/shifts/templates/shifts/template/template.html:17
 msgid "Required Users/Max Users"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/template/template.html:21
+#: src/shiftings/shifts/templates/shifts/template/template.html:21
 msgid "Unlimited"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/template/template_form.html:36
+#: src/shiftings/shifts/templates/shifts/template/template_form.html:36
 msgid "Delay to starting time"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/template/template_form.html:37
+#: src/shiftings/shifts/templates/shifts/template/template_form.html:37
 msgctxt "Shift time"
 msgid "Start Delay"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/template/template_form.html:41
+#: src/shiftings/shifts/templates/shifts/template/template_form.html:41
 msgid "Shift Duration"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/template/template_form.html:42
+#: src/shiftings/shifts/templates/shifts/template/template_form.html:42
 msgctxt "Shift time"
 msgid "Duration"
 msgstr ""
 
-#: shiftings/shifts/templates/shifts/type_group/list.html:8
+#: src/shiftings/shifts/templates/shifts/type_group/list.html:8
 msgid "Actions"
 msgstr ""
 
-#: shiftings/shifts/templatetags/shifts.py:90
+#: src/shiftings/shifts/templatetags/shifts.py:90
 #, python-brace-format
 msgid "Days + {delta_days}"
 msgstr ""
 
-#: shiftings/shifts/utils/time_frame.py:17
+#: src/shiftings/shifts/utils/time_frame.py:17
 msgid "Nth [weekday] of each month"
 msgstr ""
 
-#: shiftings/shifts/utils/time_frame.py:18
+#: src/shiftings/shifts/utils/time_frame.py:18
 msgid "Nth day of each month"
 msgstr ""
 
-#: shiftings/shifts/utils/time_frame.py:19
+#: src/shiftings/shifts/utils/time_frame.py:19
 msgid "every Nth [weekday]"
 msgstr ""
 
-#: shiftings/shifts/utils/time_frame.py:20
+#: src/shiftings/shifts/utils/time_frame.py:20
 msgid "Nth workday of each month"
 msgstr ""
 
-#: shiftings/shifts/utils/time_frame.py:21
+#: src/shiftings/shifts/utils/time_frame.py:21
 msgid "Nth day of [month]"
 msgstr ""
 
-#: shiftings/shifts/utils/time_frame.py:22
+#: src/shiftings/shifts/utils/time_frame.py:22
 msgid "Nth workday of [month]"
 msgstr ""
 
-#: shiftings/shifts/views/permission.py:50
+#: src/shiftings/shifts/views/participant.py:42
+msgid "This shift is over, do you really want/need to add a participant?"
+msgstr ""
+
+#: src/shiftings/shifts/views/permission.py:50
 #, python-brace-format
 msgid ""
 "<p>Any Permission present will be applied to all Shifts belonging to "
@@ -1990,35 +3547,35 @@ msgid ""
 "organizations.</p>"
 msgstr ""
 
-#: shiftings/shifts/views/recurring.py:85
+#: src/shiftings/shifts/views/recurring.py:85
 msgid "Forbidden Method GET"
 msgstr ""
 
-#: shiftings/shifts/views/recurring.py:98
+#: src/shiftings/shifts/views/recurring.py:98
 msgid "Created Shifts on {}"
 msgstr ""
 
-#: shiftings/shifts/views/recurring.py:102
+#: src/shiftings/shifts/views/recurring.py:102
 msgid "Error while creating shifts. Invalid Date"
 msgstr ""
 
-#: shiftings/shifts/views/shift.py:164
+#: src/shiftings/shifts/views/shift.py:164
 msgid "Unable to delete past shifts."
 msgstr ""
 
-#: shiftings/templates/403.html:6
+#: src/shiftings/templates/403.html:6
 msgid "You don't have the permission to do that!"
 msgstr ""
 
-#: shiftings/templates/404.html:6
+#: src/shiftings/templates/404.html:6
 msgid "The site you requested was not found."
 msgstr ""
 
-#: shiftings/templates/500.html:6
+#: src/shiftings/templates/500.html:6
 msgid "A server error occured the admins have been notified"
 msgstr ""
 
-#: shiftings/templates/generic/create_or_update.html:5
+#: src/shiftings/templates/generic/create_or_update.html:5
 #, python-format
 msgid ""
 "\n"
@@ -2026,7 +3583,7 @@ msgid ""
 "      "
 msgstr ""
 
-#: shiftings/templates/generic/create_or_update.html:9
+#: src/shiftings/templates/generic/create_or_update.html:9
 #, python-format
 msgid ""
 "\n"
@@ -2034,7 +3591,7 @@ msgid ""
 "      "
 msgstr ""
 
-#: shiftings/templates/generic/delete.html:6
+#: src/shiftings/templates/generic/delete.html:6
 #, python-format
 msgid ""
 "\n"
@@ -2042,59 +3599,53 @@ msgid ""
 "      "
 msgstr ""
 
-#: shiftings/templates/generic/delete.html:9
-msgid "Yes"
-msgstr ""
-
-#: shiftings/templates/generic/delete.html:11
-msgid "No"
-msgstr ""
-
-#: shiftings/templates/generic/modular_search.html:4
+#: src/shiftings/templates/generic/modular_search.html:4
 msgid "Filter by Name"
 msgstr ""
 
-#: shiftings/templates/generic/modular_search.html:6
+#: src/shiftings/templates/generic/modular_search.html:6
 msgid "submit search"
 msgstr ""
 
-#: shiftings/templates/language.html:16
+#: src/shiftings/templates/language.html:16
 msgid "Language"
 msgstr ""
 
-#: shiftings/templates/language.html:21
+#: src/shiftings/templates/language.html:21
 msgid "German"
 msgstr ""
 
-#: shiftings/templates/language.html:24
+#: src/shiftings/templates/language.html:24
 msgid "English"
 msgstr ""
 
-#: shiftings/templates/month_view.html:2
+#: src/shiftings/templates/month_view.html:2
 msgid "M"
 msgstr ""
 
-#: shiftings/templates/month_view.html:3 shiftings/templates/month_view.html:5
+#: src/shiftings/templates/month_view.html:3
+#: src/shiftings/templates/month_view.html:5
 msgid "T"
 msgstr ""
 
-#: shiftings/templates/month_view.html:4
+#: src/shiftings/templates/month_view.html:4
 msgid "W"
 msgstr ""
 
-#: shiftings/templates/month_view.html:6
+#: src/shiftings/templates/month_view.html:6
 msgid "F"
 msgstr ""
 
-#: shiftings/templates/month_view.html:7 shiftings/templates/month_view.html:8
+#: src/shiftings/templates/month_view.html:7
+#: src/shiftings/templates/month_view.html:8
 msgid "S"
 msgstr ""
 
-#: shiftings/templates/switch_user.html:5
+#: src/shiftings/templates/switch_user.html:5
 msgid "Switch User"
 msgstr ""
 
-#: shiftings/templates/template/remove_modal.html:12
+#: src/shiftings/templates/template/remove_modal.html:12
 #, python-format
 msgid ""
 "\n"
@@ -2103,7 +3654,7 @@ msgid ""
 "              "
 msgstr ""
 
-#: shiftings/templates/template/remove_modal.html:16
+#: src/shiftings/templates/template/remove_modal.html:16
 msgid ""
 "\n"
 "                Removing <span id=\"remove_object_placeholder_1\" class=\"fw-"
@@ -2111,7 +3662,7 @@ msgid ""
 "              "
 msgstr ""
 
-#: shiftings/templates/template/remove_modal.html:26
+#: src/shiftings/templates/template/remove_modal.html:26
 #, python-format
 msgid ""
 "\n"
@@ -2121,7 +3672,7 @@ msgid ""
 "            "
 msgstr ""
 
-#: shiftings/templates/template/remove_modal.html:31
+#: src/shiftings/templates/template/remove_modal.html:31
 msgid ""
 "\n"
 "              Are you sure you want to remove\n"
@@ -2130,170 +3681,95 @@ msgid ""
 "            "
 msgstr ""
 
-#: shiftings/templates/template/remove_modal.html:38
+#: src/shiftings/templates/template/remove_modal.html:38
 msgid "Remove"
 msgstr ""
 
-#: shiftings/templates/template/remove_modal.html:39
-#: shiftings/templates/template/simple_display_modal.html:15
-#: shiftings/templates/template/simple_form_modal.html:22
+#: src/shiftings/templates/template/remove_modal.html:39
+#: src/shiftings/templates/template/simple_display_modal.html:15
+#: src/shiftings/templates/template/simple_form_modal.html:22
 msgid "Close"
 msgstr ""
 
-#: shiftings/templates/top_nav.html:12
+#: src/shiftings/templates/top_nav.html:12
 msgid "Overview"
 msgstr ""
 
-#: shiftings/templates/top_nav.html:32 shiftings/templates/top_nav.html:33
+#: src/shiftings/templates/top_nav.html:32
+#: src/shiftings/templates/top_nav.html:33
 msgid "Help"
 msgstr ""
 
-#: shiftings/templates/top_nav.html:48
+#: src/shiftings/templates/top_nav.html:48
 msgid "Profile"
 msgstr ""
 
-#: shiftings/templates/widgets/time_slider.html:9
+#: src/shiftings/templates/widgets/time_slider.html:9
 msgid "You need to enter a valid timeframe in the form of HH:MM."
 msgstr ""
 
-#: shiftings/templates/widgets/time_slider.html:13
+#: src/shiftings/templates/widgets/time_slider.html:13
 msgid "Day: +"
 msgstr ""
 
-#: shiftings/utils/string.py:5
+#: src/shiftings/utils/string.py:5
 #, python-format
 msgid "The function %(name)s has to be implemented."
 msgstr ""
 
-#: shiftings/utils/time/month.py:10
-msgid "January"
-msgstr ""
-
-#: shiftings/utils/time/month.py:11
-msgid "February"
-msgstr ""
-
-#: shiftings/utils/time/month.py:12
-msgid "March"
-msgstr ""
-
-#: shiftings/utils/time/month.py:13
-msgid "April"
-msgstr ""
-
-#: shiftings/utils/time/month.py:14
-msgid "May"
-msgstr ""
-
-#: shiftings/utils/time/month.py:15
-msgid "June"
-msgstr ""
-
-#: shiftings/utils/time/month.py:16
-msgid "July"
-msgstr ""
-
-#: shiftings/utils/time/month.py:17
-msgid "August"
-msgstr ""
-
-#: shiftings/utils/time/month.py:18
-msgid "September"
-msgstr ""
-
-#: shiftings/utils/time/month.py:19
-msgid "October"
-msgstr ""
-
-#: shiftings/utils/time/month.py:20
-msgid "November"
-msgstr ""
-
-#: shiftings/utils/time/month.py:21
-msgid "December"
-msgstr ""
-
-#: shiftings/utils/time/month.py:32
+#: src/shiftings/utils/time/month.py:32
 msgid "Day of the Month"
 msgstr ""
 
-#: shiftings/utils/time/timerange.py:13
+#: src/shiftings/utils/time/timerange.py:13
 msgid "Quarter"
 msgstr ""
 
-#: shiftings/utils/time/timerange.py:14
+#: src/shiftings/utils/time/timerange.py:14
 msgid "Half Year"
 msgstr ""
 
-#: shiftings/utils/time/timerange.py:15
+#: src/shiftings/utils/time/timerange.py:15
 msgid "Year"
 msgstr ""
 
-#: shiftings/utils/time/timerange.py:16
+#: src/shiftings/utils/time/timerange.py:16
 msgid "Decade"
 msgstr ""
 
-#: shiftings/utils/time/timerange.py:17
+#: src/shiftings/utils/time/timerange.py:17
 msgid "Century"
 msgstr ""
 
-#: shiftings/utils/time/timerange.py:18
+#: src/shiftings/utils/time/timerange.py:18
 msgid "Millennium"
 msgstr ""
 
-#: shiftings/utils/time/week.py:13
-msgid "Monday"
-msgstr ""
-
-#: shiftings/utils/time/week.py:14
-msgid "Tuesday"
-msgstr ""
-
-#: shiftings/utils/time/week.py:15
-msgid "Wednesday"
-msgstr ""
-
-#: shiftings/utils/time/week.py:16
-msgid "Thursday"
-msgstr ""
-
-#: shiftings/utils/time/week.py:17
-msgid "Friday"
-msgstr ""
-
-#: shiftings/utils/time/week.py:18
-msgid "Saturday"
-msgstr ""
-
-#: shiftings/utils/time/week.py:19
-msgid "Sunday"
-msgstr ""
-
-#: shiftings/utils/time/week.py:27
+#: src/shiftings/utils/time/week.py:27
 msgid "Day of the Week"
 msgstr ""
 
-#: shiftings/utils/typing.py:20
+#: src/shiftings/utils/typing.py:20
 msgid "Value is not supposed to be None."
 msgstr ""
 
-#: shiftings/utils/views/base.py:62
+#: src/shiftings/utils/views/base.py:62
 msgid "The pk is missing from the url. This is not supposed to be possible."
 msgstr ""
 
-#: shiftings/utils/views/base.py:65
+#: src/shiftings/utils/views/base.py:65
 #, python-format
 msgid "There is no %(name)s with that pk."
 msgstr ""
 
-#: shiftings/utils/views/base.py:73
+#: src/shiftings/utils/views/base.py:73
 msgid "You don't have the required permission."
 msgstr ""
 
-#: shiftings/utils/views/base.py:90
+#: src/shiftings/utils/views/base.py:90
 msgid "No URL to redirect to. Provide a success_url."
 msgstr ""
 
-#: shiftings/utils/views/base.py:108
+#: src/shiftings/utils/views/base.py:108
 msgid "Could not find the requested page. This might be a configuration error."
 msgstr ""
