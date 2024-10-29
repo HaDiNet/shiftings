@@ -56,7 +56,7 @@ INSTALLED_APPS = [
 FEATURES = {
     'event': False,  # enable events for organizations
     'registration': True,  # enable local registration
-    'gdpr_template': None # add a template for gpdr compliancy information
+    'gdpr_template': 'local/gdpr_template.sample.html' # add a template for gpdr compliancy information
 }
 
 MIDDLEWARE = [
