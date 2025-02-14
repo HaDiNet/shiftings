@@ -42,9 +42,9 @@ class MembershipType(models.Model):
             UniqueConstraint(fields=['organization', 'name'], name='name_unique_per_organization'),
             UniqueConstraint(fields=['organization', 'admin'], name='admin_unique_per_organization'),
             UniqueConstraint(fields=['organization', 'default'], name='default_unique_per_organization'),
-            CheckConstraint(check=~Q(admin=False), name='admin_true_or_null'),
-            CheckConstraint(check=~Q(default=False), name='default_true_or_null'),
-            CheckConstraint(check=(Q(admin=True, default__isnull=True) | Q(admin__isnull=True)),
+            CheckConstraint(condition=~Q(admin=False), name='admin_true_or_null'),
+            CheckConstraint(condition=~Q(default=False), name='default_true_or_null'),
+            CheckConstraint(condition=(Q(admin=True, default__isnull=True) | Q(admin__isnull=True)),
                             name='admin_not_default')
         ]
 
@@ -76,7 +76,7 @@ class Membership(models.Model):
             UniqueConstraint(fields=['organization', 'type', 'user'], name='unique_membership_organization_type_user'),
             UniqueConstraint(fields=['organization', 'type', 'group'],
                              name='unique_membership_organization_type_group'),
-            CheckConstraint(check=(~(Q(user__isnull=True) & Q(group__isnull=True))), name='group_or_user')
+            CheckConstraint(condition=(~(Q(user__isnull=True) & Q(group__isnull=True))), name='group_or_user')
         ]
 
     def __str__(self) -> str:

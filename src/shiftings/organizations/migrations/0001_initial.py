@@ -94,15 +94,15 @@ class Migration(migrations.Migration):
         ),
         migrations.AddConstraint(
             model_name='membershiptype',
-            constraint=models.CheckConstraint(check=models.Q(('admin', False), _negated=True), name='admin_true_or_null'),
+            constraint=models.CheckConstraint(condition=models.Q(('admin', False), _negated=True), name='admin_true_or_null'),
         ),
         migrations.AddConstraint(
             model_name='membershiptype',
-            constraint=models.CheckConstraint(check=models.Q(('default', False), _negated=True), name='default_true_or_null'),
+            constraint=models.CheckConstraint(condition=models.Q(('default', False), _negated=True), name='default_true_or_null'),
         ),
         migrations.AddConstraint(
             model_name='membershiptype',
-            constraint=models.CheckConstraint(check=models.Q(models.Q(('admin', True), ('default__isnull', True)), ('admin__isnull', True), _connector='OR'), name='admin_not_default'),
+            constraint=models.CheckConstraint(condition=models.Q(models.Q(('admin', True), ('default__isnull', True)), ('admin__isnull', True), _connector='OR'), name='admin_not_default'),
         ),
         migrations.AddConstraint(
             model_name='membership',
@@ -114,6 +114,6 @@ class Migration(migrations.Migration):
         ),
         migrations.AddConstraint(
             model_name='membership',
-            constraint=models.CheckConstraint(check=models.Q(('user__isnull', True), ('group__isnull', True), _negated=True), name='group_or_user'),
+            constraint=models.CheckConstraint(condition=models.Q(('user__isnull', True), ('group__isnull', True), _negated=True), name='group_or_user'),
         ),
     ]

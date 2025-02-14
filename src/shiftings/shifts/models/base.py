@@ -27,6 +27,6 @@ class ShiftBase(models.Model):
         abstract = True
         default_permissions = ()
         constraints = [
-            models.CheckConstraint(check=Q(max_users=0) | Q(max_users__gte=F('required_users')),
+            models.CheckConstraint(condition=Q(max_users=0) | Q(max_users__gte=F('required_users')),
                                    name='shift_max_users_gte_required_users')
         ]

@@ -46,7 +46,7 @@ class Shift(ShiftBase):
         default_permissions = ()
         ordering = ['start', 'end', 'name', 'organization']
         constraints = [
-            models.CheckConstraint(check=Q(start__lte=F('end')), name='shift_start_before_end')
+            models.CheckConstraint(condition=Q(start__lte=F('end')), name='shift_start_before_end')
         ]
 
     def clean(self) -> None:
