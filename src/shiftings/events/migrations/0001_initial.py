@@ -39,6 +39,6 @@ class Migration(migrations.Migration):
         ),
         migrations.AddConstraint(
             model_name='event',
-            constraint=models.CheckConstraint(check=models.Q(('start_date__lte', django.db.models.expressions.F('end_date'))), name='event_start_after_end'),
+            constraint=models.CheckConstraint(condition=models.Q(('start_date__lte', django.db.models.expressions.F('end_date'))), name='event_start_after_end'),
         ),
     ]
