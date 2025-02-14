@@ -27,10 +27,10 @@ dependencies = [
     'gunicorn==21.2.0',
     'holidays==0.40',
     'icalendar==5.0.11',
-    'Pillow==10.2.0',
-    'psycopg2-binary==2.9.9',
+    'Pillow==10.4.0',
+    'psycopg2-binary==2.9.10',
     'python-dateutil==2.8.2',
-    'requests==2.31.0'
+    'requests==2.31.0',
 ]
 
 [project.optional-dependencies]
@@ -38,18 +38,18 @@ tests = [
     'django-stubs==4.2.7',
     'types-python-dateutil==2.8.19.14',
     'types-requests==2.31.0.10',
-    'mypy==1.8.0'
+    'mypy==1.8.0',
 ]
 docs = [
     'mkdocs==1.4.2',
-    'mkdocs-material==9.0.11'
+    'mkdocs-material==9.0.11',
 ]
 
 [project.urls]
 repository = 'https://github.com/HaDiNet/shiftings'
 
 [tool.setuptools.packages.find]
-where=['src']
+where = ['src']
 
 [tool.setuptools.package-data]
 shiftings = ['py.typed']
