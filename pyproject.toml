@@ -41,7 +41,7 @@ tests = [
     'mypy==1.8.0',
 ]
 docs = [
-    'mkdocs==1.4.2',
+    'mkdocs==1.6.1',
     'mkdocs-material==9.0.11',
 ]
 
