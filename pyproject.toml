@@ -21,7 +21,7 @@ dependencies = [
     'Django==4.2.9',
     'django-auth-ldap==4.6.0',
     'django-bootstrap5==23.4',
-    'django-colorfield==0.11.0',
+    'django-colorfield==0.14.0',
     'django-ical==1.9.2',
     'django-phonenumber-field[phonenumberslite]==7.3.0',
     'gunicorn==21.2.0',
