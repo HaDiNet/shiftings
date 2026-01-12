@@ -30,7 +30,7 @@ if N is 1 and the first day of the selected month is a Sunday the shift will be 
 ## Creating Shifts from Recurring Shifts
 Recurring Shifts have to be created using the "*create_recurring_shifts*" command.
 
-Optimally this is executed daily as a cron job oder systemd timer:
+Optimally this is executed daily as a cron job or systemd timer:
 ```
 0 0 * * * /path/to/manage.py create_recurring_shifts > /dev/null 2>&1
 ```
