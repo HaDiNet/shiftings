@@ -69,7 +69,7 @@ class Shift(ShiftBase):
     @property
     def time_display(self) -> str:
         if self.start.date() != self.end.date():
-            return _('{start} to {end_time} on {end_date} ').format(name=self.name,
+            return _('{start} to {end_time} on {end_date}').format(name=self.name,
                                                                     start=self.start.strftime('%H:%M'),
                                                                     end_time=self.end.strftime('%H:%M'),
                                                                     end_date=self.end.date())
