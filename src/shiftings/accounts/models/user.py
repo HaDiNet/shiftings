@@ -34,7 +34,7 @@ class User(BaseUser):
 
     class Meta:
         default_permissions = ()
-        ordering = ['username']
+        ordering = ['display_name', 'username']
 
     def __str__(self):
         return self.display
