@@ -76,7 +76,7 @@ class User(BaseUser):
     def events(self) -> QuerySet[Event]:
         from shiftings.events.models import Event
         organizations = self.organizations
-        return Event.objects.filter(organization__in=organizations)
+        return Event.objects.filter(organization__in=organizations).distinct()
 
     @property
     def shift_count(self) -> int:
@@ -99,11 +99,10 @@ class User(BaseUser):
         reminder_date = date.today() + timedelta(days=self.reminder_emails_days_before_event)
 
         start_date=datetime.combine(date=reminder_date, time=MIN_TIME)
-        shifts = Shift.objects.filter(
+        shifts = self.shifts.filter(
             start__date__gte=start_date,
-            start__date__lte=datetime.combine(date=reminder_date, time=MAX_TIME),
-            participants__user=self
-        )
+            start__date__lte=datetime.combine(date=reminder_date, time=MAX_TIME)
+        ).distinct().order_by('start', 'end', 'name')
 
         match self.reminder_type:
             case 'email':
@@ -125,5 +124,11 @@ class User(BaseUser):
             shift = shifts[0]
             text += f'shift on the {reminder_date.__str__()}: \n{shift.display}: {shift.time_display} for {shift.organization}'
 
-        email = EmailMessage(subject, text, settings.DEFAULT_FROM_EMAIL, [self.email], headers={'Reply-To': settings.DEFAULT_FROM_EMAIL})
+        email = EmailMessage(
+            subject=subject,
+            body=text,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            to=[self.email],
+            headers={'Reply-To': settings.DEFAULT_FROM_EMAIL}
+        )
         email.send()
