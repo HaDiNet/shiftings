@@ -1,0 +1,57 @@
+# ----------------------------
+# Prettier configuration
+# For Django + Django templates
+# ----------------------------
+
+# General formatting
+printWidth: 120
+tabWidth: 4
+useTabs: false
+semi: true
+singleQuote: true
+trailingComma: es5
+bracketSpacing: true
+arrowParens: always
+endOfLine: lf
+
+# HTML / templates
+htmlWhitespaceSensitivity: css
+embeddedLanguageFormatting: auto
+
+# Django template support
+# Handles:
+#   {% ... %}
+#   {{ ... }}
+#   {# ... #}
+plugins:
+  - prettier-plugin-django
+
+# File-specific overrides
+overrides:
+  - files:
+      - "*.html"
+    options:
+      parser: django-html
+      tabWidth: 2
+
+  - files:
+      - "*.css"
+    options:
+      singleQuote: false
+
+  - files:
+      - "*.js"
+      - "*.ts"
+    options:
+      semi: true
+
+  - files:
+      - "*.json"
+    options:
+      tabWidth: 2
+
+  - files:
+      - "*.yml"
+      - "*.yaml"
+    options:
+      tabWidth: 2
