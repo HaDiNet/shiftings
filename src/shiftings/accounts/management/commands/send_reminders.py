@@ -6,5 +6,5 @@ class Command(BaseCommand):
     help = 'Send reminders to users x amount of days before events they are participating in.'
 
     def handle(self, *args, **options):
-        for user in User.objects.filter(reminder__type__ne='', reminder__days_before_event__gte=0):
+        for user in User.objects.filter(reminder_type__isnull=False, reminders_days_before_event__gte=0):
             user.send_reminders()

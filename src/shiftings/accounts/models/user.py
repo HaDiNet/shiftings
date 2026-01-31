@@ -17,8 +17,8 @@ if TYPE_CHECKING:
     from shiftings.events.models import Event
     from shiftings.organizations.models import Organization
 
-REMINDER_TYPES = [
-    ('', 'None'),
+REMINDER_TYPES : list[tuple[str | None, str]] = [
+    (None, 'None'),
     ("email", "Email"),
     #("telegram", "Telegram"),
     #('discord', 'Discord'),
@@ -48,7 +48,7 @@ class BaseUser(AbstractUser):
 class User(BaseUser):
     display_name = models.CharField(max_length=150, verbose_name=_('Display Name'), null=True, blank=True)
     phone_number = PhoneNumberField(verbose_name=_('Telephone Number'), blank=True, null=True)
-    reminder_type = models.CharField(max_length=32, verbose_name=_('Reminder Type'), default='', blank=True,
+    reminder_type = models.CharField(max_length=32, verbose_name=_('Reminder Type'), null=True,
         choices=REMINDER_TYPES, help_text='Leave this empty to disable reminders.')
     reminders_days_before_event = models.IntegerField(verbose_name=_('Days before event reminders'), default=1,
         help_text=_('I want to receive reminders this many days before an event.'))
@@ -89,20 +89,20 @@ class User(BaseUser):
     def get_absolute_url(self):
         return reverse('user_profile')
     
-    def send_reminders(self):
+    def send_reminders(self) -> None:
         from shiftings.shifts.models import Shift
-        if self.reminders_days_before_event < 0:
-            return
-        if self.reminder_type == '':
-            return
 
-        reminder_date = date.today() + timedelta(days=self.reminder_emails_days_before_event)
+        reminder_date = date.today() + timedelta(days=self.reminders_days_before_event)
 
         start_date=datetime.combine(date=reminder_date, time=MIN_TIME)
-        shifts = self.shifts.filter(
+        shifts = Shift.objects.filter(
+            participants__user=self,
             start__date__gte=start_date,
             start__date__lte=datetime.combine(date=reminder_date, time=MAX_TIME)
         ).distinct().order_by('start', 'end', 'name')
+
+        if shifts.count() == 0:
+            return
 
         match self.reminder_type:
             case 'email':
@@ -113,7 +113,7 @@ class User(BaseUser):
                 # Do nothing
                 return
 
-    def send_reminder_emails(self, shifts, reminder_date):        
+    def send_reminder_emails(self, shifts, reminder_date : date) -> None:
         subject = REMINDER_SUBJECT_MSG + reminder_date.__str__()
         text = 'This email is a reminder concerning the following Shiftings '
         if shifts.__len__() > 1:
