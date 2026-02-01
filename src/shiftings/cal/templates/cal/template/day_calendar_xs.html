@@ -102,7 +102,7 @@
     <div class="w-100">
       <div class="calendar-entry">
         <button class="btn btn-success w-100 rounded-0" data-bs-toggle="modal" data-bs-target="#selectShiftOrgModal"
-                data-bs-date="{{ theday }}">
+                data-bs-date="{{ theday|date:"Y-m-d" }}">
           {% trans 'Create Shift' %} <i class="fa-solid fa-plus"></i>
         </button>
       </div>
