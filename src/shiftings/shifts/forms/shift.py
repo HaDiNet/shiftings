@@ -31,11 +31,19 @@ class ShiftForm(ModelForm):
         self.fields['shift_type'].queryset = ShiftType.objects.organization(organization, include_system=include_system)
 
     def clean(self) -> Dict[str, Any]:
-        cleaned_data = self.cleaned_data
+        # super.clean ensures that field-level validation is done first
+        cleaned_data = super().clean()
+        start = cleaned_data.get('start')
+        end = cleaned_data.get('end')
+        if start and end and start > end:
+            self.add_error('end', ValidationError(_('End time must be after start time')))
+        
+        ## TODO: raise form error if not valid, but first implement proper error display in template
         max_length = timedelta(minutes=settings.MAX_SHIFT_LENGTH_MINUTES)
-        if cleaned_data['end'] - cleaned_data['start'] > max_length:
-            self.add_error('end', ValidationError(
-                _('Shift is too long, can at most be {max} long').format(max=localize_timedelta(max_length))))
+        if end - start > max_length:
+            self.add_error('end', ValidationError(_('Shift is too long, can at most be {max} long').format(
+                max=localize_timedelta(max_length)
+            )))
         return cleaned_data
 
 
