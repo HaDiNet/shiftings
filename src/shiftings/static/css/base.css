@@ -526,3 +526,16 @@ td.disabled {
   display: inline-block;
   border: 1px solid var(--bs-body-color);
 }
+
+/*
+Easy (hopefully temporary) fix for issue, where backdrop was rendered above modal on IOS devices using safari browser.
+This caused users on IOS to be soft locked out of the modal, as they could not interact with it.
+
+All positive z-index values (including 0) were also causing the issue.
+Changing z-index to -1 makes sure backdrop is always behind the modal.
+Changing the position of the modal to anything other than fixed also seemed to fix the issue.
+*/
+/* TODO: Remove once this is not required anymore */
+.modal-backdrop {
+  z-index: -1 !important;  
+}
