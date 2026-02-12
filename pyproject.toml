@@ -27,7 +27,7 @@ dependencies = [
     'gunicorn==21.2.0',
     'holidays==0.40',
     'icalendar==5.0.11',
-    'Pillow==10.4.0',
+    'Pillow==12.1.1',
     'psycopg2-binary==2.9.10',
     'python-dateutil==2.8.2',
     'requests==2.31.0',
