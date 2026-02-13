@@ -13,7 +13,7 @@ class UserCreateForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'display_name', 'first_name', 'last_name', 'email', 'phone_number',
-                  'password', 'confirm_password']
+                  'password', 'confirm_password', 'reminder_type', 'reminders_days_before_event']
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
@@ -35,7 +35,7 @@ class UserCreateForm(forms.ModelForm):
 class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email', 'display_name', 'phone_number']
+        fields = ['first_name', 'last_name', 'email', 'display_name', 'phone_number', 'reminder_type', 'reminders_days_before_event']
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
