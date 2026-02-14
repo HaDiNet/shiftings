@@ -17,7 +17,7 @@ classifiers = [
 ]
 
 dependencies = [
-    'Authlib==1.6.7',
+    'Authlib==1.6.8',
     'Django==6.0.2',
     'django-auth-ldap==5.3.0',
     'django-bootstrap5==26.2',
