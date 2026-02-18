@@ -26,7 +26,7 @@ dependencies = [
     'django-phonenumber-field[phonenumberslite]==8.4.0',
     'gunicorn==25.1.0',
     'holidays==0.90',
-    'icalendar==7.0.0',
+    'icalendar==7.0.1',
     'Pillow==12.1.1',
     'psycopg2-binary==2.9.11',
     'python-dateutil==2.9.0.post0',
