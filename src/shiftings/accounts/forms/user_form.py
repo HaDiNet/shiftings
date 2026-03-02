@@ -1,9 +1,11 @@
-from typing import Any, Dict
+from typing import Any, Optional
 
 from django import forms
+from django.contrib.auth.password_validation import get_password_validators, validate_password
 from django.utils.translation import gettext_lazy as _
 
 from shiftings.accounts.models import User
+from shiftings.settings import AUTH_PASSWORD_VALIDATORS
 
 
 class UserCreateForm(forms.ModelForm):
@@ -26,11 +28,16 @@ class UserCreateForm(forms.ModelForm):
         password = cleaned_data['password']
         confirm_password = cleaned_data['confirm_password']
         if password != confirm_password:
-            raise forms.ValidationError(
-                _('Please enter matching passwords')
-            )
-        return cleaned_data
+            self.add_error('password', _('Please enter matching passwords'))
+            self.add_error('confirm_password', _('Please enter matching passwords'))
+        
+        # validate password using Django's built-in validators
+        try:
+            validate_password(password, user=None, password_validators=get_password_validators(AUTH_PASSWORD_VALIDATORS))
+        except forms.ValidationError as e:
+            self.add_error('password', e)
 
+        return cleaned_data
 
 class UserUpdateForm(forms.ModelForm):
     class Meta:
@@ -47,3 +54,13 @@ class UserUpdateForm(forms.ModelForm):
             self.fields['first_name'].disabled = True
             self.fields['last_name'].disabled = True
             self.fields['email'].disabled = True
+            
+    def clean(self) -> Optional[dict[str, Any]]:
+        cleaned_data = super().clean()
+        if hasattr(self.instance, 'ldap_user'):
+            # if this is an ldap user, ensure that the fields are not changed
+            if (cleaned_data.get('first_name') != self.instance.first_name or
+                cleaned_data.get('last_name') != self.instance.last_name or
+                cleaned_data.get('email') != self.instance.email):
+                raise forms.ValidationError(_('Cannot change first name, last name or email for LDAP users.'))
+        return cleaned_data
