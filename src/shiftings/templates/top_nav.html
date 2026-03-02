@@ -49,7 +49,10 @@
               {% if request.user.is_staff %}
                 <a class="dropdown-item" href="{% url "admin:index" %}">{% trans "Admin" %}</a>
               {% endif %}
-              <a class="dropdown-item" href="{% url "logout" %}">{% trans "Logout" %}</a>
+              <form action="{% url "logout" %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="dropdown-item">{% trans "Logout" %}</button>
+              </form>
             </div>
           </div>
         {% else %}
