@@ -36,7 +36,7 @@ class ShiftForm(ModelForm):
         start = cleaned_data.get('start')
         end = cleaned_data.get('end')
         if start and end and start > end:
-            self.add_error('end', ValidationError(_('End time must be after start time')))
+            raise ValidationError(_('End time must be after start time'))
         
         ## TODO: raise form error if not valid, but first implement proper error display in template
         max_length = timedelta(minutes=settings.MAX_SHIFT_LENGTH_MINUTES)
