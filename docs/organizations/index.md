@@ -1,8 +1,9 @@
 # Organizations
 
-An Organization is the representation of a Group of People
+An Organization is the representation of a Group of People that work together and share Shifts. Every Shift belongs to exactly one Organization and every User can be a Member of multiple Organizations.
 
 ## Administration
+
 Every organization has Multiple Roles. One of these is an Admin.
 
 The Admin can manage the Organization and configure it to the Desired State.
@@ -15,4 +16,5 @@ They can manage :
 * [Shift Types](shift_types.md) for categorizing member activity
 
 ## Shift Summary
-All Member Activity is summarized by Shift Type and Timeframe. Details are contained in the [Summary Section](shift_summary.md) 
+
+All Member Activity is summarized by Shift Type and Timeframe. Details are contained in the [Summary Section](shift_summary.md).

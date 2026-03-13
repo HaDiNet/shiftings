@@ -1,10 +1,12 @@
 # Shift Templates
 
 ## Groups
+
 Shift Templates are Groups of multiple Shifts that can be created together.
 This way you only need one Template per Event.
 
 ## Creating a Shift Template
+
 First you only need the basic Information:
 
 * **Name** - Name of the Template Group this is only for adding it to other objects.
@@ -19,5 +21,5 @@ Every Template needs:
 * **Users** - Required and maximum amount of users in the Shift. If Maximum is 0 any Number of People is allowed.
 * **Time** - A Start Delay will be Added to the Start Time configured in the Group. The Duration is Applied on top of that.
 A Shift Template with a start time of 1pm, a delay of 1h and a duration of 1h will therefore last from 2pm to 3pm.
-You can add multiple Shift templates at once. If you want to delete a Template ist will be marked as to delete and removed once you save.
+You can add multiple Shift templates at once. If you want to delete a Template it will be marked as to delete and removed once you save.
 * **Additional Infos** - Additional Infos will be displayed in every Shift.
