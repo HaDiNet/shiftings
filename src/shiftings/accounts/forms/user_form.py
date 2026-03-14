@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any, Dict, Optional
 
 from django import forms
 from django.contrib.auth.password_validation import get_password_validators, validate_password
