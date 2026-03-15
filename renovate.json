@@ -2,5 +2,36 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended"
+  ],
+
+  "description": "Renovate configuration for the shiftings project, running every weekend before before 6:00am local time in Berlin, Germany.",
+  "timezone": "Europe/Berlin",
+  "schedule": "* 0-5 * * 0,6",
+  "labels": ["dependencies"],
+
+  "packageRules": [
+    {
+      "matchDepTypes": ["dev"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true,
+      "groupName": "devDependencies (non-major)"
+    },
+    {
+      "matchDepTypes": ["tests"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true,
+      "groupName": "testDependencies (non-major)"
+    },
+    {
+      "matchDepTypes": ["docs"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true,
+      "groupName": "docsDependencies (non-major)"
+    },
+    {
+      "matchDepTypes": ["dependencies"],
+      "matchPackageNames": ["Django", "/django-.*/"],
+      "groupName": "Django dependencies"
+    }
   ]
 }
