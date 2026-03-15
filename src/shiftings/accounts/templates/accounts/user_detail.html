@@ -114,6 +114,68 @@
         </div>
       </div>
     </div>
+    <div class="card bg-dark mt-2">
+      <div class="card-header center-items justify-content-between">
+        <h4>{% trans "Calendar Subscriptions" %}</h4>
+      </div>
+      <div class="card-body">
+        {% if calendar_token %}
+          <p class="text-muted small">
+            {% trans "Use these URLs to subscribe to your shifts in a calendar app. Treat them like a password." %}
+          </p>
+          <div class="mb-3">
+            <label class="form-label fw-bold">{% trans "All Shifts" %}</label>
+            <div class="input-group">
+              <input type="text" class="form-control form-control-sm" value="{{ calendar_user_url }}" readonly
+                     id="calUrlUser">
+              <button class="btn btn-outline-secondary btn-sm" type="button"
+                      onclick="navigator.clipboard.writeText(document.getElementById('calUrlUser').value)"
+                      title="{% trans 'Copy' %}">
+                <i class="fa-solid fa-copy"></i>
+              </button>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-bold">{% trans "My Participations" %}</label>
+            <div class="input-group">
+              <input type="text" class="form-control form-control-sm"
+                     value="{{ calendar_participation_url }}" readonly id="calUrlParticipation">
+              <button class="btn btn-outline-secondary btn-sm" type="button"
+                      onclick="navigator.clipboard.writeText(document.getElementById('calUrlParticipation').value)"
+                      title="{% trans 'Copy' %}">
+                <i class="fa-solid fa-copy"></i>
+              </button>
+            </div>
+          </div>
+          <div class="d-flex gap-2">
+            <form action="{% url 'calendar_token_create' %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-warning btn-sm"
+                      onclick="return confirm('{% trans "Regenerating will invalidate existing calendar subscriptions. Continue?" %}')">
+                <i class="fa-solid fa-rotate"></i> {% trans "Regenerate" %}
+              </button>
+            </form>
+            <form action="{% url 'calendar_token_delete' %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger btn-sm"
+                      onclick="return confirm('{% trans "Revoking will stop all calendar subscriptions. Continue?" %}')">
+                <i class="fa-solid fa-trash"></i> {% trans "Revoke" %}
+              </button>
+            </form>
+          </div>
+        {% else %}
+          <p class="text-muted small">
+            {% trans "Generate a calendar URL to subscribe to your shifts from a mobile calendar app." %}
+          </p>
+          <form action="{% url 'calendar_token_create' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary btn-sm">
+              <i class="fa-solid fa-calendar-plus"></i> {% trans "Generate Calendar URL" %}
+            </button>
+          </form>
+        {% endif %}
+      </div>
+    </div>
   </div>
 {% endblock %}
 
