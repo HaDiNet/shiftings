@@ -17,6 +17,32 @@
       <div class="mb-2">
         {% bootstrap_field shift_filter_form.own_shifts_checkbox layout='inline' %}
       </div>
+      <div class="mb-2">
+        {% bootstrap_field shift_filter_form.hide_public_shifts layout='inline' %}
+      </div>
+      {% if shift_filter_form.has_public_orgs %}
+        <div class="w-100 mb-3 ms-3">
+          <div class="filter-accordion accordion w-100" id="publicOrgFilter">
+            <div class="accordion-item">
+              <h5 class="accordion-header rounded-top bg-secondary" id="publicOrgFilterLabel">
+                <button class="accordion-button px-1 py-2 collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#publicOrgFilters"
+                        aria-expanded="false" aria-controls="publicOrgFilters">
+                  {% trans "Exclude public shifts from" %}:
+                </button>
+              </h5>
+              <div id="publicOrgFilters"
+                   class="accordion-collapse collapse border border-2 border-secondary rounded-0"
+                   aria-labelledby="publicOrgFilterLabel"
+                   data-bs-parent="#publicOrgFilter">
+                <div class="accordion-body p-2">
+                  {% bootstrap_field shift_filter_form.exclude_public_orgs_field show_label=False wrapper_class='' %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
       {% if shift_filter_form.has_orgs %}
         <hr class="my-1">
         <div class="w-100 mb-3">
