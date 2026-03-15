@@ -20,7 +20,7 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic import CreateView, DetailView, TemplateView, UpdateView
 
 from shiftings.accounts.forms.user_form import UserCreateForm, UserUpdateForm
-from shiftings.accounts.models import CalendarToken, User
+from shiftings.accounts.models import User
 from shiftings.accounts.token import email_confirm_token_generator
 from shiftings.shifts.models import Shift
 from shiftings.shifts.utils.filter_mixin import ShiftFilterMixin
@@ -48,23 +48,6 @@ class UserProfileView(BaseLoginMixin, ShiftFilterMixin, DetailView):
                                            Q(organization__in=self.object.organizations) |
                                            Q(participants__user=self.object))).distinct()
         context['shifts'] = get_pagination_context(self.request, shifts.filter(self.get_filters()), 5, 'shifts')
-
-        # Calendar subscription token
-        try:
-            cal_token = self.object.calendar_token
-            context['calendar_token'] = cal_token
-            user_url = self.request.build_absolute_uri(
-                reverse('token_user_calendar', kwargs={'token': cal_token.token})
-            )
-            participation_url = self.request.build_absolute_uri(
-                reverse('token_participation_calendar', kwargs={'token': cal_token.token})
-            )
-            context['calendar_user_url'] = user_url
-            context['calendar_participation_url'] = participation_url
-            context['webcal_user_url'] = user_url.replace('http://', 'webcal://', 1).replace('https://', 'webcal://', 1)
-            context['webcal_participation_url'] = participation_url.replace('http://', 'webcal://', 1).replace('https://', 'webcal://', 1)
-        except CalendarToken.DoesNotExist:
-            context['calendar_token'] = None
 
         return context
 
