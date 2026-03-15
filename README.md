@@ -68,9 +68,27 @@ python src/manage.py runserver
 
 After that you can access your local shiftings instance at <http://127.0.0.1:8000/>.
 
+#### OIDC login with Keycloak (recommended)
+
+For development with OIDC authentication (matching the production setup), a local Keycloak instance is provided via Docker Compose:
+
+```shell
+docker compose -f docker-compose.dev.yml up -d
+```
+
+Then copy the dev settings template (if you haven't already):
+
+```shell
+cp src/shiftings/local_settings.dev.py src/shiftings/local_settings.py
+```
+
+Alternatively, `setup_dev.sh` does both the settings copy and database setup in one step.
+
+The Keycloak admin console is available at <http://localhost:8080> (admin/admin). All test users (see below) can log in via SSO with the password `password`. The login page will show both "Login with local Account" and "Login via Single Sign-On" options.
+
 #### User fixtures
 
-In development mode you can switch between the pre-defined user fixtures with a button in the context menu at the top right of the web page or you can login using the lower case name as username and password (`bob`, `perry` etc.). **Bob** is a superuser and has access to the [Django admin page](http://127.0.0.1:8000/admin/) and **Perry** is a staff member. The other users have [different access to the first example organization](http://127.0.0.1:8000/organizations/1/admin/) provided by the fixture. Follow the provided links for more info.
+In development mode you can switch between the pre-defined user fixtures with a button in the context menu at the top right of the web page or you can login using the lower case name as username and password (`bob`, `perry` etc.) for local login, or via SSO with the password `password`. **Bob** is a superuser and has access to the [Django admin page](http://127.0.0.1:8000/admin/) and **Perry** is a staff member. The other users have [different access to the first example organization](http://127.0.0.1:8000/organizations/1/admin/) provided by the fixture. Follow the provided links for more info.
 
 #### Upgrade Django version
 
