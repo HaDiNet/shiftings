@@ -4,16 +4,31 @@ version = '0.4.0'
 description = 'Simple shift management system'
 readme = 'README.md'
 requires-python = '>=3.12'
+license = { text = 'MIT' }
 authors = [
     { name = 'HaDiKo e. V. - HaDiNet', email = 'software@hadiko.de' },
 ]
+keywords = [
+    'shift',
+    'management',
+    'scheduling',
+    'django',
+    'calendar',
+]
 classifiers = [
+    'Framework :: Django',
+    'Framework :: Django :: 6.0',
+    'Intended Audience :: End Users/Desktop',
+    'License :: OSI Approved :: MIT License',
+    'Operating System :: OS Independent',
     'Programming Language :: Python',
     'Programming Language :: Python :: 3',
     'Programming Language :: Python :: 3 :: Only',
     'Programming Language :: Python :: 3.12',
     'Programming Language :: Python :: 3.13',
     'Programming Language :: Python :: 3.14',
+    'Topic :: Office/Business',
+    'Typing :: Typed',
 ]
 
 dependencies = [
@@ -42,13 +57,22 @@ dev = [
     'mypy==1.19.1',
 ]
 
+tests = [
+    'pytest==9.0.2',
+    'pytest-django==4.9.1',
+    'pytest-cov==7.0.0',
+]
+
 docs = [
     'mkdocs==1.6.1',
     'mkdocs-material==9.7.1',
 ]
 
 [project.urls]
-repository = 'https://github.com/HaDiNet/shiftings'
+Homepage = 'https://github.com/HaDiNet/shiftings'
+Repository = 'https://github.com/HaDiNet/shiftings'
+'Bug Tracker' = 'https://github.com/HaDiNet/shiftings/issues'
+Changelog = 'https://github.com/HaDiNet/shiftings/releases'
 
 [tool.setuptools.packages.find]
 where = ['src']
