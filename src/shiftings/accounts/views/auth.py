@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import re
 from json import JSONDecodeError
 from typing import Any, Optional
 
@@ -9,16 +8,14 @@ from authlib.integrations.django_client import OAuth
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login as login_user, logout, REDIRECT_FIELD_NAME
-from django.contrib.auth.models import AbstractUser, Group
-from django.contrib.auth.views import LoginView, LogoutView, UserModel
+from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.views import LoginView, LogoutView
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.cache import never_cache
 from django.views.generic import RedirectView
-
-from shiftings.accounts.models import User
 
 
 class UserLoginView(LoginView):
@@ -95,34 +92,18 @@ if settings.OAUTH_ENABLED:
             try:
                 token = oauth.shiftings.authorize_access_token(request)
                 if 'userinfo' in token:
-                    return self._populate_user(token['userinfo'])
+                    from shiftings.accounts.oidc import populate_user_from_oidc
+                    user = populate_user_from_oidc(token['userinfo'])
+                    if 'refresh_token' in token:
+                        from shiftings.accounts.models import OIDCOfflineToken
+                        OIDCOfflineToken.objects.update_or_create(
+                            user=user,
+                            defaults={'refresh_token': token['refresh_token']},
+                        )
+                    return user
             except JSONDecodeError:
                 pass
             return None
-
-        @staticmethod
-        def _populate_user(user_data: dict[str, Any]) -> AbstractUser:
-            username = user_data.get(settings.OAUTH_USERNAME_CLAIM, '')
-            groups: list[str] = user_data.get(settings.OAUTH_GROUP_CLAIM, [])
-            for group in groups:
-                if re.match(settings.OAUTH_GROUP_IGNORE_REGEX, group) is None:
-                    Group.objects.get_or_create(name=group)
-            try:
-                user: AbstractUser = User.objects.get_by_natural_key(username)
-            except UserModel.DoesNotExist:
-                user = User.objects.create(username=username)
-                user.set_unusable_password()
-                # ignore secondary names
-                user.first_name = user_data.get(settings.OAUTH_FIRST_NAME_CLAIM, '').split(' ')[0]
-                user.last_name = user_data.get(settings.OAUTH_LAST_NAME_CLAIM, '')
-            user.email = user_data.get(settings.OAUTH_EMAIL_CLAIM, '')
-            user.groups.set(Group.objects.filter(name__in=groups))
-
-            user.is_superuser = settings.OAUTH_ADMIN_GROUP in groups
-            user.is_staff = settings.OAUTH_ADMIN_GROUP in groups
-            user.backend = 'django.contrib.auth.backends.ModelBackend'
-            user.save()
-            return user
 
 
 class UserLogoutView(LogoutView):

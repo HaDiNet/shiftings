@@ -48,6 +48,7 @@ class UserProfileView(BaseLoginMixin, ShiftFilterMixin, DetailView):
                                            Q(organization__in=self.object.organizations) |
                                            Q(participants__user=self.object))).distinct()
         context['shifts'] = get_pagination_context(self.request, shifts.filter(self.get_filters()), 5, 'shifts')
+
         return context
 
 
