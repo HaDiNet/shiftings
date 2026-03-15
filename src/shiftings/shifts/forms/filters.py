@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.contenttypes.models import ContentType
 from django.forms import BooleanField, CheckboxSelectMultiple, ModelMultipleChoiceField, TimeField
 from django.utils.translation import gettext_lazy as _
 
@@ -18,6 +19,9 @@ class ShiftFilterForm(forms.Form):
     start_after_time_field = TimeField(label=_('Time HH:MM'), required=False)
     end_before_field = DateFormField(label=_('Date YYYY-MM-DD'), required=False)
     end_before_time_field = TimeField(label=_('Time HH:MM'), required=False)
+    hide_public_shifts = BooleanField(widget=forms.CheckboxInput, label=_('Hide public shifts'), required=False)
+    exclude_public_orgs_field = ModelMultipleChoiceField(queryset=Organization.objects.none(),
+                                                         widget=CheckboxSelectMultiple, required=False)
 
     def __init__(self, user: User, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -28,3 +32,16 @@ class ShiftFilterForm(forms.Form):
         self.fields['select_event_field'].queryset = events
         self.has_events = events.count() > 0
 
+        from shiftings.shifts.models import Shift
+        from shiftings.shifts.models.permission import ParticipationPermission, ParticipationPermissionType
+        shift_ct = ContentType.objects.get_for_model(Shift)
+        public_shift_ids = ParticipationPermission.objects.filter(
+            referred_content_type=shift_ct,
+            permission_type_field__gte=ParticipationPermissionType.Existence,
+            organization__isnull=True
+        ).values_list('referred_object_id', flat=True)
+        public_orgs = Organization.objects.filter(
+            shifts__id__in=public_shift_ids
+        ).exclude(id__in=orgs.values('id')).distinct()
+        self.fields['exclude_public_orgs_field'].queryset = public_orgs
+        self.has_public_orgs = public_orgs.exists()
