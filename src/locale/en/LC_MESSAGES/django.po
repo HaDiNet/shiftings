@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-15 17:34+0000\n"
+"POT-Creation-Date: 2026-03-15 21:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,70 +18,96 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: shiftings/accounts/forms/user_form.py:13
 msgid "Confirm password"
 msgstr ""
 
+#: shiftings/accounts/forms/user_form.py:31
+#: shiftings/accounts/forms/user_form.py:32
 msgid "Please enter matching passwords"
 msgstr ""
 
+#: shiftings/accounts/forms/user_form.py:65
 msgid "Cannot change first name, last name or email for LDAP users."
 msgstr ""
 
+#: shiftings/accounts/models/oidc_token.py:28
+#: shiftings/accounts/templates/accounts/user_detail.html:29
+#: shiftings/organizations/models/membership.py:68
+#: shiftings/shifts/models/participant.py:13
+#: shiftings/templates/top_nav.html:47
 msgid "User"
 msgstr ""
 
-msgid "Token"
-msgstr ""
-
-msgid "Created"
-msgstr ""
-
+#: shiftings/accounts/models/oidc_token.py:30
 msgid "Refresh Token"
 msgstr ""
 
+#: shiftings/accounts/models/oidc_token.py:31
 msgid "Updated"
 msgstr ""
 
+#: shiftings/accounts/models/user.py:32
+#: shiftings/accounts/templates/accounts/user_detail.html:52
+#: shiftings/shifts/models/participant.py:15
 msgid "Display Name"
 msgstr ""
 
+#: shiftings/accounts/models/user.py:33 shiftings/events/models/event.py:29
+#: shiftings/organizations/models/organization.py:28
 msgid "Telephone Number"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/confirm_email.html:7
 msgid "Go to Login"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/login_form.html:6
+#: shiftings/accounts/templates/accounts/login_multiple.html:12
 msgid "Login with local Account"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/login_form.html:8
+#: shiftings/accounts/templates/accounts/login_multiple.html:20
 msgid "Login with LDAP Account"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/login_form.html:14
+#: shiftings/accounts/views/auth.py:23 shiftings/templates/top_nav.html:60
 msgid "Login"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/login_form.html:16
+#: shiftings/accounts/templates/accounts/password_reset/prompt.html:10
 msgid "Reset Password"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/login_form.html:18
 msgid "Return to selection"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/login_form.html:29
 msgid "You don't have an Account?"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/login_form.html:30
 msgid "Register here"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/login_form.html:32
 msgid "Or login using another Method"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/login_multiple.html:5
 msgid "Welcome to Shiftings"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/login_multiple.html:6
 msgid ""
 "To manage your shifts please authenticate with one of the given methods:"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/login_multiple.html:31
 #, python-format
 msgid ""
 "\n"
@@ -89,21 +115,28 @@ msgid ""
 "                "
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/logout.html:6
 msgid "Successfully logged out"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/logout.html:7
 msgid "Login again"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/password_reset/confirm.html:7
 msgid "Change Password"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/password_reset/done.html:4
 msgid "Your password has been reset, check your email!"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/password_reset/done.html:5
+#: shiftings/accounts/templates/accounts/password_reset/success.html:5
 msgid "Back to login"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/password_reset/prompt.html:4
 msgid ""
 "\n"
 "      If you are an local user enter your email-adress below to reset your "
@@ -111,12 +144,15 @@ msgid ""
 "    "
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/password_reset/success.html:4
 msgid "Your password has been successfully reset!"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/user_detail.html:3
 msgid "Confirm User Deletion"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/user_detail.html:5
 #, python-format
 msgid ""
 "\n"
@@ -126,114 +162,124 @@ msgid ""
 "      "
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/user_detail.html:17
 msgid "Yes, I want to permanently delete my Data"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/user_detail.html:19
 msgid "Abort"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/user_detail.html:37
+#: shiftings/accounts/templates/accounts/user_detail.html:57
 msgid "Edit user data"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/user_detail.html:48
+#: shiftings/organizations/forms/membership.py:16
 msgid "Username"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/user_detail.html:50
+#: shiftings/events/models/event.py:25
+#: shiftings/events/templates/events/event.html:85
+#: shiftings/organizations/models/membership.py:10
+#: shiftings/organizations/models/organization.py:24
+#: shiftings/organizations/templates/organizations/organization_admin.html:195
+#: shiftings/organizations/templates/organizations/organization_admin.html:239
+#: shiftings/organizations/templates/organizations/organization_admin.html:278
+#: shiftings/organizations/templates/organizations/organization_admin.html:388
+#: shiftings/organizations/templates/organizations/organization_settings.html:39
+#: shiftings/organizations/templates/organizations/user/claim_users.html:13
+#: shiftings/shifts/models/base.py:8 shiftings/shifts/models/recurring.py:32
+#: shiftings/shifts/models/template.py:17
+#: shiftings/shifts/models/template_group.py:20
+#: shiftings/shifts/models/type.py:40 shiftings/shifts/models/type_group.py:16
+#: shiftings/shifts/templates/shifts/group/list.html:6
+#: shiftings/shifts/templates/shifts/list.html:6
+#: shiftings/shifts/templates/shifts/recurring/list.html:6
+#: shiftings/shifts/templates/shifts/template/group_list.html:6
+#: shiftings/shifts/templates/shifts/template/template_form.html:5
+#: shiftings/shifts/templates/shifts/type_group/list.html:7
 msgid "Name"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/user_detail.html:55
+#: shiftings/accounts/templates/accounts/user_detail.html:65
 msgid "Unknown"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/user_detail.html:58
 msgid "Set Display Name"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/user_detail.html:62
 msgid "Email"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/user_detail.html:64
 msgid "Phone Number"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/user_detail.html:66
 msgid "Member since"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/user_detail.html:68
 msgid "Total Shifts"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/user_detail.html:70
+#: shiftings/organizations/templates/organizations/organization_admin.html:124
 msgid "Groups"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/user_detail.html:71
+#: shiftings/events/templates/events/template/event.html:32
+#: shiftings/shifts/templates/shifts/template/template.html:19
 msgid "None"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/user_detail.html:77
 msgid "Organizations"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/user_detail.html:83
 msgid "Hide organizations"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/user_detail.html:102
+#: shiftings/events/templates/events/template/event.html:12
 msgid "No Logo available"
 msgstr ""
 
-msgid "Calendar Subscriptions"
-msgstr ""
-
-msgid "Regenerating will invalidate existing calendar subscriptions. Continue?"
-msgstr ""
-
-msgid "Regenerate"
-msgstr ""
-
-msgid "Revoking will stop all calendar subscriptions. Continue?"
-msgstr ""
-
-msgid "Revoke"
-msgstr ""
-
-msgid "Generate Calendar URL"
-msgstr ""
-
-msgid ""
-"Use these URLs to subscribe to your shifts in a calendar app. Treat them "
-"like a password."
-msgstr ""
-
-#, fuzzy
-#| msgid "Shift list"
-msgid "All Shifts"
-msgstr "Schichtenliste"
-
-msgid "Add to Calendar"
-msgstr ""
-
-msgid "Copy URL"
-msgstr ""
-
-msgid "My Shifts"
-msgstr ""
-
-msgid ""
-"Generate a calendar URL to subscribe to your shifts from a mobile calendar "
-"app."
-msgstr ""
-
+#: shiftings/accounts/templates/accounts/user_detail.html:125
 msgid "Recent Shifts"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/user_detail.html:127
+#: shiftings/accounts/templates/accounts/user_detail.html:132
 msgid "Upcoming Shifts"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/user_detail.html:136
 msgid "Past Shifts"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/user_detail.html:157
 msgid "No recent Shifts"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/user_detail.html:159
+#: shiftings/organizations/templates/organizations/organization_shifts.html:135
 msgid "No upcoming shifts"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/user_form.html:6
 msgid "Register"
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/user_form.html:8
 #, python-format
 msgid ""
 "\n"
@@ -241,106 +287,137 @@ msgid ""
 "        "
 msgstr ""
 
+#: shiftings/accounts/templates/accounts/user_form.html:19
+#: shiftings/templates/template/simple_form_modal.html:21
 msgid "Submit"
 msgstr ""
 
+#: shiftings/accounts/views/auth.py:79
 msgid "Error while creating the user instance!"
 msgstr ""
 
+#: shiftings/accounts/views/auth.py:83
 msgid "Successfully logged in!"
 msgstr ""
 
+#: shiftings/accounts/views/auth.py:86
 #, python-format
 msgid "Error while trying to authenticate with sso! %(message)s"
 msgstr ""
 
+#: shiftings/accounts/views/auth.py:111 shiftings/templates/top_nav.html:54
 msgid "Logout"
 msgstr ""
 
-msgid "Calendar subscription URL regenerated. Old URLs will stop working."
-msgstr ""
-
-msgid "Calendar subscription URL generated."
-msgstr ""
-
-msgid "Calendar subscription URL revoked."
-msgstr ""
-
+#: shiftings/accounts/views/password.py:13
 msgid "Password Reset"
 msgstr ""
 
+#: shiftings/accounts/views/password.py:19
 msgid "Confirm Password Reset"
 msgstr ""
 
+#: shiftings/accounts/views/user.py:35 shiftings/templates/top_nav.html:15
 msgid "My Shifts"
 msgstr ""
 
+#: shiftings/accounts/views/user.py:102
 msgid "Could not find your user."
 msgstr ""
 
+#: shiftings/accounts/views/user.py:108
 msgid "Your EMail was confirmed. You can now login."
 msgstr ""
 
+#: shiftings/accounts/views/user.py:111
 msgid "Your activation link was invalid."
 msgstr ""
 
+#: shiftings/accounts/views/user.py:128
 msgid "Error while deleting your data: Please confirm deletion!"
 msgstr ""
 
+#: shiftings/cal/feed/event.py:44
 msgid "Public Events"
 msgstr ""
 
+#: shiftings/cal/forms/day_form.py:8
 msgid "Select Day"
 msgstr ""
 
+#: shiftings/cal/templates/cal/calendar_base.html:14
+#: shiftings/cal/templates/cal/calendar_base.html:24
 msgid "Day View"
 msgstr ""
 
+#: shiftings/cal/templates/cal/calendar_base.html:20
 msgid "Day (Detailed)"
 msgstr ""
 
+#: shiftings/cal/templates/cal/calendar_base.html:30
 msgid "Day (By&nbsp;Types)"
 msgstr ""
 
+#: shiftings/cal/templates/cal/calendar_base.html:37
 msgid "Month View"
 msgstr ""
 
+#: shiftings/cal/templates/cal/calendar_base.html:38
+#: shiftings/utils/time/month.py:25 shiftings/utils/time/timerange.py:12
 msgid "Month"
 msgstr ""
 
+#: shiftings/cal/templates/cal/calendar_base.html:42
+#: shiftings/cal/templates/cal/calendar_base.html:48
 msgid "List View"
 msgstr ""
 
+#: shiftings/cal/templates/cal/calendar_base.html:44
 msgid "List (Detailed)"
 msgstr ""
 
+#: shiftings/cal/templates/cal/calendar_base.html:50
 msgid "List (By&nbsp;Types)"
 msgstr ""
 
+#: shiftings/cal/templates/cal/calendar_templates/cal_shift_create_entry.html:4
+#: shiftings/cal/templates/cal/template/day_calendar_xs.html:106
+#: shiftings/events/templates/events/event.html:74
+#: shiftings/organizations/templates/organizations/organization_admin.html:376
+#: shiftings/organizations/templates/organizations/organization_shifts.html:120
 msgid "Create Shift"
 msgstr ""
 
+#: shiftings/cal/templates/cal/calendar_templates/recurring_shift_entry.html:5
 msgid "Recurring"
 msgstr ""
 
+#: shiftings/cal/templates/cal/day_calendar.html:14
 msgid "Previous Day"
 msgstr ""
 
+#: shiftings/cal/templates/cal/day_calendar.html:22
 msgid "Jump to Date"
 msgstr ""
 
+#: shiftings/cal/templates/cal/day_calendar.html:28
 msgid "Jump to Day"
 msgstr ""
 
+#: shiftings/cal/templates/cal/day_calendar.html:30
 msgid "Select"
 msgstr ""
 
+#: shiftings/cal/templates/cal/day_calendar.html:38
 msgid "Next Day"
 msgstr ""
 
+#: shiftings/cal/templates/cal/list_calendar.html:12
 msgid "Shift list"
 msgstr "Schichtenliste"
 
+#: shiftings/cal/templates/cal/template/day_calendar_shift_types.html:3
+#: shiftings/cal/templates/cal/template/day_calendar_xs.html:3
 #, python-format
 msgid ""
 "\n"
@@ -349,157 +426,293 @@ msgid ""
 "    "
 msgstr ""
 
+#: shiftings/cal/templates/cal/template/day_calendar_shift_types.html:14
+#: shiftings/cal/templates/cal/template/day_calendar_xs.html:48
+#: shiftings/shifts/templates/shifts/shift_participants.html:4
 msgid "Add with Name to Shift"
 msgstr ""
 
+#: shiftings/cal/templates/cal/template/day_calendar_shift_types.html:30
+#: shiftings/organizations/templates/organizations/organization_admin.html:197
+#: shiftings/shifts/templates/shifts/template/group.html:43
+#: shiftings/shifts/templates/shifts/template/group_template.html:23
+#: shiftings/shifts/templates/shifts/template/shift.html:10
+#: shiftings/shifts/templates/shifts/template/template_form.html:33
 msgid "Time"
 msgstr ""
 
+#: shiftings/cal/templates/cal/template/day_calendar_shift_types.html:40
+#: shiftings/organizations/models/membership.py:12
 msgid "Default"
 msgstr ""
 
+#: shiftings/cal/templates/cal/template/day_calendar_shift_types.html:45
+#: shiftings/cal/templates/cal/template/day_calendar_xs.html:95
 msgid "No Shifts found with these parameters or planned on this day"
 msgstr ""
 
+#: shiftings/cal/templates/cal/template/day_calendar_xs.html:12
+#: shiftings/events/models/event.py:24 shiftings/shifts/models/base.py:12
+#: shiftings/shifts/models/recurring.py:34
+#: shiftings/shifts/models/template_group.py:24
+#: shiftings/shifts/models/type.py:37 shiftings/shifts/models/type_group.py:14
+#: shiftings/shifts/templates/shifts/create_shift.html:79
+#: shiftings/shifts/templates/shifts/list.html:9
+#: shiftings/shifts/templates/shifts/recurring/list.html:9
+#: shiftings/shifts/templates/shifts/shift.html:47
+#: shiftings/shifts/templates/shifts/template/group.html:39
+#: shiftings/shifts/templates/shifts/template/group.html:45
+#: shiftings/shifts/templates/shifts/template/group_list.html:8
+#: shiftings/shifts/templates/shifts/template/group_template.html:25
 msgid "Organization"
 msgstr ""
 
+#: shiftings/cal/templates/cal/template/day_calendar_xs.html:13
 msgid "Org"
 msgstr ""
 
+#: shiftings/cal/templates/cal/template/day_calendar_xs.html:14
 msgid "Shift"
 msgstr ""
 
+#: shiftings/cal/templates/cal/template/day_calendar_xs.html:15
+#: shiftings/shifts/templates/shifts/create_shift.html:56
+#: shiftings/shifts/templates/shifts/template/shift.html:12
+#: shiftings/shifts/templates/shifts/template/small_shift_display.html:21
 msgid "Participants"
 msgstr ""
 
+#: shiftings/cal/templates/cal/template/day_calendar_xs.html:16
+#: shiftings/shifts/templates/shifts/list.html:10
 msgid "Start"
 msgstr ""
 
+#: shiftings/cal/templates/cal/template/day_calendar_xs.html:17
+#: shiftings/shifts/templates/shifts/list.html:11
 msgid "End"
 msgstr ""
 
+#: shiftings/cal/templates/cal/template/day_calendar_xs.html:36
+#: shiftings/shifts/templates/shifts/template/small_shift_display.html:7
 msgid "Shift Details"
 msgstr ""
 
+#: shiftings/cal/templates/cal/template/day_calendar_xs.html:61
+#: shiftings/shifts/templates/shifts/shift_participants.html:23
+#: shiftings/shifts/templates/shifts/template/slots_display.html:29
+#: shiftings/shifts/templates/shifts/template/small_shift_display.html:44
 msgid "Add me"
 msgstr ""
 
+#: shiftings/cal/templates/cal/template/day_calendar_xs.html:112
+#: shiftings/shifts/templates/shifts/edit_participation_permissions.html:31
+#: shiftings/shifts/templates/shifts/edit_templates.html:26
 msgid "Add Shift"
 msgstr ""
 
+#: shiftings/cal/templates/cal/template/month_calendar.html:7
 msgid "Previous Month"
 msgstr ""
 
+#: shiftings/cal/templates/cal/template/month_calendar.html:15
 msgid "Next Month"
 msgstr ""
 
+#: shiftings/cal/templates/cal/week_calendar.html:9
 msgid "Previous Week"
 msgstr ""
 
+#: shiftings/cal/templates/cal/week_calendar.html:13
 msgid "Week"
 msgstr ""
 
+#: shiftings/cal/templates/cal/week_calendar.html:17
 msgid "Next Week"
 msgstr ""
 
+#: shiftings/cal/views/day_calendar.py:24
 #, python-brace-format
 msgid "Day {date}"
 msgstr ""
 
+#: shiftings/cal/views/day_calendar.py:25
 msgid "Day Overview"
 msgstr ""
 
+#: shiftings/cal/views/list.py:24
+#: shiftings/organizations/templates/organizations/template/org_info.html:6
 msgid "Shift Overview"
 msgstr ""
 
+#: shiftings/cal/views/month_calendar.py:24
 #, python-brace-format
 msgid "Month {year}/{month:0>2}"
 msgstr ""
 
+#: shiftings/cal/views/month_calendar.py:26
+#: shiftings/events/templates/events/event.html:52
+#: shiftings/organizations/templates/organizations/organization_admin.html:162
+#: shiftings/organizations/templates/organizations/organization_shifts.html:28
 msgid "Month Overview"
 msgstr ""
 
+#: shiftings/events/forms/event.py:24
 #, python-format
 msgid "Start date %(start)s was after end_date %(end)s"
 msgstr ""
 
+#: shiftings/events/models/event.py:26
+#: shiftings/events/templates/events/event.html:19
+#: shiftings/organizations/models/organization.py:25
+#: shiftings/organizations/templates/organizations/template/org_info.html:58
 msgid "Logo"
 msgstr ""
 
+#: shiftings/events/models/event.py:28
+#: shiftings/organizations/models/organization.py:27
 msgid "E-Mail"
 msgstr ""
 
+#: shiftings/events/models/event.py:30
+#: shiftings/organizations/models/organization.py:29
+#: shiftings/organizations/templates/organizations/organization_shifts.html:81
+#: shiftings/organizations/templates/organizations/template/organization.html:27
 msgid "Website"
 msgstr ""
 
+#: shiftings/events/models/event.py:32
 msgid "Start Date"
 msgstr ""
 
+#: shiftings/events/models/event.py:32
 msgid "Earliest date where there are shifts available"
 msgstr ""
 
+#: shiftings/events/models/event.py:33
 msgid "End Date"
 msgstr ""
 
+#: shiftings/events/models/event.py:33
 msgid "Latest date where there are shifts available"
 msgstr ""
 
+#: shiftings/events/models/event.py:35
+#: shiftings/organizations/models/organization.py:32
 msgid "Description"
 msgstr ""
 
+#: shiftings/events/models/event.py:55
 #, python-brace-format
 msgid "{name} (by {organization})"
 msgstr ""
 
+#: shiftings/events/templates/events/event.html:10
 msgid "Edit Event"
 msgstr ""
 
+#: shiftings/events/templates/events/event.html:55
+#: shiftings/organizations/templates/organizations/organization_admin.html:165
+#: shiftings/organizations/templates/organizations/organization_shifts.html:31
 msgid "Complete Overview"
 msgstr ""
 
+#: shiftings/events/templates/events/event.html:69
+#: shiftings/organizations/templates/organizations/organization_admin.html:363
+#: shiftings/organizations/templates/organizations/organization_shifts.html:109
 msgid "Shifts"
 msgstr ""
 
+#: shiftings/events/templates/events/event.html:71
+#: shiftings/events/templates/events/event.html:72
+#: shiftings/organizations/templates/organizations/organization_admin.html:371
+#: shiftings/organizations/templates/organizations/organization_shifts.html:112
 msgid "ical Export"
 msgstr ""
 
+#: shiftings/events/templates/events/event.html:86
+#: shiftings/organizations/templates/organizations/organization_admin.html:389
+#: shiftings/shifts/templates/shifts/list.html:7
+#: shiftings/shifts/templates/shifts/recurring/list.html:7
+#: shiftings/shifts/templates/shifts/template/shift.html:8
+#: shiftings/shifts/templates/shifts/template/template.html:7
 msgid "Type"
 msgstr ""
 
+#: shiftings/events/templates/events/event.html:87
+#: shiftings/mail/forms/mail.py:55
+#: shiftings/organizations/templates/organizations/organization_admin.html:241
+#: shiftings/organizations/templates/organizations/organization_admin.html:390
+#: shiftings/shifts/models/template_group.py:26
+#: shiftings/shifts/templates/shifts/shift.html:43
+#: shiftings/shifts/templates/shifts/template/group_list.html:9
+#: shiftings/shifts/templates/shifts/template/small_shift_display.html:17
+#: shiftings/shifts/templates/shifts/template/template.html:13
 msgid "Start Time"
 msgstr ""
 
+#: shiftings/events/templates/events/event.html:88
+#: shiftings/mail/forms/mail.py:56
+#: shiftings/organizations/templates/organizations/organization_admin.html:391
+#: shiftings/shifts/templates/shifts/shift.html:45
+#: shiftings/shifts/templates/shifts/template/template.html:15
 msgid "End Time"
 msgstr ""
 
+#: shiftings/events/templates/events/event.html:89
+#: shiftings/organizations/templates/organizations/organization_admin.html:198
+#: shiftings/organizations/templates/organizations/organization_admin.html:240
+#: shiftings/organizations/templates/organizations/organization_admin.html:392
+#: shiftings/shifts/models/base.py:9
+#: shiftings/shifts/models/template_group.py:21
+#: shiftings/shifts/templates/shifts/list.html:8
+#: shiftings/shifts/templates/shifts/recurring/list.html:8
+#: shiftings/shifts/templates/shifts/shift.html:41
+#: shiftings/shifts/templates/shifts/template/group.html:41
+#: shiftings/shifts/templates/shifts/template/group_list.html:7
+#: shiftings/shifts/templates/shifts/template/group_template.html:21
+#: shiftings/shifts/templates/shifts/template/shift_card.html:12
+#: shiftings/shifts/templates/shifts/template/small_shift_display.html:18
 msgid "Place"
 msgstr ""
 
+#: shiftings/events/templates/events/event.html:90
+#: shiftings/organizations/templates/organizations/organization_admin.html:393
 msgid "Users/Required/Max"
 msgstr ""
 
+#: shiftings/events/templates/events/event.html:108
+#: shiftings/organizations/templates/organizations/organization_admin.html:416
 msgid "No current shifts"
 msgstr ""
 
+#: shiftings/events/templates/events/list.html:5
+#: shiftings/events/templates/events/list.html:13
+#: shiftings/events/templates/events/list.html:22
 msgid "All Events"
 msgstr ""
 
+#: shiftings/events/templates/events/list.html:7
+#: shiftings/templates/top_nav.html:22
 msgid "Current Events"
 msgstr ""
 
+#: shiftings/events/templates/events/list.html:16
 msgid "All upcoming Events"
 msgstr ""
 
+#: shiftings/events/templates/events/list.html:20
 msgid "Enter Name or Organization"
 msgstr ""
 
+#: shiftings/events/templates/events/list.html:26
 msgid "Future Events"
 msgstr ""
 
+#: shiftings/events/templates/events/list.html:39
 msgid "No Events found."
 msgstr ""
 
+#: shiftings/events/templates/events/template/event.html:23
 #, python-format
 msgid ""
 "\n"
@@ -507,202 +720,276 @@ msgid ""
 "            "
 msgstr ""
 
+#: shiftings/events/templates/events/template/event.html:31
 msgid "Open Shifts"
 msgstr ""
 
+#: shiftings/events/templates/events/template/event.html:32
 msgid "Required People"
 msgstr ""
 
+#: shiftings/events/templates/events/template/event.html:33
 msgid "Visibility"
 msgstr ""
 
+#: shiftings/events/templates/events/template/event.html:33
+#: shiftings/organizations/templates/organizations/organization_admin.html:350
 msgid "Public,Private,Unknown"
 msgstr ""
 
+#: shiftings/events/templates/events/template/event_stats.html:2
 msgid "Shifts that are below the required amount of users"
 msgstr ""
 
+#: shiftings/events/templates/events/template/event_stats.html:3
 msgid "Shifts missing users"
 msgstr ""
 
+#: shiftings/events/templates/events/template/event_stats.html:6
 msgid "Shifts that are below the required and maximum amount of users"
 msgstr ""
 
+#: shiftings/events/templates/events/template/event_stats.html:7
 msgid "Shifts with open slots"
 msgstr ""
 
+#: shiftings/events/templates/events/template/event_stats.html:10
 msgid "Number of Shift slots filled with users"
 msgstr ""
 
+#: shiftings/events/templates/events/template/event_stats.html:11
 msgid "Filled Slots"
 msgstr ""
 
+#: shiftings/events/templates/events/template/event_stats.html:12
+#: shiftings/events/templates/events/template/event_stats.html:16
 msgid "No Shifts available"
 msgstr ""
 
+#: shiftings/events/templates/events/template/event_stats.html:14
 msgid "Number of Shift slots that are still open"
 msgstr ""
 
+#: shiftings/events/templates/events/template/event_stats.html:15
 msgid "Open Slots"
 msgstr ""
 
+#: shiftings/mail/forms/mail.py:13
 msgid "Subject"
 msgstr ""
 
+#: shiftings/mail/forms/mail.py:14
 msgid "Text"
 msgstr ""
 
+#: shiftings/mail/forms/mail.py:15
 msgid "Attachments"
 msgstr ""
 
+#: shiftings/mail/forms/mail.py:26
 msgid "Each attachment must be smaller than 10 MB."
 msgstr ""
 
+#: shiftings/mail/forms/mail.py:30
 msgid "Total attachment size must be smaller than 25 MB."
 msgstr ""
 
+#: shiftings/mail/forms/mail.py:38
 msgid ""
 "Send the mail only to specific membership types. Or leave blank to send to "
 "all."
 msgstr ""
 
+#: shiftings/mail/forms/mail.py:53
 msgid ""
 "Send the mail only to specific shift types. Or leave blank to send to all."
 msgstr ""
 
+#: shiftings/mail/forms/mail.py:71
 msgid "Start time must be before end time."
 msgstr ""
 
+#: shiftings/mail/templates/mail/mail.html:8
 msgid "Send Mail"
 msgstr ""
 
+#: shiftings/mail/views/mail.py:45
 #, python-brace-format
 msgid "E-Mail sent to {count} user(s)."
 msgstr ""
 
+#: shiftings/organizations/forms/membership.py:40
+#: shiftings/shifts/forms/participant.py:57
 msgid "The user you entered could not be found."
 msgstr ""
 
+#: shiftings/organizations/models/membership.py:11
+#: shiftings/organizations/templates/organizations/organization_admin.html:68
+#: shiftings/templates/top_nav.html:50
 msgid "Admin"
 msgstr ""
 
+#: shiftings/organizations/models/membership.py:13
 msgid "Permissions"
 msgstr ""
 
+#: shiftings/organizations/models/membership.py:19
 msgid "edit organization details"
 msgstr ""
 
+#: shiftings/organizations/models/membership.py:20
 msgid "see members of the organization"
 msgstr ""
 
+#: shiftings/organizations/models/membership.py:21
 msgid "see shift participation statistics"
 msgstr ""
 
+#: shiftings/organizations/models/membership.py:22
 msgid "send emails to everyone in the organization"
 msgstr ""
 
+#: shiftings/organizations/models/membership.py:24
 msgid "create and update membership types for the organization"
 msgstr ""
 
+#: shiftings/organizations/models/membership.py:25
 msgid "add and remove members for the organization"
 msgstr ""
 
+#: shiftings/organizations/models/membership.py:27
 msgid "create and update events for the organization"
 msgstr ""
 
+#: shiftings/organizations/models/membership.py:29
 msgid "create and update recurring shifts for the organization"
 msgstr ""
 
+#: shiftings/organizations/models/membership.py:30
 msgid "create and update shifts templates for the organization"
 msgstr ""
 
+#: shiftings/organizations/models/membership.py:31
 msgid "create and update shifts for the organization"
 msgstr ""
 
+#: shiftings/organizations/models/membership.py:32
 msgid "delete uncompleted shifts for the organization"
 msgstr ""
 
+#: shiftings/organizations/models/membership.py:34
 msgid "remove others from shifts"
 msgstr ""
 
+#: shiftings/organizations/models/membership.py:35
 msgid "add other users that are not members of the organization to shifts"
 msgstr ""
 
+#: shiftings/organizations/models/membership.py:36
 msgid "add other organization members to shifts"
 msgstr ""
 
+#: shiftings/organizations/models/membership.py:37
 msgid "participate in shifts"
 msgstr ""
 
+#: shiftings/organizations/models/membership.py:38
 msgid "add self/others (depending on other permissions) to past shifts"
 msgstr ""
 
+#: shiftings/organizations/models/membership.py:57
 #, python-brace-format
 msgid "{name} (Admin)"
 msgstr ""
 
+#: shiftings/organizations/models/membership.py:59
 #, python-brace-format
 msgid "{name} (Default)"
 msgstr ""
 
+#: shiftings/organizations/models/membership.py:65
 msgid "Membership Type"
 msgstr ""
 
+#: shiftings/organizations/models/membership.py:69
+#: shiftings/shifts/models/type.py:38
 msgid "Group"
 msgstr ""
 
+#: shiftings/organizations/models/membership.py:100
 msgid "Membership can only be either user or group, not both."
 msgstr ""
 
+#: shiftings/organizations/models/membership.py:102
 msgid "Membership must consist of a user or a group."
 msgstr ""
 
+#: shiftings/organizations/models/organization.py:30
 msgid "Include Protocol i.E. https://example.com"
 msgstr ""
 
+#: shiftings/organizations/models/organization.py:33
+#: shiftings/shifts/models/base.py:24 shiftings/shifts/models/recurring.py:56
+#: shiftings/shifts/models/recurring.py:63 shiftings/shifts/models/shift.py:32
+#: shiftings/shifts/models/template.py:33
 #, python-brace-format
 msgid "A maximum of {amount} characters is allowed"
 msgstr ""
 
+#: shiftings/organizations/models/organization.py:34
 msgid "Confirm Participants"
 msgstr ""
 
+#: shiftings/organizations/models/organization.py:35
 msgid "Whether the participants can be confirmed or not. Default: False"
 msgstr ""
 
+#: shiftings/organizations/models/organization.py:49
 msgid "manage all organizations"
 msgstr ""
 
+#: shiftings/organizations/models/user.py:10
 msgid "Claimed by"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/list.html:5
 msgid "All Organizations"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/list.html:7
+#: shiftings/templates/top_nav.html:18
 msgid "My Organizations"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/list.html:12
 msgid "Enter Name"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/list.html:14
 msgid "Add new Organization"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/list.html:25
 msgid "No Organizations found."
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_admin.html:6
 msgid "Show membership Permissions"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_admin.html:10
 msgid "All Permissions"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_admin.html:19
 msgid "No permissions"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_admin.html:26
 msgid "Add member"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_admin.html:41
 #, python-format
 msgid ""
 "\n"
@@ -710,129 +997,187 @@ msgid ""
 "          "
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_admin.html:48
+#: shiftings/organizations/templates/organizations/organization_shifts.html:8
 msgid "Member Shift Summary"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_admin.html:54
 msgid "Add Membership Type"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_admin.html:78
 msgid "Show user permissions"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_admin.html:81
 msgid "Edit Membership Type"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_admin.html:90
 msgid "Add Member"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_admin.html:100
 msgid "No Members of this type!"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_admin.html:106
 msgid "Direct Members"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_admin.html:150
 msgid "Next Shift"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_admin.html:154
 msgid "No Shifts planned"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_admin.html:179
+#: shiftings/shifts/templates/shifts/template/group.html:52
 msgid "Recurring Shifts"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_admin.html:184
 msgid "Add recurring shift"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_admin.html:196
 msgid "Shift count"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_admin.html:199
 msgid "Status"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_admin.html:210
 msgid "Inactive,Active,Undefined"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_admin.html:216
 msgid "No recurring shifts"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_admin.html:223
 msgid "Shifts Templates"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_admin.html:228
 msgid "Add shifts template"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_admin.html:255
+#: shiftings/organizations/templates/organizations/organization_admin.html:309
 msgid "No shifts templates"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_admin.html:262
 msgid "Shifts Types"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_admin.html:267
 msgid "Add Shift Type"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_admin.html:279
 msgid "Color"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_admin.html:280
+#: shiftings/organizations/templates/organizations/user/claim_users.html:15
 msgid "Shift Count"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_admin.html:281
+#: shiftings/organizations/templates/organizations/organization_settings.html:41
+#: shiftings/organizations/templates/organizations/user/claim_users.html:16
 msgid "Action"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_admin.html:290
 msgid "Shift Type Background Color"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_admin.html:317
 msgid "Upcoming Events"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_admin.html:321
+#: shiftings/organizations/templates/organizations/organization_shifts.html:50
 msgid "Expired Events"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_admin.html:326
+#: shiftings/organizations/templates/organizations/organization_shifts.html:55
 msgid "Add Event"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_admin.html:356
 msgid "No upcoming Events planned"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_admin.html:367
 msgid "Claim Legacy Shifts"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_settings.html:19
+#: shiftings/shifts/templates/shifts/edit_participation_permissions.html:36
+#: shiftings/shifts/templates/shifts/edit_templates.html:31
+#: shiftings/shifts/templates/shifts/recurring/form.html:25
+#: shiftings/templates/generic/create_or_update.html:20
+#: shiftings/templates/generic/formset.html:17
 msgid "Save"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_settings.html:26
 msgid "Shift Type Groups"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_settings.html:29
 msgid "Create Type Group"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_settings.html:38
 msgid "Order"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_settings.html:40
 msgid "Types"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_settings.html:61
 msgid "Edit Type Group"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_settings.html:72
+#: shiftings/organizations/templates/organizations/organization_settings.html:77
 msgid "Move Up"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_settings.html:84
+#: shiftings/organizations/templates/organizations/organization_settings.html:89
 msgid "Move Down"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_shifts.html:11
 msgid "Full Summary"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_shifts.html:46
 msgid "Upcoming Event"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_shifts.html:66
+#: shiftings/shifts/models/shift.py:21
 msgid "Event"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_shifts.html:68
 msgid "Go to Event"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_shifts.html:74
 #, python-format
 msgid ""
 "\n"
@@ -842,341 +1187,464 @@ msgid ""
 "                      "
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_shifts.html:94
 msgid "No Events planned"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_shifts.html:102
 msgid "Events disabled"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/organization_shifts.html:117
 msgid "Create Shift from Template"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/template/member_group.html:6
 msgid "Click to expand members"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/template/org_info.html:8
 msgid "Organization Overview"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/template/org_info.html:12
 msgid "Administrate Organization"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/template/org_info.html:14
 msgid "Organization Admin View"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/template/org_info.html:19
 msgid "Organization Settings"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/template/org_info.html:21
 msgid "Organization Settings View"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/template/org_info.html:35
 msgid "Send Mail to shift participants"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/template/org_info.html:41
 msgid "Edit Organization"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/template/org_info.html:47
 msgid "Update Shift Permissions"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/template/organization.html:12
 msgid "No Image available"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/user/claim_users.html:6
 msgid "Imported Users"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/user/claim_users.html:14
 msgid "Claimed"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/user/claim_users.html:36
 msgid "Claim"
 msgstr ""
 
+#: shiftings/organizations/templates/organizations/user/claim_users.html:43
 msgid "Unclaim"
 msgstr ""
 
+#: shiftings/organizations/views/membership.py:55
+#: shiftings/organizations/views/membership_type.py:57
 msgid "Membership removed"
 msgstr ""
 
+#: shiftings/organizations/views/organization.py:62
 #, python-brace-format
 msgid "{org} Overview"
 msgstr ""
 
+#: shiftings/organizations/views/organization.py:89
 #, python-brace-format
 msgid "{org} Administration"
 msgstr ""
 
+#: shiftings/organizations/views/organization.py:135
 #, python-brace-format
 msgid "{org} Settings"
 msgstr ""
 
+#: shiftings/organizations/views/user.py:36
 msgid "You can't claim users that are already claimed."
 msgstr ""
 
+#: shiftings/shifts/forms/filters.py:12
 msgid "Shifts I participate in"
 msgstr ""
 
+#: shiftings/shifts/forms/filters.py:17 shiftings/shifts/forms/filters.py:19
 msgid "Date YYYY-MM-DD"
 msgstr ""
 
+#: shiftings/shifts/forms/filters.py:18 shiftings/shifts/forms/filters.py:20
 msgid "Time HH:MM"
 msgstr ""
 
+#: shiftings/shifts/forms/participant.py:28
 #, python-brace-format
 msgid "User {user} is already registered for this shift."
 msgstr ""
 
+#: shiftings/shifts/forms/participant.py:32
 msgid "Organization Users"
 msgstr ""
 
+#: shiftings/shifts/forms/participant.py:33
 msgid "Other Users"
 msgstr ""
 
+#: shiftings/shifts/forms/participant.py:34
 msgid ""
 "To add users that do not belong to your organization please enter their "
 "username."
 msgstr ""
 
+#: shiftings/shifts/forms/participant.py:65
 msgid "Only select one type of user!"
 msgstr ""
 
+#: shiftings/shifts/forms/participant.py:75
 msgid "One of the user fields is required!"
 msgstr ""
 
+#: shiftings/shifts/forms/participant.py:80
 #, python-brace-format
 msgid "Cannot add {user} multiple times to this shift"
 msgstr ""
 
+#: shiftings/shifts/forms/permission.py:36
+#: shiftings/shifts/forms/permission.py:90
 #, python-brace-format
 msgid ""
 "Permission would have no effect. Permission for all Users is more extensive: "
 "{permission}"
 msgstr ""
 
+#: shiftings/shifts/forms/permission.py:47
 #, python-brace-format
 msgid ""
 "Permission would have no effect. There is an inherited more extensive "
 "permission: {referred_object} ({permission})"
 msgstr ""
 
+#: shiftings/shifts/forms/permission.py:56
 #, python-brace-format
 msgid ""
 "Permission would have no effect. There is an inherited more extensive "
 "permission for all Users: {referred_object} ({permission})"
 msgstr ""
 
+#: shiftings/shifts/forms/permission.py:78
 #, python-brace-format
 msgid "Can only set one permission for organization \"{organization}\""
 msgstr ""
 
+#: shiftings/shifts/forms/permission.py:80
 msgid "Can only set one permission for all Users"
 msgstr ""
 
+#: shiftings/shifts/forms/recurring.py:13
 msgid "Ordinal"
 msgstr ""
 
+#: shiftings/shifts/forms/recurring.py:35
 msgid "Weekday can't be empty with the chosen time frame type."
 msgstr ""
 
+#: shiftings/shifts/forms/recurring.py:37
 msgid "Month can't be empty with the chosen time frame type."
 msgstr ""
 
+#: shiftings/shifts/forms/recurring.py:39
 msgid "You need to add a warning for weekend handling."
 msgstr ""
 
+#: shiftings/shifts/forms/recurring.py:41
 msgid "You need to add a warning for holiday handling."
 msgstr ""
 
+#: shiftings/shifts/forms/shift.py:39
 msgid "End time must be after start time"
 msgstr ""
 
+#: shiftings/shifts/forms/shift.py:44 shiftings/shifts/forms/template.py:66
 #, python-brace-format
 msgid "Shift is too long, can at most be {max} long"
 msgstr ""
 
+#: shiftings/shifts/forms/template.py:18
 msgid "Date"
 msgstr ""
 
+#: shiftings/shifts/forms/template.py:18
 msgid "Date to create the template on"
 msgstr ""
 
+#: shiftings/shifts/forms/template.py:38 shiftings/shifts/models/template.py:22
 msgid "Start Delay"
 msgstr ""
 
+#: shiftings/shifts/forms/template.py:40 shiftings/shifts/models/template.py:23
+#: shiftings/shifts/templates/shifts/recurring/list.html:11
 msgid "Duration"
 msgstr ""
 
+#: shiftings/shifts/forms/template.py:58
 msgid "Start Delay was None please reload and use the slider."
 msgstr ""
 
+#: shiftings/shifts/forms/template.py:64
 msgid "Duration was None please reload and use the slider."
 msgstr ""
 
+#: shiftings/shifts/forms/type.py:22
 msgid "Can't name a shift type \"System\"."
 msgstr ""
 
+#: shiftings/shifts/models/base.py:13 shiftings/shifts/models/template.py:19
+#: shiftings/shifts/templates/shifts/shift.html:39
+#: shiftings/shifts/templates/shifts/template/template_form.html:18
 msgid "Shift Type"
 msgstr ""
 
+#: shiftings/shifts/models/base.py:16
 msgid "Required Users"
 msgstr ""
 
+#: shiftings/shifts/models/base.py:18 shiftings/shifts/models/template.py:27
 msgid "A maximum of 32 users can be required"
 msgstr ""
 
+#: shiftings/shifts/models/base.py:19
 msgid "Maximum Users"
 msgstr ""
 
+#: shiftings/shifts/models/base.py:21 shiftings/shifts/models/template.py:30
 msgid "A maximum of 64 users can be present"
 msgstr ""
 
+#: shiftings/shifts/models/base.py:23 shiftings/shifts/models/template.py:32
+#: shiftings/shifts/templates/shifts/shift.html:79
+#: shiftings/shifts/templates/shifts/template/template.html:26
 msgid "Additional Infos"
 msgstr ""
 
+#: shiftings/shifts/models/participant.py:16
 msgid "Display Name is optional, and will be shown instead of the username"
 msgstr ""
 
+#: shiftings/shifts/models/participant.py:17
 msgid "Participation confirmed"
 msgstr ""
 
+#: shiftings/shifts/models/participant.py:18
 msgid ""
 "Whether the participant has taken part in the shift or not. Default: False"
 msgstr ""
 
+#: shiftings/shifts/models/permission.py:18
 msgid "No Permission"
 msgstr ""
 
+#: shiftings/shifts/models/permission.py:19
 msgid "See Shift exists"
 msgstr ""
 
+#: shiftings/shifts/models/permission.py:20
 msgid "See Shift Details"
 msgstr ""
 
+#: shiftings/shifts/models/permission.py:21
 msgid "See Shift Participants"
 msgstr ""
 
+#: shiftings/shifts/models/permission.py:22
 msgid "Participate"
 msgstr ""
 
+#: shiftings/shifts/models/permission.py:80
 msgid "Permission Type"
 msgstr ""
 
+#: shiftings/shifts/models/permission.py:82
 msgid "Affected Organization"
 msgstr ""
 
+#: shiftings/shifts/models/recurring.py:26
 msgid "ignore"
 msgstr ""
 
+#: shiftings/shifts/models/recurring.py:27
 msgid "cancel"
 msgstr ""
 
+#: shiftings/shifts/models/recurring.py:28
 msgid "show warning"
 msgstr ""
 
+#: shiftings/shifts/models/recurring.py:36
 msgid "Timeframe Type"
 msgstr ""
 
+#: shiftings/shifts/models/recurring.py:41
+#: shiftings/shifts/templates/shifts/recurring/list.html:10
+#: shiftings/shifts/templates/shifts/recurring/shift.html:53
 msgid "First Occurrence"
 msgstr ""
 
+#: shiftings/shifts/models/recurring.py:42
 msgid ""
 "Choose a minimum day for first occurrence and the system will automatically "
 "choose the next applicable day."
 msgstr ""
 
+#: shiftings/shifts/models/recurring.py:46
 msgid "Auto create days"
 msgstr ""
 
+#: shiftings/shifts/models/recurring.py:46
 msgid "How many days in advance should the shifts be created?"
 msgstr ""
 
+#: shiftings/shifts/models/recurring.py:48
 msgid "Shift Template"
 msgstr ""
 
+#: shiftings/shifts/models/recurring.py:52
 msgid "Weekend problem handling"
 msgstr ""
 
+#: shiftings/shifts/models/recurring.py:54
 msgid "Warning text for weekend"
 msgstr ""
 
+#: shiftings/shifts/models/recurring.py:59
 msgid "Holidays problem handling"
 msgstr ""
 
+#: shiftings/shifts/models/recurring.py:61
 msgid "Warning text for holidays"
 msgstr ""
 
+#: shiftings/shifts/models/recurring.py:67
 msgid "Manually Disabled"
 msgstr ""
 
+#: shiftings/shifts/models/recurring.py:88
 msgid "Nth"
 msgstr ""
 
+#: shiftings/shifts/models/recurring.py:89
 msgid "[weekday]"
 msgstr ""
 
+#: shiftings/shifts/models/recurring.py:90
 msgid "[month]"
 msgstr ""
 
+#: shiftings/shifts/models/shift.py:24
 msgid "Start Date and Time"
 msgstr ""
 
+#: shiftings/shifts/models/shift.py:25
 msgid "End Date and Time"
 msgstr ""
 
+#: shiftings/shifts/models/shift.py:27
+#: shiftings/shifts/templates/shifts/template/shift.html:13
+#: shiftings/shifts/templates/shifts/template/template_form.html:21
 msgid "Users"
 msgstr ""
 
+#: shiftings/shifts/models/shift.py:30
 msgid "Locked for Participation"
 msgstr ""
 
+#: shiftings/shifts/models/shift.py:31
+#: shiftings/shifts/templates/shifts/recurring/shift.html:58
+#: shiftings/shifts/templates/shifts/recurring/shift.html:64
 msgid "Warning"
 msgstr ""
 
+#: shiftings/shifts/models/shift.py:35
 msgid "Created by Recurring Shift"
 msgstr ""
 
+#: shiftings/shifts/models/shift.py:37
+#: shiftings/shifts/templates/shifts/shift.html:53
+msgid "Created"
+msgstr ""
+
+#: shiftings/shifts/models/shift.py:38
+#: shiftings/shifts/templates/shifts/shift.html:55
 msgid "Last Modified"
 msgstr ""
 
+#: shiftings/shifts/models/shift.py:54
 msgid "Organization and Event Organization must be identical."
 msgstr ""
 
+#: shiftings/shifts/models/shift.py:57
 #, python-brace-format
 msgid "Shift {name} on {time}"
 msgstr ""
 
+#: shiftings/shifts/models/shift.py:65
 #, python-brace-format
 msgid "{name} from {start} to {end} "
 msgstr ""
 
+#: shiftings/shifts/models/shift.py:72
 #, python-brace-format
 msgid "{start} to {end_time} on {end_date} "
 msgstr ""
 
+#: shiftings/shifts/models/shift.py:76
 #, python-brace-format
 msgid "{start} to {end_time}"
 msgstr ""
 
+#: shiftings/shifts/models/summary.py:11
 msgid "\"Other\" Shift Type Group Name"
 msgstr ""
 
+#: shiftings/shifts/models/summary.py:14
 msgid "Default time range for summary"
 msgstr ""
 
+#: shiftings/shifts/models/summary.py:25
 #, python-brace-format
 msgid "Organization summary settings of {organization}"
 msgstr ""
 
+#: shiftings/shifts/models/template.py:16
 msgid "Template Group"
 msgstr ""
 
+#: shiftings/shifts/models/template.py:25
 msgid "Required User"
 msgstr ""
 
+#: shiftings/shifts/models/template.py:28
 msgid "Maximum User"
 msgstr ""
 
+#: shiftings/shifts/signals.py:26
 msgid "Could not find a valid first occurrence."
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/create_shift.html:11
 #, python-format
 msgid ""
 "\n"
@@ -1184,6 +1652,7 @@ msgid ""
 "                "
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/create_shift.html:15
 #, python-format
 msgid ""
 "\n"
@@ -1191,46 +1660,70 @@ msgid ""
 "                "
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/create_shift.html:22
+#: shiftings/shifts/templates/shifts/create_shift.html:83
+#: shiftings/shifts/templates/shifts/recurring/form.html:23
+#: shiftings/shifts/templates/shifts/recurring/shift.html:19
+#: shiftings/templates/generic/create_or_update.html:18
+#: shiftings/templates/generic/form_card.html:8
 msgid "Create"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/create_shift.html:24
 msgid "Update"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/create_shift.html:26
+#: shiftings/shifts/templates/shifts/edit_participation_permissions.html:34
+#: shiftings/templates/generic/create_or_update.html:22
 msgid "Back"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/create_shift.html:47
 msgid "Shift starting time"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/create_shift.html:48
 msgctxt "Shift time"
 msgid "Start Time"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/create_shift.html:52
 msgid "Shift end time"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/create_shift.html:53
 msgctxt "Shift time"
 msgid "End Time"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/create_shift.html:59
+#: shiftings/shifts/templates/shifts/template/template_form.html:24
 msgid "Required number of users to fill this shift"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/create_shift.html:60
+#: shiftings/shifts/templates/shifts/template/template_form.html:25
 msgctxt "Shift users"
 msgid "Required"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/create_shift.html:64
+#: shiftings/shifts/templates/shifts/template/template_form.html:29
 msgid "Maximum number of users allowed in this shift"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/create_shift.html:65
+#: shiftings/shifts/templates/shifts/template/template_form.html:30
 msgctxt "Shift users"
 msgid "Maximum"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/create_shift.html:76
 msgid "Create from Template"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/edit_participation_permissions.html:17
 #, python-format
 msgid ""
 "\n"
@@ -1239,30 +1732,39 @@ msgid ""
 "        "
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/edit_participation_permissions.html:26
 msgid "Edit Shift Permissions for"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/edit_participation_permissions.html:38
 msgid "How does it work?"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/edit_participation_permissions.html:53
 msgid "Inherited Permissions"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/edit_participation_permissions.html:65
 msgid "All Users"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/edit_templates.html:21
 msgid "Edit Templates for"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/edit_templates.html:29
 msgid "Cancel"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/recurring/form.html:33
 msgid "Recurring Time Frame"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/recurring/form.html:42
 msgid "Shift Information"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/recurring/shift.html:16
 #, python-format
 msgid ""
 "\n"
@@ -1270,9 +1772,11 @@ msgid ""
 "            "
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/recurring/shift.html:37
 msgid "Edit Recurring Shift"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/recurring/shift.html:44
 #, python-format
 msgid ""
 "\n"
@@ -1281,6 +1785,7 @@ msgid ""
 "            "
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/recurring/shift.html:48
 #, python-format
 msgid ""
 "\n"
@@ -1288,33 +1793,44 @@ msgid ""
 "              "
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/recurring/shift.html:55
 msgid "Weekend Handling"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/recurring/shift.html:61
 msgid "Holiday Handling"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/recurring/shift.html:75
 msgid "Upcoming recurring Shifts"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/recurring/shift.html:86
 msgid "No upcoming created Shifts"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/recurring/shift.html:93
 msgid "Passed recurring Shifts"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/recurring/shift.html:104
 msgid "No created Shifts have passed yet"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/shift.html:16
+#: shiftings/shifts/views/shift.py:78
 msgid "Edit Shift"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/shift.html:22
 msgid "Delete Shift"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/shift.html:28
 msgid "Edit Permissions"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/shift.html:57
 #, python-format
 msgid ""
 "\n"
@@ -1322,163 +1838,219 @@ msgid ""
 "                  "
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/shift.html:66
+#: shiftings/shifts/templates/shifts/template/shift_card.html:13
 msgid "Shift Participants"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/shift.html:71
 msgid "Add participant"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/shift.html:84
 msgid "Nothing to consider."
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/shift_participants.html:11
 msgid ""
 "This shift is over, do you really want/need to add yourself as participant?"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/shift_url_filters.html:8
 msgid "Toggle Shift Filters"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/summary/summary.html:6
 msgid "Shift Summary"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/template/group.html:17
 msgid "Delete Template"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/template/group.html:21
 msgid "Edit Template"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/template/group.html:25
+#: shiftings/shifts/templates/shifts/template/group_template.html:13
 msgid "Edit Shifts"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/template/group.html:31
 msgid "Edit Template Permissions"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/template/group.html:70
 msgid "Create Shift Templates"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/template/group_template.html:9
 msgid "Edit Shifts Template"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/template/member_shift_summary.html:3
 msgid "Member"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/template/member_shift_summary.html:10
 msgid "Total"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/template/participation_permission_form.html:9
+#: shiftings/shifts/templates/shifts/template/template_form.html:10
 msgid "Remove Shift"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/template/participation_permission_form.html:12
+#: shiftings/shifts/templates/shifts/template/template_form.html:13
 msgid "Restore Shift"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/template/select_org.html:3
 msgid "Select Organization to create Shift for"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/template/shift.html:5
 msgid "Go to Shift"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/template/shift_url_filter_form.html:5
 msgid "Filters"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/template/shift_url_filter_form.html:8
 msgid "Reset Filter"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/template/shift_url_filter_form.html:12
 msgid "Apply Filter"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/template/shift_url_filter_form.html:15
 msgid "Parameters"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/template/shift_url_filter_form.html:29
 msgid "Select Organizations"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/template/shift_url_filter_form.html:47
 msgid "Shift starts after"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/template/shift_url_filter_form.html:52
 msgid "Shift ends before"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/template/shift_url_filter_form.html:65
 msgid "Select Events"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/template/slots_display.html:4
 msgid "Required to carry out this Shift"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/template/slots_display.html:6
 msgid "Open Shift Slot"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/template/slots_display.html:32
 msgid "Free"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/template/small_shift_display.html:20
 msgid "Required"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/template/small_shift_display.html:23
 msgid "Confirmed"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/template/small_shift_display.html:29
 msgid "Participating"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/template/small_shift_display.html:34
 msgid "Full"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/template/small_shift_display.html:40
 msgid "Additional Users required"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/template/small_shift_display.html:42
 msgid "Additional Slots available"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/template/template.html:11
 msgid "Calendar Background Color"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/template/template.html:17
 msgid "Required Users/Max Users"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/template/template.html:21
 msgid "Unlimited"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/template/template_form.html:36
 msgid "Delay to starting time"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/template/template_form.html:37
 msgctxt "Shift time"
 msgid "Start Delay"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/template/template_form.html:41
 msgid "Shift Duration"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/template/template_form.html:42
 msgctxt "Shift time"
 msgid "Duration"
 msgstr ""
 
+#: shiftings/shifts/templates/shifts/type_group/list.html:8
 msgid "Actions"
 msgstr ""
 
+#: shiftings/shifts/templatetags/shifts.py:90
 #, python-brace-format
 msgid "Days + {delta_days}"
 msgstr ""
 
+#: shiftings/shifts/utils/time_frame.py:17
 msgid "Nth [weekday] of each month"
 msgstr ""
 
+#: shiftings/shifts/utils/time_frame.py:18
 msgid "Nth day of each month"
 msgstr ""
 
+#: shiftings/shifts/utils/time_frame.py:19
 msgid "every Nth [weekday]"
 msgstr ""
 
+#: shiftings/shifts/utils/time_frame.py:20
 msgid "Nth workday of each month"
 msgstr ""
 
+#: shiftings/shifts/utils/time_frame.py:21
 msgid "Nth day of [month]"
 msgstr ""
 
+#: shiftings/shifts/utils/time_frame.py:22
 msgid "Nth workday of [month]"
 msgstr ""
 
+#: shiftings/shifts/views/participant.py:42
 msgid "This shift is over, do you really want/need to add a participant?"
 msgstr ""
 
+#: shiftings/shifts/views/permission.py:50
 #, python-brace-format
 msgid ""
 "<p>Any Permission present will be applied to all Shifts belonging to "
@@ -1488,27 +2060,35 @@ msgid ""
 "organizations.</p>"
 msgstr ""
 
+#: shiftings/shifts/views/recurring.py:85
 msgid "Forbidden Method GET"
 msgstr ""
 
+#: shiftings/shifts/views/recurring.py:98
 msgid "Created Shifts on {}"
 msgstr ""
 
+#: shiftings/shifts/views/recurring.py:102
 msgid "Error while creating shifts. Invalid Date"
 msgstr ""
 
+#: shiftings/shifts/views/shift.py:164
 msgid "Unable to delete past shifts."
 msgstr ""
 
+#: shiftings/templates/403.html:6
 msgid "You don't have the permission to do that!"
 msgstr ""
 
+#: shiftings/templates/404.html:6
 msgid "The site you requested was not found."
 msgstr ""
 
+#: shiftings/templates/500.html:6
 msgid "A server error occured the admins have been notified"
 msgstr ""
 
+#: shiftings/templates/generic/create_or_update.html:5
 #, python-format
 msgid ""
 "\n"
@@ -1516,6 +2096,7 @@ msgid ""
 "      "
 msgstr ""
 
+#: shiftings/templates/generic/create_or_update.html:9
 #, python-format
 msgid ""
 "\n"
@@ -1523,6 +2104,7 @@ msgid ""
 "      "
 msgstr ""
 
+#: shiftings/templates/generic/delete.html:6
 #, python-format
 msgid ""
 "\n"
@@ -1530,48 +2112,66 @@ msgid ""
 "      "
 msgstr ""
 
+#: shiftings/templates/generic/delete.html:9
 msgid "Yes"
 msgstr ""
 
+#: shiftings/templates/generic/delete.html:11
 msgid "No"
 msgstr ""
 
+#: shiftings/templates/generic/modular_search.html:4
 msgid "Filter by Name"
 msgstr ""
 
+#: shiftings/templates/generic/modular_search.html:6
 msgid "submit search"
 msgstr ""
 
+#: shiftings/templates/language.html:16
 msgid "Language"
 msgstr ""
 
+#: shiftings/templates/language.html:21
 msgid "German"
 msgstr ""
 
+#: shiftings/templates/language.html:24
 msgid "English"
 msgstr ""
 
+#: shiftings/templates/local/gdpr_template.sample.html:29
+#: shiftings/templates/template/remove_modal.html:39
+#: shiftings/templates/template/simple_display_modal.html:15
+#: shiftings/templates/template/simple_form_modal.html:22
 msgid "Close"
 msgstr ""
 
+#: shiftings/templates/month_view.html:2
 msgid "M"
 msgstr ""
 
+#: shiftings/templates/month_view.html:3 shiftings/templates/month_view.html:5
 msgid "T"
 msgstr ""
 
+#: shiftings/templates/month_view.html:4
 msgid "W"
 msgstr ""
 
+#: shiftings/templates/month_view.html:6
 msgid "F"
 msgstr ""
 
+#: shiftings/templates/month_view.html:7 shiftings/templates/month_view.html:8
 msgid "S"
 msgstr ""
 
+#: shiftings/templates/switch_user.html:5
 msgid "Switch User"
 msgstr ""
 
+#: shiftings/templates/template/remove_modal.html:12
 #, python-format
 msgid ""
 "\n"
@@ -1580,6 +2180,7 @@ msgid ""
 "              "
 msgstr ""
 
+#: shiftings/templates/template/remove_modal.html:16
 msgid ""
 "\n"
 "                Removing <span id=\"remove_object_placeholder_1\" class=\"fw-"
@@ -1587,6 +2188,7 @@ msgid ""
 "              "
 msgstr ""
 
+#: shiftings/templates/template/remove_modal.html:26
 #, python-format
 msgid ""
 "\n"
@@ -1596,6 +2198,7 @@ msgid ""
 "            "
 msgstr ""
 
+#: shiftings/templates/template/remove_modal.html:31
 msgid ""
 "\n"
 "              Are you sure you want to remove\n"
@@ -1604,124 +2207,166 @@ msgid ""
 "            "
 msgstr ""
 
+#: shiftings/templates/template/remove_modal.html:38
 msgid "Remove"
 msgstr ""
 
+#: shiftings/templates/top_nav.html:12
 msgid "Overview"
 msgstr ""
 
+#: shiftings/templates/top_nav.html:32 shiftings/templates/top_nav.html:33
 msgid "Help"
 msgstr ""
 
+#: shiftings/templates/top_nav.html:48
 msgid "Profile"
 msgstr ""
 
+#: shiftings/templates/widgets/time_slider.html:9
 msgid "You need to enter a valid timeframe in the form of HH:MM."
 msgstr ""
 
+#: shiftings/templates/widgets/time_slider.html:13
 msgid "Day: +"
 msgstr ""
 
+#: shiftings/utils/string.py:5
 #, python-format
 msgid "The function %(name)s has to be implemented."
 msgstr ""
 
+#: shiftings/utils/time/month.py:10
 msgid "January"
 msgstr ""
 
+#: shiftings/utils/time/month.py:11
 msgid "February"
 msgstr ""
 
+#: shiftings/utils/time/month.py:12
 msgid "March"
 msgstr ""
 
+#: shiftings/utils/time/month.py:13
 msgid "April"
 msgstr ""
 
+#: shiftings/utils/time/month.py:14
 msgid "May"
 msgstr ""
 
+#: shiftings/utils/time/month.py:15
 msgid "June"
 msgstr ""
 
+#: shiftings/utils/time/month.py:16
 msgid "July"
 msgstr ""
 
+#: shiftings/utils/time/month.py:17
 msgid "August"
 msgstr ""
 
+#: shiftings/utils/time/month.py:18
 msgid "September"
 msgstr ""
 
+#: shiftings/utils/time/month.py:19
 msgid "October"
 msgstr ""
 
+#: shiftings/utils/time/month.py:20
 msgid "November"
 msgstr ""
 
+#: shiftings/utils/time/month.py:21
 msgid "December"
 msgstr ""
 
+#: shiftings/utils/time/month.py:32
 msgid "Day of the Month"
 msgstr ""
 
+#: shiftings/utils/time/timerange.py:13
 msgid "Quarter"
 msgstr ""
 
+#: shiftings/utils/time/timerange.py:14
 msgid "Half Year"
 msgstr ""
 
+#: shiftings/utils/time/timerange.py:15
 msgid "Year"
 msgstr ""
 
+#: shiftings/utils/time/timerange.py:16
 msgid "Decade"
 msgstr ""
 
+#: shiftings/utils/time/timerange.py:17
 msgid "Century"
 msgstr ""
 
+#: shiftings/utils/time/timerange.py:18
 msgid "Millennium"
 msgstr ""
 
+#: shiftings/utils/time/week.py:13
 msgid "Monday"
 msgstr ""
 
+#: shiftings/utils/time/week.py:14
 msgid "Tuesday"
 msgstr ""
 
+#: shiftings/utils/time/week.py:15
 msgid "Wednesday"
 msgstr ""
 
+#: shiftings/utils/time/week.py:16
 msgid "Thursday"
 msgstr ""
 
+#: shiftings/utils/time/week.py:17
 msgid "Friday"
 msgstr ""
 
+#: shiftings/utils/time/week.py:18
 msgid "Saturday"
 msgstr ""
 
+#: shiftings/utils/time/week.py:19
 msgid "Sunday"
 msgstr ""
 
+#: shiftings/utils/time/week.py:27
 msgid "Day of the Week"
 msgstr ""
 
+#: shiftings/utils/typing.py:20
 msgid "Value is not supposed to be None."
 msgstr ""
 
+#: shiftings/utils/views/base.py:62
 msgid "The pk is missing from the url. This is not supposed to be possible."
 msgstr ""
 
+#: shiftings/utils/views/base.py:65
 #, python-format
 msgid "There is no %(name)s with that pk."
 msgstr ""
 
+#: shiftings/utils/views/base.py:73
 msgid "You don't have the required permission."
 msgstr ""
 
+#: shiftings/utils/views/base.py:90
 msgid "No URL to redirect to. Provide a success_url."
 msgstr ""
 
+#: shiftings/utils/views/base.py:108
 msgid "Could not find the requested page. This might be a configuration error."
 msgstr ""
+
+#, fuzzy
