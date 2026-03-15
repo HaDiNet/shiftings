@@ -129,36 +129,36 @@
         </p>
         <div class="mb-3">
           <label class="form-label fw-bold">{% trans "All Shifts" %}</label>
-          <div class="d-flex gap-2 align-items-center mb-1">
-            <a class="btn btn-primary btn-sm" href="{{ webcal_user_url }}">
+          <div class="d-flex gap-2 align-items-center">
+            <a class="btn btn-primary btn-sm flex-shrink-0" href="{{ webcal_user_url }}">
               <i class="fa-solid fa-calendar-plus"></i> {% trans "Add to Calendar" %}
             </a>
-          </div>
-          <div class="input-group input-group-sm">
-            <input type="text" class="form-control" value="{{ calendar_user_url }}" readonly
-                   id="calUrlUser">
-            <button class="btn btn-outline-secondary" type="button"
-                    onclick="navigator.clipboard.writeText(document.getElementById('calUrlUser').value)"
-                    title="{% trans 'Copy URL' %}">
-              <i class="fa-solid fa-copy"></i>
-            </button>
+            <div class="input-group input-group-sm">
+              <input type="text" class="form-control" value="{{ calendar_user_url }}" readonly
+                     id="calUrlUser">
+              <button class="btn btn-outline-secondary" type="button"
+                      onclick="navigator.clipboard.writeText(document.getElementById('calUrlUser').value)"
+                      title="{% trans 'Copy URL' %}">
+                <i class="fa-solid fa-copy"></i>
+              </button>
+            </div>
           </div>
         </div>
         <div class="mb-3">
           <label class="form-label fw-bold">{% trans "My Participations" %}</label>
-          <div class="d-flex gap-2 align-items-center mb-1">
-            <a class="btn btn-primary btn-sm" href="{{ webcal_participation_url }}">
+          <div class="d-flex gap-2 align-items-center">
+            <a class="btn btn-primary btn-sm flex-shrink-0" href="{{ webcal_participation_url }}">
               <i class="fa-solid fa-calendar-plus"></i> {% trans "Add to Calendar" %}
             </a>
-          </div>
-          <div class="input-group input-group-sm">
-            <input type="text" class="form-control"
-                   value="{{ calendar_participation_url }}" readonly id="calUrlParticipation">
-            <button class="btn btn-outline-secondary" type="button"
-                    onclick="navigator.clipboard.writeText(document.getElementById('calUrlParticipation').value)"
-                    title="{% trans 'Copy URL' %}">
-              <i class="fa-solid fa-copy"></i>
-            </button>
+            <div class="input-group input-group-sm">
+              <input type="text" class="form-control"
+                     value="{{ calendar_participation_url }}" readonly id="calUrlParticipation">
+              <button class="btn btn-outline-secondary" type="button"
+                      onclick="navigator.clipboard.writeText(document.getElementById('calUrlParticipation').value)"
+                      title="{% trans 'Copy URL' %}">
+                <i class="fa-solid fa-copy"></i>
+              </button>
+            </div>
           </div>
         </div>
         <div class="d-flex gap-2">
