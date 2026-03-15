@@ -39,7 +39,7 @@ Make sure they are installed on your system and run the following setup commands
 python -m venv venv
 source venv/bin/activate  # Linux, BSD, MacOS
 # venv\Scripts\activate # Windows
-pip install .
+pip install ".[dev,tests,docs]"
 ```
 
 Make sure to activate your venv (second line above) in every shell you want to interact with your venv. Some IDEs do this automatically for you.
