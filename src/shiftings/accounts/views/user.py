@@ -53,12 +53,16 @@ class UserProfileView(BaseLoginMixin, ShiftFilterMixin, DetailView):
         try:
             cal_token = self.object.calendar_token
             context['calendar_token'] = cal_token
-            context['calendar_user_url'] = self.request.build_absolute_uri(
+            user_url = self.request.build_absolute_uri(
                 reverse('token_user_calendar', kwargs={'token': cal_token.token})
             )
-            context['calendar_participation_url'] = self.request.build_absolute_uri(
+            participation_url = self.request.build_absolute_uri(
                 reverse('token_participation_calendar', kwargs={'token': cal_token.token})
             )
+            context['calendar_user_url'] = user_url
+            context['calendar_participation_url'] = participation_url
+            context['webcal_user_url'] = user_url.replace('http://', 'webcal://', 1).replace('https://', 'webcal://', 1)
+            context['webcal_participation_url'] = participation_url.replace('http://', 'webcal://', 1).replace('https://', 'webcal://', 1)
         except CalendarToken.DoesNotExist:
             context['calendar_token'] = None
 
