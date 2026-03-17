@@ -60,10 +60,11 @@ class User(BaseUser):
     @property
     def shift_count(self) -> int:
         from shiftings.shifts.models import Shift
-        total = Shift.objects.filter(participants__user=self).count()
-        for claimed_user in self.claimed_org_dummy_users.all():
-            total += Shift.objects.filter(participants__user=claimed_user).count()
-        return total
+        # Collect all user IDs: self + claimed dummy users
+        user_ids = [self.pk]
+        user_ids += list(self.claimed_org_dummy_users.values_list('pk', flat=True))
+        # Single query for all shifts where any of these users is a participant
+        return Shift.objects.filter(participants__user__in=user_ids).count()
 
     def get_absolute_url(self):
         return reverse('user_profile')
