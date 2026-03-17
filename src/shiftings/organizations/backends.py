@@ -21,13 +21,23 @@ class OrganizationPermissionBackend(ModelBackend):
     def _collect_permissions(self, user_obj: User, obj: Organization) -> set[str]:
         if user_obj.is_superuser:
             perms = Permission.objects.all()
-        else:
-            perms = Permission.objects.none()
-            for member in obj.members.all():
-                if member.is_member(user_obj):
-                    perms |= member.type.permissions.all()
-        perms = perms.values_list('content_type__app_label', 'codename').order_by()
-        return {f'{ct}.{name}' for ct, name in perms}
+            perms = perms.values_list('content_type__app_label', 'codename').order_by()
+            return {f'{ct}.{name}' for ct, name in perms}
+        
+        permissions: set[str] = set()
+        
+        members = (
+            obj.members
+            .select_related('type')
+            .prefetch_related('type__permissions__content_type')
+        )
+        
+        for member in members:
+            permissions.update(
+                    f"{perm.content_type.app_label}.{perm.codename}"
+                    for perm in member.type.permissions.all()
+                )
+        return permissions
 
     def get_all_permissions(self, user_obj: User, obj: Optional[Organization] = None) -> set[str]:
         if not user_obj.is_active or user_obj.is_anonymous:
