@@ -69,7 +69,7 @@ class TimeFrameType(models.IntegerChoices):
             return True
         if _date == shift.first_occurrence:
             return True
-        weeks = (_date - shift.first_occurrence).days / 7
+        weeks = (_date - shift.first_occurrence).days // 7
         return weeks % shift.ordinal == 0
 
     @staticmethod
