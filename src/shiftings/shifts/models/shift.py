@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from functools import cached_property
 from typing import Optional, TYPE_CHECKING, Union
 
 from django.contrib.contenttypes.fields import GenericRelation
@@ -77,31 +78,31 @@ class Shift(ShiftBase):
                                                  start=self.start.strftime('%H:%M'),
                                                  end_time=self.end.strftime('%H:%M'), )
 
+    @cached_property
+    def participant_count(self) -> int:
+        return self.participants.all().count()
+
     @property
     def is_full(self) -> bool:
-        return self.max_users != 0 and self.participants.all().count() >= self.max_users
+        return self.max_users != 0 and self.participant_count >= self.max_users
 
     @property
     def participants_missing(self) -> int:
-        if self.max_users == 0:
-            return 0
-        return max(self.max_users - self.participants.all().count(), 0)
+        return max(self.max_users - self.participant_count, 0)
 
     @property
     def has_required(self) -> bool:
-        return self.participants.all().count() >= self.required_users
+        return self.participant_count >= self.required_users
 
     @property
     def required_participants_missing(self) -> int:
-        if self.required_users == 0:
-            return 0
-        return max(self.required_users - self.participants.all().count(), 0)
+        return max(self.required_users - self.participant_count, 0)
 
     @property
     def confirmed_participants(self) -> Optional[int]:
         if not self.organization.confirm_participation_active:
             return None
-        return self.participants.all().count() - self.participants.filter(confirmed=True).count()
+        return self.participants.filter(confirmed=True).count()
 
     @property
     def email(self) -> str:
