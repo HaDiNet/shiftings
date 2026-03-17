@@ -151,7 +151,7 @@ class RecurringShift(models.Model):
             if _date in holidays.country_holidays(holiday.get('country'), holiday.get('region')):
                 if self.holiday_handling is ProblemHandling.Cancel:
                     return None
-                elif self.weekend_handling is ProblemHandling.Warn and self.holiday_warning is not None:
+                elif self.holiday_handling is ProblemHandling.Warn and self.holiday_warning is not None:
                     holiday_warning = self.holiday_warning
 
         shifts = self.template.get_shift_objs(_date, weekend_warning, holiday_warning)

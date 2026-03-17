@@ -40,7 +40,7 @@ class ShiftForm(ModelForm):
         
         ## TODO: raise form error if not valid, but first implement proper error display in template
         max_length = timedelta(minutes=settings.MAX_SHIFT_LENGTH_MINUTES)
-        if end - start > max_length:
+        if start and end and end - start > max_length:
             self.add_error('end', ValidationError(_('Shift is too long, can at most be {max} long').format(
                 max=localize_timedelta(max_length)
             )))

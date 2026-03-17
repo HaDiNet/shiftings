@@ -15,6 +15,7 @@ from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
+from django.utils.http import url_has_allowed_host_and_scheme
 from django.views.decorators.cache import never_cache
 from django.views.generic import RedirectView
 
@@ -81,7 +82,12 @@ if settings.OAUTH_ENABLED:
                 if user is None:
                     messages.error(request, _('Error while creating the user instance!'))
                     return HttpResponseRedirect(settings.LOGIN_URL)
+                
                 redirect_to = request.GET.get(REDIRECT_FIELD_NAME)
+                if redirect_to and not url_has_allowed_host_and_scheme(url=redirect_to, allowed_hosts={request.get_host()}):
+                    messages.error(request, _('The redirect url is not safe!'))
+                    return HttpResponseRedirect(settings.LOGIN_URL)
+                
                 login_user(self.request, user)
                 messages.success(request, _('Successfully logged in!'))
                 return HttpResponseRedirect(redirect_to or settings.LOGIN_REDIRECT_URL)
