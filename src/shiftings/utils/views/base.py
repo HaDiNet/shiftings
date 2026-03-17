@@ -6,7 +6,7 @@ from django.contrib.auth.views import redirect_to_login
 from django.core.exceptions import ImproperlyConfigured, PermissionDenied
 from django.db.models import Model
 from django.http import Http404, HttpRequest, HttpResponse, HttpResponseNotFound, HttpResponseRedirect
-from django.utils.http import urlencode
+from django.utils.http import url_has_allowed_host_and_scheme, urlencode
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import ContextMixin
 
@@ -93,9 +93,13 @@ class BaseMixin(AccessMixin, ContextMixin, ABC):
     @property
     def success(self) -> HttpResponse:
         if 'success_url' in self.request.POST:
-            return HttpResponseRedirect(str(self.request.POST['success_url']))
+            success_url : str = self.request.POST['success_url']
+            if url_has_allowed_host_and_scheme(url=success_url, allowed_hosts={self.request.get_host()}):
+                return HttpResponseRedirect(success_url)
+            else:
+                raise Http403(_('The provided success url is not allowed. This might be a configuration error.'))
         return HttpResponseRedirect(self.get_success_url())
-
+    
     def get_fail_url(self) -> Optional[str]:
         return self.fail_url
 
