@@ -1,0 +1,4 @@
+threshold: 7
+dry_run: true
+label: likely ai-slop
+close_on_trigger: false
