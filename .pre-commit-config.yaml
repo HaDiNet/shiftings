@@ -36,3 +36,8 @@ repos:
     rev: v8.30.0
     hooks:
       - id: gitleaks
+  - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
+    rev: <latest tag>
+    hooks:
+      - id: commitlint
+        stages: [commit-msg]
