@@ -1,0 +1,51 @@
+---
+name: OWASP Noir Security Analysis
+
+on: [push, pull_request, workflow_dispatch, workflow_call]
+
+jobs:
+  noir-analysis:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Run OWASP Noir
+        id: noir
+        uses: owasp-noir/noir@main
+        with:
+          base_path: '.'
+          techs: 'django'
+          passive_scan: 'true'
+          passive_scan_severity: 'medium'
+          use_all_taggers: 'true'
+          include_path: 'true'
+          format: 'markdown-table'
+          output_file: 'noir_results.md'
+
+          # Optional: Higher concurrency can speed up the analysis but may increase resource usage
+          #           and could lead to OOM errors on larger codebases.
+          #           Adjust as needed. 20 is reasonable for default GitHub runners.
+          concurrency: '20'
+
+      - name: Upload Noir Reports
+        uses: actions/upload-artifact@v7
+        if: always() # Always upload results even if vulnerabilities are found
+        with:
+          name: noir-results
+          path: noir_results.md
+
+      - name: Comment Noir Report on PR
+        if: github.event_name == 'pull_request' && steps.noir.outputs.report != ''
+        uses: peter-evans/create-or-update-comment@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ## OWASP Noir Security Analysis Report
+            ${{ steps.noir.outputs.report }}
