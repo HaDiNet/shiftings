@@ -1,0 +1,56 @@
+---
+name: Extract Python Versions
+
+description: Extract Python versions from pyproject.toml classifiers and output as JSON array for use in other workflows.
+
+on:
+  workflow_call:
+    outputs:
+      versions:
+        description: JSON array of Python versions from pyproject.toml classifiers
+        value: ${{ jobs.extract.outputs.versions }}
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    outputs:
+      versions: ${{ steps.get.outputs.versions }}
+
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Read versions from pyproject.toml
+      id: get
+      run: |
+        python - <<'PY'
+        import json
+        import re
+        import tomllib
+        from pathlib import Path
+
+        pyproject = Path('pyproject.toml')
+        if not pyproject.exists():
+          raise SystemExit('pyproject.toml not found')
+
+        data = tomllib.loads(pyproject.read_text(encoding='utf-8'))
+        classifiers = data.get('project', {}).get('classifiers', [])
+
+        pattern = re.compile(r'^Programming Language :: Python :: (\d+\.\d+)$')
+        versions = sorted(
+          {
+            match.group(1)
+            for classifier in classifiers
+            if (match := pattern.match(classifier))
+          },
+          key=lambda version: tuple(map(int, version.split('.'))),
+        )
+
+        if not versions:
+          raise SystemExit(
+            'No Python version classifiers found in pyproject.toml under project.classifiers'
+          )
+
+        output = Path(__import__('os').environ['GITHUB_OUTPUT'])
+        output.write_text(f"versions={json.dumps(versions)}\n", encoding='utf-8')
+        print(f'Extracted versions: {", ".join(versions)}')
+        PY
