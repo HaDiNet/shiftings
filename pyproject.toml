@@ -33,7 +33,7 @@ classifiers = [
 
 dependencies = [
     'Authlib==1.6.7',
-    'Django==6.0.2',
+    'Django==6.0.4',
     'django-auth-ldap==5.3.0',
     'django-bootstrap5==26.2',
     'django-colorfield==0.14.0',
