@@ -97,6 +97,36 @@ nav .dropdown {
   border-color: var(--bs-body-color) !important;
 }
 
+.form-control.is-valid:not([required]),
+.form-control-color.is-valid:not([required]) {
+  border-color: var(--bs-gray-700);
+  box-shadow: none;
+  background-image: none;
+  padding-right: .75rem;
+}
+
+.form-select.is-valid {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+  background-position: right .75rem center;
+  background-size: 16px 12px;
+}
+
+.form-select.is-valid:not([required]) {
+  border-color: var(--bs-gray-700);
+  box-shadow: none;
+  padding-right: 2.25rem;
+}
+
+.form-check-input.is-valid:not([required]) {
+  border-color: var(--bs-body-color) !important;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.form-check-input.is-valid:not([required]) ~ .form-check-label {
+  color: var(--bs-body-color) !important;
+}
+
 .plain-link, .link, .link-remove {
   cursor: pointer;
   text-decoration: none;
