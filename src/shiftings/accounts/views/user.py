@@ -132,3 +132,16 @@ class UserDeleteSelfView(BaseLoginMixin, View):
 
     def post(self, request, *args, **kwargs):
         return self.delete(request, *args, **kwargs)
+
+
+class UserThemePreferenceView(BaseLoginMixin, View):
+
+    def post(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
+        theme = request.POST.get('theme')
+        next_url = request.POST.get('next') or request.META.get('HTTP_REFERER')
+        if theme in User.ThemePreference.values:
+            request.user.theme_preference = theme
+            request.user.save(update_fields=['theme_preference'])
+        if next_url:
+            return HttpResponseRedirect(next_url)
+        return HttpResponseRedirect(reverse('user_profile'))

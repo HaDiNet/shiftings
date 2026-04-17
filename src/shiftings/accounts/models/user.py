@@ -29,8 +29,17 @@ class BaseUser(AbstractUser):
 
 
 class User(BaseUser):
+    class ThemePreference(models.TextChoices):
+        LIGHT = 'light', _('Light')
+        DARK = 'dark', _('Dark')
+        AUTO = 'auto', _('Auto')
+
     display_name = models.CharField(max_length=150, verbose_name=_('Display Name'), null=True, blank=True)
     phone_number = PhoneNumberField(verbose_name=_('Telephone Number'), blank=True, null=True)
+    theme_preference = models.CharField(max_length=5,
+                                        choices=ThemePreference.choices,
+                                        default=ThemePreference.AUTO,
+                                        verbose_name=_('Theme Preference'))
 
     class Meta:
         default_permissions = ()

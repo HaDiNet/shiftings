@@ -1,10 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-user-theme="{{ theme_preference|default:'auto' }}" data-bs-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="robots" content="noindex">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
   {#  <meta name="viewport" content="">#}
+  <script>
+    (() => {
+      const root = document.documentElement;
+      const accountTheme = root.dataset.userTheme || 'auto';
+      const storageTheme = localStorage.getItem('shiftings-theme-preference');
+      const hasStorageTheme = storageTheme !== null;
+      const themeMode = hasStorageTheme ? storageTheme : accountTheme;
+      root.dataset.themeMode = themeMode;
+      if (themeMode === 'auto') {
+        if (!window.matchMedia) {
+          root.dataset.bsTheme = 'dark';
+          return;
+        }
+        root.dataset.bsTheme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        return;
+      }
+      root.dataset.bsTheme = themeMode;
+    })();
+  </script>
   <script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
   {% bootstrap_css %}
   <script type="text/javascript" src="{% static 'js/modal_autofocus.js' %}"></script>
@@ -65,5 +84,6 @@
   <div>© bjökgda🐔, 2022-{{ today.year }}</div>
 </footer>
 {% bootstrap_javascript %}
+<script type="text/javascript" src="{% static 'js/theme-toggle.js' %}"></script>
 </body>
 </html>
