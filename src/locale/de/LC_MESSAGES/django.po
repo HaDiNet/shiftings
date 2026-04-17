@@ -445,7 +445,7 @@ msgstr "Nächster Tag"
 #, fuzzy
 #| msgid "Shifts"
 msgid "Shift list"
-msgstr "Schichten"
+msgstr "Schichtenliste"
 
 #: shiftings/cal/templates/cal/template/day_calendar_shift_types.html:3
 #: shiftings/cal/templates/cal/template/day_calendar_xs.html:3

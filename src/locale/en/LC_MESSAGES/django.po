@@ -421,7 +421,7 @@ msgstr ""
 
 #: shiftings/cal/templates/cal/list_calendar.html:12
 msgid "Shift list"
-msgstr "Schichtenliste"
+msgstr ""
 
 #: shiftings/cal/templates/cal/template/day_calendar_shift_types.html:3
 #: shiftings/cal/templates/cal/template/day_calendar_xs.html:3
