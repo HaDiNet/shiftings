@@ -14,7 +14,11 @@ from django.views.generic import DetailView
 from django.views.generic.edit import DeleteView, FormView
 
 from shiftings.organizations.models import Organization
-from shiftings.organizations.views.organization_base import OrganizationPermissionMixin
+from shiftings.organizations.views.organization_base import (
+    OrganizationCreateUpdateMixin,
+    OrganizationObjectRedirectMixin,
+    OrganizationPermissionMixin,
+)
 from shiftings.shifts.forms.participant import AddSelfParticipantForm
 from shiftings.shifts.forms.shift import SelectOrgForm, ShiftForm
 from shiftings.shifts.forms.template import SelectOrgShiftTemplateGroupForm
@@ -70,7 +74,7 @@ class ShiftOrgSelectView(BaseLoginMixin, FormView):
         return reverse('shift_create', args=[self.org_id]) + f'?date={self.action_date.strftime("%Y-%m-%d")}'
 
 
-class ShiftEditView(OrganizationPermissionMixin, CreateOrUpdateView):
+class ShiftEditView(OrganizationPermissionMixin, OrganizationCreateUpdateMixin, CreateOrUpdateView):
     model = Shift
     form_class = ShiftForm
     permission_required = 'organizations.edit_shifts'
@@ -85,15 +89,9 @@ class ShiftEditView(OrganizationPermissionMixin, CreateOrUpdateView):
             return self.request.user.has_perm('organizations.admin')
         return super().has_permission()
 
-    def get_organization(self) -> Organization:
-        if self.is_create():
-            return self._get_object(Organization, 'org_pk')
-        return self.get_object().organization
-
     def get_initial(self) -> Dict[str, Any]:
         initial = super().get_initial()
         if self.is_create():
-            initial['organization'] = self.get_organization()
             initial['start'] = self.request.GET.get('date')
         return initial
 
@@ -149,14 +147,12 @@ class CreateShiftFromTemplateGroup(OrganizationPermissionMixin, FormView):
         return self.get_organization().get_absolute_url()
 
 
-class ShiftDeleteView(OrganizationPermissionMixin, DeleteView):
+class ShiftDeleteView(OrganizationPermissionMixin, OrganizationObjectRedirectMixin, DeleteView):
     model = Shift
     object: Shift
     permission_required = 'organizations.delete_shifts'
     template_name = 'generic/delete.html'
-
-    def get_organization(self) -> Organization:
-        return self.get_object().organization
+    organization_success_view_name = 'organization'
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -165,5 +161,3 @@ class ShiftDeleteView(OrganizationPermissionMixin, DeleteView):
             return self.render_to_response(self.get_context_data())
         self.object.delete()
 
-    def get_success_url(self) -> str:
-        return reverse('organization', args=[self.object.organization.pk])
