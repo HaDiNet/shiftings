@@ -1,0 +1,18 @@
+{% extends "cal/calendar_base.html" %}
+{% block modals %}
+  {% select_org_form_modal %}
+  {% include "template/remove_modal.html" with remove_target_from=shift.organization.name %}
+{% endblock %}
+
+{% block calendar %}
+  <div class="base-card bg-dark">
+    <div class="bg-dark center-items justify-content-between p-2 sticky-top">
+      {% block calendar_card_header %}
+      {% endblock %}
+    </div>
+    <div class="p-2">
+      {% block calendar_card_body %}
+      {% endblock %}
+    </div>
+  </div>
+{% endblock %}

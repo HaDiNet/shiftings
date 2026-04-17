@@ -5,11 +5,8 @@
   <td class="text-end">
     {% if org_perms.edit_members %}
       {% if org_perms.admin or not membership_type.admin %}
-        <button type="button" class="btn btn-danger px-2 py-0 ms-2 me-4" data-bs-toggle="modal"
-                data-bs-target="#confirmRemoveModal" data-bs-remove-name="{{ member }}"
-                data-bs-remove-url="{% url 'membership_remove' organization.pk member.pk %}">
-          <i class="fas fa-x pe-none"></i>
-        </button>
+        {% url 'membership_remove' organization.pk member.pk as membership_remove_url %}
+        {% include "template/remove_modal_trigger.html" with tag="button" button_class="btn btn-danger px-2 py-0 ms-2 me-4" remove_name=member remove_url=membership_remove_url icon_class="fas fa-x pe-none" %}
       {% endif %}
     {% endif %}
   </td>
