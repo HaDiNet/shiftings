@@ -41,7 +41,7 @@ class ShiftTypeGroupDetailView(OrganizationAdminMixin, DetailView):
         return self.object.organization
 
 
-class ShiftTypeGroupEditView(OrganizationAdminMixin, OrganizationCreateUpdateMixin, CreateOrUpdateView[ShiftTypeGroup]):
+class ShiftTypeGroupEditView(OrganizationCreateUpdateMixin, OrganizationAdminMixin, CreateOrUpdateView[ShiftTypeGroup]):
     model = ShiftTypeGroup
     form_class = ShiftTypeGroupForm
     set_organization_initial_on_create_only = False
@@ -70,7 +70,7 @@ class ShiftTypeGroupEditView(OrganizationAdminMixin, OrganizationCreateUpdateMix
         return reverse('organization_settings', args=[self.get_organization().pk])
 
 
-class ShiftTypeGroupRemoveView(OrganizationAdminMixin, OrganizationObjectRedirectMixin, DeleteView):
+class ShiftTypeGroupRemoveView(OrganizationObjectRedirectMixin, OrganizationAdminMixin, DeleteView):
     model = ShiftTypeGroup
     organization_success_view_name = 'organization_settings'
 

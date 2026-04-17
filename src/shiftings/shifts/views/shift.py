@@ -74,7 +74,7 @@ class ShiftOrgSelectView(BaseLoginMixin, FormView):
         return reverse('shift_create', args=[self.org_id]) + f'?date={self.action_date.strftime("%Y-%m-%d")}'
 
 
-class ShiftEditView(OrganizationPermissionMixin, OrganizationCreateUpdateMixin, CreateOrUpdateView):
+class ShiftEditView(OrganizationCreateUpdateMixin, OrganizationPermissionMixin, CreateOrUpdateView):
     model = Shift
     form_class = ShiftForm
     permission_required = 'organizations.edit_shifts'
@@ -147,7 +147,7 @@ class CreateShiftFromTemplateGroup(OrganizationPermissionMixin, FormView):
         return self.get_organization().get_absolute_url()
 
 
-class ShiftDeleteView(OrganizationPermissionMixin, OrganizationObjectRedirectMixin, DeleteView):
+class ShiftDeleteView(OrganizationObjectRedirectMixin, OrganizationPermissionMixin, DeleteView):
     model = Shift
     object: Shift
     permission_required = 'organizations.delete_shifts'

@@ -45,7 +45,7 @@ class RecurringShiftDetailView(OrganizationMemberMixin, DetailView):
         return context
 
 
-class RecurringShiftEditView(OrganizationPermissionMixin, OrganizationCreateUpdateMixin, CreateOrUpdateView):
+class RecurringShiftEditView(OrganizationCreateUpdateMixin, OrganizationPermissionMixin, CreateOrUpdateView):
     template_name = 'shifts/recurring/form.html'
     model = RecurringShift
     form_class = RecurringShiftForm
@@ -61,7 +61,7 @@ class RecurringShiftEditView(OrganizationPermissionMixin, OrganizationCreateUpda
         return reverse('recurring_shift', args=[self.object.pk])
 
 
-class RecurringShiftDeleteView(OrganizationPermissionMixin, OrganizationObjectRedirectMixin, DeleteView):
+class RecurringShiftDeleteView(OrganizationObjectRedirectMixin, OrganizationPermissionMixin, DeleteView):
     permission_required = 'organizations.edit_shift_templates'
     model = RecurringShift
 

@@ -11,7 +11,7 @@ from shiftings.shifts.models import ShiftType
 from shiftings.utils.views.create_update_view import CreateOrUpdateView
 
 
-class ShiftTypeEditView(OrganizationAdminMixin, OrganizationCreateUpdateMixin, CreateOrUpdateView[ShiftType]):
+class ShiftTypeEditView(OrganizationCreateUpdateMixin, OrganizationAdminMixin, CreateOrUpdateView[ShiftType]):
     model = ShiftType
     form_class = ShiftTypeForm
     set_organization_initial_on_create_only = False
@@ -26,5 +26,5 @@ class ShiftTypeEditView(OrganizationAdminMixin, OrganizationCreateUpdateMixin, C
         return reverse('organization_admin', args=[self.object.organization.pk])
 
 
-class ShiftTypeDeleteView(OrganizationAdminMixin, OrganizationObjectRedirectMixin, DeleteView):
+class ShiftTypeDeleteView(OrganizationObjectRedirectMixin, OrganizationAdminMixin, DeleteView):
     model = ShiftType
