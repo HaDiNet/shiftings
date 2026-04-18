@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import date, datetime
+from datetime import date
 from typing import Any, Dict, Optional
 
 from django.contrib import messages
@@ -23,6 +23,7 @@ from shiftings.shifts.forms.participant import AddSelfParticipantForm
 from shiftings.shifts.forms.shift import SelectOrgForm, ShiftForm
 from shiftings.shifts.forms.template import SelectOrgShiftTemplateGroupForm
 from shiftings.shifts.models import Shift, ShiftTemplateGroup
+from shiftings.shifts.views.helpers import shift_datetime_is_past
 from shiftings.utils.views.base import BaseLoginMixin
 from shiftings.utils.views.create_update_view import CreateOrUpdateView
 
@@ -156,7 +157,7 @@ class ShiftDeleteView(OrganizationObjectRedirectMixin, OrganizationPermissionMix
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
-        if self.object.start < datetime.now():
+        if shift_datetime_is_past(self.object):
             messages.error(request, _('Unable to delete past shifts.'))
             return self.render_to_response(self.get_context_data())
         self.object.delete()

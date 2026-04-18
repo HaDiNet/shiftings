@@ -5,14 +5,13 @@ from django.http import HttpRequest
 
 from shiftings.accounts.models import User
 from shiftings.cal.feed.base import ShiftFeed
+from shiftings.cal.feed.helpers import FeedAccessMixin
 from shiftings.shifts.models import Shift
-from shiftings.utils.exceptions import Http403
 
 
-class UserFeed(ShiftFeed[User]):
+class UserFeed(FeedAccessMixin, ShiftFeed[User]):
     def get_object(self, request: HttpRequest, *args: Any, **kwargs: Any) -> Optional[User]:
-        if not request.user.is_authenticated:
-            raise Http403()
+        self.ensure_authenticated(request)
         return request.user
 
     def file_name(self, obj: User) -> str:
