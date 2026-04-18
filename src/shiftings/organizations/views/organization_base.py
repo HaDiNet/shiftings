@@ -24,6 +24,9 @@ class OrganizationMixin(BaseLoginMixin, ABC):
         context['organization'] = self.get_organization()
         return context
 
+    def organization_reverse(self, view_name: str) -> str:
+        return reverse(view_name, args=[self.get_organization().pk])
+
 
 class OrganizationMemberMixin(OrganizationMixin, UserPassesTestMixin, ABC):
     def test_func(self) -> bool:
