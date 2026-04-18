@@ -10,7 +10,7 @@ from django.utils.translation import gettext_lazy as _
 
 from shiftings.cal.forms.day_form import SelectDayForm
 from shiftings.cal.views.calendar_base import CalendarBaseView
-from shiftings.cal.views.helpers import build_shift_type_index
+from shiftings.cal.views.helpers import build_shift_type_index, get_shifts_for_date
 from shiftings.shifts.forms.participant import AddSelfParticipantForm
 from shiftings.shifts.models import Shift
 
@@ -61,9 +61,7 @@ class DetailDayView(DayView):
     }
 
     def get_shifts(self, theday: date) -> Any:
-        shift_filter = (Q(start__date=theday) | Q(end__date=theday, end__gt=theday) |
-                        Q(start__lt=theday, end__gt=theday))
-        shift_filter &= self.get_filters()
+        shift_filter = get_shifts_for_date(theday) & self.get_filters()
         shifts = Shift.objects.filter(shift_filter).order_by('start', 'end', 'shift_type')
         return [shift for shift in shifts if shift.can_see(self.request.user)]
 
