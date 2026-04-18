@@ -43,13 +43,21 @@ class OrganizationShiftSummaryView(OrganizationPermissionMixin, DetailView):
             except ValueError:
                 return default
 
+        def get_bool(name: str, default: bool = False) -> bool:
+            value = self.request.GET.get(name)
+            if value is None:
+                return default
+            return value.lower() in {'1', 'true', 'yes', 'on'}
+
         def get_url(_date: date) -> str:
-            return reverse('organization_shift_summary', args=[organization.pk]) + '?' + urlencode(
-                {'time_range': time_range.value, 'year': _date.year, 'month': _date.month}
-            )
+            params = {'time_range': time_range.value, 'year': _date.year, 'month': _date.month}
+            if org_users_only:
+                params['org_users_only'] = '1'
+            return reverse('organization_shift_summary', args=[organization.pk]) + '?' + urlencode(params)
 
         context_data = super().get_context_data(**kwargs)
         organization = self.get_organization()
+        org_users_only = get_bool('org_users_only', False)
         try:
             time_range = TimeRangeType(get_int('time_range', organization.summary_settings.default_time_range_type))
         except ValueError:
@@ -76,4 +84,5 @@ class OrganizationShiftSummaryView(OrganizationPermissionMixin, DetailView):
                 'year': year,
                 'month': month,
             })
+        context_data['org_users_only'] = org_users_only
         return context_data
