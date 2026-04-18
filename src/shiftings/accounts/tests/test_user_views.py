@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 
-from shiftings.accounts.models import User
+from shiftings.accounts.models import FailedTokenAttempt, TokenUsageLog, User
 from shiftings.accounts.token import email_confirm_token_generator
 
 
@@ -68,6 +68,45 @@ class UserRegisterAndConfirmViewTest(TestCase):
         response = self.client.get(reverse('confirm_email', kwargs={'uidb64': 'invalid', 'token': 'token'}))
 
         self.assertEqual(response.status_code, 200)
+
+    def test_confirm_email_with_invalid_uid_logs_failed_attempt(self) -> None:
+        response = self.client.get(
+            reverse('confirm_email', kwargs={'uidb64': 'invalid', 'token': 'token'}),
+            REMOTE_ADDR='203.0.113.10',
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(
+            FailedTokenAttempt.objects.filter(
+                reason=FailedTokenAttempt.FailureReason.INVALID_UID,
+                ip_address='203.0.113.10',
+            ).exists()
+        )
+
+    def test_confirm_email_with_valid_token_logs_token_usage(self) -> None:
+        user = User.objects.create_user(
+            username='confirm-user-log',
+            password='secret',
+            email='confirm-log@example.com',
+            is_active=False,
+        )
+        uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
+        token = email_confirm_token_generator.make_token(user)
+
+        response = self.client.get(
+            reverse('confirm_email', kwargs={'uidb64': uidb64, 'token': token}),
+            REMOTE_ADDR='198.51.100.7',
+            HTTP_USER_AGENT='pytest-agent',
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(
+            TokenUsageLog.objects.filter(
+                user_id=user.pk,
+                token_type=TokenUsageLog.TokenType.EMAIL_CONFIRM,
+                ip_address='198.51.100.7',
+            ).exists()
+        )
 
 
 class UserDeleteSelfViewTest(TestCase):

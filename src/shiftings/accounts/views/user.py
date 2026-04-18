@@ -21,6 +21,7 @@ from django.views.generic import CreateView, DetailView, TemplateView, UpdateVie
 
 from shiftings.accounts.forms.user_form import UserCreateForm, UserUpdateForm
 from shiftings.accounts.models import User
+from shiftings.accounts.security import TokenSecurityValidator
 from shiftings.accounts.token import email_confirm_token_generator
 from shiftings.shifts.models import Shift
 from shiftings.shifts.utils.filter_mixin import ShiftFilterMixin
@@ -94,22 +95,79 @@ class ConfirmEMailView(TemplateView):
         return context_data
 
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        # Initialize token validator
+        token_validator = TokenSecurityValidator(email_confirm_token_generator)
+        
+        # Get client IP for rate limiting and logging
+        ip_address = self._get_client_ip(request)
+        user_agent = request.META.get('HTTP_USER_AGENT', '')
+        
         try:
             uid = force_str(urlsafe_base64_decode(kwargs['uidb64']))
             user = User.objects.get(pk=uid)
-        except (TypeError, ValueError, OverflowError, UnicodeDecodeError, DjangoUnicodeDecodeError,
-            User.DoesNotExist):
+        except (TypeError, ValueError, OverflowError, UnicodeDecodeError, DjangoUnicodeDecodeError):
+            token_validator.log_failed_attempt(
+                'invalid_uid',
+                ip_address=ip_address
+            )
+            messages.error(request, _('Invalid confirmation link.'))
+            return super().get(request, *args, **kwargs)
+        except User.DoesNotExist:
+            token_validator.log_failed_attempt(
+                'user_not_found',
+                ip_address=ip_address
+            )
             messages.error(request, _('Could not find your user.'))
             return super().get(request, *args, **kwargs)
-
-        if email_confirm_token_generator.check_token(user, kwargs['token']):
+        
+        token = kwargs.get('token', '')
+        
+        # Comprehensive token validation
+        is_valid, error_msg = token_validator.validate_and_check_token(
+            user=user,
+            token=token,
+            token_type='email_confirm',
+            ip_address=ip_address
+        )
+        
+        if not is_valid:
+            messages.error(request, error_msg or _('Your activation link is invalid or expired.'))
+            return super().get(request, *args, **kwargs)
+        
+        # Token is valid - activate user and mark token as used
+        try:
             user.is_active = True
             user.save()
-            messages.success(request, _('Your EMail was confirmed. You can now login.'))
+            
+            # Mark token as used to prevent replay
+            token_validator.mark_token_used(
+                token=token,
+                user_id=user.pk,
+                token_type='email_confirm',
+                ip_address=ip_address,
+                user_agent=user_agent
+            )
+            
+            messages.success(request, _('Your email was confirmed. You can now login.'))
             self.success = True
-        else:
-            messages.error(request, _('Your activation link was invalid.'))
+        except Exception as e:
+            messages.error(request, _('An error occurred while confirming your email. Please try again.'))
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.error(f'Error confirming email for user {user.pk}: {str(e)}')
+        
         return super().get(request, *args, **kwargs)
+    
+    @staticmethod
+    def _get_client_ip(request: HttpRequest) -> str:
+        """Extract client IP address from request."""
+        # Check for IP from reverse proxy headers
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0].strip()
+        else:
+            ip = request.META.get('REMOTE_ADDR', '')
+        return ip
 
 
 class UserEditView(BaseLoginMixin, UpdateView):
