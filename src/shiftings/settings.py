@@ -176,6 +176,7 @@ LANGUAGES = [
     ['en', 'English'],
 ]
 USE_I18N = True
+FORMAT_MODULE_PATH = ['shiftings.formats']
 LOCALE_PATHS = [
     BASE_DIR / 'locale',
 ]
