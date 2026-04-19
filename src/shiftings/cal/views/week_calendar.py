@@ -19,7 +19,12 @@ class WeekView(CalendarBaseView):
         context = super().get_context_data(**kwargs)
         theday = date.fromisoformat(self.kwargs.get('theday')) if 'theday' in self.kwargs else date.today()
         shift_filter = get_shifts_for_date(theday) & self.get_filters()
-        shifts = Shift.objects.filter(shift_filter).order_by('shift_type', 'start', 'end')
+        shifts = (
+            Shift.objects.filter(shift_filter)
+            .select_related('organization', 'event', 'shift_type')
+            .prefetch_related('participants', 'participants__user')
+            .order_by('shift_type', 'start', 'end')
+        )
         context.update({
             'theday': theday,
             'nextday': theday + timedelta(days=1),
