@@ -4,6 +4,7 @@ from django.db import transaction
 from django.db.models import QuerySet
 from django.forms import ModelForm
 from django.http import HttpResponse
+from django.urls import reverse
 from django.views.generic import DetailView, ListView
 
 from shiftings.organizations.models import Organization
@@ -66,7 +67,7 @@ class ShiftTypeGroupEditView(OrganizationCreateUpdateMixin, OrganizationAdminMix
         return response
 
     def get_success_url(self):
-        return self.organization_reverse('organization_settings')
+        return reverse('organization_settings', args=[self.get_organization().pk])
 
 
 class ShiftTypeGroupRemoveView(OrganizationObjectRedirectMixin, OrganizationAdminMixin, DeleteView):
@@ -103,7 +104,7 @@ class ShiftTypeGroupMoveView(OrganizationAdminMixin, CreateOrUpdateView[ShiftTyp
         return self.success
 
     def get_success_url(self) -> str:
-        return self.organization_reverse('organization_settings')
+        return reverse('organization_settings', args=[self.get_organization().pk])
 
 
 class ShiftTypeGroupMoveUpView(ShiftTypeGroupMoveView):

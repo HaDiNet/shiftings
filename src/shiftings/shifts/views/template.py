@@ -23,6 +23,10 @@ class ShiftTemplateGroupMixin(OrganizationMixin):
     model = ShiftTemplateGroup
 
     def get_organization(self) -> Organization:
+        if 'org_pk' in self.kwargs:
+            return self._get_object(Organization, 'org_pk')
+        if 'pk' in self.kwargs:
+            return self._get_object(ShiftTemplateGroup, 'pk').organization
         return self._get_object_from_get(Organization, 'org')
 
 

@@ -66,6 +66,28 @@ class ShiftFormTest(TestCase):
         self.assertIn('start', form.errors)
         self.assertIn('end', form.errors)
 
+    def test_invalid_datetimes_do_not_crash_clean(self) -> None:
+        form = ShiftForm(
+            instance=Shift(organization=self.organization, shift_type=self.shift_type),
+            data={
+                'name': 'Broken datetime shift',
+                'place': 'K1 Bar',
+                'organization': self.organization.pk,
+                'event': '',
+                'shift_type': self.shift_type.pk,
+                'start': 'invalid-start',
+                'end': 'invalid-end',
+                'required_users': 1,
+                'max_users': 2,
+                'additional_infos': '',
+                'locked': False,
+            },
+        )
+
+        self.assertFalse(form.is_valid())
+        self.assertIn('start', form.errors)
+        self.assertIn('end', form.errors)
+
 
 class RecurringShiftFormTest(TestCase):
     fixtures = ['user', 'organization', 'shift']

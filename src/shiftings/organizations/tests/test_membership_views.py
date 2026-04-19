@@ -3,7 +3,7 @@ from django.test import RequestFactory, TestCase
 from django.urls import reverse
 
 from shiftings.accounts.models import User
-from shiftings.organizations.models import Membership, MembershipType, Organization
+from shiftings.organizations.models import Membership, MembershipType, Organization, OrganizationActivityLog
 from shiftings.organizations.views.membership import MembershipAddView
 from shiftings.organizations.views.membership_type import MembershipTypeEditView, MembershipTypeRemoveView
 
@@ -90,6 +90,12 @@ class MembershipEndpointIntegrationTest(TestCase):
                 user=self.target_user,
             ).exists()
         )
+        self.assertTrue(
+            OrganizationActivityLog.objects.filter(
+                organization=self.organization,
+                action=OrganizationActivityLog.Action.MEMBERSHIP_ADDED,
+            ).exists()
+        )
 
     def test_remove_member_endpoint_deletes_membership_and_sets_success_message(self) -> None:
         default_membership_type = self.organization.default_membership_type
@@ -112,3 +118,9 @@ class MembershipEndpointIntegrationTest(TestCase):
         self.assertEqual(response.redirect_chain[0][0], reverse('organization_admin', args=[self.organization.pk]))
         messages = list(get_messages(response.wsgi_request))
         self.assertTrue(any(str(message) == 'Membership removed' for message in messages))
+        self.assertTrue(
+            OrganizationActivityLog.objects.filter(
+                organization=self.organization,
+                action=OrganizationActivityLog.Action.MEMBERSHIP_REMOVED,
+            ).exists()
+        )

@@ -5,12 +5,37 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import DeleteView
 
 from shiftings.organizations.models import Organization
+from shiftings.organizations.models.activity_log import OrganizationActivityLog
+from shiftings.organizations.services import log_organization_activity
 from shiftings.organizations.views.organization_base import OrganizationPermissionMixin
 from shiftings.shifts.forms.participant import AddOtherParticipantForm, AddSelfParticipantForm
 from shiftings.shifts.models import Participant, Shift
 from shiftings.shifts.views.helpers import shift_is_past
 from shiftings.utils.exceptions import Http403
 from shiftings.utils.views.create_update_view import CreateView
+
+
+def get_participant_name(participant: Participant) -> str:
+    return participant.user.display if participant.user else participant.display_name
+
+
+def log_shift_participant_activity(*,
+                                   shift: Shift,
+                                   actor,
+                                   action: OrganizationActivityLog.Action,
+                                   participant: Participant,
+                                   summary: str) -> None:
+    log_organization_activity(
+        organization=shift.organization,
+        actor=actor,
+        action=action,
+        summary=summary.format(participant=get_participant_name(participant)),
+        metadata={
+            'target_url': shift.get_absolute_url(),
+            'target_label': shift.detailed_display,
+            'participant_display_name': participant.display_name,
+        },
+    )
 
 
 class AddOtherParticipantView(OrganizationPermissionMixin, CreateView):
@@ -50,13 +75,24 @@ class AddOtherParticipantView(OrganizationPermissionMixin, CreateView):
         if (not self.request.user.has_perm('organizations.add_non_members_to_shifts', self.get_organization())
                 and not self.get_organization().is_member(form.cleaned_data['user'])):
             raise Http403()
-        self.save_participant_for_shift(form, shift)
+        self.save_participant_for_shift(form, shift, OrganizationActivityLog.Action.SHIFT_PARTICIPANT_ADDED_OTHER)
         return self.success
 
-    def save_participant_for_shift(self, form: AddSelfParticipantForm, shift: Shift) -> None:
+    def save_participant_for_shift(self,
+                                   form: AddSelfParticipantForm,
+                                   shift: Shift,
+                                   action: OrganizationActivityLog.Action) -> None:
         self.object = form.save()
         shift.participants.add(self.object)
         shift.save()
+
+        log_shift_participant_activity(
+            shift=shift,
+            actor=self.request.user,
+            action=action,
+            participant=self.object,
+            summary=str(_('Shift participant added: {participant}')),
+        )
 
     def get_success_url(self) -> str:
         return self.get_shift().get_absolute_url()
@@ -81,7 +117,7 @@ class AddSelfParticipantView(AddOtherParticipantView):
 
     def form_valid(self, form: AddSelfParticipantForm) -> HttpResponse:
         shift = self.get_shift()
-        self.save_participant_for_shift(form, shift)
+        self.save_participant_for_shift(form, shift, OrganizationActivityLog.Action.SHIFT_PARTICIPANT_ADDED_SELF)
         return self.success
 
 
@@ -107,3 +143,16 @@ class RemoveParticipantView(OrganizationPermissionMixin, DeleteView):
         if self.request.POST.get('success_url'):
             return str(self.request.POST['success_url'])
         return self.get_shift().get_absolute_url()
+
+    def form_valid(self, form):
+        shift = self.get_shift()
+        participant = self.object
+        response = super().form_valid(form)
+        log_shift_participant_activity(
+            shift=shift,
+            actor=self.request.user,
+            action=OrganizationActivityLog.Action.SHIFT_PARTICIPANT_REMOVED,
+            participant=participant,
+            summary=str(_('Shift participant removed: {participant}')),
+        )
+        return response

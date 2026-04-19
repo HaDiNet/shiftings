@@ -13,6 +13,8 @@ from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import BaseFormView, DeleteView
 
 from shiftings.organizations.models import Organization
+from shiftings.organizations.models.activity_log import OrganizationActivityLog
+from shiftings.organizations.services import build_changed_fields, log_organization_activity
 from shiftings.organizations.views.organization_base import (
     OrganizationCreateUpdateMixin,
     OrganizationMemberMixin,
@@ -60,10 +62,68 @@ class RecurringShiftEditView(OrganizationCreateUpdateMixin, OrganizationPermissi
     def get_success_url(self) -> str:
         return reverse('recurring_shift', args=[self.object.pk])
 
+    def form_valid(self, form):
+        is_create = self.is_create()
+        old_values = None
+        if not is_create:
+            recurring_shift = self.get_object()
+            old_values = {
+                'template': recurring_shift.template_id,
+                'interval': recurring_shift.interval,
+                'first_occurrence': recurring_shift.first_occurrence,
+                'manually_disabled': recurring_shift.manually_disabled,
+            }
+
+        response = super().form_valid(form)
+        if is_create:
+            log_organization_activity(
+                organization=self.object.organization,
+                actor=self.request.user,
+                action=OrganizationActivityLog.Action.RECURRING_SHIFT_CREATED,
+                summary=_('Recurring shift created: {name}').format(name=self.object.display),
+                metadata={
+                    'target_url': self.object.get_absolute_url(),
+                    'target_label': self.object.display,
+                    'name': self.object.display,
+                },
+            )
+            return response
+
+        changed_fields = build_changed_fields(old_values, self.object)
+        if changed_fields:
+            log_organization_activity(
+                organization=self.object.organization,
+                actor=self.request.user,
+                action=OrganizationActivityLog.Action.RECURRING_SHIFT_UPDATED,
+                summary=_('Recurring shift updated: {name}').format(name=self.object.display),
+                metadata={
+                    'target_url': self.object.get_absolute_url(),
+                    'target_label': self.object.display,
+                    'changed_fields': changed_fields,
+                },
+            )
+        return response
+
 
 class RecurringShiftDeleteView(OrganizationObjectRedirectMixin, OrganizationPermissionMixin, DeleteView):
     permission_required = 'organizations.edit_shift_templates'
     model = RecurringShift
+
+    def form_valid(self, form):
+        organization = self.object.organization
+        recurring_name = self.object.display
+        response = super().form_valid(form)
+        log_organization_activity(
+            organization=organization,
+            actor=self.request.user,
+            action=OrganizationActivityLog.Action.RECURRING_SHIFT_REMOVED,
+            summary=_('Recurring shift removed: {name}').format(name=recurring_name),
+            metadata={
+                'target_label': recurring_name,
+                'name': recurring_name,
+            },
+        )
+        return response
 
 
 class RecurringShiftCreateShiftsView(OrganizationPermissionMixin, SingleObjectMixin, BaseFormView):
@@ -87,7 +147,21 @@ class RecurringShiftCreateShiftsView(OrganizationPermissionMixin, SingleObjectMi
 
     def form_valid(self, form: BaseForm) -> HttpResponse:
         self.create_date = form.cleaned_data['create_date']
+        before_count = self.object.created_shifts.count()
         self.object.create_shifts(form.cleaned_data['create_date'])
+        created_count = self.object.created_shifts.count() - before_count
+        log_organization_activity(
+            organization=self.object.organization,
+            actor=self.request.user,
+            action=OrganizationActivityLog.Action.RECURRING_SHIFT_CREATE_SHIFTS,
+            summary=_('Generated shifts for recurring shift: {name}').format(name=self.object.display),
+            metadata={
+                'target_url': self.object.get_absolute_url(),
+                'target_label': self.object.display,
+                'create_date': str(form.cleaned_data['create_date']),
+                'created_count': created_count,
+            },
+        )
         messages.success(self.request, _('Created Shifts on {}').format(form.cleaned_data['create_date']))
         return super().form_valid(form)
 

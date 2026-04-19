@@ -1,8 +1,15 @@
 from __future__ import annotations
 
+from datetime import date, datetime
+
 from django.conf import settings
 from django.test import TestCase
 from django.urls import resolve, reverse
+
+from shiftings.accounts.models import User
+from shiftings.organizations.models import OrganizationDummyUser
+from shiftings.organizations.models import Organization
+from shiftings.shifts.models import Participant, RecurringShift, Shift, ShiftTemplateGroup, ShiftType
 
 
 class UrlAvailabilityTest(TestCase):
@@ -148,3 +155,132 @@ class UrlAvailabilityTest(TestCase):
         for name, kwargs, expected_path in expected_paths:
             with self.subTest(name=name):
                 self.assertEqual(reverse(name, kwargs=kwargs), expected_path)
+
+
+class PkUrlRuntimeSmokeTest(TestCase):
+    fixtures = ['user', 'organization', 'shift']
+
+    MISSING_PK_MESSAGE = 'The pk is missing from the url. This is not supposed to be possible.'
+
+    def setUp(self) -> None:
+        self.admin = User.objects.get(username='bob')
+        self.client.force_login(self.admin)
+
+        self.organization = Organization.objects.get(pk=1)
+        shift_type = ShiftType.objects.filter(organization=self.organization).first()
+        self.shift = Shift.objects.create(
+            organization=self.organization,
+            shift_type=shift_type,
+            name='PK URL smoke test shift',
+            place='K1 Bar',
+            start=datetime(2026, 4, 19, 10, 0, 0),
+            end=datetime(2026, 4, 19, 12, 0, 0),
+            required_users=1,
+            max_users=2,
+        )
+
+        self.recurring_shift = RecurringShift.objects.first()
+        if self.recurring_shift is None:
+            self.recurring_shift = RecurringShift.objects.create(
+                name='PK URL smoke test recurring shift',
+                organization=self.organization,
+                time_frame_field=3,
+                ordinal=1,
+                week_day_field=6,
+                first_occurrence=date.today(),
+                template=ShiftTemplateGroup.objects.filter(organization=self.organization).first(),
+            )
+        self.participant, _ = Participant.objects.get_or_create(
+            user=self.admin,
+            defaults={'display_name': self.admin.display},
+        )
+        self.shift.participants.add(self.participant)
+
+        self.dummy_user = OrganizationDummyUser.objects.create_user(
+            username='dummy_claim_user',
+            password='dummy-password',
+            organization_id=1,
+        )
+
+    def _assert_pk_url_works(self,
+                             *,
+                             name: str,
+                             kwargs: dict[str, object],
+                             method: str = 'get',
+                             data: dict[str, object] | None = None) -> None:
+        response = getattr(self.client, method)(reverse(name, kwargs=kwargs), data=data or {})
+        body = response.content.decode('utf-8', errors='ignore')
+        self.assertNotEqual(response.status_code, 404, msg=f'{name} returned 404')
+        self.assertNotIn(self.MISSING_PK_MESSAGE, body, msg=f'{name} raised missing-pk error')
+
+    def _assert_cases(self, cases: list[tuple[str, dict[str, object], str, dict[str, object] | None]]) -> None:
+        for name, kwargs, method, data in cases:
+            with self.subTest(name=name, method=method):
+                self._assert_pk_url_works(name=name, kwargs=kwargs, method=method, data=data)
+
+    def test_organization_pk_urls(self) -> None:
+        self._assert_cases([
+            ('organization', {'pk': 1}, 'get', None),
+            ('organization_admin', {'pk': 1}, 'get', None),
+            ('organization_settings', {'pk': 1}, 'get', None),
+            ('organization_update', {'pk': 1}, 'get', None),
+            ('organization_calendar', {'pk': 1}, 'get', None),
+            ('org_part_permissions_edit', {'pk': 1}, 'get', None),
+            ('organization_shift_summary', {'pk': 1}, 'get', None),
+            ('edit_summary_settings', {'pk': 1}, 'get', None),
+            ('organization_mail', {'org_pk': 1}, 'get', None),
+            ('shift_participants_mail', {'org_pk': 1}, 'get', None),
+        ])
+
+    def test_membership_and_claim_pk_urls(self) -> None:
+        self._assert_cases([
+            ('claim_user_list', {'org_pk': 1}, 'get', None),
+            ('claim_user', {'org_pk': 1, 'pk': self.dummy_user.pk}, 'post', None),
+            ('unclaim_user', {'org_pk': 1, 'pk': self.dummy_user.pk}, 'post', None),
+            ('membership_type_add', {'org_pk': 1}, 'get', None),
+            ('membership_type_edit', {'org_pk': 1, 'member_pk': 1}, 'get', None),
+            ('membership_type_remove', {'org_pk': 1, 'member_pk': 1}, 'get', None),
+            ('membership_add_member', {'org_pk': 1}, 'get', None),
+            ('membership_remove', {'org_pk': 1, 'member_pk': 1}, 'post', None),
+        ])
+
+    def test_shift_pk_urls(self) -> None:
+        self._assert_cases([
+            ('shift', {'pk': self.shift.pk}, 'get', None),
+            ('shift_create', {'org_pk': 1}, 'get', None),
+            ('shift_create_from_template', {'org_pk': 1}, 'get', None),
+            ('shift_update', {'pk': self.shift.pk}, 'get', None),
+            ('shift_delete', {'pk': self.shift.pk}, 'get', None),
+            ('shift_part_permissions_edit', {'pk': self.shift.pk}, 'get', None),
+            ('add_participant_self', {'pk': self.shift.pk}, 'get', None),
+            ('add_participant_other', {'pk': self.shift.pk}, 'get', None),
+            ('remove_participant', {'pk': self.shift.pk, 'ppk': self.participant.pk}, 'post', None),
+        ])
+
+    def test_recurring_pk_urls(self) -> None:
+        self._assert_cases([
+            ('recurring_shift', {'pk': self.recurring_shift.pk}, 'get', None),
+            ('recurring_shift_create', {'org_pk': 1}, 'get', None),
+            ('recurring_shift_update', {'pk': self.recurring_shift.pk}, 'get', None),
+            ('recurring_create_shifts', {'pk': self.recurring_shift.pk}, 'post', {'create_date': date.today().isoformat()}),
+            ('recurring_shift_delete', {'pk': self.recurring_shift.pk}, 'post', None),
+        ])
+
+    def test_template_and_type_pk_urls(self) -> None:
+        self._assert_cases([
+            ('shift_template_group', {'pk': 1}, 'get', None),
+            ('shift_template_group_create', {'org_pk': 1}, 'get', None),
+            ('shift_template_group_update', {'pk': 1}, 'get', None),
+            ('shift_template_group_delete', {'pk': 1}, 'get', None),
+            ('template_group_update_shifts', {'pk': 1}, 'get', None),
+            ('template_group_update_permissions', {'pk': 1}, 'get', None),
+            ('shift_type_create', {'org_pk': 1}, 'get', None),
+            ('shift_type_update', {'pk': 1}, 'get', None),
+            ('shift_type_delete', {'pk': 1}, 'post', None),
+            ('shift_type_groups', {'org_pk': 1}, 'get', None),
+            ('shift_type_group_create', {'org_pk': 1}, 'get', None),
+            ('shift_type_group_update', {'pk': 1}, 'get', None),
+            ('shift_type_group_move_up', {'pk': 1}, 'post', None),
+            ('shift_type_group_move_down', {'pk': 1}, 'post', None),
+            ('shift_type_group_remove', {'pk': 1}, 'post', None),
+        ])

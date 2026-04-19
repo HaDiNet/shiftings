@@ -4,7 +4,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from shiftings.accounts.models import User
-from shiftings.organizations.models import Organization
+from shiftings.organizations.models import Organization, OrganizationActivityLog
 from shiftings.shifts.models import Participant, Shift, ShiftType
 
 
@@ -38,6 +38,12 @@ class ParticipantViewsIntegrationTest(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, self.shift.get_absolute_url())
         self.assertTrue(self.shift.participants.filter(user=self.admin).exists())
+        self.assertTrue(
+            OrganizationActivityLog.objects.filter(
+                organization=self.organization,
+                action=OrganizationActivityLog.Action.SHIFT_PARTICIPANT_ADDED_SELF,
+            ).exists()
+        )
 
     def test_add_other_participant_with_org_user(self) -> None:
         self.client.force_login(self.admin)
@@ -50,6 +56,12 @@ class ParticipantViewsIntegrationTest(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, self.shift.get_absolute_url())
         self.assertTrue(self.shift.participants.filter(user=self.member).exists())
+        self.assertTrue(
+            OrganizationActivityLog.objects.filter(
+                organization=self.organization,
+                action=OrganizationActivityLog.Action.SHIFT_PARTICIPANT_ADDED_OTHER,
+            ).exists()
+        )
 
     def test_add_other_participant_with_non_member_username(self) -> None:
         outsider = User.objects.create_user(username='outsider-user', password='secret')
@@ -77,3 +89,9 @@ class ParticipantViewsIntegrationTest(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, reverse('user_profile'))
         self.assertFalse(Participant.objects.filter(pk=participant.pk).exists())
+        self.assertTrue(
+            OrganizationActivityLog.objects.filter(
+                organization=self.organization,
+                action=OrganizationActivityLog.Action.SHIFT_PARTICIPANT_REMOVED,
+            ).exists()
+        )

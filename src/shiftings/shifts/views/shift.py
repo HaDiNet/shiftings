@@ -14,6 +14,8 @@ from django.views.generic import DetailView
 from django.views.generic.edit import DeleteView, FormView
 
 from shiftings.organizations.models import Organization
+from shiftings.organizations.models.activity_log import OrganizationActivityLog
+from shiftings.organizations.services import build_changed_fields, log_organization_activity
 from shiftings.organizations.views.organization_base import (
     OrganizationCreateUpdateMixin,
     OrganizationObjectRedirectMixin,
@@ -99,10 +101,7 @@ class ShiftEditView(OrganizationCreateUpdateMixin, OrganizationPermissionMixin, 
     def get_obj(self) -> Optional[Shift]:
         if self.is_create():
             return None
-        obj = super().get_object()
-        if not isinstance(obj, Shift):
-            return None
-        return obj
+        return self._get_typed_object(Shift)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -119,6 +118,53 @@ class ShiftEditView(OrganizationCreateUpdateMixin, OrganizationPermissionMixin, 
 
     def get_success_url(self) -> str:
         return reverse('shift', args=[self.object.pk])
+
+    def form_valid(self, form):
+        is_create = self.is_create()
+        old_values = None
+        if not is_create:
+            shift = self.get_object()
+            old_values = {
+                'name': shift.name,
+                'start': shift.start,
+                'end': shift.end,
+                'place': shift.place,
+                'required_users': shift.required_users,
+                'max_users': shift.max_users,
+                'shift_type': shift.shift_type_id,
+            }
+
+        response = super().form_valid(form)
+        if is_create:
+            log_organization_activity(
+                organization=self.object.organization,
+                actor=self.request.user,
+                action=OrganizationActivityLog.Action.SHIFT_CREATED,
+                summary=_('Shift created: {name}').format(name=self.object.name),
+                metadata={
+                    'target_url': self.object.get_absolute_url(),
+                    'target_label': self.object.detailed_display,
+                    'name': self.object.name,
+                    'start': str(self.object.start),
+                    'end': str(self.object.end),
+                },
+            )
+            return response
+
+        changed_fields = build_changed_fields(old_values, self.object)
+        if changed_fields:
+            log_organization_activity(
+                organization=self.object.organization,
+                actor=self.request.user,
+                action=OrganizationActivityLog.Action.SHIFT_UPDATED,
+                summary=_('Shift updated: {name}').format(name=self.object.name),
+                metadata={
+                    'target_url': self.object.get_absolute_url(),
+                    'target_label': self.object.detailed_display,
+                    'changed_fields': changed_fields,
+                },
+            )
+        return response
 
 
 class CreateShiftFromTemplateGroup(OrganizationPermissionMixin, FormView):
@@ -142,6 +188,19 @@ class CreateShiftFromTemplateGroup(OrganizationPermissionMixin, FormView):
                 shift.save()
                 for participation_permission in template_group.participation_permissions.all():
                     participation_permission.create_copy_for(shift)
+        log_organization_activity(
+            organization=self.get_organization(),
+            actor=self.request.user,
+            action=OrganizationActivityLog.Action.RECURRING_SHIFT_CREATE_SHIFTS,
+            summary=_('Created shifts from template group: {group}').format(group=template_group.display),
+            metadata={
+                'target_url': template_group.get_absolute_url(),
+                'target_label': template_group.display,
+                'template_group': template_group.display,
+                'created_count': len(shifts),
+                'create_date': str(form.cleaned_data['date_field']),
+            },
+        )
         return super().form_valid(form)
 
     def get_success_url(self) -> str:
@@ -155,10 +214,21 @@ class ShiftDeleteView(OrganizationObjectRedirectMixin, OrganizationPermissionMix
     template_name = 'generic/delete.html'
     organization_success_view_name = 'organization'
 
-    def delete(self, request, *args, **kwargs):
-        self.object = self.get_object()
+    def form_valid(self, form):
         if shift_datetime_is_past(self.object):
-            messages.error(request, _('Unable to delete past shifts.'))
+            messages.error(self.request, _('Unable to delete past shifts.'))
             return self.render_to_response(self.get_context_data())
-        self.object.delete()
-
+        organization = self.object.organization
+        shift_name = self.object.name
+        response = super().form_valid(form)
+        log_organization_activity(
+            organization=organization,
+            actor=self.request.user,
+            action=OrganizationActivityLog.Action.SHIFT_REMOVED,
+            summary=_('Shift removed: {name}').format(name=shift_name),
+            metadata={
+                'target_label': shift_name,
+                'name': shift_name,
+            },
+        )
+        return response

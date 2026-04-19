@@ -2,6 +2,7 @@ from abc import ABC
 
 from django.contrib import messages
 from django.http import HttpResponse
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from shiftings.organizations.models import Organization
@@ -20,7 +21,7 @@ class OrganizationScopedMembershipMixin(OrganizationPermissionMixin, ABC):
         organization = self.get_organization()
         if self.use_organization_absolute_success_url:
             return organization.get_absolute_url()
-        return self.organization_reverse(self.organization_success_view_name)
+        return reverse(self.organization_success_view_name, args=[organization.pk])
 
 
 class MembershipSuccessMessageMixin(ABC):

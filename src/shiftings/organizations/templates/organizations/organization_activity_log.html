@@ -1,0 +1,59 @@
+{% extends 'generic/dual_column.html' %}
+
+{% block left %}
+  <div class="sticky-top">
+    {% include "organizations/template/org_info.html" %}
+  </div>
+{% endblock %}
+
+{% block right %}
+  <div class="card bg-dark mt-3">
+    <div class="card-header d-flex justify-content-between align-items-center gap-2 flex-wrap">
+      <h4 class="m-0">{% trans "Activity Log" %}</h4>
+      {% include 'generic/modular_search.html' with placeholder=_('Search Actor, Action or Summary') %}
+    </div>
+    <div class="table-responsive">
+      {% if activity_logs.object_list|length > 0 %}
+        <table class="table table-dark table-striped m-0">
+          <thead>
+          <tr>
+            <th>{% trans "Date" %}</th>
+            <th>{% trans "Actor" %}</th>
+            <th>{% trans "Action" %}</th>
+            <th>{% trans "Summary" %}</th>
+            <th>{% trans "Target" %}</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for log_entry in activity_logs.object_list %}
+            <tr>
+              <td>{{ log_entry.created_at }}</td>
+              <td>{{ log_entry.actor|default:_('System') }}</td>
+              <td>{{ log_entry.get_action_display }}</td>
+              <td>{{ log_entry.summary }}</td>
+              <td>
+                {% if log_entry.metadata.target_url %}
+                  <a href="{{ log_entry.metadata.target_url }}">
+                    {{ log_entry.metadata.target_label|default:_('Open') }}
+                  </a>
+                {% elif log_entry.metadata.target_label %}
+                  {{ log_entry.metadata.target_label }}
+                {% else %}
+                  -
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <div class="center-items p-3">{% trans "No activity log entries found" %}</div>
+      {% endif %}
+    </div>
+    {% if activity_logs.is_paginated %}
+      <div class="d-flex justify-content-center bg-dark">
+        {% bootstrap_pagination activity_logs.page_obj parameter_name=activity_logs.page_name %}
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

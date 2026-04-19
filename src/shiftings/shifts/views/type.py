@@ -1,3 +1,4 @@
+from django.urls import reverse
 from django.views.generic import DeleteView
 
 from shiftings.organizations.views.organization_base import (
@@ -22,7 +23,7 @@ class ShiftTypeEditView(OrganizationCreateUpdateMixin, OrganizationAdminMixin, C
         return self.get_object().name != 'System'
 
     def get_success_url(self):
-        return self.organization_reverse('organization_admin')
+        return reverse('organization_admin', args=[self.object.organization.pk])
 
 
 class ShiftTypeDeleteView(OrganizationObjectRedirectMixin, OrganizationAdminMixin, DeleteView):
