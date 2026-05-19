@@ -13,6 +13,7 @@ from shiftings.accounts.models import User
 from shiftings.mail.forms.mail import MailForm
 from shiftings.utils.typing import UserRequest
 from shiftings.utils.views.base import BaseLoginMixin
+from shiftings.mail.models import OutgoingEmail
 
 
 class BaseMailView(BaseLoginMixin, FormView, ABC):
@@ -37,11 +38,31 @@ class BaseMailView(BaseLoginMixin, FormView, ABC):
         subject = form.cleaned_data['subject'].format(**replacements)
         text = form.cleaned_data['text'].format(**replacements)
         users = self.get_users(form)
-        email = EmailMessage(subject, text, settings.DEFAULT_FROM_EMAIL, bcc=[user.email for user in users],
-                             headers={'Reply-To': settings.DEFAULT_FROM_EMAIL})
+        recipient_emails = [user.email for user in users]
+        email = EmailMessage(subject, text, settings.DEFAULT_FROM_EMAIL,
+                             bcc=recipient_emails, headers={'Reply-To': settings.DEFAULT_FROM_EMAIL})
+        attachment_names: list[str] = []
         for file in dict(form.files).get('attachments', list()):
+            attachment_names.append(file.name)
             email.attach(file.name, file.file.read(), mimetype=file.content_type)
         email.send()
+
+        # Log outgoing email for admin inspection
+        try:
+            OutgoingEmail.objects.create(
+                subject=subject,
+                body=text,
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipients='\n'.join(recipient_emails),
+                bcc='\n'.join(dict(form.files).get('bcc', [])) if hasattr(form, 'cleaned_data') else '',
+                reply_to=settings.DEFAULT_FROM_EMAIL,
+                sender=getattr(self.request, 'user', None),
+                attachments=','.join(attachment_names)
+            )
+        except Exception:
+            # Do not block sending on logging errors; admins can investigate failures in logs
+            pass
+
         messages.success(self.request, _('E-Mail sent to {count} user(s).').format(count=users.count()))
         return HttpResponseRedirect(self.get_success_url())
 
