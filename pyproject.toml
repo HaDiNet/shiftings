@@ -43,7 +43,7 @@ dependencies = [
     'holidays==0.90',
     'icalendar==7.0.0',
     'Pillow==12.1.1',
-    'psycopg2-binary==2.9.11',
+    'psycopg2-binary==2.9.12',
     'python-dateutil==2.9.0.post0',
     'requests==2.32.5',
 ]
