@@ -28,9 +28,9 @@ class UserCreateForm(forms.ModelForm):
         password = cleaned_data['password']
         confirm_password = cleaned_data['confirm_password']
         if password != confirm_password:
-            self.add_error('password', _('Please enter matching passwords'))
-            self.add_error('confirm_password', _('Please enter matching passwords'))
-        
+            self.add_error('password', _('Passwords do not match.'))
+            self.add_error('confirm_password', _('Passwords do not match.'))
+
         # validate password using Django's built-in validators
         try:
             validate_password(password, user=None, password_validators=get_password_validators(AUTH_PASSWORD_VALIDATORS))
@@ -54,7 +54,7 @@ class UserUpdateForm(forms.ModelForm):
             self.fields['first_name'].disabled = True
             self.fields['last_name'].disabled = True
             self.fields['email'].disabled = True
-            
+
     def clean(self) -> Optional[dict[str, Any]]:
         cleaned_data = super().clean()
         if hasattr(self.instance, 'ldap_user'):
@@ -62,5 +62,5 @@ class UserUpdateForm(forms.ModelForm):
             if (cleaned_data.get('first_name') != self.instance.first_name or
                 cleaned_data.get('last_name') != self.instance.last_name or
                 cleaned_data.get('email') != self.instance.email):
-                raise forms.ValidationError(_('Cannot change first name, last name or email for LDAP users.'))
+                raise forms.ValidationError(_('Cannot change first name, last name or email for LDAP users. If you want to change these fields and/or see this message during normal usage, please contact the administrator via email (shiftings@hadiko.de) or issue tracker (https://github.com/hadiko/shiftings/issues).'))
         return cleaned_data

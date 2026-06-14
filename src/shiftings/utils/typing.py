@@ -17,13 +17,13 @@ class UserRequest(HttpRequest):
 
 def check_not_none(obj: T | None) -> T:
     if obj is None:
-        raise AttributeError(_('Value is not supposed to be None.'))
+        raise AttributeError(_('Value is not supposed to be None. If you see this error during normal usage, please report it to the developers via the issue tracker (https://github.com/shiftings/shiftings/issues).'))
     return obj
 
 
 def ensure_type(obj: T, obj_type: Type[T]) -> T:
     if obj is None:
-        raise AttributeError(f'The Object was None, should be of Type {obj_type}.')
+        raise AttributeError(f'The Object was None, should be of Type {obj_type}. If you see this error during normal usage, please report it to the developers via the issue tracker (https://github.com/shiftings/shiftings/issues).'.format(obj_type=obj_type))
     if not isinstance(obj, obj_type):
-        raise AttributeError(f'The Object was of type {type(obj)}, should be of Type {obj_type}.')
+        raise AttributeError(f'The Object was of type {type(obj)}, should be of Type {obj_type}. If you see this error during normal usage, please report it to the developers via the issue tracker (https://github.com/shiftings/shiftings/issues).'.format(obj_type=obj_type))
     return obj

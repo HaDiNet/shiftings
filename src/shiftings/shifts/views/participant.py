@@ -71,10 +71,10 @@ class AddOtherParticipantView(OrganizationPermissionMixin, CreateView):
         shift = self.get_shift()
         if (shift_is_past(shift)
                 and not self.request.user.has_perm('organizations.add_to_past_shift', self.get_organization())):
-            raise Http403()
+            raise Http403("You don't have permission to add participants to past shifts.")
         if (not self.request.user.has_perm('organizations.add_non_members_to_shifts', self.get_organization())
                 and not self.get_organization().is_member(form.cleaned_data['user'])):
-            raise Http403()
+            raise Http403("You don't have permission to add non-members to this shift.")
         self.save_participant_for_shift(form, shift, OrganizationActivityLog.Action.SHIFT_PARTICIPANT_ADDED_OTHER)
         return self.success
 

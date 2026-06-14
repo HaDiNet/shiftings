@@ -32,13 +32,13 @@ class RecurringShiftForm(forms.ModelForm):
         cleaned_data = super().clean()
         time_frame_type = TimeFrameType(cleaned_data['time_frame_field'])
         if cleaned_data['week_day_field'] is None and time_frame_type in TimeFrameType.get_weekday_types():
-            self.add_error('week_day_field', _('Weekday can\'t be empty with the chosen time frame type.'))
+            self.add_error('week_day_field', _('Weekday can\'t be empty with the chosen time frame type. Set it to any value between 1 (Monday) and 7 (Sunday) or choose a different time frame type.'))
         if cleaned_data['month_field'] is None and time_frame_type in TimeFrameType.get_monthday_types():
-            self.add_error('month_field', _('Month can\'t be empty with the chosen time frame type.'))
+            self.add_error('month_field', _('Month can\'t be empty with the chosen time frame type. Set it to any value between 1 (January) and 12 (December) or choose a different time frame type.'))
         if cleaned_data['weekend_handling_field'] != ProblemHandling.Ignore and not cleaned_data['weekend_warning']:
-            self.add_error('weekend_handling_field', _('You need to add a warning for weekend handling.'))
+            self.add_error('weekend_handling_field', _('Weekend handling is enabled but no warning message is set. Please set a warning message or disable weekend handling.'))
         if cleaned_data['holiday_handling_field'] != ProblemHandling.Ignore and not cleaned_data['holiday_warning']:
-            self.add_error('holiday_handling_field', _('You need to add a warning for holiday handling.'))
+            self.add_error('holiday_handling_field', _('Holiday handling is enabled but no warning message is set. Please set a warning message or disable holiday handling.'))
         return cleaned_data
 
 

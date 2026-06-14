@@ -19,5 +19,5 @@ class ShiftTypeForm(forms.ModelForm):
     def clean_name(self) -> str:
         name = self.cleaned_data['name']
         if name.lower() == 'system':
-            raise ValidationError(_('Can\'t name a shift type "System".'))
+            raise ValidationError(_('Can\'t name a shift type "System". This name is reserved.'))
         return name

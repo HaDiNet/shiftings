@@ -37,10 +37,8 @@ class MembershipForm(forms.ModelForm):
         try:
             user = User.objects.get(username=username)
         except User.DoesNotExist as e:
-            raise ValidationError(_('The user you entered could not be found.')) from e
+            raise ValidationError(_('The user you entered could not be found. Please try another username or contact your organization administrator.')) from e
         return user
-
-
 class MembershipTypeForm(forms.ModelForm):
     permissions = MembershipPermissionField(queryset=Permission.objects.none(), widget=forms.CheckboxSelectMultiple,
                                             required=False)

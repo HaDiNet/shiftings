@@ -99,7 +99,7 @@ class ConfirmEMailView(TemplateView):
             user = User.objects.get(pk=uid)
         except (TypeError, ValueError, OverflowError, UnicodeDecodeError, DjangoUnicodeDecodeError,
             User.DoesNotExist):
-            messages.error(request, _('Could not find your user.'))
+            messages.error(request, _('Could not find your user account. Please try again in a few minutes, request a new activation link or contact the administrator via email (shiftings@hadiko.de).'))
             return super().get(request, *args, **kwargs)
 
         if email_confirm_token_generator.check_token(user, kwargs['token']):
@@ -108,7 +108,7 @@ class ConfirmEMailView(TemplateView):
             messages.success(request, _('Your EMail was confirmed. You can now login.'))
             self.success = True
         else:
-            messages.error(request, _('Your activation link was invalid.'))
+            messages.error(request, _('Invalid activation link. Request a new activation link or contact the administrator via email (shiftings@hadiko.de).'))
         return super().get(request, *args, **kwargs)
 
 
@@ -125,7 +125,7 @@ class UserDeleteSelfView(BaseLoginMixin, View):
 
     def delete(self, request, *args, **kwargs):
         if request.POST.get('confirm') != 'true':
-            messages.error(self.request, _('Error while deleting your data: Please confirm deletion!'))
+            messages.error(self.request, _('Error while deleting your data: You need to provide confirmation.'))
             return HttpResponseRedirect(self.request.user.get_absolute_url())
         self.request.user.delete()
         auth_logout(self.request)

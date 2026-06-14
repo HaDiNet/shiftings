@@ -54,7 +54,7 @@ class AddOtherParticipantForm(forms.ModelForm):
         try:
             user = User.objects.get(username=username)
         except User.DoesNotExist as e:
-            raise ValidationError(_('The user you entered could not be found.')) from e
+            raise ValidationError(_('The user you entered could not be found. Please try again or try another username.')) from e
         return user
 
     def clean(self) -> Optional[dict[str, Any]]:
@@ -77,6 +77,6 @@ class AddOtherParticipantForm(forms.ModelForm):
             self.add_error('other_user', msg)
             return cleaned_data
         if self.shift.is_participant(user):
-            self.add_error(error_field, _('Cannot add {user} multiple times to this shift').format(user=user))
+            self.add_error(error_field, _('Cannot add {user} to this shift. They are already registered.').format(user=user))
         cleaned_data['user'] = user
         return cleaned_data

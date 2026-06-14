@@ -14,9 +14,9 @@ class FeedAccessMixin:
     def ensure_authenticated(self, request: HttpRequest) -> None:
         """Raise Http403 if user is not authenticated."""
         if not request.user.is_authenticated:
-            raise Http403()
+            raise Http403("You must be authenticated to access this feed.")
 
     def ensure_org_member_or_admin(self, organization: Organization, user: User) -> None:
         """Raise Http403 if user is neither org member nor admin."""
         if not organization.is_member(user) and not organization.is_admin(user):
-            raise Http403()
+            raise Http403("You must be a member or admin of the organization to access this feed.")

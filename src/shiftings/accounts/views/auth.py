@@ -79,7 +79,7 @@ if settings.OAUTH_ENABLED:
             try:
                 user = self.authenticate(request)
                 if user is None:
-                    messages.error(request, _('Error while creating the user instance!'))
+                    messages.error(request, _('Error while creating the user instance! Try again in a few minutes or contact the administrator via email (shiftings@hadiko.de).'))
                     return HttpResponseRedirect(settings.LOGIN_URL)
                 redirect_to = request.GET.get(REDIRECT_FIELD_NAME)
                 login_user(self.request, user)

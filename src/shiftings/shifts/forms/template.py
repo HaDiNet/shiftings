@@ -55,13 +55,13 @@ class ShiftTemplateForm(forms.ModelForm):
     def clean_start_delay(self) -> timedelta:
         minutes = self.cleaned_data['start_delay']
         if minutes is None:
-            raise ValidationError(_('Start Delay was None please reload and use the slider.'))
+            raise ValidationError(_('Start Delay was None. Please reload and use the slider.'))
         return timedelta(minutes=minutes)
 
     def clean_duration(self) -> timedelta:
         minutes = self.cleaned_data['duration']
         if minutes is None:
-            raise ValidationError(_('Duration was None please reload and use the slider.'))
+            raise ValidationError(_('Duration was None. Please reload and use the slider.'))
         if minutes > settings.MAX_SHIFT_LENGTH_MINUTES:
             raise ValidationError(_('Shift is too long, can at most be {max} long').format(
                 max=localize_timedelta(timedelta(minutes=settings.MAX_SHIFT_LENGTH_MINUTES))))

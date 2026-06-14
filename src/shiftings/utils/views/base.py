@@ -62,7 +62,7 @@ class BaseMixin(AccessMixin, ContextMixin, ABC):
             raise Http404(_('The pk is missing from the url. This is not supposed to be possible.'))
         obj = cls.objects.filter(pk=pk).first()
         if not obj:
-            raise Http404(_('There is no %(name)s with that pk.') % {'name': cls.__name__})
+            raise Http404(_('There is no object with that pk.'))
         return obj
 
     def _handle_no_permission(self) -> Optional[HttpResponse]:
