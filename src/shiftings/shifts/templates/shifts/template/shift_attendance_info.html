@@ -1,0 +1,5 @@
+{% load i18n %}
+{% if enabled %}
+  <dt>{% trans "Session Points" %}</dt>
+  <dd>{{ point_weight|floatformat:"-2" }}</dd>
+{% endif %}

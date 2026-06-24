@@ -31,6 +31,17 @@ class Shift(ShiftBase):
     warnings = models.TextField(max_length=500, verbose_name=_('Warning'), blank=True, null=True,
                                 help_text=_('A maximum of {amount} characters is allowed').format(amount=500))
 
+    excused_users = models.ManyToManyField('accounts.BaseUser', verbose_name=_('Excused Users'), blank=True,
+                                           related_name='excused_from_shifts')
+    point_weight_override = models.DecimalField(verbose_name=_('Session Points Weight Override'),
+                                                max_digits=4, decimal_places=2, blank=True, null=True,
+                                                help_text=_('If set, overrides the shift type weight just for this '
+                                                            'shift. Leave empty to inherit from the shift type.'))
+    is_mandatory_override = models.BooleanField(verbose_name=_('Mandatory Override'), blank=True, null=True,
+                                                help_text=_('If set, overrides the shift type mandatory flag just '
+                                                            'for this shift. Leave empty to inherit from the shift '
+                                                            'type.'))
+
     based_on = models.ForeignKey('RecurringShift', on_delete=models.SET_NULL, related_name='created_shifts',
                                  verbose_name=_('Created by Recurring Shift'), blank=True, null=True)
 

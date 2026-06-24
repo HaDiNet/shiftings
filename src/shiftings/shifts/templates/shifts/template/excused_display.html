@@ -1,0 +1,20 @@
+<div>
+  <div class="d-flex my-1" title="{% trans 'Excused' %}">
+    {% if request.user.pk == excused_user.pk or org_perms.remove_others_from_shifts %}
+      {% if org_perms.admin or shift.end.date >= current_date %}
+        <button type="button" class="btn border border-2 link-remove w-100 mx-2 text-truncate mw-100"
+                data-bs-toggle="modal"
+                data-bs-target="#confirmRemoveModal"
+                data-bs-remove-name="{{ excused_user.display }}"
+                data-bs-remove-url="{% url 'remove_excused' shift.pk excused_user.pk %}"
+                data-bs-success-url="{{ request.path }}">
+          {{ excused_user.display }}
+        </button>
+      {% else %}
+        <span class="btn border border-2 link pe-none w-100 mx-2">{{ excused_user.display }}</span>
+      {% endif %}
+    {% else %}
+      <span class="btn border border-2 link pe-none w-100 mx-2">{{ excused_user.display }}</span>
+    {% endif %}
+  </div>
+</div>

@@ -19,7 +19,8 @@ class ShiftForm(ModelForm):
     class Meta:
         model = Shift
         fields = ['name', 'place', 'organization', 'event', 'shift_type', 'start', 'end', 'required_users',
-                  'max_users', 'additional_infos', 'locked']
+                  'max_users', 'additional_infos', 'locked',
+                  'point_weight_override', 'is_mandatory_override']
 
     def __init__(self, *args: Any, instance: Optional[Shift], **kwargs) -> None:
         super().__init__(*args, instance=instance, **kwargs)
@@ -30,6 +31,10 @@ class ShiftForm(ModelForm):
         organization = instance.organization if instance else self.initial['organization']
         self.fields['shift_type'].queryset = ShiftType.objects.organization(organization, include_system=include_system)
 
+        if not getattr(organization.summary_settings, 'attendance_points_enabled', False):
+            self.fields.pop('point_weight_override', None)
+            self.fields.pop('is_mandatory_override', None)
+
     def clean(self) -> Dict[str, Any]:
         # super.clean ensures that field-level validation is done first
         cleaned_data = super().clean()
@@ -37,7 +42,7 @@ class ShiftForm(ModelForm):
         end = cleaned_data.get('end')
         if start and end and start > end:
             raise ValidationError(_('End time must be after start time'))
-        
+
         ## TODO: raise form error if not valid, but first implement proper error display in template
         max_length = timedelta(minutes=settings.MAX_SHIFT_LENGTH_MINUTES)
         if end - start > max_length:

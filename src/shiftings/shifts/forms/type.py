@@ -10,7 +10,7 @@ from shiftings.shifts.models import ShiftType
 class ShiftTypeForm(forms.ModelForm):
     class Meta:
         model = ShiftType
-        fields = ['organization', 'name', 'color']
+        fields = ['organization', 'name', 'color', 'is_mandatory', 'point_weight']
 
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)

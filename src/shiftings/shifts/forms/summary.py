@@ -7,7 +7,8 @@ from shiftings.utils.time.timerange import TimeRangeType
 class OrganizationShiftSummaryForm(ModelForm):
     class Meta:
         model = OrganizationSummarySettings
-        fields = ['default_time_range_type', 'other_shifts_group_name']
+        fields = ['default_time_range_type', 'other_shifts_group_name',
+                  'attendance_points_enabled', 'no_response_penalty']
 
 
 class SelectSummaryTimeRangeForm(Form):

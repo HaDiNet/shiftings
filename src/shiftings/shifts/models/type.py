@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from decimal import Decimal
 from typing import Any, TYPE_CHECKING
 
 from colorfield.fields import ColorField
@@ -39,6 +40,15 @@ class ShiftType(models.Model):
                               related_name='shift_types', blank=True, null=True)
     name = models.CharField(max_length=100, verbose_name=_('Name'))
     color = ColorField(default='#FD7E14', format='hex', samples=settings.SHIFT_COLOR_PALETTE)
+
+    is_mandatory = models.BooleanField(verbose_name=_('Mandatory Shift Type'), default=False,
+                                       help_text=_('When set, members who do not respond to shifts of this type '
+                                                   'incur the organisation-wide no-response penalty. Only takes '
+                                                   'effect when the organisation has Session Points enabled.'))
+    point_weight = models.DecimalField(verbose_name=_('Session Points Weight'), max_digits=4, decimal_places=2,
+                                       default=Decimal('1.00'),
+                                       help_text=_('Points awarded when attending a shift of this type. Only takes '
+                                                   'effect when the organisation has Session Points enabled.'))
 
     objects = ShiftTypeManager()
 
