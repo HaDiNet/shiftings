@@ -77,6 +77,30 @@ def member_shift_summary(context, org, show_all_users: bool = False, show_future
             'total': sum(group_amounts) + others_amount
         })
     members.sort(key=lambda member: -member['total'])
+
+    attendance_enabled = bool(getattr(org.summary_settings, 'attendance_points_enabled', False))
+    context['attendance_points_enabled'] = attendance_enabled
+    if attendance_enabled:
+        from django.utils import timezone as _tz
+        from shiftings.shifts.utils.scoring import member_score_data
+
+        scoring_shifts = list(
+            org.shifts.filter(time_filter, start__lte=_tz.now())
+                      .select_related('shift_type')
+                      .prefetch_related('participants__user', 'excused_users')
+        )
+        penalty = org.summary_settings.no_response_penalty
+
+        for member in members:
+            scoring_user = BaseUser.objects.get(pk=member['pk'])
+            data = member_score_data(scoring_shifts, scoring_user, penalty)
+            member['attended'] = data['attended']
+            member['excused'] = data['excused']
+            member['missed'] = data['missed']
+            member['points'] = data['score']
+
+        members.sort(key=lambda m: -m['points'])
+
     context['members'] = members
     return context
 
