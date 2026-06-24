@@ -66,6 +66,18 @@
             </div>
           </div>
           {% bootstrap_field form.additional_infos %}
+          {% if form.point_weight_override %}
+            <hr>
+            <div class="text-center"><h5>{% trans "Session Points (Override)" %}</h5></div>
+            <div class="center-items">
+              <div class="col-6 me-1">
+                {% bootstrap_field form.point_weight_override %}
+              </div>
+              <div class="col-6 ms-1">
+                {% bootstrap_field form.is_mandatory_override %}
+              </div>
+            </div>
+          {% endif %}
         </form>
       </div>
     </div>
