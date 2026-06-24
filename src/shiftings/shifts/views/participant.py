@@ -52,6 +52,7 @@ class AddOtherParticipantView(OrganizationPermissionMixin, CreateView):
             raise Http403()
         self.object = form.save()
         shift.participants.add(self.object)
+        shift.excused_users.remove(form.cleaned_data['user'])
         shift.save()
         return self.success
 
@@ -80,6 +81,7 @@ class AddSelfParticipantView(AddOtherParticipantView):
         shift = self.get_shift()
         self.object = form.save()
         shift.participants.add(self.object)
+        shift.excused_users.remove(self.request.user)
         shift.save()
         return self.success
 
