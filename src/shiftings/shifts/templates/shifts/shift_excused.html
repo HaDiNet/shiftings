@@ -1,0 +1,33 @@
+{% load i18n %}
+<div class="mx-3 mt-2 shift-slots shift-info overflow-auto">
+  {% for excused_user in shift.excused_users.all %}
+    {% include "shifts/template/excused_display.html" with excused_user=excused_user shift=shift %}
+  {% endfor %}
+  {% if shift.start.date >= current_date and not shift.locked %}
+    {% url 'excuse_self_from_shift' shift.pk as excuse_url %}
+    {% url 'remove_excused' shift.pk request.user.pk as withdraw_url %}
+    {% is_request_user_excused shift as user_is_excused %}
+    {% if user_is_participant %}
+      <form method="post" action="{{ excuse_url }}" class="d-flex mt-2 mx-2">
+        {% csrf_token %}
+        <button type="submit" class="btn border border-2 card-link link w-100">
+          <i class="fa-solid fa-person-circle-xmark me-2"></i>{% trans "I can't come" %}
+        </button>
+      </form>
+    {% elif user_is_excused %}
+      <form method="post" action="{{ withdraw_url }}" class="d-flex mt-2 mx-2">
+        {% csrf_token %}
+        <button type="submit" class="btn border border-2 card-link link w-100">
+          <i class="fa-solid fa-rotate-left me-2"></i>{% trans 'Withdraw excuse' %}
+        </button>
+      </form>
+    {% else %}
+      <form method="post" action="{{ excuse_url }}" class="d-flex mt-2 mx-2">
+        {% csrf_token %}
+        <button type="submit" class="btn border border-2 card-link link w-100">
+          <i class="fa-solid fa-person-circle-xmark me-2"></i>{% trans 'Excuse me' %}
+        </button>
+      </form>
+    {% endif %}
+  {% endif %}
+</div>

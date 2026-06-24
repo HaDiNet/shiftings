@@ -11,6 +11,7 @@ from shiftings.organizations.models import OrganizationDummyUser
 from shiftings.shifts.forms.participant import AddSelfParticipantForm
 from shiftings.shifts.forms.shift import SelectOrgForm
 from shiftings.shifts.models import Shift
+from shiftings.shifts.utils.scoring import effective_point_weight
 from shiftings.utils.time.timerange import TimeRangeType
 
 register = template.Library()
@@ -136,3 +137,20 @@ class ShiftPermissionHolder:
 @register.simple_tag(takes_context=True)
 def shift_permissions(context, shift: Shift) -> ShiftPermissionHolder:
     return ShiftPermissionHolder(shift, context.request.user)
+
+
+@register.inclusion_tag('shifts/template/shift_attendance_info.html', takes_context=True)
+def shift_attendance_info(context, shift: Shift) -> dict[str, Any]:
+    settings = shift.organization.summary_settings
+    return {
+        'enabled': settings.attendance_points_enabled,
+        'point_weight': effective_point_weight(shift),
+    }
+
+
+@register.simple_tag(takes_context=True)
+def is_request_user_excused(context, shift: Shift) -> bool:
+    user = context['request'].user
+    if not user.is_authenticated:
+        return False
+    return shift.excused_users.filter(pk=user.pk).exists()

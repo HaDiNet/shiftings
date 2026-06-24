@@ -17,12 +17,16 @@
   {% endfor %}
   {% if shift.max_users == 0 %}
     {% if shift.start.date >= current_date or org_perms.add_to_past_shift %}
-      <div class="d-flex">
-        <button type="button" class="btn border border-2 card-link link w-100 mx-2" data-bs-toggle="modal"
-                data-bs-target="#addSelfForm{{ shift.pk }}Modal">
-          <i class="fa-solid fa-person-circle-plus me-2"></i>{% trans 'Add me' %}
-        </button>
-      </div>
+      {% is_request_user_excused shift as user_is_excused %}
+      {% if not user_is_participant %}
+        <div class="d-flex mt-2">
+          <button type="button" class="btn border border-2 card-link link w-100 mx-2" data-bs-toggle="modal"
+                  data-bs-target="#addSelfForm{{ shift.pk }}Modal">
+            <i class="fa-solid fa-person-circle-plus me-2"></i>
+            {% if user_is_excused %}{% trans 'Add me anyway' %}{% else %}{% trans 'Add me' %}{% endif %}
+          </button>
+        </div>
+      {% endif %}
     {% endif %}
   {% endif %}
 </div>
