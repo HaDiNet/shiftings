@@ -1,5 +1,9 @@
 # Shiftings
 
+[![Super-Linter](https://github.com/<OWNER>/<REPOSITORY>/actions/workflows/<WORKFLOW_FILE_NAME>/badge.svg)](https://github.com/marketplace/actions/super-linter)
+<!-- Start Integrity Badges -->
+<!-- End Integrity Badges -->
+
 This is a simple shift management system. Built and maintained by students from the self-governed student dormitory [HaDiKo](https://www.hadiko.de/).
 
 ## Description

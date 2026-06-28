@@ -1,0 +1,42 @@
+---
+# This runs classic linters on the codebase, but also uses some more advanced tools.
+# Also uses: Trivy, GitLeaks, codespell, pre-commit, spectral, jscpd and more.
+# See https://github.com/marketplace/actions/super-linter for more details.
+name: Super-Linter
+
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  build:
+    name: Super-Linter
+    runs-on: ubuntu-latest
+
+    permissions:
+      # contents permission to clone the repository
+      contents: read
+      packages: read
+      # issues and pull-requests permissions to write results as pull
+      # request comments. Omit them if you don't need summary comments
+      issues: write
+      pull-requests: write
+      # To report GitHub Actions status checks. Omit if you don't need
+      # to update commit status
+      statuses: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          # super-linter needs the full git history to get the
+          # list of files that changed across commits
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Super-linter
+        uses: super-linter/super-linter/slim@v8.5.0 # x-release-please-version
+        env:
+          # To report GitHub Actions status checks
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # To only check files that changed across commits
+          VALIDATE_ALL_CODEBASE: false
+          
