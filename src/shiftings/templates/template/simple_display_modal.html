@@ -1,19 +1,17 @@
-<div class="modal fade" id="{{ modal_id }}" tabindex="-1" aria-labelledby="{{ modal_id }}ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content bg-dark border-success border-2">
-      <div class="modal-header">
-        <h5 class="modal-title" id="{{ modal_id }}Label">
-          {{ modal_title }}
-        </h5>
-        <button type="button" class="btn btn-secondary btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        {{ nodelist }}
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Close" %}</button>
-      </div>
-    </div>
+{% extends "template/modal_base.html" %}
+{% block modal_id %}{{ modal_id }}{% endblock %}
+{% block modal_aria_labelledby %}{{ modal_id }}ModalLabel{% endblock %}
+{% block modal_outer_content %}
+  <div class="modal-header">
+    <h5 class="modal-title" id="{{ modal_id }}Label">
+      {{ modal_title }}
+    </h5>
+    <button type="button" class="btn btn-secondary btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
   </div>
-</div>
+  <div class="modal-body">
+    {{ nodelist }}
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Close" %}</button>
+  </div>
+{% endblock %}

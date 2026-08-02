@@ -3,8 +3,8 @@
   {% include "template/breadcrumbs.html" %}
 {% endblock %}
 {% block content %}
-  <div class="container mt-3 d-flex justify-content-center">
-    <div class="col-12 col-md-10 col-lg-7">
+  <div class="{% block form_container_class %}container{% endblock %} mt-3 d-flex justify-content-center">
+    <div class="{% block form_content_class %}col-12 col-md-10 col-lg-7{% endblock %}">
       {% block form %}
       {% endblock %}
     </div>

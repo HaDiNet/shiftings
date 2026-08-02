@@ -12,22 +12,19 @@
           </h3>
           <div>
             {% if not shift.shift_type.is_system or perms.organizations.admin %}
-              <a class="btn btn-success px-2 py-1" href="{% url 'shift_update' shift.pk %}"
-                 title="{% trans "Edit Shift" %}">
-                <i class="fa-solid fa-pen-to-square"></i>
-              </a>
+              {% url 'shift_update' shift.pk as shift_update_url %}
+              {% trans "Edit Shift" as edit_shift_title %}
+              {% include "template/icon_action_button.html" with button_class="btn btn-success px-2 py-1" href=shift_update_url title=edit_shift_title icon_class="fa-solid fa-pen-to-square" %}
               {% now "Y-m-d" as today %}
               {% if org_perms.admin or shift.start|date:"Y-m-d" >= today and org_perms.delete_shifts %}
-                <a class="btn btn-danger px-2 py-1" href="{% url 'shift_delete' shift.pk %}"
-                   title="{% trans "Delete Shift" %}">
-                  <i class="fa-solid fa-trash"></i>
-                </a>
+                {% url 'shift_delete' shift.pk as shift_delete_url %}
+                {% trans "Delete Shift" as delete_shift_title %}
+                {% include "template/icon_action_button.html" with button_class="btn btn-danger px-2 py-1" href=shift_delete_url title=delete_shift_title icon_class="fa-solid fa-trash" %}
               {% endif %}
               {% if org_perms.admin %}
-                <a class="btn btn-info px-2 py-1" href="{% url 'shift_part_permissions_edit' shift.pk %}"
-                   title="{% trans "Edit Permissions" %}">
-                  <i class="fa-solid fa-shield-halved"></i>
-                </a>
+                {% url 'shift_part_permissions_edit' shift.pk as shift_part_permissions_edit_url %}
+                {% trans "Edit Permissions" as edit_permissions_title %}
+                {% include "template/icon_action_button.html" with button_class="btn btn-info px-2 py-1" href=shift_part_permissions_edit_url title=edit_permissions_title icon_class="fa-solid fa-shield-halved" %}
               {% endif %}
             {% endif %}
           </div>
@@ -67,9 +64,9 @@
                   {% if not shift.is_full %}
                     {% if org_perms.add_non_members_to_shifts or org_perms.add_members_to_shifts %}
                       {% if shift.start.date >= current_date or org_perms.add_to_past_shift %}
-                        <a class="btn btn-outline-success ms-3" href="{% url 'add_participant_other' shift.pk %}">
-                          <i class="fa-solid fa-person-circle-plus me-2"></i>{% trans "Add participant" %}
-                        </a>
+                        {% url 'add_participant_other' shift.pk as add_participant_url %}
+                        {% trans "Add participant" as add_participant_title %}
+                        {% include "template/icon_action_button.html" with button_class="btn btn-outline-success ms-3" href=add_participant_url title=add_participant_title icon_class="fa-solid fa-person-circle-plus me-2" label=add_participant_title %}
                       {% endif %}
                     {% endif %}
                   {% endif %}

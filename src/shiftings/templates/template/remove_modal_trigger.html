@@ -1,0 +1,14 @@
+{% if tag == 'button' %}
+<button type="button" class="{{ button_class }}" data-bs-toggle="modal" data-bs-target="{{ modal_target|default:'#confirmRemoveModal' }}"
+        data-bs-remove-name="{{ remove_name }}" data-bs-remove-url="{{ remove_url }}"{% if success_url %} data-bs-success-url="{{ success_url }}"{% endif %}>
+  {% if icon_class %}<i class="{{ icon_class }}"></i>{% endif %}
+  {% if label %}{{ label }}{% endif %}
+</button>
+{% else %}
+<a class="{{ button_class }}" href="{{ href|default:'#confirmRemoveModal' }}" role="button" data-bs-toggle="modal"
+   data-bs-target="{{ modal_target|default:'#confirmRemoveModal' }}" data-bs-remove-name="{{ remove_name }}"
+   data-bs-remove-url="{{ remove_url }}"{% if success_url %} data-bs-success-url="{{ success_url }}"{% endif %}>
+  {% if icon_class %}<i class="{{ icon_class }}"></i>{% endif %}
+  {% if label %}{{ label }}{% endif %}
+</a>
+{% endif %}

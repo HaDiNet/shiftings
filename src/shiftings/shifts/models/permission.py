@@ -50,25 +50,25 @@ class ParticipationPermissionManager(models.Manager):
                          organization: Organization | None) -> ParticipationPermission | None:
         return self.filter_instance(instance).filter(organization=organization).first()
 
-    def get_best_for_instance_and_user(self, instance: models.Model, user: User) -> ParticipationPermissionType:
-        if user.has_perm('organizations.admin'):
-            return ParticipationPermissionType.Participate
-        best_permission = self.filter_instance(instance) \
-            .filter(Q(organization__isnull=True) | Q(organization__in=user.organizations)) \
-            .aggregate(best=models.Max('permission_type_field'))['best']
+    def _get_best_permission_for_user_from_queryset(self, queryset: QuerySet[ParticipationPermission],
+                                                     user: User) -> ParticipationPermissionType:
+        """Extract best permission from a queryset filtered by user's organizations."""
+        best_permission = queryset.filter(
+            Q(organization__isnull=True) | Q(organization__in=user.organizations)
+        ).aggregate(best=models.Max('permission_type_field'))['best']
         if not best_permission:
             return ParticipationPermissionType.NoPermission
         return ParticipationPermissionType(best_permission)
 
+    def get_best_for_instance_and_user(self, instance: models.Model, user: User) -> ParticipationPermissionType:
+        if user.has_perm('organizations.admin'):
+            return ParticipationPermissionType.Participate
+        return self._get_best_permission_for_user_from_queryset(self.filter_instance(instance), user)
+
     def get_best_for_user(self, user: User, *objects: models.Model) -> ParticipationPermissionType:
         if user.has_perm('organizations.admin'):
             return ParticipationPermissionType.Participate
-        best_permission = self.filter_instances(*objects) \
-            .filter(Q(organization__isnull=True) | Q(organization__in=user.organizations)) \
-            .aggregate(best=models.Max('permission_type_field'))['best']
-        if not best_permission:
-            return ParticipationPermissionType.NoPermission
-        return ParticipationPermissionType(best_permission)
+        return self._get_best_permission_for_user_from_queryset(self.filter_instances(*objects), user)
 
 
 class ParticipationPermission(models.Model):

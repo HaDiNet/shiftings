@@ -1,0 +1,13 @@
+<div>
+  <a class="btn btn-success {{ button_margin_class }}" href="{{ href }}{% if query_string %}?{{ query_string }}{% endif %}">
+    <div class="center-items flex-wrap">
+      {% if icon_before %}
+        <i class="{{ icon_class }}"></i>
+      {% endif %}
+      <span class="d-none d-md-block {{ label_margin_class }}">{{ label }}</span>
+      {% if not icon_before %}
+        <i class="{{ icon_class }}"></i>
+      {% endif %}
+    </div>
+  </a>
+</div>

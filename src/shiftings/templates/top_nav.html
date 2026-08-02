@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark menu">
+<nav class="navbar navbar-expand-lg menu">
   <div class="container-fluid">
     <a class="navbar-brand" href="/">Shiftings</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -36,13 +36,14 @@
         {% endif %}
         {% include "switch_user.html" %}
         {% include "language.html" %}
+        {% include "theme.html" %}
         {% if request.user.is_authenticated %}
           <div class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="account-toggle" role="button"
                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span>{{ request.user.display }} <i class="fas fa-user"></i></span>
             </a>
-            <div class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="account-toggle">
+            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="account-toggle">
               <span
                   class="dropdown-item mobile-only font-weight-bolder">{% trans "User" %}: {{ request.user.display }}</span>
               <a class="dropdown-item" href="{% url "user_profile" %}">{% trans "Profile" %}</a>

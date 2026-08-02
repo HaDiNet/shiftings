@@ -48,7 +48,7 @@ class UserLoginView(LoginView):
         return context
 
     def post(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
-        if self.request.POST.get('submit', '') == 'sso_login':
+        if settings.OAUTH_ENABLED and self.request.POST.get('submit', '') == 'sso_login':
             redirect_to = self.get_redirect_url()
             redirect_uri = request.build_absolute_uri(reverse('auth'))
             redirect_uri += f'?{REDIRECT_FIELD_NAME}={redirect_to}'

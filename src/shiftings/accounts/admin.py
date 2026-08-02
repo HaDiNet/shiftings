@@ -1,5 +1,4 @@
-from django.contrib import admin
-
 from shiftings.accounts.models import User
+from shiftings.utils.admin import register_models
 
-admin.site.register(User)
+register_models(User)

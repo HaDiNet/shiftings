@@ -55,12 +55,15 @@ dev = [
     'types-python-dateutil==2.9.0.20260124',
     'types-requests==2.32.4.20260107',
     'mypy==1.19.1',
+    'django-extensions==4.1',
 ]
 
 tests = [
     'pytest==9.0.2',
     'pytest-django==4.12.0',
     'pytest-cov==7.0.0',
+    'django-coverage-plugin==3.2.2',
+    'mutmut==3.3.1',
 ]
 
 docs = [
@@ -79,3 +82,25 @@ where = ['src']
 
 [tool.setuptools.package-data]
 shiftings = ['py.typed']
+
+[tool.mutmut]
+paths_to_mutate = [
+    'src/shiftings/accounts/views/auth.py',
+    'src/shiftings/accounts/views/user.py',
+    'src/shiftings/shifts/forms/permission.py',
+    'src/shiftings/shifts/views/permission.py',
+    'src/shiftings/utils/views/base.py',
+]
+tests_dir = [
+    'src/shiftings/accounts/tests',
+    'src/shiftings/shifts/tests',
+    'src/shiftings/utils/tests',
+]
+also_copy = [
+    'src',
+]
+pytest_add_cli_args = [
+    '--ds=shiftings.settings',
+    '-q',
+]
+mutate_only_covered_lines = true

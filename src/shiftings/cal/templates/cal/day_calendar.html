@@ -1,48 +1,18 @@
-{% extends "cal/calendar_base.html" %}
-{% block top_level %}
-  {% select_org_form_modal %}
-  {% include "template/remove_modal.html" with remove_target_from=shift.organization.name %}
-{% endblock %}
-
-{% block calendar %}
-  <div class="base-card bg-dark">
-    <div class="bg-dark center-items justify-content-between p-2 sticky-top">
-      <div>
-        <a class="btn btn-success me-1" href="{{ prev_url }}?{{ request.GET.urlencode }}">
-          <div class="center-items flex-wrap">
-            <i class="fa-solid fa-angles-left"></i>
-            <span class="d-none d-md-block ms-1">{% trans 'Previous Day' context calendar %}</span>
-          </div>
-        </a></div>
+{% extends "cal/calendar_card_base.html" %}
+{% block calendar_card_header %}
+  {% trans "Previous Day" context calendar as previous_day_label %}
+  {% include "cal/day_nav_button.html" with href=prev_url query_string=request.GET.urlencode button_margin_class="me-1" icon_class="fa-solid fa-angles-left" label=previous_day_label label_margin_class="ms-1" icon_before=True %}
       <div class="center-items">
         <h3 class="m-0 me-4">{{ theday|date:'l j. F Y' }}</h3>
-        <div>
-          <a class="btn btn-success dropdown-toggle" role="button" data-bs-toggle="dropdown"
-             data-bs-auto-close="outside"
-             aria-expanded="false" title="{% trans "Jump to Date" %}">
-            <i class="fa-solid fa-calendar-day"></i>
-          </a>
-          <div class="dropdown-menu dropdown-menu-dark dropdown-menu-end p-2">
-            <form method="post">
-              {% csrf_token %}
-              <span>{% trans "Jump to Day" %}</span>
-              {% bootstrap_field select_day_form.theday wrapper_class="" show_label=False %}
-              <button class="btn btn-success my-1">{% trans "Select" %}</button>
-            </form>
-          </div>
-        </div>
+        {% trans "Jump to Date" as jump_to_date_title %}
+        {% trans "Jump to Day" as jump_to_day_label %}
+        {% trans "Select" as select_label %}
+        {% include "cal/date_jump_dropdown.html" with title=jump_to_date_title prompt=jump_to_day_label button_label=select_label form_field=select_day_form.theday icon_class="fa-solid fa-calendar-day" %}
       </div>
-      <div>
-        <a class="btn btn-success ms-1" href="{{ next_url }}?{{ request.GET.urlencode }}">
-          <div class="center-items  flex-wrap">
-            <span class="d-none d-md-block me-1">{% trans 'Next Day' context calendar %}</span>
-            <i class="fa-solid fa-angles-right"></i>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div class="p-2">
-      {% include day_calendar_template %}
-    </div>
-  </div>
+      {% trans "Next Day" context calendar as next_day_label %}
+      {% include "cal/day_nav_button.html" with href=next_url query_string=request.GET.urlencode button_margin_class="ms-1" icon_class="fa-solid fa-angles-right" label=next_day_label label_margin_class="me-1" icon_before=False %}
+{% endblock %}
+
+{% block calendar_card_body %}
+  {% include day_calendar_template %}
 {% endblock %}

@@ -1,0 +1,20 @@
+{
+  "tier1_fixes": [
+    {
+      "id": "2026-04-17-shift-template-group-org-pk-resolution",
+      "description": "Fix missing-pk create flow by resolving organization from org_pk path kwarg.",
+      "has_regression_test": true,
+      "test_references": [
+        "src/shiftings/shifts/tests/test_template_views.py"
+      ]
+    },
+    {
+      "id": "2026-04-18-token-validation-hardening",
+      "description": "Harden token validation behavior and add deterministic tests for failure paths.",
+      "has_regression_test": true,
+      "test_references": [
+        "src/shiftings/accounts/tests/test_token_security.py"
+      ]
+    }
+  ]
+}

@@ -63,6 +63,13 @@ SITE = 'shiftings.example.com'
 # Maximum number of entries for detailed list views
 MAX_LIST_ENTRIES = 256
 
+# Token security validation tuning
+TOKEN_SECURITY_MAX_FAILED_ATTEMPTS_PER_IP = 5
+TOKEN_SECURITY_FAILED_ATTEMPT_WINDOW_HOURS = 1
+TOKEN_SECURITY_MAX_FAILED_ATTEMPTS_PER_USER = 10
+TOKEN_SECURITY_FAILED_ATTEMPT_WINDOW_USER_HOURS = 24
+TOKEN_SECURITY_MAX_TOKEN_LENGTH = 255
+
 MEDIA_URL = '/media/'
 # Secure media with login. set the current values are 'apache2' and 'nginx'
 SERVE_MEDIA_SERVER = 'apache2'

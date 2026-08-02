@@ -1,6 +1,6 @@
 {% extends "generic/form_base.html" %}
 {% block form %}
-  <div class="card bg-secondary p-3">
+  <div class="card bg-secondary login-surface p-3">
     <h4 class="text-center">
       {% if is_local %}
         {% trans 'Login with local Account' %}
@@ -20,12 +20,12 @@
     </form>
   </div>
   {% if feature.gdpr_template %}
-    <div class="card bg-secondary p-3 text-center mt-3">
+    <div class="card bg-secondary login-surface p-3 text-center mt-3">
       {% include feature.gdpr_template %}
     </div>
   {% endif %}
   {% if is_local and feature.registration %}
-    <div class="card bg-secondary p-3 text-center mt-3">
+    <div class="card bg-secondary login-surface p-3 text-center mt-3">
       <h4>{% trans "You don't have an Account?" %}</h4>
       <a class="btn btn-success" href="{% url "register" %}">{% trans "Register here" %}</a>
       {% if ldap_enabled or sso_enabled %}

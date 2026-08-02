@@ -28,13 +28,19 @@ def shift_card(context, shift) -> dict[str, Any]:
     return context
 
 
-@register.inclusion_tag('shifts/template/member_shift_summary.html', takes_context=True)
-def member_shift_summary(context, org, show_all_users: bool = False, show_future_shifts: bool = True) -> dict[str, Any]:
+@register.inclusion_tag('shifts/template/shift_users_summary.html', takes_context=True)
+def shift_users_summary(context, org, show_all_users: bool = False, show_future_shifts: bool = True) -> dict[str, Any]:
     def get_int(name: str, default: int) -> int:
         try:
             return int(context['request'].GET.get(name, default))
         except ValueError:
             return default
+
+    def get_bool(name: str, default: bool = False) -> bool:
+        value = context['request'].GET.get(name)
+        if value is None:
+            return default
+        return value.lower() in {'1', 'true', 'yes', 'on'}
 
     try:
         time_range_type = TimeRangeType(get_int('time_range', org.summary_settings.default_time_range_type))
@@ -50,17 +56,27 @@ def member_shift_summary(context, org, show_all_users: bool = False, show_future
     groups = list(org.shift_type_groups.all())
     context['groups'] = groups
     context['has_others'] = org.shifts.filter(time_filter, other_filter).exists()
-    users = org.users
-    if show_all_users:
-        user_ids = set(org.shifts.filter(time_filter).values_list('participants__user', flat=True))
-        user_ids.discard(None)
-        filtered_user_ids = set(User.objects.filter(pk__in=user_ids).values_list('pk', flat=True))
-        filtered_dummy_users = OrganizationDummyUser.objects.filter(pk__in=user_ids)
-        filtered_user_ids.update(filtered_dummy_users.filter(claimed_by__isnull=True).values_list('pk', flat=True))
-        claimed_ids = filtered_dummy_users.filter(claimed_by__isnull=False).values_list('claimed_by__pk', flat=True)
-        filtered_user_ids.update(BaseUser.objects.filter(pk__in=claimed_ids).values_list('pk', flat=True))
-        users = BaseUser.objects.filter(pk__in=filtered_user_ids)
-    members = []
+    org_users_only = get_bool('org_users_only', False)
+
+    participant_ids = set(org.shifts.filter(time_filter).values_list('participants__user', flat=True))
+    participant_ids.discard(None)
+
+    # Resolve participants to either direct users, unclaimed org dummy users, or their claimed-by users.
+    participant_user_ids = set(User.objects.filter(pk__in=participant_ids).values_list('pk', flat=True))
+    participant_dummy_users = OrganizationDummyUser.objects.filter(pk__in=participant_ids)
+    participant_user_ids.update(participant_dummy_users.filter(claimed_by__isnull=True).values_list('pk', flat=True))
+    claimed_ids = participant_dummy_users.filter(claimed_by__isnull=False).values_list('claimed_by__pk', flat=True)
+    participant_user_ids.update(BaseUser.objects.filter(pk__in=claimed_ids).values_list('pk', flat=True))
+
+    org_user_ids = set(org.users.values_list('pk', flat=True))
+
+    if org_users_only:
+        users = BaseUser.objects.filter(pk__in=org_user_ids)
+    elif show_all_users:
+        users = BaseUser.objects.filter(pk__in=participant_user_ids)
+    else:
+        users = BaseUser.objects.filter(pk__in=(participant_user_ids | org_user_ids))
+    member_entries = []
     for user in users.order_by('username'):
         pks = [user.pk] + list(OrganizationDummyUser.objects.filter(claimed_by=user).values_list('pk', flat=True))
         group_amounts = [
@@ -68,15 +84,34 @@ def member_shift_summary(context, org, show_all_users: bool = False, show_future
             for shift_type_group in groups
         ]
         others_amount = org.shifts.filter(time_filter, other_filter, participants__user__pk__in=pks).count()
-        members.append({
+        member_entries.append({
             'pk': user.pk,
             'name': user.display,
+            'is_org_user': user.pk in org_user_ids,
             'groups': group_amounts,
             'other': others_amount,
             'total': sum(group_amounts) + others_amount
         })
-    members.sort(key=lambda member: -member['total'])
-    context['members'] = members
+
+    participants = [member for member in member_entries if member['total'] > 0]
+    participants.sort(key=lambda member: (-member['total'], member['name']))
+
+    if show_all_users:
+        context['members'] = participants
+        context['other_users'] = []
+        context['other_users_count'] = 0
+        context['has_other_users_section'] = False
+    else:
+        context['members'] = participants
+        other_users = [member for member in member_entries if member['is_org_user'] and member['total'] == 0]
+        context['other_users'] = other_users
+        context['other_users_count'] = len(other_users)
+        context['has_other_users_section'] = len(other_users) > 0
+
+    context['other_participants'] = []
+    context['has_other_participants_section'] = False
+    context['show_all_users'] = show_all_users
+    context['org_users_only'] = org_users_only
     return context
 
 

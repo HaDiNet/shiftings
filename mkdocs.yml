@@ -45,4 +45,6 @@ nav:
     - Shift Summary: 'organizations/shift_summary.md'
   - Events:
     - Coming Soon: 'events/index.md'
-  - Development: 'development.md'
+  - Development:
+    - Overview: 'development.md'
+    - Testing Quality Scorecard: 'testing_quality.md'
