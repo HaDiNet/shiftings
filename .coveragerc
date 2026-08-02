@@ -1,0 +1,21 @@
+[run]
+branch = True
+source =
+    shiftings
+plugins =
+    django_coverage_plugin
+
+[report]
+show_missing = True
+skip_covered = False
+omit =
+    */migrations/*
+    */test_*.py
+    */tests/*
+    */manage.py
+
+[html]
+directory = coverage_html
+
+[django_coverage_plugin]
+template_extensions = html,htm,txt

@@ -1,8 +1,9 @@
-from django.contrib import admin
-
 from shiftings.organizations.models import Membership, MembershipType, Organization, OrganizationDummyUser
+from shiftings.utils.admin import register_models
 
-admin.site.register(Organization)
-admin.site.register(Membership)
-admin.site.register(MembershipType)
-admin.site.register(OrganizationDummyUser)
+register_models(
+	Organization,
+	Membership,
+	MembershipType,
+	OrganizationDummyUser,
+)

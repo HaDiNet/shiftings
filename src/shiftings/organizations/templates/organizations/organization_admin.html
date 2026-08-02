@@ -295,11 +295,8 @@
                   <a class="btn btn-sm btn-primary ms-1" href="{% url 'shift_type_update' shift_type.pk %}">
                     <i class="fas fa-pen-to-square"></i>
                   </a>
-                  <a class="btn btn-sm btn-danger ms-1" data-bs-toggle="modal" href="#confirmRemoveModal"
-                     role="button" data-bs-remove-name="{{ shift_type.name }}"
-                     data-bs-remove-url="{% url 'shift_type_delete' shift_type.pk %}">
-                    <i class="fas fa-trash"></i>
-                  </a>
+                  {% url 'shift_type_delete' shift_type.pk as shift_type_delete_url %}
+                  {% include "template/remove_modal_trigger.html" with tag="a" button_class="btn btn-sm btn-danger ms-1" href="#confirmRemoveModal" remove_name=shift_type.name remove_url=shift_type_delete_url icon_class="fas fa-trash" %}
                 </td>
               </tr>
             {% endfor %}

@@ -1,5 +1,4 @@
-from django.contrib import admin
-
 from shiftings.events.models import Event
+from shiftings.utils.admin import register_models
 
-admin.site.register(Event)
+register_models(Event)

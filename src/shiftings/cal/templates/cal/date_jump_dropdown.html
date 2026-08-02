@@ -1,0 +1,15 @@
+<div>
+  <a class="btn btn-success dropdown-toggle" role="button" data-bs-toggle="dropdown"
+     data-bs-auto-close="outside"
+     aria-expanded="false" title="{{ title }}">
+    <i class="{{ icon_class }}"></i>
+  </a>
+  <div class="dropdown-menu dropdown-menu-end p-2">
+    <form method="post">
+      {% csrf_token %}
+      <span>{{ prompt }}</span>
+      {% bootstrap_field form_field wrapper_class="" show_label=False %}
+      <button class="btn btn-success my-1">{{ button_label }}</button>
+    </form>
+  </div>
+</div>
