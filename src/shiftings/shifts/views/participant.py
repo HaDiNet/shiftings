@@ -1,4 +1,3 @@
-from datetime import date
 from typing import Any
 
 from django.http import HttpResponse
@@ -6,11 +5,37 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import DeleteView
 
 from shiftings.organizations.models import Organization
+from shiftings.organizations.models.activity_log import OrganizationActivityLog
+from shiftings.organizations.services import log_organization_activity
 from shiftings.organizations.views.organization_base import OrganizationPermissionMixin
 from shiftings.shifts.forms.participant import AddOtherParticipantForm, AddSelfParticipantForm
 from shiftings.shifts.models import Participant, Shift
+from shiftings.shifts.views.helpers import shift_is_past
 from shiftings.utils.exceptions import Http403
 from shiftings.utils.views.create_update_view import CreateView
+
+
+def get_participant_name(participant: Participant) -> str:
+    return participant.user.display if participant.user else participant.display_name
+
+
+def log_shift_participant_activity(*,
+                                   shift: Shift,
+                                   actor,
+                                   action: OrganizationActivityLog.Action,
+                                   participant: Participant,
+                                   summary: str) -> None:
+    log_organization_activity(
+        organization=shift.organization,
+        actor=actor,
+        action=action,
+        summary=summary.format(participant=get_participant_name(participant)),
+        metadata={
+            'target_url': shift.get_absolute_url(),
+            'target_label': shift.detailed_display,
+            'participant_display_name': participant.display_name,
+        },
+    )
 
 
 class AddOtherParticipantView(OrganizationPermissionMixin, CreateView):
@@ -35,7 +60,7 @@ class AddOtherParticipantView(OrganizationPermissionMixin, CreateView):
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         shift = self.get_shift()
-        if shift.start.date() < date.today():
+        if shift_is_past(shift):
             form = context['form']
             if not hasattr(form, 'cleaned_data'):
                 form.cleaned_data = {}
@@ -44,16 +69,30 @@ class AddOtherParticipantView(OrganizationPermissionMixin, CreateView):
 
     def form_valid(self, form: AddSelfParticipantForm) -> HttpResponse:
         shift = self.get_shift()
-        if (shift.start.date() < date.today()
+        if (shift_is_past(shift)
                 and not self.request.user.has_perm('organizations.add_to_past_shift', self.get_organization())):
-            raise Http403()
+            raise Http403("You don't have permission to add participants to past shifts.")
         if (not self.request.user.has_perm('organizations.add_non_members_to_shifts', self.get_organization())
                 and not self.get_organization().is_member(form.cleaned_data['user'])):
-            raise Http403()
+            raise Http403("You don't have permission to add non-members to this shift.")
+        self.save_participant_for_shift(form, shift, OrganizationActivityLog.Action.SHIFT_PARTICIPANT_ADDED_OTHER)
+        return self.success
+
+    def save_participant_for_shift(self,
+                                   form: AddSelfParticipantForm,
+                                   shift: Shift,
+                                   action: OrganizationActivityLog.Action) -> None:
         self.object = form.save()
         shift.participants.add(self.object)
         shift.save()
-        return self.success
+
+        log_shift_participant_activity(
+            shift=shift,
+            actor=self.request.user,
+            action=action,
+            participant=self.object,
+            summary=str(_('Shift participant added: {participant}')),
+        )
 
     def get_success_url(self) -> str:
         return self.get_shift().get_absolute_url()
@@ -64,7 +103,7 @@ class AddSelfParticipantView(AddOtherParticipantView):
     permission_required = 'organizations.participate_in_shift'
 
     def has_permission(self) -> bool:
-        if (self.get_shift().start.date() < date.today()
+        if (shift_is_past(self.get_shift())
                 and not self.request.user.has_perm('organizations.add_to_past_shift', self.get_organization())):
             return False
         if self.get_shift().can_participate(self.request.user):
@@ -78,9 +117,7 @@ class AddSelfParticipantView(AddOtherParticipantView):
 
     def form_valid(self, form: AddSelfParticipantForm) -> HttpResponse:
         shift = self.get_shift()
-        self.object = form.save()
-        shift.participants.add(self.object)
-        shift.save()
+        self.save_participant_for_shift(form, shift, OrganizationActivityLog.Action.SHIFT_PARTICIPANT_ADDED_SELF)
         return self.success
 
 
@@ -96,7 +133,7 @@ class RemoveParticipantView(OrganizationPermissionMixin, DeleteView):
         return self._get_object(Shift, 'pk')
 
     def has_permission(self) -> bool:
-        if self.get_shift().start.date() < date.today():
+        if shift_is_past(self.get_shift()):
             return self.get_organization().is_admin(self.request.user)
         if self.get_object().user.pk == self.request.user.pk:
             return True
@@ -106,3 +143,16 @@ class RemoveParticipantView(OrganizationPermissionMixin, DeleteView):
         if self.request.POST.get('success_url'):
             return str(self.request.POST['success_url'])
         return self.get_shift().get_absolute_url()
+
+    def form_valid(self, form):
+        shift = self.get_shift()
+        participant = self.object
+        response = super().form_valid(form)
+        log_shift_participant_activity(
+            shift=shift,
+            actor=self.request.user,
+            action=OrganizationActivityLog.Action.SHIFT_PARTICIPANT_REMOVED,
+            participant=participant,
+            summary=str(_('Shift participant removed: {participant}')),
+        )
+        return response

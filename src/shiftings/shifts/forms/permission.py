@@ -34,7 +34,7 @@ class ParticipationPermissionForm(forms.ModelForm):
             if existing and existing.permission_type >= permission:
                 self.add_error('permission_type_field',
                                _('Permission would have no effect. '
-                                 'Permission for all Users is more extensive: {permission}')
+                                 'Permission for all Users is more extensive: {permission}.')
                                .format(permission=existing.permission_type.label))
                 return cleaned_data
 
@@ -46,7 +46,7 @@ class ParticipationPermissionForm(forms.ModelForm):
                 self.add_error('permission_type_field',
                                _('Permission would have no effect. '
                                  'There is an inherited more extensive permission: '
-                                 '{referred_object} ({permission})')
+                                 '{referred_object} ({permission}).')
                                .format(referred_object=existing.referred_object,
                                        permission=existing.permission_type.label))
             elif organization is not None:
@@ -55,7 +55,7 @@ class ParticipationPermissionForm(forms.ModelForm):
                     self.add_error('permission_type_field',
                                    _('Permission would have no effect. '
                                      'There is an inherited more extensive permission for all Users: '
-                                     '{referred_object} ({permission})')
+                                     '{referred_object} ({permission}).')
                                    .format(referred_object=existing.referred_object,
                                            permission=existing.permission_type.label))
 
@@ -75,7 +75,7 @@ class BaseParticipationPermissionFormSet(BaseModelFormSet):
             if organization in organizations:
                 if organization is not None:
                     form.add_error('organization',
-                                   _('Can only set one permission for organization "{organization}"')
+                                   _('Can only set one permission for organization "{organization}".')
                                    .format(organization=organization))
                 form.add_error('organization', _('Can only set one permission for all Users'))
             organizations.append(organization)
@@ -88,7 +88,7 @@ class BaseParticipationPermissionFormSet(BaseModelFormSet):
                         and form.cleaned_data['permission_type_field'] <= all_users_permission:
                     form.add_error('permission_type_field',
                                    _('Permission would have no effect. '
-                                     'Permission for all Users is more extensive: {permission}')
+                                     'Permission for all Users is more extensive: {permission}.')
                                    .format(permission=all_users_permission.label))
 
 

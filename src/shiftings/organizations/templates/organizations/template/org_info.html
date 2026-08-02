@@ -14,6 +14,12 @@
         <span class="d-none d-sm-block">{% trans "Organization Admin View" %}</span>
       </a>
       {% if org_perms.admin %}
+        {% url 'organization_activity_log' organization.pk as activity_url %}
+        <a class="btn btn-secondary {% active activity_url %}" href="{{ activity_url }}"
+           title="{% trans "Organization Activity Log" %}">
+          <i class="fas fa-clock-rotate-left"></i>
+          <span class="d-none d-sm-block">{% trans "Activity Log" %}</span>
+        </a>
         {% url 'organization_settings' organization.pk as settings_url %}
         <a class="btn btn-secondary {% active settings_url %}" href="{{ settings_url }}"
            title="{% trans "Organization Settings" %}">

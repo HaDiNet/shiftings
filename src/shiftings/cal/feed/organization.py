@@ -5,18 +5,16 @@ from django.db.models import QuerySet
 from django.http import HttpRequest
 
 from shiftings.cal.feed.base import ShiftFeed
+from shiftings.cal.feed.helpers import FeedAccessMixin
 from shiftings.organizations.models import Organization
 from shiftings.shifts.models import Shift
-from shiftings.utils.exceptions import Http403
 
 
-class OrganizationFeed(ShiftFeed[Organization]):
+class OrganizationFeed(FeedAccessMixin, ShiftFeed[Organization]):
     def get_object(self, request: HttpRequest, *args: Any, **kwargs: Any) -> Optional[Organization]:
-        if not request.user.is_authenticated:
-            raise Http403()
+        self.ensure_authenticated(request)
         org: Organization = Organization.objects.get(pk=kwargs['pk'])
-        if not org.is_member(request.user) and not org.is_admin(request.user):
-            raise Http403()
+        self.ensure_org_member_or_admin(org, request.user)
         return org
 
     def file_name(self, obj: Organization) -> str:

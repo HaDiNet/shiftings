@@ -6,6 +6,7 @@ from dateutil.relativedelta import relativedelta
 from django.db.models import Q
 
 from shiftings.cal.views.calendar_base import CalendarBaseView
+from shiftings.cal.views.helpers import get_shifts_for_date
 from shiftings.events.models import Event
 from shiftings.organizations.models import Organization
 from shiftings.shifts.models import Shift
@@ -17,10 +18,13 @@ class WeekView(CalendarBaseView):
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         theday = date.fromisoformat(self.kwargs.get('theday')) if 'theday' in self.kwargs else date.today()
-        shift_filter = (Q(start__date=theday) | Q(end__date=theday) |
-                        Q(start__lt=theday, end__gt=theday))
-        shift_filter &= self.get_filters()
-        shifts = Shift.objects.filter(shift_filter).order_by('shift_type', 'start', 'end')
+        shift_filter = get_shifts_for_date(theday) & self.get_filters()
+        shifts = (
+            Shift.objects.filter(shift_filter)
+            .select_related('organization', 'event', 'shift_type')
+            .prefetch_related('participants', 'participants__user')
+            .order_by('shift_type', 'start', 'end')
+        )
         context.update({
             'theday': theday,
             'nextday': theday + timedelta(days=1),

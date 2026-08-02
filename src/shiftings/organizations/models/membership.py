@@ -97,6 +97,6 @@ class Membership(models.Model):
 
     def clean(self) -> None:
         if self.user and self.group:
-            raise ValidationError(_('Membership can only be either user or group, not both.'))
+            raise ValidationError(_('Membership can only be inherited from either the user or a group, not both.'))
         if not self.user and not self.group:
-            raise ValidationError(_('Membership must consist of a user or a group.'))
+            raise ValidationError(_('Membership must be inherited from a user or a group. It cannot be empty.'))

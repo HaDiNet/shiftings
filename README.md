@@ -109,6 +109,10 @@ See [Django docs](https://docs.djangoproject.com/en/4.1/howto/deployment/) for d
 1. Add a local_settings.py. See local_settings.sample.py for inspiration.
 1. Add a cron, systemd timer unit or similar for recurring shift creation
 
+#### Testing
+
+Testing quality beyond line coverage is documented in the [Testing Quality Scorecard](docs/testing_quality.md).
+
 ## Authors
 
 [lewellien](https://github.com/lewellien) & [Tjeri](https://github.com/tjeri)

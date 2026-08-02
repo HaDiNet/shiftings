@@ -4,15 +4,15 @@ from typing import Any
 
 from django.db.models import Q
 from django.conf import settings
-from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.utils.http import urlencode
 from django.utils.translation import gettext_lazy as _
 
 from shiftings.cal.forms.day_form import SelectDayForm
 from shiftings.cal.views.calendar_base import CalendarBaseView
+from shiftings.cal.views.helpers import build_shift_type_index
 from shiftings.shifts.forms.participant import AddSelfParticipantForm
-from shiftings.shifts.models import Shift, ShiftType
+from shiftings.shifts.models import Shift
 
 
 class ListView(CalendarBaseView, ABC):
@@ -70,18 +70,4 @@ class ShiftTypesListView(ListView):
         shift_filter = self.get_filters()
         shifts = Shift.objects.filter(shift_filter).order_by('start', 'shift_type')[:settings.MAX_LIST_ENTRIES]
         shifts = [shift for shift in shifts if shift.can_see_details(self.request.user)]
-        add_default = False
-        shift_idx_type = {
-            'time_containers': {},
-            'types': list(ShiftType.objects.filter(shift__in=shifts).distinct())
-        }
-        for shift in shifts:
-            if shift.shift_type is None:
-                add_default = True
-                type_name = 'Default'
-            else:
-                type_name = shift.shift_type.name
-            shift_idx_type['time_containers'].setdefault(shift.start.hour, {}).setdefault(type_name, []).append(shift)
-        if add_default:
-            shift_idx_type['types'].append(None)
-        return shift_idx_type
+        return build_shift_type_index(shifts)

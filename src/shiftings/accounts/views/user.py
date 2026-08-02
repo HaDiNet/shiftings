@@ -12,7 +12,7 @@ from django.db.models import Q
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
-from django.utils.encoding import force_bytes, force_str
+from django.utils.encoding import DjangoUnicodeDecodeError, force_bytes, force_str
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.translation import gettext_lazy as _
 from django.views import View
@@ -94,11 +94,12 @@ class ConfirmEMailView(TemplateView):
         return context_data
 
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
-        uid = force_str(urlsafe_base64_decode(kwargs['uidb64']))
         try:
+            uid = force_str(urlsafe_base64_decode(kwargs['uidb64']))
             user = User.objects.get(pk=uid)
-        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
-            messages.error(request, _('Could not find your user.'))
+        except (TypeError, ValueError, OverflowError, UnicodeDecodeError, DjangoUnicodeDecodeError,
+            User.DoesNotExist):
+            messages.error(request, _('Could not find your user account. Please try again in a few minutes, request a new activation link or contact the administrator via email (shiftings@hadiko.de).'))
             return super().get(request, *args, **kwargs)
 
         if email_confirm_token_generator.check_token(user, kwargs['token']):
@@ -107,7 +108,7 @@ class ConfirmEMailView(TemplateView):
             messages.success(request, _('Your EMail was confirmed. You can now login.'))
             self.success = True
         else:
-            messages.error(request, _('Your activation link was invalid.'))
+            messages.error(request, _('Invalid activation link. Request a new activation link or contact the administrator via email (shiftings@hadiko.de).'))
         return super().get(request, *args, **kwargs)
 
 
@@ -124,7 +125,7 @@ class UserDeleteSelfView(BaseLoginMixin, View):
 
     def delete(self, request, *args, **kwargs):
         if request.POST.get('confirm') != 'true':
-            messages.error(self.request, _('Error while deleting your data: Please confirm deletion!'))
+            messages.error(self.request, _('Error while deleting your data: You need to provide confirmation.'))
             return HttpResponseRedirect(self.request.user.get_absolute_url())
         self.request.user.delete()
         auth_logout(self.request)
@@ -132,3 +133,16 @@ class UserDeleteSelfView(BaseLoginMixin, View):
 
     def post(self, request, *args, **kwargs):
         return self.delete(request, *args, **kwargs)
+
+
+class UserThemePreferenceView(BaseLoginMixin, View):
+
+    def post(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
+        theme = request.POST.get('theme')
+        next_url = request.POST.get('next') or request.META.get('HTTP_REFERER')
+        if theme in User.ThemePreference.values:
+            request.user.theme_preference = theme
+            request.user.save(update_fields=['theme_preference'])
+        if next_url:
+            return HttpResponseRedirect(next_url)
+        return HttpResponseRedirect(reverse('user_profile'))

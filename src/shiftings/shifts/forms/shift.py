@@ -35,9 +35,17 @@ class ShiftForm(ModelForm):
         cleaned_data = super().clean()
         start = cleaned_data.get('start')
         end = cleaned_data.get('end')
+
+        # If parsing failed, field-level errors already exist.
+        # Skip cross-field checks to avoid operating on None values.
+        if start is None or end is None:
+            return cleaned_data
+
         if start and end and start > end:
-            raise ValidationError(_('End time must be after start time'))
-        
+            self.add_error('end', ValidationError(""))
+            self.add_error('start', ValidationError(""))
+            raise ValidationError(_('End time ({end}) must be after start time ({start}).').format(end=end, start=start))
+
         ## TODO: raise form error if not valid, but first implement proper error display in template
         max_length = timedelta(minutes=settings.MAX_SHIFT_LENGTH_MINUTES)
         if end - start > max_length:

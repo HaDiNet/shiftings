@@ -1,3 +1,31 @@
+.calendar-month {
+  --calendar-noday-color-a: #f8f9fa;
+  --calendar-noday-color-b: #dee2e6;
+  --calendar-today-bg: #d7ebff;
+  --calendar-today-border: #9ec5fe;
+  --calendar-today-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  --calendar-list-text: #212529;
+  --calendar-list-row-hover: #e7f1ff;
+  --calendar-list-entry-shadow: rgba(33, 37, 41, .16);
+  --calendar-entry-light-overlay: rgba(255, 255, 255, .48);
+  --calendar-day-entry-bg: #f1f3f5;
+  --calendar-day-entry-border: #ced4da;
+}
+
+[data-bs-theme='dark'] .calendar-month {
+  --calendar-noday-color-a: var(--bs-gray-900);
+  --calendar-noday-color-b: var(--bs-gray-700);
+  --calendar-today-bg: #173251;
+  --calendar-today-border: #3db5ff;
+  --calendar-today-shadow: 0 0 14px rgba(61, 181, 255, .35);
+  --calendar-list-text: var(--bs-body-color);
+  --calendar-list-row-hover: rgba(255, 255, 255, .08);
+  --calendar-list-entry-shadow: rgba(255, 255, 255, .2);
+  --calendar-entry-light-overlay: rgba(0, 0, 0, 0);
+  --calendar-day-entry-bg: var(--bs-secondary);
+  --calendar-day-entry-border: var(--bs-gray-600);
+}
+
 .calendar-nav {
   display: grid;
   grid-column-start: 1;
@@ -14,9 +42,10 @@
 }
 
 .calendar-nav a {
-  background-color: var(--secondary);
-  border-left: 1px solid var(--bs-body-color);
-  border-right: 1px solid var(--bs-body-color);
+  background-color: var(--bs-menu-bg);
+  border-left: 1px solid var(--bs-surface-border, var(--bs-body-color));
+  border-right: 1px solid var(--bs-surface-border, var(--bs-body-color));
+  color: var(--bs-body-color);
 }
 
 .calendar-legend {
@@ -61,7 +90,7 @@
 }
 
 .week-head > .day {
-  background-color: var(--secondary);
+  background-color: var(--bs-menu-bg);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -98,7 +127,7 @@
 
 /* Handle */
 .week > div > ::-webkit-scrollbar-thumb {
-  background: var(--secondary);
+  background: var(--bs-menu-bg);
   border-radius: 3px;
 }
 
@@ -162,15 +191,18 @@ a.calendar-shift > a:hover {
 .noday {
   background: repeating-linear-gradient(
       45deg,
-      var(--bs-gray-900),
-      var(--bs-gray-700) 10px,
-      var(--bs-gray-900) 10px,
-      var(--bs-gray-900) 20px
+      var(--calendar-noday-color-a),
+      var(--calendar-noday-color-b) 10px,
+      var(--calendar-noday-color-a) 10px,
+      var(--calendar-noday-color-a) 20px
   );
 }
 
 .today {
-  background-color: #1c242f;
+  background-color: var(--calendar-today-bg);
+  outline: 1px solid var(--calendar-today-border);
+  outline-offset: -1px;
+  box-shadow: var(--calendar-today-shadow);
 }
 
 .planned {
@@ -219,4 +251,55 @@ a.calendar-shift > a:hover {
   flex-grow: 4;
   align-items: center;
   justify-content: center;
+}
+
+[data-bs-theme='light'] .table-dark,
+[data-bs-theme='light'] .table-dark td,
+[data-bs-theme='light'] .table-dark th,
+[data-bs-theme='light'] .table-dark .link {
+  color: var(--calendar-list-text) !important;
+}
+
+.calendar-list-table {
+  color: var(--calendar-list-text);
+}
+
+.calendar-list-table tbody tr:hover {
+  background-color: var(--calendar-list-row-hover);
+}
+
+.calendar-list-table .shift-type {
+  opacity: .95;
+  box-shadow: inset 4px 0 0 var(--calendar-list-entry-shadow);
+}
+
+.calendar-list-table .shift-type .link {
+  font-weight: 400;
+  letter-spacing: .015em;
+}
+
+.calendar-list-table td {
+  font-weight: 400;
+}
+
+.calendar-no-shifts-message {
+  color: var(--calendar-no-shifts-color) !important;
+}
+
+[data-bs-theme='light'] .calendar-list-table .shift-type,
+[data-bs-theme='light'] .wy-table-bordered-rows .shift-type {
+  background-image: linear-gradient(var(--calendar-entry-light-overlay), var(--calendar-entry-light-overlay));
+  opacity: 1;
+}
+
+[data-bs-theme='light'] .shift-card-small.bg-secondary {
+  background-color: var(--calendar-day-entry-bg) !important;
+  border-color: var(--calendar-day-entry-border) !important;
+  color: var(--calendar-list-text);
+}
+
+[data-bs-theme='light'] .shift-card-small.bg-secondary .link,
+[data-bs-theme='light'] .shift-card-small.bg-secondary span,
+[data-bs-theme='light'] .shift-card-small.bg-secondary div {
+  color: var(--calendar-list-text) !important;
 }

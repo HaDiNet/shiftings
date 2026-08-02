@@ -1,7 +1,6 @@
 from django.db.models import QuerySet
 from django.forms import ModelForm
 from django.http import HttpResponse
-from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import ListView
 
@@ -38,7 +37,7 @@ class ClaimUserView(OrganizationMemberMixin, CreateOrUpdateView[OrganizationDumm
         return super().form_valid(form)
 
     def get_success_url(self) -> str:
-        return reverse('claim_user_list', args=[self.get_organization().pk])
+        return self.organization_reverse('claim_user_list')
 
 
 class UnclaimUserView(OrganizationPermissionMixin, CreateOrUpdateView[OrganizationDummyUser]):
@@ -55,4 +54,4 @@ class UnclaimUserView(OrganizationPermissionMixin, CreateOrUpdateView[Organizati
         return super().form_valid(form)
 
     def get_success_url(self) -> str:
-        return reverse('claim_user_list', args=[self.get_organization().pk])
+        return self.organization_reverse('claim_user_list')

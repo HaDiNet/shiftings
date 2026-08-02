@@ -8,7 +8,7 @@
     <div class="row gx-5 gy-3 mt-3 justify-content-center">
       <div class="col-12 col-lg-3">
         <a class="text-decoration-none" href="?login_method=local">
-          <div class="bg-secondary border border-success border-5 login-option text-light center-items mt-2 p-3">
+          <div class="bg-secondary login-surface border border-success border-5 login-option text-light center-items mt-2 p-3">
             {{ ldap_login_message|default:_('Login with local Account') }}
           </div>
         </a>
@@ -16,7 +16,7 @@
       {% if ldap_enabled %}
         <div class="col-12 col-lg-3">
           <a class="text-decoration-none" href="?login_method=ldap">
-            <div class="bg-secondary border border-success border-5 login-option text-light center-items mt-2 p-3">
+            <div class="bg-secondary login-surface border border-success border-5 login-option text-light center-items mt-2 p-3">
               {{ ldap_login_message|default:_('Login with LDAP Account') }}
             </div>
           </a>
@@ -27,7 +27,7 @@
           <form method="post" id="user_form" action="{{ sso_redirect_url }}">
             {% csrf_token %}
             <button class="btn w-100" value="sso_login" type="submit" name="submit">
-              <div class="bg-secondary border border-success border-5 login-option text-light center-items p-3">
+              <div class="bg-secondary login-surface border border-success border-5 login-option text-light center-items p-3">
                 {% blocktrans %}
                   Login via {{ sso_name }}
                 {% endblocktrans %}
@@ -38,7 +38,7 @@
       {% endif %}
     </div>
     {% if feature.gdpr_template %}
-      <div class="card bg-secondary p-3 text-center mt-3">
+      <div class="card bg-secondary login-surface p-3 text-center mt-3">
         {% include feature.gdpr_template %}
       </div>
     {% endif %}

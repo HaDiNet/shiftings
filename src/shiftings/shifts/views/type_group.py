@@ -8,7 +8,11 @@ from django.urls import reverse
 from django.views.generic import DetailView, ListView
 
 from shiftings.organizations.models import Organization
-from shiftings.organizations.views.organization_base import OrganizationAdminMixin
+from shiftings.organizations.views.organization_base import (
+    OrganizationAdminMixin,
+    OrganizationCreateUpdateMixin,
+    OrganizationObjectRedirectMixin,
+)
 from shiftings.shifts.forms.type_group import ShiftTypeGroupForm
 from shiftings.shifts.models import ShiftTypeGroup
 from shiftings.utils.views.create_update_view import CreateOrUpdateView
@@ -37,18 +41,13 @@ class ShiftTypeGroupDetailView(OrganizationAdminMixin, DetailView):
         return self.object.organization
 
 
-class ShiftTypeGroupEditView(OrganizationAdminMixin, CreateOrUpdateView[ShiftTypeGroup]):
+class ShiftTypeGroupEditView(OrganizationCreateUpdateMixin, OrganizationAdminMixin, CreateOrUpdateView[ShiftTypeGroup]):
     model = ShiftTypeGroup
     form_class = ShiftTypeGroupForm
-
-    def get_organization(self) -> Organization:
-        if self.is_create():
-            return self._get_object(Organization, 'org_pk')
-        return self.get_object().organization
+    set_organization_initial_on_create_only = False
 
     def get_initial(self) -> dict[str, Any]:
         initial = super().get_initial()
-        initial['organization'] = self.get_organization()
         if not self.is_create():
             initial['shift_types'] = self.get_object().shift_types.all()
         return initial
@@ -71,14 +70,9 @@ class ShiftTypeGroupEditView(OrganizationAdminMixin, CreateOrUpdateView[ShiftTyp
         return reverse('organization_settings', args=[self.get_organization().pk])
 
 
-class ShiftTypeGroupRemoveView(OrganizationAdminMixin, DeleteView):
+class ShiftTypeGroupRemoveView(OrganizationObjectRedirectMixin, OrganizationAdminMixin, DeleteView):
     model = ShiftTypeGroup
-
-    def get_organization(self) -> Organization:
-        return self.get_object().organization
-
-    def get_success_url(self) -> str:
-        return reverse('organization_settings', args=[self.get_organization().pk])
+    organization_success_view_name = 'organization_settings'
 
 
 class ShiftTypeGroupMoveView(OrganizationAdminMixin, CreateOrUpdateView[ShiftTypeGroup]):

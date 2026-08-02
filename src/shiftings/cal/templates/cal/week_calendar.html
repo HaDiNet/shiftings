@@ -4,19 +4,13 @@
   <div class="card bg-dark week-calendar p-2">
     <div class="week-head">
       <div class="calendar-nav">
-        <div>
-          <a class="link" href="{{ last_url }}">
-            <i class="fa-solid fa-angles-left"></i> {% trans 'Previous Week' %}
-          </a>
-        </div>
+        {% trans "Previous Week" as previous_week_label %}
+        {% include "cal/week_nav_link.html" with href=last_url label=previous_week_label icon_class="fa-solid fa-angles-left" icon_before=True %}
         <div>
           <h3>{% trans "Week" %} {{ week|date:"W Y" }}</h3>
         </div>
-        <div>
-          <a class="link" href="{{ next_url }}">
-            <div>{% trans 'Next Week' %} <i class="fa-solid fa-angles-right"></i></div>
-          </a>
-        </div>
+        {% trans "Next Week" as next_week_label %}
+        {% include "cal/week_nav_link.html" with href=next_url label=next_week_label icon_class="fa-solid fa-angles-right" icon_before=False %}
       </div>
     </div>
     <div class="week-grid h-100">

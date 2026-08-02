@@ -1,27 +1,25 @@
-<div class="modal fade" id="{{ form_id }}Modal" tabindex="-1" aria-labelledby="{{ form_id }}ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content bg-dark border-success border-2">
-      <form id="{{ form_id }}Form" method="post" action="{{ form_url }}">
-        <div class="modal-header">
-          <h5 class="modal-title" id="{{ form_id }}Label">
-            {{ form_title }}
-          </h5>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">
-            <i class="fas fa-x"></i>
-          </button>
-        </div>
-        <div class="modal-body">
-          {{ nodelist }}
-        </div>
-        <div class="modal-footer">
-          {% if success_url %}
-            <input name="success_url" class="d-none" type="text" value="{{ success_url }}">
-          {% endif %}
-          <button type="submit" class="btn btn-primary">{% trans "Submit" %}</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Close" %}</button>
-        </div>
-      </form>
+{% extends "template/modal_base.html" %}
+{% block modal_id %}{{ form_id }}Modal{% endblock %}
+{% block modal_aria_labelledby %}{{ form_id }}ModalLabel{% endblock %}
+{% block modal_outer_content %}
+  <form id="{{ form_id }}Form" method="post" action="{{ form_url }}">
+    <div class="modal-header">
+      <h5 class="modal-title" id="{{ form_id }}Label">
+        {{ form_title }}
+      </h5>
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">
+        <i class="fas fa-x"></i>
+      </button>
     </div>
-  </div>
-</div>
+    <div class="modal-body">
+      {{ nodelist }}
+    </div>
+    <div class="modal-footer">
+      {% if success_url %}
+        <input name="success_url" class="d-none" type="text" value="{{ success_url }}">
+      {% endif %}
+      <button type="submit" class="btn btn-primary">{% trans "Submit" %}</button>
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Close" %}</button>
+    </div>
+  </form>
+{% endblock %}

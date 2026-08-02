@@ -19,3 +19,13 @@ def today(request: HttpRequest) -> dict[str, date]:
     return {
         'today': date.today()
     }
+
+
+def theme(request: HttpRequest) -> dict[str, str]:
+    if request.user.is_authenticated and hasattr(request.user, 'theme_preference'):
+        return {
+            'theme_preference': request.user.theme_preference
+        }
+    return {
+        'theme_preference': 'auto'
+    }

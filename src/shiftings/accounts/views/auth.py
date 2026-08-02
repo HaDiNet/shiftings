@@ -48,7 +48,7 @@ class UserLoginView(LoginView):
         return context
 
     def post(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
-        if self.request.POST.get('submit', '') == 'sso_login':
+        if settings.OAUTH_ENABLED and self.request.POST.get('submit', '') == 'sso_login':
             redirect_to = self.get_redirect_url()
             redirect_uri = request.build_absolute_uri(reverse('auth'))
             redirect_uri += f'?{REDIRECT_FIELD_NAME}={redirect_to}'
@@ -79,7 +79,7 @@ if settings.OAUTH_ENABLED:
             try:
                 user = self.authenticate(request)
                 if user is None:
-                    messages.error(request, _('Error while creating the user instance!'))
+                    messages.error(request, _('Error while creating the user instance! Try again in a few minutes or contact the administrator via email (shiftings@hadiko.de).'))
                     return HttpResponseRedirect(settings.LOGIN_URL)
                 redirect_to = request.GET.get(REDIRECT_FIELD_NAME)
                 login_user(self.request, user)
