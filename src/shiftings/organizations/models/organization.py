@@ -27,7 +27,7 @@ class Organization(models.Model):
     email = models.EmailField(verbose_name=_('E-Mail'), blank=True, null=True)
     telephone_number = PhoneNumberField(verbose_name=_('Telephone Number'), blank=True, null=True)
     website = models.URLField(verbose_name=_('Website'), blank=True, null=True,
-                              help_text=_('Include Protocol i.E. https://example.com'))
+                              help_text=_('Include protocol, e.g.') + ' https://example.com')
 
     description = models.TextField(max_length=1000, verbose_name=_('Description'), blank=True, null=True,
                                    help_text=_('A maximum of {amount} characters is allowed').format(amount=1000))

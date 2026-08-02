@@ -45,9 +45,51 @@ class Shift(ShiftBase):
     class Meta:
         default_permissions = ()
         ordering = ['start', 'end', 'name', 'organization']
+        indexes = [
+            models.Index(fields=['organization', 'start', 'end'], name='shift_org_start_end_idx'),
+            models.Index(fields=['organization', 'shift_type', 'start'], name='shift_org_type_start_idx'),
+        ]
         constraints = [
             models.CheckConstraint(condition=Q(start__lte=F('end')), name='shift_start_before_end')
         ]
+
+    def _prefetched_participants(self):
+        return getattr(self, '_prefetched_objects_cache', {}).get('participants')
+
+    def _participant_count(self) -> int:
+        if hasattr(self, '_participant_count_cache'):
+            return self._participant_count_cache
+        participants = self._prefetched_participants()
+        if participants is not None:
+            self._participant_count_cache = len(participants)
+        else:
+            self._participant_count_cache = self.participants.count()
+        return self._participant_count_cache
+
+    def _confirmed_participant_count(self) -> int:
+        if hasattr(self, '_confirmed_participant_count_cache'):
+            return self._confirmed_participant_count_cache
+        participants = self._prefetched_participants()
+        if participants is not None:
+            self._confirmed_participant_count_cache = sum(1 for participant in participants if participant.confirmed)
+        else:
+            self._confirmed_participant_count_cache = self.participants.filter(confirmed=True).count()
+        return self._confirmed_participant_count_cache
+
+    @staticmethod
+    def _get_member_organization_ids(user: User) -> set[int]:
+        cache_attr = '_shiftings_member_organization_ids'
+        cached_value = getattr(user, cache_attr, None)
+        if cached_value is not None:
+            return cached_value
+        group_ids = list(user.groups.values_list('pk', flat=True))
+        membership_filter = Q(user=user)
+        if group_ids:
+            membership_filter |= Q(group_id__in=group_ids)
+        from shiftings.organizations.models.membership import Membership
+        organization_ids = set(Membership.objects.filter(membership_filter).values_list('organization_id', flat=True))
+        setattr(user, cache_attr, organization_ids)
+        return organization_ids
 
     def clean(self) -> None:
         if self.event and self.event.organization != self.organization:
@@ -79,29 +121,29 @@ class Shift(ShiftBase):
 
     @property
     def is_full(self) -> bool:
-        return self.max_users != 0 and self.participants.all().count() >= self.max_users
+        return self.max_users != 0 and self._participant_count() >= self.max_users
 
     @property
     def participants_missing(self) -> int:
         if self.max_users == 0:
             return 0
-        return max(self.max_users - self.participants.all().count(), 0)
+        return max(self.max_users - self._participant_count(), 0)
 
     @property
     def has_required(self) -> bool:
-        return self.participants.all().count() >= self.required_users
+        return self._participant_count() >= self.required_users
 
     @property
     def required_participants_missing(self) -> int:
         if self.required_users == 0:
             return 0
-        return max(self.required_users - self.participants.all().count(), 0)
+        return max(self.required_users - self._participant_count(), 0)
 
     @property
     def confirmed_participants(self) -> Optional[int]:
         if not self.organization.confirm_participation_active:
             return None
-        return self.participants.all().count() - self.participants.filter(confirmed=True).count()
+        return self._participant_count() - self._confirmed_participant_count()
 
     @property
     def email(self) -> str:
@@ -127,6 +169,9 @@ class Shift(ShiftBase):
         return slots
 
     def is_participant(self, user: User) -> bool:
+        participants = self._prefetched_participants()
+        if participants is not None:
+            return any(participant.user_id == user.pk for participant in participants)
         return self.participants.filter(user=user).exists()
 
     def get_user_permission(self, user):
@@ -135,17 +180,17 @@ class Shift(ShiftBase):
         return ParticipationPermission.objects.get_best_for_user(user, self, self.event, self.organization)
 
     def can_see(self, user: User) -> bool:
-        if self.is_participant(user) or self.organization.is_member(user):
+        if self.is_participant(user) or self.organization_id in self._get_member_organization_ids(user):
             return True
         return self.get_user_permission(user) >= ParticipationPermissionType.Existence
 
     def can_see_details(self, user: User) -> bool:
-        if self.is_participant(user) or self.organization.is_member(user):
+        if self.is_participant(user) or self.organization_id in self._get_member_organization_ids(user):
             return True
         return self.get_user_permission(user) >= ParticipationPermissionType.ShiftDetails
 
     def can_see_participants(self, user: User) -> bool:
-        if self.is_participant(user) or self.organization.is_member(user):
+        if self.is_participant(user) or self.organization_id in self._get_member_organization_ids(user):
             return True
         return self.get_user_permission(user) >= ParticipationPermissionType.ShiftParticipants
 

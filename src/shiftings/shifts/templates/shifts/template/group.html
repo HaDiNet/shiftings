@@ -11,26 +11,19 @@
       <h3 class="m-0">Shift Template {{ group.name }}</h3>
       <div class="my-1">
         {% if org_perms.edit_shift_templates %}
-          <a class="btn btn-danger ms-1" data-bs-toggle="modal" href="#confirmRemoveModal"
-             role="button" data-bs-remove-name="{{ group.name }}"
-             data-bs-remove-url="{% url "shift_template_group_delete" group.pk %}"
-             title="{% trans "Delete Template" %}">
-            <i class="fas fa-trash"></i>
-          </a>
-          <a class="btn btn-success" href="{% url "shift_template_group_update" group.pk %}"
-             title="{% trans "Edit Template" %}">
-            <i class="fa-solid fa-pen-to-square"></i>
-          </a>
-          <a class="btn btn-success" href="{% url "template_group_update_shifts" group.pk %}"
-             title="{% trans "Edit Shifts" %}">
-            <i class="fa-solid fa-file-pen"></i>
-          </a>
+          {% url "shift_template_group_delete" group.pk as shift_template_group_delete_url %}
+          {% include "template/remove_modal_trigger.html" with tag="a" button_class="btn btn-danger ms-1" href="#confirmRemoveModal" remove_name=group.name remove_url=shift_template_group_delete_url icon_class="fas fa-trash" %}
+          {% url "shift_template_group_update" group.pk as shift_template_group_update_url %}
+          {% trans "Edit Template" as edit_template_title %}
+          {% include "template/icon_action_button.html" with button_class="btn btn-success" href=shift_template_group_update_url title=edit_template_title icon_class="fa-solid fa-pen-to-square" %}
+          {% url "template_group_update_shifts" group.pk as template_group_update_shifts_url %}
+          {% trans "Edit Shifts" as edit_shifts_title %}
+          {% include "template/icon_action_button.html" with button_class="btn btn-success" href=template_group_update_shifts_url title=edit_shifts_title icon_class="fa-solid fa-file-pen" %}
         {% endif %}
         {% if org_perms.admin %}
-          <a class="btn btn-info" href="{% url "template_group_update_permissions" group.pk %}"
-             title="{% trans "Edit Template Permissions" %}">
-            <i class="fa-solid fa-shield-halved"></i>
-          </a>
+          {% url "template_group_update_permissions" group.pk as template_group_update_permissions_url %}
+          {% trans "Edit Template Permissions" as edit_template_permissions_title %}
+          {% include "template/icon_action_button.html" with button_class="btn btn-info" href=template_group_update_permissions_url title=edit_template_permissions_title icon_class="fa-solid fa-shield-halved" %}
         {% endif %}
       </div>
     </div>

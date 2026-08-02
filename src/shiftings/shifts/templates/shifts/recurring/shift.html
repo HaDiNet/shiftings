@@ -28,11 +28,8 @@
             <h3 class="m-0 w-75">{{ shift.name }}</h3>
             <div>
               {% if org_perms.edit_recurring_shifts %}
-                <a class="btn btn-danger ms-1" data-bs-toggle="modal" href="#confirmRemoveModal"
-                   role="button" data-bs-remove-name="{{ shift.name }}"
-                   data-bs-remove-url="{% url 'recurring_shift_delete' shift.pk %}">
-                  <i class="fas fa-trash"></i>
-                </a>
+                {% url 'recurring_shift_delete' shift.pk as recurring_shift_delete_url %}
+                {% include "template/remove_modal_trigger.html" with tag="a" button_class="btn btn-danger ms-1" href="#confirmRemoveModal" remove_name=shift.name remove_url=recurring_shift_delete_url icon_class="fas fa-trash" %}
                 <a class="btn btn-success" href="{% url "recurring_shift_update" shift.pk %}"
                    title="{% trans "Edit Recurring Shift" %}">
                   <i class="fa-solid fa-pen-to-square"></i>

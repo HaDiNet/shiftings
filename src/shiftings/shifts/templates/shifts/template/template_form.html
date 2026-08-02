@@ -6,12 +6,7 @@
       <div class="col-7 col-sm-8">
         {% bootstrap_field form.name show_label=False form_group_class='' %}
       </div>
-      <a class="btn btn-danger px-2 py-1 ms-auto formset-form-remove" id="id_{{ form.prefix }}_remove">
-        <i class="fas fa-x" title="{% trans 'Remove Shift' %}"></i>
-      </a>
-      <a class="btn btn-danger px-2 py-1 ms-auto d-none formset-form-restore" id="id_{{ form.prefix }}_restore">
-        <i class="fas fa-reply" title="{% trans 'Restore Shift' %}"></i>
-      </a>
+      {% include "template/formset_remove_restore_buttons.html" with form_prefix=form.prefix button_classes="btn btn-danger px-2 py-1 ms-auto" %}
     </div>
     <div class="p-2 row">
       <div class="center-items justify-content-start">

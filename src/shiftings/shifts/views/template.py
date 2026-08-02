@@ -2,12 +2,15 @@ from typing import Any
 
 from django.db.models import QuerySet
 from django.http import HttpResponse
-from django.urls import reverse
 from django.views.generic import DetailView, TemplateView
 
 from shiftings.organizations.models import Organization
 from shiftings.organizations.views.organization import OrganizationMemberMixin, OrganizationPermissionMixin
-from shiftings.organizations.views.organization_base import OrganizationMixin
+from shiftings.organizations.views.organization_base import (
+    OrganizationCreateUpdateMixin,
+    OrganizationMixin,
+    OrganizationObjectRedirectMixin,
+)
 from shiftings.shifts.forms.template import ShiftTemplateFormSet, ShiftTemplateGroupForm
 from shiftings.shifts.models import ShiftTemplate, ShiftTemplateGroup
 from shiftings.shifts.views.permission import ParticipationPermissionEditView
@@ -20,6 +23,10 @@ class ShiftTemplateGroupMixin(OrganizationMixin):
     model = ShiftTemplateGroup
 
     def get_organization(self) -> Organization:
+        if 'org_pk' in self.kwargs:
+            return self._get_object(Organization, 'org_pk')
+        if 'pk' in self.kwargs:
+            return self._get_object(ShiftTemplateGroup, 'pk').organization
         return self._get_object_from_get(Organization, 'org')
 
 
@@ -31,29 +38,24 @@ class ShiftTemplateGroupDetailView(OrganizationMemberMixin, ShiftTemplateGroupMi
         return self.get_object().organization
 
 
-class ShiftTemplateGroupEditView(ShiftTemplateGroupMixin, CreateOrUpdateView, OrganizationPermissionMixin):
+class ShiftTemplateGroupEditView(
+    ShiftTemplateGroupMixin,
+    OrganizationCreateUpdateMixin,
+    CreateOrUpdateView,
+    OrganizationPermissionMixin,
+):
     form_class = ShiftTemplateGroupForm
     permission_required = 'organizations.edit_shift_templates'
-
-    def get_organization(self) -> Organization:
-        if self.is_create():
-            return self._get_object(Organization, 'org_pk')
-        return self.object.organization
-
-    def get_initial(self) -> dict[str, Any]:
-        initial = super().get_initial()
-        initial['organization'] = self.get_organization()
-        return initial
+    set_organization_initial_on_create_only = False
 
 
-class ShiftTemplateGroupDeleteView(ShiftTemplateGroupMixin, OrganizationPermissionMixin, DeleteView):
+class ShiftTemplateGroupDeleteView(
+    ShiftTemplateGroupMixin,
+    OrganizationPermissionMixin,
+    OrganizationObjectRedirectMixin,
+    DeleteView,
+):
     permission_required = 'organizations.edit_shift_templates'
-
-    def get_organization(self) -> Organization:
-        return self.get_object().organization
-
-    def get_success_url(self) -> str:
-        return reverse('organization_admin', args=[self.get_organization().pk])
 
 
 class TemplateGroupAddShiftsView(OrganizationPermissionMixin, ModelFormsetBaseView[ShiftTemplate], TemplateView):

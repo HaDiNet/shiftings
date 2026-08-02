@@ -6,15 +6,15 @@ from django.http import HttpRequest
 from django.utils.translation import gettext_lazy as _
 
 from shiftings.cal.feed.base import ShiftFeed
+from shiftings.cal.feed.helpers import FeedAccessMixin
 from shiftings.events.models import Event
 from shiftings.shifts.models import Shift
 from shiftings.utils.exceptions import Http403
 
 
-class EventFeed(ShiftFeed[Event]):
+class EventFeed(FeedAccessMixin, ShiftFeed[Event]):
     def get_object(self, request: HttpRequest, *args: Any, **kwargs: Any) -> Optional[Event]:
-        if not request.user.is_authenticated:
-            raise Http403()
+        self.ensure_authenticated(request)
         event: Event = Event.objects.get(pk=kwargs['pk'])
         if not event.can_see(request.user):
             raise Http403()

@@ -5,12 +5,7 @@
       <div class="col-sm-5 my-1 align-items-center">{% bootstrap_field form.organization show_label=False wrapper_class="" %}</div>
       <div class="col-sm-6 my-1 ">{% bootstrap_field form.permission_type_field show_label=False wrapper_class="" %}</div>
       <div class="col-sm-1 my-1 center-items">
-        <a class="btn btn-danger px-2 py-1 formset-form-remove" id="id_{{ form.prefix }}_remove">
-          <i class="fas fa-x" title="{% trans 'Remove Shift' %}"></i>
-        </a>
-        <a class="btn btn-danger px-2 py-1 d-none formset-form-restore" id="id_{{ form.prefix }}_restore">
-          <i class="fas fa-reply" title="{% trans 'Restore Shift' %}"></i>
-        </a>
+        {% include "template/formset_remove_restore_buttons.html" with form_prefix=form.prefix button_classes="btn btn-danger px-2 py-1" %}
       </div>
     </div>
   </div>

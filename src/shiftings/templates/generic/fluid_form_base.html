@@ -1,12 +1,3 @@
-{% extends "base.html" %}
-{% block breadcrumbs %}
-  {% include "template/breadcrumbs.html" %}
-{% endblock %}
-{% block content %}
-  <div class="container-fluid mt-3 d-flex justify-content-center">
-    <div class="col-lg-12 col-xl-8">
-      {% block form %}
-      {% endblock %}
-    </div>
-  </div>
-{% endblock %}
+{% extends "generic/form_base.html" %}
+{% block form_container_class %}container-fluid{% endblock %}
+{% block form_content_class %}col-lg-12 col-xl-8{% endblock %}

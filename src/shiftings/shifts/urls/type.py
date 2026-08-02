@@ -1,9 +1,8 @@
-from django.urls import path
-
 from shiftings.shifts.views.type import ShiftTypeDeleteView, ShiftTypeEditView
+from shiftings.utils.url_patterns import organization_crud_paths
 
-urlpatterns = [
-    path('create/<int:org_pk>/', ShiftTypeEditView.as_view(), name='shift_type_create'),
-    path('<int:pk>/update/', ShiftTypeEditView.as_view(), name='shift_type_update'),
-    path('<int:pk>/delete/', ShiftTypeDeleteView.as_view(), name='shift_type_delete'),
-]
+urlpatterns = organization_crud_paths(
+    edit_view=ShiftTypeEditView,
+    delete_view=ShiftTypeDeleteView,
+    name_prefix='shift_type',
+)

@@ -1,0 +1,9 @@
+<div>
+  <a class="link" href="{{ href }}">
+    {% if icon_before %}
+      <i class="{{ icon_class }}"></i> {{ label }}
+    {% else %}
+      <div>{{ label }} <i class="{{ icon_class }}"></i></div>
+    {% endif %}
+  </a>
+</div>

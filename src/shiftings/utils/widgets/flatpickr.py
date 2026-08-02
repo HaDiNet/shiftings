@@ -19,8 +19,7 @@ class FlatPickrMixin(DateTimeBaseInput):
 
     class Media:
         css = {
-            'all': ('https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css',
-                    'https://npmcdn.com/flatpickr/dist/themes/dark.css')
+            'all': ('https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css',)
         }
         js = ('https://cdn.jsdelivr.net/npm/flatpickr', f'js/l10n/{get_language()}.js')
 

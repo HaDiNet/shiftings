@@ -12,6 +12,7 @@ from django.utils.translation import gettext_lazy as _
 
 from shiftings.accounts.models import User
 from shiftings.cal.views.calendar_base import CalendarBaseView
+from shiftings.cal.views.helpers import get_shifts_for_date
 from shiftings.shifts.models import RecurringShift, Shift
 
 
@@ -64,10 +65,13 @@ class BaseCalendar(HTMLCalendar):
         self.shift_filter = shift_filter
 
     def get_shifts(self, _date: date) -> Union[List[Shift], QuerySet[Shift]]:
-
-        time_filter = (Q(start__date=_date) | Q(end__date=_date, end__gt=_date) |
-                       Q(start__lt=_date, end__gt=_date))
-        return Shift.objects.filter(self.shift_filter & time_filter).order_by('start', 'end')
+        time_filter = get_shifts_for_date(_date)
+        return (
+            Shift.objects.filter(self.shift_filter & time_filter)
+            .select_related('organization', 'event', 'shift_type')
+            .prefetch_related('participants', 'participants__user')
+            .order_by('start', 'end')
+        )
 
     def can_see_shift(self, shift: Shift) -> bool:
         return True

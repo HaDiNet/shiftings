@@ -17,3 +17,6 @@ gunicorn.py
 /build/
 /src/shiftings/templates/local/
 ruff.toml
+.coverage
+/mutants/
+noir.json
