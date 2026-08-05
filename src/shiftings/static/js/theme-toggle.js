@@ -37,13 +37,20 @@
   applyTheme(preferredTheme);
   updateActiveEntry(preferredTheme);
 
-  const systemTheme = window.matchMedia('(prefers-color-scheme: light)');
-  systemTheme.addEventListener('change', () => {
-    if ((root.dataset.themeMode || 'auto') === 'auto') {
-      applyTheme('auto');
-      updateActiveEntry('auto');
+  if (window.matchMedia) {
+    const systemTheme = window.matchMedia('(prefers-color-scheme: light)');
+    const onSystemChange = () => {
+      if ((root.dataset.themeMode || 'auto') === 'auto') {
+        applyTheme('auto');
+        updateActiveEntry('auto');
+      }
+    };
+    if (typeof systemTheme.addEventListener === 'function') {
+      systemTheme.addEventListener('change', onSystemChange);
+    } else if (typeof systemTheme.addListener === 'function') {
+      systemTheme.addListener(onSystemChange);
     }
-  });
+  }
 
   const options = document.querySelectorAll('.js-theme-option');
   options.forEach((option) => {
