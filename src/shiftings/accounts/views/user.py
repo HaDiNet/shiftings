@@ -152,8 +152,6 @@ class ConfirmEMailView(TemplateView):
             self.success = True
         except Exception as e:
             messages.error(request, _('An error occurred while confirming your email. Please try again.'))
-            import logging
-            logger = logging.getLogger(__name__)
             logger.error(f'Error confirming email for user {user.pk}: {str(e)}')
         
         return super().get(request, *args, **kwargs)
