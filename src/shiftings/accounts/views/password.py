@@ -81,7 +81,7 @@ class PasswordResetConfirmView(DjangoPasswordResetConfirmView):
             response = super().post(request, *args, **kwargs)
             
             # If password was successfully changed, mark token as used
-            if response.status_code == 302 and response.url == str(self.success_url):
+            if response.status_code == 302 and hasattr(response, 'url') and response.url == str(self.success_url):
                 self.token_validator.mark_token_used(
                     token=token,
                     user_id=user.pk,
