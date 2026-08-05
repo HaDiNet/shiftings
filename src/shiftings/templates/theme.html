@@ -1,0 +1,37 @@
+<div class="nav-item dropdown">
+  {% if request.user.is_authenticated %}
+    <div class="d-none">
+      <form id="theme-light-form" action="{% url "user_theme_preference" %}" method="post">
+        {% csrf_token %}
+        <input name="next" type="hidden" value="{{ request.get_full_path }}" />
+        <input name="theme" type="hidden" value="light" />
+      </form>
+      <form id="theme-dark-form" action="{% url "user_theme_preference" %}" method="post">
+        {% csrf_token %}
+        <input name="next" type="hidden" value="{{ request.get_full_path }}" />
+        <input name="theme" type="hidden" value="dark" />
+      </form>
+      <form id="theme-auto-form" action="{% url "user_theme_preference" %}" method="post">
+        {% csrf_token %}
+        <input name="next" type="hidden" value="{{ request.get_full_path }}" />
+        <input name="theme" type="hidden" value="auto" />
+      </form>
+    </div>
+  {% endif %}
+  <a class="nav-link dropdown-toggle" href="#" id="theme-toggle" role="button"
+     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    {% trans "Theme" %}
+    <i class="fas fa-circle-half-stroke"></i>
+  </a>
+  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="theme-toggle">
+    <a class="dropdown-item js-theme-option" href="#" data-theme="light" data-theme-form="theme-light-form">
+      {% trans "Light" %}
+    </a>
+    <a class="dropdown-item js-theme-option" href="#" data-theme="dark" data-theme-form="theme-dark-form">
+      {% trans "Dark" %}
+    </a>
+    <a class="dropdown-item js-theme-option" href="#" data-theme="auto" data-theme-form="theme-auto-form">
+      {% trans "Auto" %}
+    </a>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<div class="modal fade" id="{% block modal_id %}{% endblock %}" tabindex="-1"
+     aria-labelledby="{% block modal_aria_labelledby %}{% endblock %}" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-dark border-2 {% block modal_border_class %}border-success{% endblock %}">
+      {% block modal_outer_content %}
+      {% endblock %}
+    </div>
+  </div>
+</div>

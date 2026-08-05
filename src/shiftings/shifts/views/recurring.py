@@ -13,7 +13,12 @@ from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import BaseFormView, DeleteView
 
 from shiftings.organizations.models import Organization
-from shiftings.organizations.views.organization_base import OrganizationMemberMixin, OrganizationPermissionMixin
+from shiftings.organizations.views.organization_base import (
+    OrganizationCreateUpdateMixin,
+    OrganizationMemberMixin,
+    OrganizationObjectRedirectMixin,
+    OrganizationPermissionMixin,
+)
 from shiftings.shifts.forms.recurring import RecurringShiftCreateShiftsForm, RecurringShiftForm
 from shiftings.shifts.models import RecurringShift
 from shiftings.utils.views.create_update_view import CreateOrUpdateView
@@ -40,21 +45,15 @@ class RecurringShiftDetailView(OrganizationMemberMixin, DetailView):
         return context
 
 
-class RecurringShiftEditView(OrganizationPermissionMixin, CreateOrUpdateView):
+class RecurringShiftEditView(OrganizationCreateUpdateMixin, OrganizationPermissionMixin, CreateOrUpdateView):
     template_name = 'shifts/recurring/form.html'
     model = RecurringShift
     form_class = RecurringShiftForm
     permission_required = 'organizations.edit_recurring_shifts'
 
-    def get_organization(self) -> Organization:
-        if self.is_create():
-            return self._get_object(Organization, 'org_pk')
-        return self.get_object().organization
-
     def get_initial(self) -> dict[str, Any]:
         initial = super().get_initial()
         if self.is_create():
-            initial['organization'] = self.get_organization()
             initial['first_occurrence'] = date.today()
         return initial
 
@@ -62,15 +61,9 @@ class RecurringShiftEditView(OrganizationPermissionMixin, CreateOrUpdateView):
         return reverse('recurring_shift', args=[self.object.pk])
 
 
-class RecurringShiftDeleteView(OrganizationPermissionMixin, DeleteView):
+class RecurringShiftDeleteView(OrganizationObjectRedirectMixin, OrganizationPermissionMixin, DeleteView):
     permission_required = 'organizations.edit_shift_templates'
     model = RecurringShift
-
-    def get_organization(self) -> Organization:
-        return self.get_object().organization
-
-    def get_success_url(self) -> str:
-        return reverse('organization_admin', args=[self.get_organization().pk])
 
 
 class RecurringShiftCreateShiftsView(OrganizationPermissionMixin, SingleObjectMixin, BaseFormView):

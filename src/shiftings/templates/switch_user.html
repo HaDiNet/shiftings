@@ -5,7 +5,7 @@
       {% trans "Switch User" %}
       <i class="fas fa-people-arrows"></i>
     </a>
-    <div class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="switch-user-toggle">
+    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="switch-user-toggle">
       {% debug_users as users %}
       {% for username, display in users %}
         <form action="{% url 'relogin' %}" method="post">

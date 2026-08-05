@@ -13,6 +13,9 @@
         {% endif %}
         <form method="get">
           <div class="center-items">
+            {% if org_users_only %}
+              <input type="hidden" name="org_users_only" value="1">
+            {% endif %}
             {% bootstrap_form select_timerange_form show_label=False wrapper_class='' %}
             <button class="btn btn-secondary ms-1" type="submit"><i class="fas fa-filter"></i></button>
           </div>
@@ -25,7 +28,7 @@
       </div>
     </div>
     <div class="card-body">
-      {% member_shift_summary organization True %}
+      {% shift_users_summary organization True %}
     </div>
   </div>
 {% endblock %}
