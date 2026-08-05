@@ -98,6 +98,7 @@ TEMPLATES = [
                 'shiftings.utils.context_processors.debug',
                 'shiftings.utils.context_processors.feature',
                 'shiftings.utils.context_processors.today',
+                'shiftings.utils.context_processors.theme',
                 'shiftings.organizations.context_processors.organization_permissions',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',

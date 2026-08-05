@@ -12,7 +12,7 @@ from django.views.generic import DetailView, ListView
 from shiftings.events.forms.event import EventForm
 from shiftings.events.models import Event
 from shiftings.organizations.models import Organization
-from shiftings.organizations.views.organization_base import OrganizationPermissionMixin
+from shiftings.organizations.views.organization_base import OrganizationCreateUpdateMixin, OrganizationPermissionMixin
 from shiftings.utils.typing import UserRequest
 from shiftings.utils.views.base import BaseMixin, BasePermissionMixin
 from shiftings.utils.views.create_update_view import CreateOrUpdateViewWithImageUpload
@@ -83,23 +83,14 @@ class EventDetailView(EventMixin, DetailView):
     context_object_name = 'event'
 
 
-class EventEditView(BasePermissionMixin, CreateOrUpdateViewWithImageUpload):
+class EventEditView(OrganizationCreateUpdateMixin, BasePermissionMixin, CreateOrUpdateViewWithImageUpload):
     model = Event
     form_class = EventForm
     permission_required = 'organizations.edit_events'
-
-    def get_initial(self) -> dict[str, Any]:
-        initial = super().get_initial()
-        initial['organization'] = self.get_organization()
-        return initial
+    set_organization_initial_on_create_only = False
 
     def get_event(self) -> Event:
         return self._get_object(Event, 'pk')
-
-    def get_organization(self) -> Organization:
-        if self.is_create():
-            return self._get_object(Organization, 'org_pk')
-        return self.get_event().organization
 
     def get_obj(self) -> Optional[Event]:
         if self.is_create():

@@ -61,11 +61,8 @@
                  title="{% trans "Edit Type Group" %}">
                 <i class="fas fa-pencil-square"></i>
               </a>
-              <a class="btn btn-danger ms-1" data-bs-toggle="modal" href="#confirmRemoveModal"
-                 role="button" data-bs-remove-name="{{ type_group.name }}"
-                 data-bs-remove-url="{% url 'shift_type_group_remove' type_group.pk %}">
-                <i class="fas fa-trash"></i>
-              </a>
+              {% url 'shift_type_group_remove' type_group.pk as shift_type_group_remove_url %}
+              {% include "template/remove_modal_trigger.html" with tag="a" button_class="btn btn-danger ms-1" href="#confirmRemoveModal" remove_name=type_group.name remove_url=shift_type_group_remove_url icon_class="fas fa-trash" %}
               {% if not forloop.first %}
                 <form class="ms-2" action="{% url 'shift_type_group_move_up' type_group.pk %}" method="post">
                   {% csrf_token %}

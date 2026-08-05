@@ -6,7 +6,7 @@
   </div>
 {% endif %}
 <div class="d-flex flex-column table-responsive">
-  <table class="table table-dark table-striped table-bordered table-hover border-secondary table-fixed text-wrap m-0">
+  <table class="table table-striped table-bordered table-hover border-secondary table-fixed text-wrap m-0 calendar-list-table">
     <thead>
     <tr class="text-center">
       <th class="d-none d-lg-table-cell">{% trans "Organization" %}</th>
@@ -91,8 +91,8 @@
           </td>
         {% endif %}
         {% empty %}
-        <td colspan="10" class="text-center text-warning fw-bolder">
-          <h3>{% trans "No Shifts found with these parameters or planned on this day" %}</h3>
+        <td colspan="10" class="text-center fw-bolder">
+          <h3 class="calendar-no-shifts-color">{% trans "No Shifts found with these parameters or planned on this day" %}</h3>
         </td>
       </tr>
     {% endfor %}

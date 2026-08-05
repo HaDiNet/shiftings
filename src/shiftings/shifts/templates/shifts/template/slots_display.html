@@ -8,13 +8,8 @@
     {% if display %}
       {% if request.user.pk == display.user.pk or org_perms.remove_others_from_shifts %}
         {% if org_perms.admin or shift.end.date >= current_date %}
-          <button type="button" class="btn border border-2 link-remove w-100 mx-2 text-truncate mw-100"
-                  data-bs-toggle="modal"
-                  data-bs-target="#confirmRemoveModal" data-bs-remove-name="{{ display.display }}"
-                  data-bs-remove-url="{% url 'remove_participant' shift.pk display.pk %}"
-                  data-bs-success-url="{{ request.path }}">
-            {{ display.display }}
-          </button>
+          {% url 'remove_participant' shift.pk display.pk as remove_participant_url %}
+          {% include "template/remove_modal_trigger.html" with tag="button" button_class="btn border border-2 link-remove w-100 mx-2 text-truncate mw-100" remove_name=display.display remove_url=remove_participant_url success_url=request.path label=display.display %}
         {% else %}
           <span class="btn border border-2 link pe-none w-100 mx-2">{{ display.display }}</span>
         {% endif %}
