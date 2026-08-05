@@ -7,7 +7,7 @@
       if (!window.matchMedia) {
         return 'dark';
       }
-      return window.matchMedia('(prefers-color-scheme: x)').matches ? 'light' : 'dark';
+      return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
     }
     return mode;
   };
