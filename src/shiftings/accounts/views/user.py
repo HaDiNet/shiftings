@@ -110,7 +110,8 @@ class ConfirmEMailView(TemplateView):
         except (TypeError, ValueError, OverflowError, UnicodeDecodeError, DjangoUnicodeDecodeError):
             token_validator.log_failed_attempt(
                 'invalid_uid',
-                ip_address=ip_address
+                ip_address=ip_address,
+                user_id=uid
             )
             messages.error(request, _('Invalid confirmation link.'))
             return super().get(request, *args, **kwargs)
