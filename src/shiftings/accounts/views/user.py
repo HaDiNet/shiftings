@@ -27,7 +27,9 @@ from shiftings.shifts.models import Shift
 from shiftings.shifts.utils.filter_mixin import ShiftFilterMixin
 from shiftings.utils.pagination import get_pagination_context
 from shiftings.utils.views.base import BaseLoginMixin
+import logging
 
+logger = logging.getLogger(__name__)
 
 class UserProfileView(BaseLoginMixin, ShiftFilterMixin, DetailView):
     model = User
