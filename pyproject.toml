@@ -38,7 +38,7 @@ dependencies = [
     'django-bootstrap5==26.2',
     'django-colorfield==0.14.0',
     'django-ical==1.9.2',
-    'django-phonenumber-field[phonenumberslite]==8.4.0',
+    'django-phonenumber-field[phonenumberslite]==8.5.0',
     'gunicorn==25.1.0',
     'holidays==0.90',
     'icalendar==7.0.0',
