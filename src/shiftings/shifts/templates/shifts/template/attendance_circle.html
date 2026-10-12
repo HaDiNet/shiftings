@@ -1,0 +1,9 @@
+<span class="attendance-indicator d-inline-flex align-items-center"
+      title="{{ record.shift.name|default:record.shift.display }}: {{ record.status_label }}{% if record.points_overridden %} ({{ record.points_display }}){% endif %}{% if record.shift_note %} - {{ record.shift_note }}{% endif %}">
+  <span class="attendance-circle {{ record.border_class }} {{ record.inner_class }}"></span>
+  {% if show_points %}
+    <span class="ms-1 attendance-points-label {% if record.points_overridden %}text-warning font-monospace{% else %}text-muted{% endif %}">
+      {{ record.points_display }}
+    </span>
+  {% endif %}
+</span>

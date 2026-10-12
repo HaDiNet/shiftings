@@ -537,5 +537,60 @@ Changing the position of the modal to anything other than fixed also seemed to f
 */
 /* TODO: Remove once this is not required anymore */
 .modal-backdrop {
-  z-index: -1 !important;  
+  z-index: -1 !important;
+}
+
+/* Attendance status circles */
+.attendance-circle {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border-width: 4px;
+  border-style: solid;
+  box-sizing: border-box;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.attendance-circle.border-present {
+  border-color: var(--bs-success);
+}
+
+.attendance-circle.border-excused {
+  border-color: var(--bs-warning);
+}
+
+.attendance-circle.border-unexcused {
+  border-color: var(--bs-danger);
+}
+
+.attendance-circle.border-none {
+  border-color: var(--bs-gray-600);
+}
+
+.attendance-circle.inner-present {
+  background-color: var(--bs-success);
+}
+
+.attendance-circle.inner-excused {
+  background-color: var(--bs-warning);
+}
+
+.attendance-circle.inner-unexcused {
+  background-color: var(--bs-danger);
+}
+
+.attendance-circle.inner-none {
+  background-color: transparent;
+}
+
+.attendance-cell {
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out;
+  min-width: 70px;
+}
+
+.attendance-cell:hover {
+  background-color: rgba(255, 255, 255, 0.08);
 }

@@ -2,8 +2,13 @@
 {% block form %}
   <div class="card bg-dark mb-3">
     <div class="card-header d-flex flex-column">
-      <div>
-        <h4>{% trans "Shift Summary" %} {{ display }}</h4>
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        <h4 class="m-0">{% trans "Shift Summary" %} {{ display }}</h4>
+        {% if organization.summary_settings.attendance_points_enabled and org_perms.see_attendance_overview %}
+          <a class="btn btn-outline-info btn-sm" href="{% url 'organization_attendance_overview' organization.pk %}">
+            <i class="fas fa-clipboard-user me-1"></i>{% trans "Attendance Overview" %}
+          </a>
+        {% endif %}
       </div>
       <div class="center-items flex-column flex-sm-row">
         {% if previous_url %}

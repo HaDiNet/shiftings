@@ -82,24 +82,32 @@ def member_shift_summary(context, org, show_all_users: bool = False, show_future
     context['attendance_points_enabled'] = attendance_enabled
     if attendance_enabled:
         from django.utils import timezone as _tz
+        from shiftings.shifts.models.attendance import ShiftAttendanceOverride
         from shiftings.shifts.utils.scoring import member_score_data
 
         scoring_shifts = list(
             org.shifts.filter(time_filter, start__lte=_tz.now())
                       .select_related('shift_type')
-                      .prefetch_related('participants__user', 'excused_users')
+                      .prefetch_related('participants__user', 'excused_users', 'attendance_overrides')
         )
         penalty = org.summary_settings.no_response_penalty
+        shift_ids = [s.pk for s in scoring_shifts]
+        overrides = ShiftAttendanceOverride.objects.filter(shift_id__in=shift_ids)
+        overrides_map = {(ov.shift_id, ov.user_id): ov for ov in overrides}
 
         for member in members:
             scoring_user = BaseUser.objects.get(pk=member['pk'])
-            data = member_score_data(scoring_shifts, scoring_user, penalty)
+            data = member_score_data(scoring_shifts, scoring_user, penalty, overrides_map=overrides_map)
             member['attended'] = data['attended']
             member['excused'] = data['excused']
             member['missed'] = data['missed']
-            member['points'] = data['score']
+            if data['points_overridden']:
+                member['points'] = f"{data['original_score']:.2f} -> {data['score']:.2f}"
+            else:
+                member['points'] = f"{data['score']:.2f}"
+            member['raw_score'] = data['score']
 
-        members.sort(key=lambda m: -m['points'])
+        members.sort(key=lambda m: -m['raw_score'])
 
     context['members'] = members
     return context
@@ -178,3 +186,19 @@ def is_request_user_excused(context, shift: Shift) -> bool:
     if not user.is_authenticated:
         return False
     return shift.excused_users.filter(pk=user.pk).exists()
+
+
+@register.simple_tag
+def shift_user_attendance(shift: Shift, user: BaseUser) -> Any:
+    from shiftings.shifts.utils.scoring import get_member_shift_attendance
+    penalty = shift.organization.summary_settings.no_response_penalty
+    override = shift.attendance_overrides.filter(user=user).first()
+    return get_member_shift_attendance(shift, user, penalty, override=override)
+
+
+@register.inclusion_tag('shifts/template/attendance_circle.html')
+def attendance_circle(record: Any, show_points: bool = True) -> dict[str, Any]:
+    return {
+        'record': record,
+        'show_points': show_points,
+    }

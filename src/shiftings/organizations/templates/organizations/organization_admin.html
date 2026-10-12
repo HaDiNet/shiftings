@@ -49,6 +49,12 @@
               <i class="fas fa-ranking-star"></i>
             </a>
           {% endif %}
+          {% if organization.summary_settings.attendance_points_enabled and org_perms.see_attendance_overview %}
+            <a class="btn btn-primary me-2" href="{% url 'organization_attendance_overview' organization.pk %}"
+               title="{% trans "Attendance Overview" %}">
+              <i class="fas fa-clipboard-user"></i>
+            </a>
+          {% endif %}
           {% if org_perms.edit_membership_types %}
             <a class="btn btn-success" href="{% url 'membership_type_add' organization.pk %}"
                title="{% trans "Add Membership Type" %}">

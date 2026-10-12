@@ -36,6 +36,9 @@ class MembershipType(models.Model):
             ('add_members_to_shifts', _('add other organization members to shifts')),
             ('participate_in_shift', _('participate in shifts')),
             ('add_to_past_shift', _('add self/others (depending on other permissions) to past shifts')),
+            # attendance
+            ('see_attendance_overview', _('see attendance overview for the organization')),
+            ('override_attendance', _('override shift attendance and points for organization members')),
         ]
         ordering = ['organization', '-admin', '-default', 'name']
         constraints = [

@@ -1,3 +1,4 @@
+{% load i18n shifts %}
 <div>
   <div class="d-flex my-1{% if required %} shift-required{% endif %}"
       {% if required %}
@@ -6,21 +7,43 @@
        title="{% trans "Open Shift Slot" %}"
       {% endif %}>
     {% if display %}
-      {% if request.user.pk == display.user.pk or org_perms.remove_others_from_shifts %}
-        {% if org_perms.admin or shift.end.date >= current_date %}
-          <button type="button" class="btn border border-2 link-remove w-100 mx-2 text-truncate mw-100"
-                  data-bs-toggle="modal"
-                  data-bs-target="#confirmRemoveModal" data-bs-remove-name="{{ display.display }}"
-                  data-bs-remove-url="{% url 'remove_participant' shift.pk display.pk %}"
-                  data-bs-success-url="{{ request.path }}">
-            {{ display.display }}
-          </button>
-        {% else %}
-          <span class="btn border border-2 link pe-none w-100 mx-2">{{ display.display }}</span>
+      <div class="d-flex align-items-center w-100 mx-2">
+        {% if shift.organization.summary_settings.attendance_points_enabled %}
+          {% shift_user_attendance shift display.user as user_att %}
+          <span class="me-2" title="{{ user_att.status_label }}: {{ user_att.points_display }}">
+            {% attendance_circle user_att False %}
+          </span>
         {% endif %}
-      {% else %}
-        <span class="btn border border-2 link pe-none w-100 mx-2">{{ display.display }}</span>
-      {% endif %}
+        {% if request.user.pk == display.user.pk or org_perms.remove_others_from_shifts %}
+          {% if org_perms.admin or shift.end.date >= current_date %}
+            <button type="button" class="btn border border-2 link-remove flex-grow-1 text-truncate mw-100"
+                    data-bs-toggle="modal"
+                    data-bs-target="#confirmRemoveModal" data-bs-remove-name="{{ display.display }}"
+                    data-bs-remove-url="{% url 'remove_participant' shift.pk display.pk %}"
+                    data-bs-success-url="{{ request.path }}">
+              {{ display.display }}
+            </button>
+          {% else %}
+            <span class="btn border border-2 link pe-none flex-grow-1">{{ display.display }}</span>
+          {% endif %}
+        {% else %}
+          <span class="btn border border-2 link pe-none flex-grow-1">{{ display.display }}</span>
+        {% endif %}
+        {% if shift.organization.summary_settings.attendance_points_enabled and org_perms.override_attendance %}
+          {% shift_user_attendance shift display.user as user_att %}
+          <button type="button" class="btn btn-outline-secondary btn-sm ms-2"
+                  data-bs-toggle="modal" data-bs-target="#editAttendanceOverrideModal"
+                  data-bs-user-name="{{ display.display }}"
+                  data-bs-shift-name="{{ shift.display }}"
+                  data-bs-status="{{ user_att.override_status.value }}"
+                  data-bs-points="{{ user_att.override_points|default_if_none:'' }}"
+                  data-bs-note="{{ user_att.shift_note }}"
+                  data-bs-action-url="{% url 'shift_attendance_override_update' shift.pk display.user.pk %}"
+                  title="{% trans 'Override attendance or points' %}">
+            <i class="fas fa-pen fa-xs"></i>
+          </button>
+        {% endif %}
+      </div>
     {% else %}
       {% if shift.end.date >= current_date or org_perms.add_to_past_shift %}
         {% if not user_is_participant %}

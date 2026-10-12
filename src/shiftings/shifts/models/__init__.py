@@ -1,3 +1,4 @@
+from .attendance import AttendanceStatus, ShiftAttendanceOverride
 from .participant import Participant
 from .permission import ParticipationPermission, ParticipationPermissionManager, ParticipationPermissionType
 from .recurring import RecurringShift

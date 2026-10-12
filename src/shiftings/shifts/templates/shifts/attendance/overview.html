@@ -1,0 +1,250 @@
+{% extends 'generic/form_base.html' %}
+{% load i18n shifts %}
+
+{% block form %}
+  <div class="card bg-dark mb-3">
+    <div class="card-header d-flex flex-column flex-md-row justify-content-between align-items-center">
+      <div class="d-flex align-items-center mb-2 mb-md-0">
+        <h4 class="m-0 me-3">{% trans "Attendance Overview" %} {{ display }}</h4>
+        <a class="btn btn-outline-info btn-sm me-2" href="{% url 'organization_shift_summary' organization.pk %}">
+          <i class="fas fa-ranking-star me-1"></i>{% trans "Shift Summary" %}
+        </a>
+      </div>
+      <div class="center-items flex-column flex-sm-row">
+        {% if previous_url %}
+          <a class="btn btn-success me-0 me-sm-2 mb-2 mb-sm-0" href="{{ previous_url }}">
+            <i class="fas fa-angles-left"></i> {{ previous_display }}
+          </a>
+        {% endif %}
+        <form method="get">
+          <div class="center-items">
+            {% bootstrap_form select_timerange_form show_label=False wrapper_class='' %}
+            <button class="btn btn-secondary ms-1" type="submit"><i class="fas fa-filter"></i></button>
+          </div>
+        </form>
+        {% if next_url %}
+          <a class="btn btn-success ms-0 ms-sm-2 mt-2 mt-sm-0" href="{{ next_url }}">
+            {{ next_display }} <i class="fas fa-angles-right"></i>
+          </a>
+        {% endif %}
+      </div>
+    </div>
+    <div class="card-body p-0">
+      {% if not shifts %}
+        <div class="p-4 text-center text-muted">
+          {% trans "No shifts found in this time range." %}
+        </div>
+      {% else %}
+        <div class="table-responsive">
+          <table class="table table-dark table-hover table-bordered align-middle text-center m-0">
+            <thead>
+              <tr class="align-middle">
+                <th class="text-start" style="min-width: 160px;">{% trans "Member" %}</th>
+                <th title="{% trans 'Attended' %}" style="width: 50px;"><i class="fas fa-check text-success"></i></th>
+                <th title="{% trans 'Excused' %}" style="width: 50px;"><i class="fas fa-user-clock text-warning"></i></th>
+                <th title="{% trans 'Missed / Unexcused' %}" style="width: 50px;"><i class="fas fa-xmark text-danger"></i></th>
+                <th style="min-width: 90px;">{% trans "Points" %}</th>
+                <th style="min-width: 140px;">{% trans "Member Note" %}</th>
+                {% for shift in shifts %}
+                  <th style="min-width: 110px;">
+                    <a href="{{ shift.get_absolute_url }}" class="text-decoration-none text-light d-block text-truncate" style="max-width: 130px;" title="{{ shift.display }}">
+                      {{ shift.start|date:"d.m" }}<br>
+                      <small class="text-muted">{{ shift.name|default:shift.shift_type.name|default:"Shift" }}</small>
+                    </a>
+                  </th>
+                {% endfor %}
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in matrix_rows %}
+                <tr>
+                  <td class="text-start fw-bold text-nowrap">
+                    {{ row.name }}
+                  </td>
+                  <td><span class="badge bg-success">{{ row.attended }}</span></td>
+                  <td><span class="badge bg-warning text-dark">{{ row.excused }}</span></td>
+                  <td><span class="badge bg-danger">{{ row.missed }}</span></td>
+                  <td class="fw-bold {% if row.points_overridden %}text-warning{% endif %}">
+                    {{ row.score_display }}
+                  </td>
+                  <td class="text-start position-relative">
+                    <div class="d-flex align-items-center justify-content-between">
+                      <span class="small text-truncate" style="max-width: 150px;" title="{{ row.member_note }}">
+                        {{ row.member_note|default:"—" }}
+                      </span>
+                      {% if can_override %}
+                        <button type="button" class="btn btn-sm btn-outline-secondary ms-1 p-0 px-1"
+                                data-bs-toggle="modal" data-bs-target="#editMemberNoteModal"
+                                data-bs-member-name="{{ row.name }}"
+                                data-bs-member-note="{{ row.member_note }}"
+                                data-bs-action-url="{% url 'organization_member_note_update' organization.pk row.pk %}"
+                                title="{% trans 'Edit Note' %}">
+                          <i class="fas fa-pen fa-xs"></i>
+                        </button>
+                      {% endif %}
+                    </div>
+                  </td>
+                  {% for rec in row.records %}
+                    <td class="attendance-cell p-1">
+                      {% if can_override %}
+                        <button type="button" class="btn btn-link p-1 text-decoration-none text-light w-100"
+                                data-bs-toggle="modal" data-bs-target="#editAttendanceOverrideModal"
+                                data-bs-user-name="{{ row.name }}"
+                                data-bs-shift-name="{{ rec.shift.display }}"
+                                data-bs-status="{{ rec.override_status.value }}"
+                                data-bs-points="{{ rec.override_points|default_if_none:'' }}"
+                                data-bs-note="{{ rec.shift_note }}"
+                                data-bs-action-url="{% url 'shift_attendance_override_update' rec.shift.pk row.pk %}"
+                                title="{% trans 'Click to override attendance or points' %}">
+                          <span class="attendance-circle {{ rec.border_class }} {{ rec.inner_class }}"></span>
+                          <div>
+                            <small class="{% if rec.points_overridden %}text-warning fw-bold{% else %}text-muted{% endif %} font-monospace">
+                              {{ rec.points_display }}
+                            </small>
+                          </div>
+                          {% if rec.shift_note %}
+                            <div><i class="fas fa-comment-dots text-info" title="{{ rec.shift_note }}"></i></div>
+                          {% endif %}
+                        </button>
+                      {% else %}
+                        <div class="p-1" title="{{ rec.status_label }}{% if rec.shift_note %} - {{ rec.shift_note }}{% endif %}">
+                          <span class="attendance-circle {{ rec.border_class }} {{ rec.inner_class }}"></span>
+                          <div>
+                            <small class="{% if rec.points_overridden %}text-warning fw-bold{% else %}text-muted{% endif %} font-monospace">
+                              {{ rec.points_display }}
+                            </small>
+                          </div>
+                          {% if rec.shift_note %}
+                            <div><i class="fas fa-comment-dots text-info" title="{{ rec.shift_note }}"></i></div>
+                          {% endif %}
+                        </div>
+                      {% endif %}
+                    </td>
+                  {% endfor %}
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  {% if can_override %}
+    <!-- Modal for editing Shift Attendance Override -->
+    <div class="modal fade" id="editAttendanceOverrideModal" tabindex="-1" aria-labelledby="editAttendanceOverrideModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark border-secondary">
+          <form id="attendanceOverrideForm" method="post" action="">
+            {% csrf_token %}
+            <input type="hidden" name="success_url" value="{{ request.get_full_path }}">
+            <div class="modal-header">
+              <h5 class="modal-title" id="editAttendanceOverrideModalLabel">
+                {% trans "Attendance Override" %}
+              </h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label class="form-label text-muted">{% trans "Member" %}</label>
+                <div id="modalOverrideUserName" class="fw-bold"></div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label text-muted">{% trans "Shift" %}</label>
+                <div id="modalOverrideShiftName" class="text-secondary small"></div>
+              </div>
+              <div class="mb-3">
+                <label for="overrideStatusSelect" class="form-label">{% trans "Status Override" %}</label>
+                <select name="status" id="overrideStatusSelect" class="form-select">
+                  <option value="0">{% trans "None (Inherit / Clear Override)" %}</option>
+                  <option value="1">{% trans "Present (Green)" %}</option>
+                  <option value="2">{% trans "Excused (Yellow)" %}</option>
+                  <option value="3">{% trans "Unexcused (Red)" %}</option>
+                </select>
+                <div class="form-text text-muted">
+                  {% trans "Selecting None clears the override and reverts to the original attendance value." %}
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="overridePointsInput" class="form-label">{% trans "Points Override" %}</label>
+                <input type="number" step="0.01" name="points_override" id="overridePointsInput" class="form-control" placeholder="{% trans 'Leave blank to calculate from status' %}">
+                <div class="form-text text-muted">
+                  {% trans "Custom points to award for this shift attendance." %}
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="overrideNoteInput" class="form-label">{% trans "Shift Note" %}</label>
+                <textarea name="note" id="overrideNoteInput" rows="2" class="form-control" placeholder="{% trans 'Optional note for this shift attendance' %}"></textarea>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Cancel" %}</button>
+              <button type="submit" class="btn btn-primary">{% trans "Save Override" %}</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for editing Organization Member Note -->
+    <div class="modal fade" id="editMemberNoteModal" tabindex="-1" aria-labelledby="editMemberNoteModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark border-secondary">
+          <form id="memberNoteForm" method="post" action="">
+            {% csrf_token %}
+            <input type="hidden" name="success_url" value="{{ request.get_full_path }}">
+            <div class="modal-header">
+              <h5 class="modal-title" id="editMemberNoteModalLabel">
+                {% trans "Member Note" %}
+              </h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label class="form-label text-muted">{% trans "Member" %}</label>
+                <div id="modalMemberNoteName" class="fw-bold"></div>
+              </div>
+              <div class="mb-3">
+                <label for="memberNoteTextarea" class="form-label">{% trans "Note" %}</label>
+                <textarea name="note" id="memberNoteTextarea" rows="3" class="form-control" placeholder="{% trans 'Persistent note for this member in the organization' %}"></textarea>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Cancel" %}</button>
+              <button type="submit" class="btn btn-primary">{% trans "Save Note" %}</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      document.addEventListener('DOMContentLoaded', function () {
+        var overrideModal = document.getElementById('editAttendanceOverrideModal');
+        if (overrideModal) {
+          overrideModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+            var form = document.getElementById('attendanceOverrideForm');
+            form.action = button.getAttribute('data-bs-action-url');
+            document.getElementById('modalOverrideUserName').textContent = button.getAttribute('data-bs-user-name') || '';
+            document.getElementById('modalOverrideShiftName').textContent = button.getAttribute('data-bs-shift-name') || '';
+            document.getElementById('overrideStatusSelect').value = button.getAttribute('data-bs-status') || '0';
+            document.getElementById('overridePointsInput').value = button.getAttribute('data-bs-points') || '';
+            document.getElementById('overrideNoteInput').value = button.getAttribute('data-bs-note') || '';
+          });
+        }
+
+        var memberNoteModal = document.getElementById('editMemberNoteModal');
+        if (memberNoteModal) {
+          memberNoteModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+            var form = document.getElementById('memberNoteForm');
+            form.action = button.getAttribute('data-bs-action-url');
+            document.getElementById('modalMemberNoteName').textContent = button.getAttribute('data-bs-member-name') || '';
+            document.getElementById('memberNoteTextarea').value = button.getAttribute('data-bs-member-note') || '';
+          });
+        }
+      });
+    </script>
+  {% endif %}
+{% endblock %}
